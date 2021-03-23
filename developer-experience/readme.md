@@ -172,6 +172,8 @@ VS.
 
 When the solution is encapsulated within a single repository, it also allows pull requests to represent a change across multiple layers. This is especially helpful when a change requires changes to a shared contract between multiple components. For example, a story requires that an api endpoint is changed. With this strategy the api and web client could be updated with the same pull request. This avoids the main branch being broken temporarily while waiting on dependent pull requests to merge.
 
+More info on git guidance for a developer using a single repository can be found [here](../source-control/git-guidance/readme.md).
+
 ### Minimize Remote Dependencies for Local Development
 
 The fewer dependencies on components that cannot run a developer's machine translate to fewer steps required to get started. Therefore, fewer dependencies will positively impact the measures above.
