@@ -1,120 +1,120 @@
-# Engineering Fundamentals Checklist
+# 工学の基礎チェックリスト
 
-This checklist helps to ensure that our projects meet our Engineering Fundamentals.
+このチェックリストは、プロジェクトがエンジニアリングの基礎を満たしていることを確認するのに役立ちます。
 
-## Source Control
+## ソース管理
 
-- [ ] The default target branch is locked.
-- [ ] Merges are done through PRs.
-- [ ] PRs reference related work items.
-- [ ] Commit history is consistent and commit messages are informative (what, why).
-- [ ] Consistent branch naming conventions.
-- [ ] Clear documentation of repository structure.
-- [ ] Secrets are not part of the commit history or made public. (see [Credential scanning](continuous-integration/dev-sec-ops/secret-management/credential_scanning.md))
-- [ ] Public repositories follow the [OSS guidelines](source-control/README.md#creating-a-new-repository), see `Required files in default branch for public repositories`.
+- [ ] デフォルトのターゲットブランチはロックされています。
+- [ ] マージはPRを介して行われます。
+- [ ] PRは関連する作業項目を参照します。
+- [ ] コミット履歴は一貫しており、コミットメッセージは有益です（何を、なぜ）。
+- [ ] 一貫したブランチ命名規則。
+- [ ] リポジトリ構造の明確なドキュメント。
+- [ ] シークレットはコミット履歴の一部ではなく、公開されていません。 ([資格情報のスキャン](continuous-integration/dev-sec-ops/secret-management/credential_scanning.md)を参照)
+- [ ] 公開リポジトリは[OSSガイドライン](source-control/README.md#creating-a-new-repository)に従います。`Required files in default branch for public repositories`を参照してください。
 
-More details on [source control](source-control/README.md)
+詳しくは[ソース管理](source-control/README.md)。
 
-## Work Item Tracking
+## 作業項目の追跡
 
-- [ ] All items are tracked in AzDevOps (or similar).
-- [ ] The board is organized (swim lanes, feature tags, technology tags).
+- [ ] すべてのアイテムはAzDevOps（または同様のもの）で追跡されます。
+- [ ] ボードは編成されています（スイムレーン、機能タグ、テクノロジータグ）。
 
-More details on [backlog management](agile-development/backlog-management/README.md)
+詳しくは[バックログ管理](agile-development/backlog-management/README.md)
 
-## Testing
+## テスト
 
-- [ ] Unit tests cover the majority of all components (>90% if possible).
-- [ ] Integration tests run to test the solution e2e.
+- [ ] ユニットテストは、すべてのコンポーネントの大部分をカバーします（可能な場合は90％超）。
+- [ ] 統合テストは、ソリューションe2eをテストするために実行されます。
 
-More details on [automated testing](automated-testing/README.md)
+詳しくは[自動テスト](automated-testing/README.md)
 
 ## CI/CD
 
-- [ ] Project runs CI with automated build and test on each PR.
-- [ ] Project uses CD to manage deployments to a replica environment before PRs are merged.
-- [ ] Main branch is always shippable.
+- [ ] プロジェクトは、各PRで自動ビルドとテストを使用してCIを実行します。
+- [ ] プロジェクトは、PRがマージされる前に、CDを使用してレプリカ環境への展開を管理します。
+- [ ] 本店はいつでも発送可能です。
 
-More details on [continuous integration](continuous-integration/README.md) and [continuous delivery](continuous-delivery/README.md)
+詳しくは[継続的インテグレーション](continuous-integration/README.md)と[継続的デリバリー](continuous-delivery/README.md)
 
-## Security
+## 安全
 
-- [ ] Access is only granted on an as needed bases
-- [ ] Secrets are stored in secured locations and not checked in to code
-- [ ] Data is encrypted in transit (and if necessary at rest) and passwords are hashed
-- [ ] Is the system split into logical segments with separation of concerns? This helps limiting security vulnerabilities.
+- [ ] アクセスは必要に応じてのみ許可されます。
+- [ ] シークレットは安全な場所に保存され、コードにチェックインされません。
+- [ ] データは転送中（および必要に応じて保存中）に暗号化され、パスワードはハッシュ化されます。
+- [ ] システムは関心の分離を伴う論理セグメントに分割されていますか？これは、セキュリティの脆弱性を制限するのに役立ちます。
 
-More details on [security](security/README.md)
+詳しくは[セキュリティ](security/README.md)
 
-## Observability
+## 可観測性
 
-- [ ] Significant business and functional events are tracked and related metrics collected.
-- [ ] Application faults and errors are logged.
-- [ ] Health of the system is monitored.
-- [ ] The client and server side observability data can be differentiated.
-- [ ] Logging configuration can be modified without code changes (eg: verbose mode).
-- [ ] [Incoming tracing context](observability/correlation-id.md) is propagated to allow for production issue debugging purposes.
-- [ ] GDPR compliance is ensured regarding PII (Personally Identifiable Information).
+- [ ] 重要なビジネスイベントと機能イベントが追跡され、関連するメトリックが収集されます。
+- [ ] アプリケーションの障害とエラーがログに記録されます。
+- [ ] システムの状態が監視されます。
+- [ ] クライアント側とサーバー側の可観測性データを区別できます。
+- [ ] ロギング構成は、コードを変更せずに変更できます。 (例: 冗長モード).
+- [ ] [着信トレースコンテキスト](observability/correlation-id.md)は、本番環境の問題のデバッグ目的を可能にするために伝播されます。
+- [ ] GDPRへの準拠は、PII（個人情報）に関して保証されています。
 
-More details on [observability](observability/README.md)
+詳しくは[可観測性](observability/README.md)
 
-## Agile/Scrum
+## アジャイル/スクラム
 
-- [ ] Process Lead (fixed/rotating) runs the daily standup
-- [ ] The agile process is clearly defined within team.
-- [ ] The Dev Lead (+ PO/Others) are responsible for backlog management and refinement.
-- [ ] A working agreement is established between team members and customer.
+- [ ] プロセスリード（固定/回転）は、毎日のスタンドアップを実行します
+- [ ] アジャイルプロセスはチーム内で明確に定義されています。
+- [ ] 開発リード（+ PO /その他）は、バックログの管理と改善を担当します。
+- [ ] チームメンバーと顧客の間で作業契約が確立されます。
 
-More details on [agile development](agile-development/README.md)
+詳しくは[アジャイル開発](agile-development/README.md)
 
-## Design Reviews
+## 設計レビュー
 
-- [ ] Process for conducting design reviews is included in the [Working Agreement](agile-development/team-agreements/working-agreements.md).
-- [ ] Design reviews for each major component of the solution are carried out and documented, including alternatives.
-- [ ] Stories and/or PRs link to the design document.
-- [ ] Each user story includes a task for design review by default, which is assigned or removed during sprint planning.
-- [ ] Project advisors are invited to design reviews or asked to give feedback to the design decisions captured in documentation.
-- [ ] Discover all the reviews that the customer's processes require and plan for them.
-- [ ] Clear non-functional requirements captured (see [Non-Functional Requirements Guidance](design/design-patterns/non-functional-requirements-capture-guide.md))
+- [ ] 設計レビューを実施するためのプロセスは、[作業契約](agile-development/team-agreements/working-agreements.md)に含まれています。
+- [ ] ソリューションの各主要コンポーネントの設計レビューが実行され、代替案を含めて文書化されます。
+- [ ] ストーリーやPRは、設計ドキュメントにリンクしています。
+- [ ] 各ユーザーストーリーには、デフォルトで設計レビューのタスクが含まれています。これは、スプリント計画中に割り当てまたは削除されます。
+- [ ] プロジェクトアドバイザーは、設計レビューに招待されるか、ドキュメントに記録された設計決定にフィードバックを提供するように求められます。
+- [ ] 顧客のプロセスに必要なすべてのレビューを見つけて、それらを計画します。
+- [ ] キャプチャされた非機能要件をクリアします ([非機能要件ガイダンス](design/design-patterns/non-functional-requirements-capture-guide.md)を参照)
 
-More details on [design reviews](design/design-reviews/README.md)
+詳しくは[設計レビュー](design/design-reviews/README.md)
 
-## Code Reviews
+## コードレビュー
 
-- [ ] There is a clear agreement in the team as to function of code reviews.
-- [ ] The team has a code review checklist or established process.
-- [ ] A minimum number of reviewers (usually 2) for a PR merge is enforced by policy.
-- [ ] Linters/Code Analyzers, unit tests and successful builds for PR merges are set up.
-- [ ] There is a process to enforce a quick review turnaround.
+- [ ] コードレビューの機能に関して、チーム内で明確な合意があります。
+- [ ] チームには、コードレビューチェックリストまたは確立されたプロセスがあります。
+- [ ] PRマージのレビュー担当者の最小数（通常は2人）は、ポリシーによって強制されます。
+- [ ] リンター/コードアナライザー、単体テスト、およびPRマージの正常なビルドがセットアップされます。
+- [ ] 迅速なレビューのターンアラウンドを実施するプロセスがあります。
 
-More details on [code reviews](code-reviews/README.md)
+詳しくは[コードレビュー](code-reviews/README.md)
 
-## Retrospectives
+## ふりかえり
 
-- [ ] Retrospectives are conducted each week/at the end of each sprint.
-- [ ] The team identifies 1-3 proposed experiments to try each week/sprint to improve the process.
-- [ ] Experiments have owners and are added to project backlog.
-- [ ] The team conducts longer retrospective for Milestones and project completion.
+- [ ] ふりかえりは毎週/各スプリントの終わりに行われます。
+- [ ] チームは、プロセスを改善するために毎週/スプリントを試すために提案された1〜3の試行を特定します。
+- [ ] 試行には所有者がいて、プロジェクトのバックログに追加されます。
+- [ ] チームは、マイルストーンとプロジェクトの完了について、より長いふりかえりを実施します。
 
-More details on [retrospectives](agile-development/retrospectives.md)
+詳しくは[ふりかえり](agile-development/retrospectives.md)
 
-## Engineering Feedback
+## エンジニアリングフィードバック
 
-- [ ] The team submits feedback on business and technical blockers that prevent project success
-- [ ] Suggestions for improvements are incorporated in the solution
-- [ ] Feedback is detailed and repeatable
+- [ ] チームは、プロジェクトの成功を妨げるビジネスおよび技術的なブロッカーに関するフィードバックを送信します
+- [ ] 改善のための提案がソリューションに組み込まれています
+- [ ] フィードバックは詳細で繰り返し可能です
 
-More details on [engineering feedback](engineering-feedback/README.md)
+詳しくは[エンジニアリングフィードバック](engineering-feedback/README.md)
 
-## Developer Experience (DevEx)
+## 開発者エクスペリエンス(DevEx)
 
-Developers on the team can:
+チームの開発者は次のことができます。:
 
-- [ ] Build/Compile source to verify it is free of syntax errors and compiles.
-- [ ] Execute all automated tests (unit, e2e, etc).
-- [ ] Start/Launch end-to-end to simulate execution in a deployed environment.
-- [ ] Attach a debugger to started solution or running automated tests, set breakpoints, step through code, and inspect variables.
-- [ ] Automatically install dependencies by pressing F5 (or equivalent) in their IDE.
-- [ ] Use local dev configuration values (i.e. .env, appsettings.development.json).
+- [ ] ソースをビルド/コンパイルして、構文エラーやコンパイルがないことを確認します。
+- [ ] すべての自動テスト（ユニット、e2eなど）を実行します。
+- [ ] エンドツーエンドで開始/起動して、デプロイされた環境での実行をシミュレートします。
+- [ ] 開始されたソリューションまたは自動テストの実行にデバッガーを接続し、ブレークポイントを設定し、コードをステップスルーし、変数を検査します。
+- [ ] IDEでF5（または同等のもの）を押すことにより、依存関係を自動的にインストールします。
+- [ ] ローカルの開発構成値（つまり、.env、appsettings.development.json）を使用します。
 
-More details on [developer experience](developer-experience/README.md)
+詳しくは[開発者エクスペリエンス](developer-experience/README.md)

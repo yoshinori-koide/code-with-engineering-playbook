@@ -1,9 +1,9 @@
-# Who We Are
+# 私たちは誰ですか
 
-Our team, CSE (Commercial Software Engineering), works side by side with customers to help them tackle their toughest technical problems both in the cloud and on the edge. We meet customers where they are, work in the languages they use, with the open source frameworks they use, on the operating systems they use. We work with enterprises and start-ups across many industries from financial services to manufacturing. Our work covers a broad spectrum of domains including IoT, machine learning, and high scale compute. Our "superpower" is that we work closely with both our customers’ engineering teams and Microsoft’s product engineering teams, developing real-world expertise that we can use to help our customers grow their business and help Microsoft improve our products and services.
+私たちのチームであるCSE（Commercial Software Engineering）は、お客様と協力して、クラウドとエッジの両方で最も困難な技術的問題に取り組むお手伝いをします。私たちは、お客様が使用しているオペレーティングシステム上で、お客様が使用している言語で、使用しているオープンソースフレームワークを使用して作業しているお客様に会います。私たちは、金融サービスから製造業に至るまで、多くの業界の企業や新興企業と協力しています。私たちの仕事は、IoT、機械学習、大規模コンピューティングなど、幅広いドメインをカバーしています。私たちの「超大国」とは、お客様のエンジニアリングチームとマイクロソフトの製品エンジニアリングチームの両方と緊密に連携し、お客様のビジネスの成長とマイクロソフトの製品とサービスの向上に役立つ実際の専門知識を開発することです。
 
-We are very community focused in our work, with one foot in Microsoft and one foot in the open source communities that we help. We make pull requests on open source projects to add support for Microsoft platforms and/or improve existing implementations. We build frameworks and other tools to make it easier for developers to use Microsoft platforms. We source all the ideas for this work by maintaining very deep connections with these communities and the customers and partners that use them.
+私たちは、マイクロソフトとオープンソースコミュニティの両方に協力して、コミュニティに焦点を当てています。Microsoftプラットフォームのサポートを追加したり、既存の実装を改善したりするために、オープンソースプロジェクトでプルリクエストを行います。開発者がMicrosoftプラットフォームを簡単に使用できるように、フレームワークやその他のツールを構築しています。私たちは、これらのコミュニティとそれらを使用する顧客やパートナーとの非常に深いつながりを維持することにより、この作業のすべてのアイデアを調達します。
 
-If you like variety, coding in many languages, using any available tech across our industry, digging in with our customers, hack fests, occasional travel, and telling the story of what you’ve done in [blog posts](https://www.microsoft.com/developerblog/) and at conferences, then come talk to us.
+多様性が好きな場合は、多くの言語でコーディングし、業界全体で利用可能な技術を使用し、顧客と掘り下げ、フェストをハックし、時折旅行し、[ブログ投稿](https://www.microsoft.com/developerblog/)や会議で行ったことの話をしてから、話をしてください私たちに。
 
-> You can check out some of our work on our [Developer Blog](https://www.microsoft.com/developerblog/)
+> [あなたは私たちの開発者ブログ](https://www.microsoft.com/developerblog/)で私たちの仕事のいくつかをチェックすることができます
