@@ -1,34 +1,36 @@
-# Definition of Done
+# 完了の定義
 
-To close a user story, a sprint, or a milestone it is important to verify that the tasks are complete.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/team-agreements/definition-of-done/
 
-The development team should decide together what their Definition of Done is and document this in the project. Below are some examples of checks to verify that the user story, sprint, task is completed.
+ユーザーストーリー、スプリント、またはマイルストーンを閉じるには、タスクが完了していることを確認することが重要です。
 
-## Feature/User Story
+開発チームは、完了の定義を一緒に決定し、これをプロジェクトに文書化する必要があります。以下は、ユーザーストーリー、スプリント、タスクが完了したことを確認するためのチェックの例です。
 
-- [ ] Acceptance criteria are met
-- [ ] Refactoring is complete
-- [ ] Code builds with no error
-- [ ] Unit tests are written and pass
-- [ ] Existing Unit Tests pass
-- [ ] Sufficient diagnostics/telemetry are logged
-- [ ] Code review is complete
-- [ ] UX review is complete (if applicable)
-- [ ] Documentation is updated
-- [ ] The feature is merged into the develop branch
-- [ ] The feature is signed off by the product owner
+## 機能/ユーザーストーリー
 
-## Sprint Goal
+- [ ] 合格基準が満たされている
+- [ ] リファクタリングが完了しました
+- [ ] コードはエラーなしでビルドされます
+- [ ] ユニットテストが作成され、合格
+- [ ] 既存のユニットテストに合格
+- [ ] 十分な診断/テレメトリがログに記録されます
+- [ ] コードレビューが完了しました
+- [ ] UXレビューが完了しました（該当する場合）
+- [ ] ドキュメントが更新されました
+- [ ] この機能は開発ブランチに統合されています
+- [ ] この機能は、製品の所有者によって承認されています
 
-- [ ] Definition of Done for all user stories included in the sprint are met
-- [ ] Product backlog is updated
-- [ ] Functional and Integration tests pass
-- [ ] Performance tests pass
-- [ ] End 2 End tests pass
-- [ ] All bugs are fixed
-- [ ] The sprint is signed off from developers, software architects, project manager, product owner etc.
+## スプリントの目標
 
-## Release/Milestone
+- [ ] スプリントに含まれるすべてのユーザーストーリーの完了の定義が満たされている
+- [ ] 製品のバックログが更新されます
+- [ ] 機能テストと統合テストに合格
+- [ ] パフォーマンステストに合格
+- [ ] 終了2終了テストに合格
+- [ ] すべてのバグが修正されました
+- [ ] スプリントは、開発者、ソフトウェアアーキテクト、プロジェクトマネージャー、プロダクトオーナーなどから承認されます。
 
-- [ ] Code Complete (goals of sprints are met)
-- [ ] Release is marked as ready for production deployment by product owner
+## リリース/マイルストーン
+
+- [ ] コードコンプリート（スプリントの目標が達成された）
+- [ ] リリースは、製品所有者によって実稼働展開の準備ができているとマークされています

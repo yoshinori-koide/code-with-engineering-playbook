@@ -1,66 +1,68 @@
-# Virtual Collaboration and Pair Programming
+# 仮想コラボレーションとペアプログラミング
 
-Pair programming is the de facto work method that most large engineering organizations use for “hands on keyboard” coding. Two developers, working synchronously, looking at the same screen and attempting to code and design together, which often results in better and clearer code than either could produce individually.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/collaboration/virtual-collaboration/
 
-Pair programming works well under the correct circumstances, but it loses some of its charm when executed in a completely virtual setting. The virtual setup still involves two developers looking at the same screen and talking out their designs, but there are often logistical issues to deal with, including lag, microphone set up issues, workspace and personal considerations, and many other small, individually trivial problems that worsen the experience.
+ペアプログラミングは、ほとんどの大規模なエンジニアリング組織が「ハンズオンキーボード」コーディングに使用する事実上の作業方法です。2人の開発者が同期して作業し、同じ画面を見て、一緒にコーディングと設計を試みます。これにより、どちらかが個別に作成するよりも優れた、より明確なコードが得られることがよくあります。
 
-Virtual work patterns are different from the in-person patterns we are accustomed to. Pair programming at its core is based on the following principles:
+ペアプログラミングは正しい状況下ではうまく機能しますが、完全に仮想化された設定で実行すると、その魅力の一部が失われます。仮想セットアップには、2人の開発者が同じ画面を見てデザインを話し合うことが含まれますが、ラグ、マイクセットアップの問題、ワークスペースと個人的な考慮事項、その他多くの小さな、個別に些細な問題など、対処すべきロジスティックの問題がしばしばあります。経験を悪化させます。
 
-1. Generating clarity through communication
-2. Producing higher quality through collaboration
-3. Creating ownership through equal contribution
+仮想作業のパターンは、私たちが慣れている対面のパターンとは異なります。コアとなるペアプログラミングは、次の原則に基づいています。:
 
-Pair programming is one way to achieve these results. Red Team Testing (RTT) is an alternate programming method that uses the same principles but with some of the advantages that virtual work methods provide.
+1. コミュニケーションを通じて明快さを生み出す
+2. コラボレーションを通じてより高い品質を生み出す
+3. 平等な貢献による所有権の創出
 
-## Red Team Testing
+ペアプログラミングは、これらの結果を達成するための1つの方法です。Red Team Testing（RTT）は、同じ原則を使用する代替プログラミング方法ですが、仮想作業方法が提供するいくつかの利点があります。
 
-Red Team Testing borrows its name from the “Red Team” and “Blue Team” paradigm of penetration testing, and is a collaborative, parallel way of working virtually. In Red Team Testing, two developers jointly decide on the interface, architecture, and design of the program, and then separate for the implementation phase. One developer writes tests using the public interface, attempting to perform edge case testing, input validation, and otherwise stress testing the interface. The second developer is simultaneously writing the implementation which will eventually be tested.
+## レッドチームテスト
 
-Red Team Testing has the same philosophy as any other Test-Driven Development lifecycle: All implementation is separated from the interface, and the interface can be tested with no knowledge of the implementation.
+Red Team Testingは、侵入テストの「RedTeam」および「BlueTeam」パラダイムからその名前を借りており、仮想的に共同で並行して作業する方法です。Red Team Testingでは、2人の開発者が共同でプログラムのインターフェイス、アーキテクチャ、および設計を決定し、実装フェーズに分けます。ある開発者は、パブリックインターフェイスを使用してテストを作成し、エッジケーステスト、入力検証、またはその他の方法でインターフェイスのストレステストを実行しようとします。2番目の開発者は、最終的にテストされる実装を同時に作成しています。
+
+Red Team Testingには、他のテスト駆動開発ライフサイクルと同じ哲学があります。すべての実装はインターフェイスから分離されており、実装の知識がなくてもインターフェイスをテストできます。
 
 ![ptt-diagram](images/PTTdiagram.PNG)
 
-## Steps
+## 手順
 
-1. Design Phase: Both developers design the interface together. This includes:
-    * Method signatures and names
-    * Writing documentation or docstrings for what the methods are intended to do.
-    * Architecture decisions that would influence testing (Factory patterns, etc.)
+1. 設計段階：両方の開発者が一緒にインターフェースを設計します。これには次のものが含まれます。
+    * メソッドのシグネチャと名前
+    * メソッドの目的に関するドキュメントまたはドキュメント文字列の記述。
+    * テストに影響を与えるアーキテクチャの決定（ファクトリパターンなど）
 
-2. Implementation Phase: The developers separate and parallelize work, while continuing to communicate.
-    * Developer A will design the implementation of the methods, adhering to the previously decided design.
-    * Developer B will concurrently write tests for the same method signatures, without knowing details of the implementation.
+2. 実装フェーズ：開発者は、コミュニケーションを継続しながら、作業を分離して並列化します。
+    * 開発者Aは、以前に決定された設計に従って、メソッドの実装を設計します。
+    * 開発者Bは、実装の詳細を知らなくても、同じメソッドシグネチャのテストを同時に作成します。
 
-3. Integration & Testing Phase: Both developers commit their code and run the tests.
-    * Utopian Scenario: All tests run and pass correctly.
-    * Realistic Scenario: The tests have either broken or failed due to flaws in testing. This leads to further clarification of the design and a discussion of why the tests failed.
+3. 統合とテストのフェーズ：両方の開発者がコードをコミットしてテストを実行します。
+    * ユートピアシナリオ：すべてのテストが実行され、正しく合格します。
+    * 現実的なシナリオ：テストの欠陥により、テストが失敗または失敗しました。これにより、設計がさらに明確になり、テストが失敗した理由が説明されます。
 
-4. The developers will repeat the three phases until the code is functional and tested.
+4. 開発者は、コードが機能してテストされるまで、3つのフェーズを繰り返します。
 
-## When to follow the RTT strategy
+## RTT戦略に従う時期
 
-RTT works well under specific circumstances. If collaboration needs to happen virtually, and all communication is virtual, RTT reduces the need for constant communication while maintaining the benefits of a joint design session. This considers the human element: Virtual communication is more exhausting than in person communication.
+RTTは、特定の状況でうまく機能します。コラボレーションを仮想的に行う必要があり、すべての通信が仮想である場合、RTTは、共同設計セッションの利点を維持しながら、継続的な通信の必要性を減らします。これは人的要素を考慮しています。仮想コミュニケーションは、人とのコミュニケーションよりも疲れます。
 
-RTT also works well when there is complete consensus, or no consensus at all, on what purpose the code serves. Since creating the design jointly and agreeing to implement and test against it are part of the RTT method, RTT forcibly creates clarity through iteration and communication.
+RTTは、コードがどのような目的で機能するかについて、完全なコンセンサスがある場合、またはコンセンサスがまったくない場合にもうまく機能します。共同で設計を作成し、それに対して実装およびテストすることに同意することはRTTメソッドの一部であるため、RTTは反復と通信を通じて強制的に明確さを作成します。
 
-## Benefits
+## 利点
 
-RTT has many of the same benefits as Pair Programming and Test-Driven development but tries to update them for a virtual setting.
+RTTには、ペアプログラミングやテスト駆動開発と同じ利点がたくさんありますが、仮想設定用に更新しようとします。
 
-* Code implementation and testing can be done in parallel, over long distances or across time zones, which reduces the overall time taken to finish writing the code.
+* コードの実装とテストは、並行して、長距離にわたって、またはタイムゾーン全体で実行できるため、コードの記述を完了するのにかかる全体的な時間が短縮されます。
 
-* RTT maintains the pair programming paradigm, while reducing the need for video communication or constant communication between developers.
+* RTTはペアプログラミングパラダイムを維持しながら、ビデオ通信や開発者間の継続的な通信の必要性を減らします。
 
-* RTT allows detailed focus on design and engineering alignment before implementing any code, leading to cleaner and simpler interfaces.
+* RTTを使用すると、コードを実装する前に設計とエンジニアリングの調整に詳細に焦点を当てることができるため、インターフェイスがよりクリーンでシンプルになります。
 
-* RTT encourages testing to be prioritized alongside implementation, instead of having testing follow or be influenced by the implementation of the code.
+* RTTは、テストをコードの実装に従わせたり、コードの実装に影響を与えたりするのではなく、実装と並行してテストを優先することを推奨しています。
 
-* Documentation is inherently a part of RTT, since both the implementer and the tester need correct, up to date documentation, in the implementation phase.
+* 実装フェーズでは、実装者とテスターの両方が正しい最新のドキュメントを必要とするため、ドキュメントは本質的にRTTの一部です。
 
-## What you need for RTT to work well
+## RTTがうまく機能するために必要なもの
 
-* Demand for constant communication and good teamwork may pose a challenge; daily updates amongst team members are essential to maintain alignment on varying code requirements.
+* 絶え間ないコミュニケーションと優れたチームワークへの要求は、課題をもたらす可能性があります。チームメンバー間の毎日の更新は、さまざまなコード要件への整合性を維持するために不可欠です。
 
-* Clarity of the code design and testing strategy must be established beforehand and documented as reference. Lack of an established design will cause misalignment between the two major pieces of work and a need for time-consuming refactoring.
+* コードの設計とテスト戦略の明確さを事前に確立し、参照として文書化する必要があります。確立された設計が欠如していると、2つの主要な作業の間に不整合が生じ、時間のかかるリファクタリングが必要になります。
 
-* RTT does not work well if only one developer has knowledge of the overall design. Team communication is critical to ensuring that every developer involved in RTT is on the same page.
+* 1人の開発者だけが全体的な設計の知識を持っている場合、RTTはうまく機能しません。RTTに関与するすべての開発者が同じページにいることを保証するには、チームのコミュニケーションが重要です。

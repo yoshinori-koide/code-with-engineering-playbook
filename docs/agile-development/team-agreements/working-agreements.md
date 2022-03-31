@@ -1,83 +1,81 @@
-# Sections of a Working Agreement
+# 作業協定のセクション
 
-A working agreement is a document, or a set of documents that describe how we work together as a team and what our
-expectations and principles are.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/team-agreements/working-agreements/
 
-The working agreement created by the team at the beginning of the project, and is stored in the repository so that it is
-readily available for everyone working on the project.
+作業契約は、私たちがチームとしてどのように協力し、私たちの期待と原則が何であるかを説明する文書、または一連の文書です。
 
-The following are examples of sections and points that can be part of a working agreement but each team should compose
-their own, and adjust times, communication channels, branch naming policies etc. to fit their team needs.
+プロジェクトの開始時にチームによって作成され、プロジェクトで作業するすべての人がすぐに利用できるようにリポジトリに保存される作業契約。
 
-## General
+以下は、作業契約の一部となる可能性のあるセクションとポイントの例ですが、各チームは独自に構成し、チームのニーズに合わせて時間、通信チャネル、ブランチの命名ポリシーなどを調整する必要があります。
 
-- We work as one team towards a common goal and clear scope
-- We make sure everyone's voice is heard, listened to
-- We show all team members equal respect
-- We work as a team to have common expectations for technical delivery that are documented in a [Team Manifesto](team-manifesto.md).
-- We make sure to spread our expertise and skills in the team, so no single person is relied on for one skill
-- All times below are listed in CET
+## 全般的
 
-## Communication
+- 私たちは共通の目標と明確な範囲に向けて1つのチームとして働きます
+- 私たちは皆の声が聞こえ、耳を傾けることを確認します
+- 私たちはすべてのチームメンバーに平等な敬意を示します
+- 私たちはチームとして、[チームマニフェスト](team-manifesto.md)に文書化されている技術的な提供に対する共通の期待を持っています。
+- 私たちはチーム内で専門知識とスキルを広めるようにしているので、1人の人が1つのスキルに依存することはありません
+- 以下のすべての時間はCETにリストされています
 
-- We communicate all information relevant to the team through the Project Teams channel
-- We add all [technical spikes](../../design/design-reviews/recipes/technical-spike.md), [trade studies](../../design/design-reviews/trade-studies/README.md), and other technical documentation to the project repository through [async design reviews in PRs](../../design/design-reviews/recipes/async-design-reviews.md)
+## コミュニケーション
 
-## Work-life Balance
+- プロジェクトチームチャネルを通じて、チームに関連するすべての情報を伝達します
+- [PRの非同期設計レビュー](../../design/design-reviews/recipes/async-design-reviews.md)を通じて、すべての[技術スパイク](../../design/design-reviews/recipes/technical-spike.md)、[貿易調査](../../design/design-reviews/trade-studies/README.md)、およびその他の技術文書をプロジェクトリポジトリに追加します
 
-- Our office hours, when we can expect to collaborate via Microsoft Teams, phone or face-to-face are Monday to Friday 10AM - 5PM
-- We are not expected to answer emails past 6PM, on weekends or when we are on holidays or vacation.
-- We work in different time zones and respect this, especially when setting up recurring meetings.
-- We record meetings when possible, so that team members who could not attend live can listen later.
+## 仕事と生活のバランス
 
-## Quality and not Quantity
+- Microsoft Teams、電話、または対面でのコラボレーションが期待できる営業時間は、月曜日から金曜日の午前10時から午後5時までです。
+- 午後6時以降、週末、休日や休暇中はメールに返信することはできません。
+- 私たちはさまざまなタイムゾーンで作業し、これを尊重します。特に、定期的な会議を設定する場合はそうです。
+- ライブに参加できなかったチームメンバーが後で聞くことができるように、可能な場合は会議を記録します。
 
-- We agree on a [Definition of Done](definition-of-done.md) for our user story's and sprints and live by it.
-- We follow engineering best practices like the [Code With Engineering Playbook](https://github.com/microsoft/code-with-engineering-playbook)
+## 量ではなく質
 
-## Scrum Rhythm
+- 私たちは、ユーザーストーリーとスプリントの[完了の定義](definition-of-done.md)に同意し、それに従って生きます。
+- [Code With Engineering Playbook](https://github.com/microsoft/code-with-engineering-playbook)のようなエンジニアリングのベストプラクティスに従います
 
-| Activity | When | Duration | Who | Accountable | Goal |
+## スクラムリズム
+
+| アクティビティ | いつ | 間隔 | 誰が | 説明責任 | ゴール |
 |-|-|-|-|-|-|
-| [Project Standup](../stand-ups/README.md) | Tue-Fri 9AM | 15 min | Everyone | Process Lead | What has been accomplished, next steps, blockers |
-| Sprint Demo | Monday 9AM | 1 hour | Everyone | Dev Lead | Present work done and sign off on user story completion |
-| [Sprint Retro](../retrospectives.md) | Monday 10AM | 1 hour | Everyone | Process Lead | Dev Teams shares learnings and what can be improved |
-| [Sprint Planning](../sprint-planning/README.md) | Monday 11AM | 1 hour | Everyone | PO | Size and plan user stories for the sprint |
-| Task Creation | After Sprint Planning | - | Dev Team | Dev Lead | Create tasks to clarify and determine velocity |
-| [Backlog refinement](../backlog-management/backlog-refinement.md) | Wednesday 2PM | 1 hour | Dev Lead, PO | PO | Prepare for next sprint and ensure that stories are ready for next sprint. |
+| [プロジェクトスタンドアップ](../stand-ups/README.md) | 火-金 9AM | 15 分 | 全員 | プロセスリード | 達成されたこと、次のステップ、ブロッカー |
+| スプリントデモ | 月曜日の 9AM | 1 時間 | 全員 | 	開発リード | 完了した作業を提示し、ユーザーストーリーの完了を承認します |
+| [スプリントレトロ](../retrospectives.md) | 月曜 10AM | 1 時間 | 全員 | プロセスリード | 開発チームは、学習内容と改善できる点を共有します |
+| [スプリント計画](../sprint-planning/README.md) | 月曜 11AM | 1 時間 | 全員 | プロダクトオーナー | スプリントのユーザーストーリーのサイズと計画 |
+| タスクの作成 | スプリント計画後 | - | 開発チーム | 開発リード | 速度を明確にして決定するためのタスクを作成する |
+| [バックログの改善](../backlog-management/backlog-refinement.md) | 水曜 2PM | 1 時間 | 開発リード、プロダクトオーナー | プロダクトオーナー | 次のスプリントの準備をし、ストーリーが次のスプリントの準備ができていることを確認します。 |
 
-## Process Lead
+## プロセスリード
 
-The Process Lead is responsible for leading any scrum or agile practices to enable the project to move forward.
+プロセスリーダーは、プロジェクトを前進させるためのスクラムまたはアジャイルプラクティスを主導する責任があります。
 
-- Facilitate standup meetings and hold team accountable for attendance and participation.
-- Keep the meeting moving as described in the [Project Standup](../stand-ups/README.md) page.
-- Make sure all action items are documented and ensure each has an owner and a due date and tracks the open issues.
-- Notes as needed after planning / stand-ups.
-- Make sure that items are moved to the parking lot and ensure follow-up afterwards.
-- Maintain a location showing team’s work and status and removing impediments that are blocking the team.
-- Hold the team accountable for results in a supportive fashion.
-- Make sure that project and program documentation are up-to-date.
-- Guarantee the tracking/following up on action items from retrospectives (iteration and release planning) and from daily standup meetings.
-- Facilitate the sprint retrospective.
-- Coach Product Owner and the team in the process, as needed.
+- スタンドアップミーティングを促進し、チームに出席と参加の責任を負わせます。
+- [プロジェクトスタンドアップ](../stand-ups/README.md)ページの説明に従って、会議を動かし続けます。
+- すべてのアクションアイテムが文書化されていることを確認し、それぞれに所有者と期日があり、未解決の問題を追跡していることを確認します。
+- 計画/スタンドアップ後の必要に応じたメモ。
+- アイテムが駐車場に移動されていることを確認し、その後のフォローアップを確実にしてください。
+- チームの作業とステータスを示し、チームをブロックしている障害を取り除く場所を維持します。
+- チームに協力的な方法で結果の説明責任を負わせます。
+- プロジェクトとプログラムのドキュメントが最新であることを確認してください。
+- ふりかえり（反復およびリリース計画）および毎日のスタンドアップミーティングからのアクションアイテムの追跡/フォローアップを保証します。
+- スプリントの回顧展を促進します。
+- 必要に応じて、プロダクトオーナーとその過程のチームを指導します。
 
-## Backlog Management
+## バックログ管理
 
-- We work together on a [Definition of Ready](definition-of-ready.md) and all user stories assigned to a sprint need to follow this
-- We communicate what we are working on through the board
-- We assign ourselves a task when we are ready to work on it (not before) and move it to active
-- We capture any work we do related to the project in a user story/task
-- We close our tasks/user stories only when they are done (as described in the [Definition of Done](definition-of-done.md))
-- We work with the PM if we want to add a new user story to the sprint
-- If we add new tasks to the board, we make sure it matches the acceptance criteria of the user story (to avoid scope creep).
-  If it doesn't match the acceptance criteria we should discuss with the PM to see if we need a new user story for the task or if we should adjust the acceptance criteria.
+- 私たちは[Readyの定義](definition-of-ready.md)に協力し、スプリントに割り当てられたすべてのユーザーストーリーはこれに従う必要があります
+- 取締役会を通じて取り組んでいることを伝えます
+- 作業の準備ができたら（前ではなく）タスクを割り当て、アクティブに移動します
+- プロジェクトに関連して行うすべての作業をユーザーストーリー/タスクにキャプチャします
+- タスク/ユーザーストーリーは、完了したときにのみ閉じます([完了の定義](definition-of-done.md)で説明されています)
+- スプリントに新しいユーザーストーリーを追加したい場合は、PMと協力します
+- ボードに新しいタスクを追加する場合は、それがユーザーストーリーの受け入れ基準に一致することを確認します（スコープクリープを回避するため）。受け入れ基準に一致しない場合は、PMと話し合って、タスクに新しいユーザーストーリーが必要かどうか、または受け入れ基準を調整する必要があるかどうかを確認する必要があります。
 
-## Code Management
+## コード管理
 
-- We follow the git flow branch naming convention for branches and identify the task number e.g. `feature/123-add-working-agreement`
-- We merge all code into main branches through PRs
-- All PRs are reviewed by one person from [Customer/Partner Name] and one from Microsoft (for knowledge transfer and to ensure code and security standards are met)
-- We always review existing PRs before starting work on a new task
-- We look through open PRs at the end of stand-up to make sure all PRs have reviewers.
-- We treat documentation as code and apply the same [standards to Markdown](../../code-reviews/recipes/markdown.md) as code
+- ブランチのgitflowブランチ命名規則に従い、タスク番号を識別します。例) `feature/123-add-working-agreement`
+- PRを通じてすべてのコードをメインブランチにマージします
+- すべてのPRは、[顧客/パートナー名]の1人とマイクロソフトの1人によってレビューされます（知識の伝達と、コードとセキュリティの基準が満たされていることを確認するため）
+- 新しいタスクの作業を開始する前に、常に既存のPRを確認します
+- スタンドアップの最後にオープンPRを調べて、すべてのPRにレビュー担当者がいることを確認します。
+- ドキュメントをコードとして扱い、[Markdownにコードと同じ標準](../../code-reviews/recipes/markdown.md)を適用します。

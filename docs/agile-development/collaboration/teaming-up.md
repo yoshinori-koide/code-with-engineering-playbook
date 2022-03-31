@@ -1,67 +1,64 @@
-# Engagement Team Development - CSE approach
+# エンゲージメントチームの開発-CSEアプローチ
 
-In every CSE engagement, dynamics are different so are the team requirements. Based on transfer learning among teams, we aim to build right "code-with" environments in every team.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/collaboration/teaming-up/
 
-This documentation gives a high-level template with some suggestions by aiming to accelerate team swarming phase to achieve a high speed agility however it has no intention to provide a list of "must-do" items.
+すべてのCSEエンゲージメントでは、ダイナミクスが異なり、チームの要件も異なります。チーム間の転移学習に基づいて、すべてのチームで適切な「コード付き」環境を構築することを目指しています。
 
-## Identification
+このドキュメントは、チームのスウォーミングフェーズを加速して高速の敏捷性を実現することを目的としたいくつかの提案を含む高レベルのテンプレートを提供しますが、「必須」項目のリストを提供する意図はありません。
 
-As it's stated in Tuckman's [team phases](https://en.wikipedia.org/wiki/Tuckman%27s_stages_of_group_development), traditional team development has several stages.
-However those phases can be extremely fast or sometimes mismatched in teams due to external factors, what applies to CSE engagements.
+## 身元
 
-In order to minimize the risk and set the exceptations on the right way for all parties, an identification phase is important to understand each other.
-Some potential steps in this phase may be as following (not limited):
+Tuckmanの [チームフェーズ](https://en.wikipedia.org/wiki/Tuckman%27s_stages_of_group_development)で述べられているように、従来のチーム開発にはいくつかのステージがあります。ただし、これらのフェーズは、CSEエンゲージメントに適用される外部要因により、チーム内で非常に高速になるか、場合によっては不一致になる可能性があります。
 
-- [Working agreement](../team-agreements/README.md)
+リスクを最小限に抑え、すべての関係者にとって正しい方法で例外を設定するには、相互を理解するための識別フェーズが重要です。このフェーズでのいくつかの潜在的なステップは、次のようになります（限定されません）。:
 
-- Identification of styles/preferences in communication, sharing, learning, decision making of each team member
+- [労働協約](../team-agreements/README.md)
+
+- 各チームメンバーのコミュニケーション、共有、学習、意思決定におけるスタイル/好みの特定
   
-  - Talking about necessity of pair programming
-  - Decisions on backlog management & refinement meetings, weekly design sessions, social time sessions...etc.
-  - Sync/Async communication methods, work hours/flexible times
+  - ペアプログラミングの必要性について話す
+  - バックログ管理および改善会議、毎週の設計セッション、社交時間セッションなどに関する決定。
+  - 同期/非同期通信方法、労働時間/柔軟な時間
 
-- Decisions and identifications of charts that will be helpful to provide transparent and true information to everyone
+- すべての人に透明で真の情報を提供するのに役立つチャートの決定と識別
 
-- Identification of "Software Craftspersonship" areas which means the tools and methods will be widely used during the engagement and taking the required actions on team upskilling side if necessary.
+- 「ソフトウェアクラフターシップ」領域の特定。これは、ツールと方法がエンゲージメント中に広く使用され、必要に応じてチームのスキルアップ側で必要なアクションを実行することを意味します。
 
-  - Github, VSCode LiveShare, AzDevOps, necessary development tools & libraries ... more.
-  - If upskilling on certain topic(s) is needed, identifying the areas and arranging code spikes for increasing the team knowledge on the regarding topic(s).
+  - Github、VSCode LiveShare、AzDevOps、必要な開発ツールとライブラリ...など。
+  - 特定のトピックに関するスキルアップが必要な場合は、領域を特定し、コードスパイクを配置して、関連するトピックに関するチームの知識を増やします。
 
-- Identification of communication channels, feedback loops and recurrent team call slots out of regular sprint meetings
+- 定期的なスプリント会議からのコミュニケーションチャネル、フィードバックループ、および繰り返し発生するチームコールスロットの特定
 
-- Introduction to [Technical Agility Team Manifesto](../team-agreements/team-manifesto.md) and planning the technical delivery by aiming to keep
-technical debt risk minimum.
+- [技術的敏捷性チームのマニフェスト](../team-agreements/team-manifesto.md)の概要と、技術的負債のリスクを最小限に抑えることを目的とした技術的提供の計画。
 
-## Following the Plan and Agile Debugging
+## 計画とアジャイルデバッグに従う
 
-Identification phase accelerates the process of building a safe environment for every individual in the team, later on team has the required assets to follow the plan.
-And it is team's itself responsibility (engineers,PO,Process Lead) to debug their Agility level.
+識別フェーズは、チーム内のすべての個人にとって安全な環境を構築するプロセスを加速し、後でチームは計画に従うために必要な資産を持ちます。そして、敏捷性レベルをデバッグするのはチーム自身の責任（エンジニア、PO、プロセスリード）です。
 
-In every team stabilization takes time and pro-active agile debugging is the best accelerator to decrease the distraction away from sprint/engagement goal.
-Team is also responsible to keep the plan up-to-date based on team changes/needs and debugging results.
+すべてのチームで安定化には時間がかかり、プロアクティブなアジャイルデバッグは、スプリント/エンゲージメントの目標からの注意散漫を減らすための最良のアクセラレータです。チームはまた、チームの変更/ニーズとデバッグ結果に基づいて計画を最新の状態に保つ責任があります。
 
-Just as an example, agility debugging activities may include:
+例として、敏捷性のデバッグアクティビティには次のものが含まれます。:
 
-- Dashboards related with "Goal" such as burndown/burnout, Item/PR Aging, Mood Chart ..etc. are accessible to the team and team is always up-to-date
+- バーンダウン/バーンアウト、アイテム/ PRエージング、ムードチャートなどの「目標」に関連するダッシュボード。チームはアクセス可能であり、チームは常に最新です
 
-- [Backlog Refinement meetings](../backlog-management/backlog-refinement.md)
-  - Size of stories (Too big? Too small?)
-  - Are "User Stories" and "Tasks" clear ?
-  - Are Acceptance Criterias enough and right?
-  - Is everyone ready-to-go after taking the User Story/Task?
+- [バックログ精緻化会議](../backlog-management/backlog-refinement.md)
+  - ストーリーのサイズ（大きすぎる？小さすぎる？）
+  - 「ユーザーストーリー」と「タスク」は明確ですか？
+  - 受け入れ基準は十分で正しいですか？
+  - ユーザーストーリー/タスクを実行した後、全員が準備ができていますか？
 
-- Running [Efficient Retrospectives](../retrospectives.md)
+- [効率的な回顧展](../retrospectives.md)の実施
 
-- Is the Sprint Goal clear in every iteration ?
+- スプリントの目標はすべての反復で明確ですか？
 
-- Is the estimation process in the team improving over time or does it meet the delivery/workload prediction?
+- チームの見積もりプロセスは時間の経過とともに改善されていますか、それとも納品/作業負荷の予測を満たしていますか？
 
-Kindly check [Scrum Values](https://scrumguides.org/scrum-guide.html) to have a better understanding to improve team commitment.
+チームのコミットメントを改善するための理解を深めるために、[スクラム値](https://scrumguides.org/scrum-guide.html)を確認してください。
 
-Following that, above suggestions aim to remove agile/team disfunctionalities and provide a broader team understanding, potential time savings and full transparency.
+その後、上記の提案は、アジャイル/チームの機能不全を取り除き、より広いチームの理解、潜在的な時間の節約、および完全な透明性を提供することを目的としています。
 
-## Resources
+## 資力
 
-- [Tuckman's Stages of Group Development](https://en.wikipedia.org/wiki/Tuckman%27s_stages_of_group_development)
+- [タックマンのグループ開発の段階](https://en.wikipedia.org/wiki/Tuckman%27s_stages_of_group_development)
 
-- [Scrum Values](https://scrumguides.org/scrum-guide.html)
+- [スクラム値](https://scrumguides.org/scrum-guide.html)

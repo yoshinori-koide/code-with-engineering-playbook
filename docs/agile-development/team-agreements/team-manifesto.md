@@ -1,71 +1,73 @@
-# Team Manifesto
+# チームマニフェスト
 
-## Introduction
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/team-agreements/team-manifesto/
 
-CSE teams work with a new development team in each customer engagement which requires a phase of introduction & knowledge transfer before starting an engagement.
+## 序章
 
-Completion of this phase of ice-breakers and discussions about the standards takes time, but is required to start increasing the learning curve of the new team.
+CSEチームは、エンゲージメントを開始する前に導入と知識の伝達のフェーズを必要とする各カスタマーエンゲージメントで新しい開発チームと協力します。
 
-A team manifesto is a light-weight one page agile document among team members which summarizes the basic principles and values of the team and aiming to provide a consensus about technical expectations from each team member in order to deliver high quality output at the end of each engagement.
+砕氷船のこのフェーズの完了と標準に関する議論には時間がかかりますが、新しいチームの学習曲線を増やし始めるために必要です。
 
-It aims to reduce the time on setting the right expectations without arranging longer "team document reading" meetings and provide a consensus among team members to answer the question - "How does the new team develop the software?" - by covering all engineering fundamentals and excellence topics such as release process, clean coding, testing.
+チームマニフェストは、チームメンバー間の軽量な1ページのアジャイルドキュメントであり、チームの基本原則と価値を要約し、各チームメンバーからの技術的期待についてコンセンサスを提供して、各チームの最後に高品質の出力を提供することを目的としています。婚約。
 
-Another main goal of writing the manifesto is to start a conversation during the "manifesto building session" to detect any differences of opinion around how the team should work.
+これは、「チームドキュメントの読み取り」会議を長くすることなく、適切な期待を設定する時間を短縮し、「新しいチームはソフトウェアをどのように開発するか」という質問に答えるためにチームメンバー間でコンセンサスを提供することを目的としています。-リリースプロセス、クリーンコーディング、テストなど、すべてのエンジニアリングの基礎と卓越したトピックをカバーすることによって。
 
-It also serves in the same way when a new team member joins to the team. New joiners can quickly get up to speed on the agreed standards.
+マニフェストを作成するもう1つの主な目標は、「マニフェスト作成セッション」中に会話を開始して、チームの作業方法に関する意見の違いを検出することです。
 
-## How to Build a Team Manifesto
+また、新しいチームメンバーがチームに参加するときにも同じように機能します。新しい参加者は、合意された基準にすばやく慣れることができます。
 
-It can be said that the best time to start building it is at the very early phase of the engagement when teams meet with each other for swarming or during the preparation phase.
+## チームマニフェストを作成する方法
 
-It is recommended to keep team manifesto as simple as possible, so preferably, one-page simple document which **doesn't include any references or links** is a nice format for it.
-If there is a need for providing knowledge on certain topics, the way to do is delivering brown-bag sessions, technical katas, team practices, documentations and others later on.
+構築を開始するのに最適な時期は、チームが群がって準備段階で互いに会うエンゲージメントの非常に早い段階であると言えます。
 
-A few important points about the team manifesto
+チームマニフェストはできるだけシンプルにすることをお勧めします。そのため、**参照やリンクを含まない** 1ページのシンプルなドキュメントが適しています。
+特定のトピックに関する知識を提供する必要がある場合は、後でブラウンバッグセッション、テクニカルカタ、チームプラクティス、ドキュメントなどを提供する方法があります。
 
-- The team manifesto is built by the development team itself
-- It should cover all required technical engineering points for the excellence as well as behavioral agility mindset items that the team finds relevant
-- It aims to give a common understanding about the desired expertise, practices and/or mindset within the team
-- Based on the needs of the team and retrospective results, it can be modified during the engagement.
+チームマニフェストに関するいくつかの重要なポイント
 
-In CSE, we aim for quality over quantity, and well-crafted software as well as to a comfortable/transparent environment where each team member can reach their highest potential.
+- チームマニフェストは、開発チーム自体によって作成されます
+- チームが関連性があると判断した、卓越性に必要なすべての技術エンジニアリングポイントと、行動の敏捷性の考え方の項目を網羅する必要があります。
+- これは、チーム内で必要な専門知識、実践、および/または考え方についての共通の理解を与えることを目的としています
+- チームのニーズと遡及的な結果に基づいて、エンゲージメント中に変更できます。
 
-The difference between the team manifesto and other team documents is that it is used to give a short summary of expectations around the technical way of working and supported mindset in the team, before code-with sprints starts.
+CSEでは、量より質、巧妙に作成されたソフトウェア、および各チームメンバーが最高の可能性に到達できる快適で透明な環境を目指しています。
 
-Below, you can find some including, but not limited, topics many teams touch during engagements,
+チームマニフェストと他のチームドキュメントの違いは、コード付きスプリントが開始される前に、チーム内での技術的な作業方法とサポートされている考え方に関する期待の簡単な要約を提供するために使用されることです。
 
-| Topic | What is it about ? |
+以下に、多くのチームがエンゲージメント中に触れるトピックを含むがこれらに限定されないいくつかを見つけることができます。
+
+| トピック | どんな内容ですか ？ |
 |-|-|
-| Collective Ownership | Does team own the code rather than individuals? What is the expectation? |
-| Respect | Any preferred statement about it's a "must-have" team value |
-| Collaboration | Any preferred statement about how does team want to collaborate ? |
-| Transparency | A simple statement about it's a "must-have" team value and if preferred, how does this being provided by the team ? meetings, retrospective, feedback mechanisms etc. |
-| Craftspersonship | Which tools such as Git, VS Code LiveShare, etc. are being used ? What is the definition of expected best usage of them? |
-| PR sizing | What does team prefer in PRs ? |
-| Branching | Team's branching strategy and standards |
-| Commit standards | Preferred format in commit messages, rules and more |
-| Clean Code | Does team follow clean code principles ? |
-| Pair/Mob Programming | Will team apply pair/mob programming ? If yes, what programming styles are suitable for the team ? |
-| Release Process | Principles around release process such as quality gates, reviewing process ...etc. |
-| Code Review | Any rule for code reviewing such as min number of reviewers, team rules ...etc. |
-| Action Readiness | How the backlog will be refined? How do we ensure clear Definition of Done and Acceptance Criteria ? |
-| TDD | Will the team follow TDD ? |
-| Test Coverage | Is there any expected number, percentage or measurement ?  |
-| Dimensions in Testing | Required tests for high quality software, eg : unit, integration, functional, performance, regression, acceptance |
-| Build process | build for all? or not; The clear statement of where code and under what conditions code should work ? eg : OS, DevOps, tool dependency |
-| Bug fix | The rules of bug fixing in the team ? eg: contact people, attaching PR to the issue etc. |
-| Technical debt | How does team manage/follow it?  |
-| Refactoring | How does team manage/follow it? |
-| Agile Documentation | Does team want to use diagrams and tables more rather than detailed KB articles ? |
-| Efficient Documentation | When is it necessary ? Is it a prerequisite to complete tasks/PRs etc.? |
-| Definition of Fun | How will we have fun for relaxing/enjoying the team spirit during the engagement? |
+| 集団所有権 | チームは個人ではなくコードを所有していますか？期待は何ですか？ |
+| 尊敬 | それについての好ましい声明は「なくてはならない」チームの価値です |
+| コラボレーション | Any preferred statement about how does team want to collaborate ? |
+| 透明性 | それについての簡単な説明は「必須」のチームの価値であり、必要に応じて、これはチームによってどのように提供されますか？会議、回顧、フィードバックメカニズムなど。 |
+| 職人技 | Git、VS Code LiveShareなどのどのツールが使用されていますか？それらの予想される最良の使用法の定義は何ですか？ |
+| PRサイジング | チームはPRで何を好みますか？ |
+| 分岐 | チームのブランチ戦略と標準 |
+| コミット基準 | コミットメッセージ、ルールなどで推奨される形式 |
+| クリーンコード | チームはクリーンなコード原則に従っていますか？ |
+| ペア/モブプログラミング | チームはペア/モブプログラミングを適用しますか？はいの場合、チームに適したプログラミングスタイルは何ですか？ |
+| リリースプロセス | 品質ゲート、レビュープロセスなどのリリースプロセスに関する原則...など。 |
+| コードレビュー | レビューアの最小数、チームルールなど、コードレビューのルール。 |
+| アクションの準備 | バックログはどのように改善されますか？完了基準と承認基準の明確な定義をどのように保証しますか？ |
+| TDD | チームはTDDに従いますか？ |
+| テストカバレッジ | 予想される数、パーセンテージ、または測定値はありますか？  |
+| テストでの寸法 | 高品質のソフトウェアに必要なテスト。例：ユニット、統合、機能、パフォーマンス、回帰、受け入れ |
+| ビルドプロセス | すべてのために構築しますか？か否か; コードがどこでどのような条件下で機能するかについての明確な声明？例：OS、DevOps、ツールの依存関係 |
+| バグ修正 | チームでのバグ修正のルールは？例：連絡先、問題へのPRの添付など。 |
+| 技術的負債 | チームはそれをどのように管理/フォローしますか？  |
+| リファクタリング | チームはそれをどのように管理/フォローしますか？ |
+| アジャイルドキュメント | チームは、詳細なKB記事ではなく、図や表を使用したいですか？ |
+| 効率的なドキュメント | いつ必要ですか？タスク/PRなどを完了するための前提条件ですか？ |
+| 楽しみの定義 | エンゲージメント中にチームスピリットをリラックス/楽しむためにどのように楽しみますか？ |
 
-## Tools
+## ツール
 
-Generally team sessions are enough for building a manifesto and having a consensus around it, and if there is a need for improving it in a structured way, [Building a Team Manifesto](https://www.scrum.nl/blog/building-team-manifesto/) or any retrospective tool can be used.
+一般に、マニフェストを作成してコンセンサスを得るにはチームセッションで十分です。構造化された方法でマニフェストを改善する必要がある場合は、[チームマニフェストの作成](https://www.scrum.nl/blog/building-team-manifesto/)または任意の遡及的ツールを使用できます。
 
-## Resources
+## 資力
 
-[Building a Team Manifesto*](https://www.scrum.nl/blog/building-team-manifesto/)
+[チームマニフェストの作成*](https://www.scrum.nl/blog/building-team-manifesto/)
 
-[Technical Agility*](https://v46.scaledagileframework.com/team-and-technical-agility/)
+[技術的な敏捷性*](https://v46.scaledagileframework.com/team-and-technical-agility/)

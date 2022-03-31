@@ -1,42 +1,44 @@
-# Definition of Ready
+# レディの定義
 
-When the development team picks a user story from the top of the backlog, the user story needs to have enough detail to estimate the work needed to complete the story within the sprint. If it has enough detail to estimate, it is Ready to be developed.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/team-agreements/definition-of-ready/
 
-> If a user story is not Ready in the beginning of the Sprint it increases the chance that the story will not be done at the end of this sprint.
+開発チームがバックログの先頭からユーザーストーリーを選択する場合、ユーザーストーリーには、スプリント内でストーリーを完了するために必要な作業を見積もるのに十分な詳細が必要です。見積もるのに十分な詳細があれば、開発の準備ができています。
 
-## What it is
+> スプリントの開始時にユーザーストーリーの準備ができていない場合、このスプリントの終了時にストーリーが実行されない可能性が高くなります。
 
-*Definition of Ready* is the agreement made by the scrum team around how complete a user story should be in order to be selected as candidate for estimation in the sprint planning. These can be codified as a checklist in user stories using [Github Issue Templates](https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository) or [Azure DevOps Work Item Templates](https://docs.microsoft.com/en-us/azure/devops/boards/backlogs/work-item-template?view=azure-devops&tabs=browser).
+## それは何ですか
 
-It can be understood as a checklist that helps the Product Owner to ensure that the user story they wrote contains all the necessary details for the scrum team to understand the work to be done.
+*Readyの定義* は、スプリント計画の見積もりの​​候補として選択されるために、ユーザーストーリーがどの程度完全である必要があるかについてスクラムチームによって行われた合意です。これらは、  [Github Issue Templates](https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository) や [Azure DevOps Work Item Templates](https://docs.microsoft.com/en-us/azure/devops/boards/backlogs/work-item-template?view=azure-devops&tabs=browser)使用して、ユーザーストーリーのチェックリストとして体系化できます。
 
-### Examples of ready checklist items:
+これは、プロダクトオーナーが、作成したユーザーストーリーに、スクラムチームが実行する作業を理解するために必要なすべての詳細が含まれていることを確認するのに役立つチェックリストとして理解できます。
 
-* [ ] Does the description have the details including any input values required to implement the user story?
-* [ ] Does the user story have clear and complete acceptance criteria?
-* [ ] Does the user story address the business need?
-* [ ] Can we measure the acceptance criteria?
-* [ ] Is the user story small enough to be implemented in a short amount of time, but large enough to provide value to the customer?
-* [ ] Is the user story blocked? For example, does it depend on any of the following:
-  * The completion of unfinished work
-  * A deliverable provided by another team (code artifact, data, etc...)
+### 準備ができているチェックリスト項目の例:
 
-## Who writes it
+* [ ] 説明には、ユーザーストーリーを実装するために必要な入力値を含む詳細が含まれていますか？
+* [ ] ユーザーストーリーには明確で完全な受け入れ基準がありますか？
+* [ ] ユーザーストーリーはビジネスニーズに対応していますか？
+* [ ] 合格基準を測定できますか？
+* [ ] ユーザーストーリーは、短時間で実装できるほど小さいですが、顧客に価値を提供するのに十分な大きさですか？
+* [ ] ユーザーストーリーはブロックされていますか？たとえば、次のいずれかに依存しますか？:
+  * 未完成の作業の完了
+  * 別のチームによって提供された成果物（コード成果物、データなど...）
 
-The ready checklist can be written by a Product Owner in agreement with the development team and the Process Lead.
+## 誰が書いたのか
 
-## When should a Definition of Ready be updated
+準備が整ったチェックリストは、開発チームとプロセスリーダーの同意を得て、プロダクトオーナーが作成できます。
 
-Update or change the definition of ready anytime the scrum team observes that there are missing information in the user stories that recurrently impacts the planning.
+## 準備完了の定義はいつ更新する必要がありますか
 
-## What should be avoided
+スクラムチームが、計画に繰り返し影響を与えるユーザーストーリーに不足している情報があることに気付いたときはいつでも、準備完了の定義を更新または変更します。
 
-The ready checklist should contain items that apply broadly. Don't include items or details that only apply to one or two user stories. This may become an overhead when writing the user stories.
+## 避けるべきこと
 
-## How to get stories ready
+準備が整ったチェックリストには、広く適用される項目が含まれている必要があります。1つまたは2つのユーザーストーリーにのみ適用されるアイテムや詳細を含めないでください。これは、ユーザーストーリーを書くときにオーバーヘッドになる可能性があります。
 
-In the case that the highest priority work is not yet ready, it still may be possible to make forward progress. Here are some strategies that may help:
+## ストーリーを準備する方法
 
-* [Backlog Refinement](../backlog-management/backlog-refinement.md) sessions are a good time to validate that high priority user stories are verified to have a clear description, acceptance criteria and demonstrable business value. It is also a good time to breakdown large stories will likely not be completable in a single sprint.
-* Prioritization sessions are a good time to prioritize user stories that unblock other blocked high priority work.
-* Blocked user stories can often be broken down in a way that unblocks a portion of the original stories scope. This is a good way to make forward progress even when some work is blocked.
+最優先の作業がまだ準備できていない場合でも、前進できる可能性があります。これが役立つかもしれないいくつかの戦略です：
+
+* [バックログの絞り込み](../backlog-management/backlog-refinement.md)セッションは、優先度の高いユーザーストーリーが明確な説明、受け入れ基準、および実証可能なビジネス価値を持っていることが検証されていることを検証する良い機会です。また、大きなストーリーを1回のスプリントで完成させることはできないでしょう。
+* 優先順位付けセッションは、他のブロックされた優先度の高い作業のブロックを解除するユーザーストーリーに優先順位を付ける良い機会です。
+* ブロックされたユーザーストーリーは、多くの場合、元のストーリースコープの一部のブロックを解除する方法で分類できます。これは、一部の作業がブロックされている場合でも前進するための良い方法です。

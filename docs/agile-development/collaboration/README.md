@@ -1,80 +1,81 @@
 
-# Collaboration
+# コラボレーション
 
-## Why collaboration is important
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/collaboration/
 
-In engagements, we aim to be highly collaborative because when we code together, we perform better, have a higher sprint velocity, and have a greater degree of knowledge sharing across the team.
+## コラボレーションが重要な理由
 
-There are two common patterns we use for collaboration: Pairing and swarming.
+エンゲージメントでは、高度なコラボレーションを目指しています。これは、一緒にコーディングすると、パフォーマンスが向上し、スプリント速度が速くなり、チーム全体で知識を共有できるようになるためです。
 
-**Pair programming** (“pairing”) - two software engineers assigned to, and working on, one shared story at a time during the sprint. The Dev Lead assigns a user story to two engineers -- one primary engineer (story owner) and one secondary engineer (pairing assignee). The definition aligns with the Agile Alliance’s [definition](https://www.agilealliance.org/glossary/pairing).
+コラボレーションに使用する一般的なパターンは、ペアリングとスウォーミングの2つです。
 
-**Swarm programming** (“swarming”) - three or more software engineers collaborating on a high-priority item to bring it to completion.
+**ペアプログラミング** (「ペアリング」) - スプリント中に一度に1つの共有ストーリーに割り当てられ、作業している2人のソフトウェアエンジニア。開発リーダーは、ユーザーストーリーを2人のエンジニアに割り当てます。1人はプライマリエンジニア（ストーリーの所有者）、もう1人はセカンダリエンジニア（ペアリング担当者）です。 この定義は、アジャイルアライアンスの [定義](https://www.agilealliance.org/glossary/pairing) と一致しています。
 
-## How to pair program
+**スウォームプログラミング** (「スウォーミング」) - 3人以上のソフトウェアエンジニアが優先度の高いアイテムを共同で完成させます。
 
-As mentioned, every story is intentionally assigned to a pair. The pairing assignee may be in the process of upskilling, nevertheless, they are equal partners in the development effort.
-Below are some general guidelines for pairing:
+## プログラムをペアリングする方法
 
-- Upon assignment of the story/product backlog item (PBI), the pair needs to be deliberate about defining how to work together and have a firm definition of the work to be completed. This information should be expressed clearly in the story’s description and acceptance criteria. The expectations about this need to be communicated and agreed upon by both engineers and should be done prior to any actual working sessions.
-- The story owner and pairing assignee do not merely split the work up and sync regularly – they actively work together on the same tasks, and might share their screens via a Teams online session. Collaborative tools like [VS Live Share](https://visualstudio.microsoft.com/services/live-share/) can be preferable to sharing screens. Not all collaboration needs to be screen-share based.
-- During the collaborative sessions, one engineer provides the development environment while the other actively views and comments verbally.
-- Engineers trade places often from one session to the next so that everyone has time in control of the keyboard.
-- Engineers leverage feature branches for the collaboration during the development of each story to have small Pull Requests (PRs) (as opposed to a single giant PR) at the end of the sprint.
-- Code is committed to the repository by both members of the assigned pair where and when it makes sense as tasks were completed.
-- The pairing assignee is the voice representing the pair during the daily standup while being supported by the story owner.
-- Having the names of both individuals (owner and pair assignee) visible on the PBI can be helpful during sprint ceremonies and lead to greater accountability by the pairing assignee. An example of this using Azure DevOps cards can be found [here](./add-pairing-field-azure-devops-cards.md).
+前述のように、すべてのストーリーは意図的にペアに割り当てられています。ペアリングの譲受人はスキルアップの過程にあるかもしれませんが、それでも彼らは開発努力の対等なパートナーです。以下は、ペアリングの一般的なガイドラインです。:
 
-## Why pair programming helps collaboration
+- ストーリー/製品バックログアイテム（PBI）を割り当てる際、ペアは、連携する方法を定義することについて慎重に検討し、完了する作業をしっかりと定義する必要があります。この情報は、ストーリーの説明と受け入れ基準で明確に表現する必要があります。これに関する期待は、両方のエンジニアによって伝達および合意される必要があり、実際の作業セッションの前に行う必要があります。
+- ストーリーの所有者とペアリングの担当者は、作業を分割して定期的に同期するだけでなく、同じタスクで積極的に連携し、Teamsオンラインセッションを介して画面を共有する場合があります。画面の共有よりも、 [VS Live Share](https://visualstudio.microsoft.com/services/live-share/)などのコラボレーションツールの方が適している場合があります。すべてのコラボレーションが画面共有ベースである必要はありません。
+- 共同セッションでは、1人のエンジニアが開発環境を提供し、もう1人のエンジニアが口頭で積極的に意見を述べます。
+- エンジニアは、あるセッションから次のセッションに頻繁に場所を交換して、誰もがキーボードを制御できるようにします。
+- エンジニアは、各ストーリーの開発中にコラボレーションのために機能ブランチを活用して、スプリントの最後に（単一の巨大なPRではなく）小さなプルリクエスト（PR）を作成します。
+- コードは、割り当てられたペアの両方のメンバーによって、タスクが完了したときに意味のある場所とタイミングでリポジトリにコミットされます。
+- ペアリングの担当者は、ストーリーの所有者にサポートされている間、毎日のスタンドアップ中にペアを表す声です。
+- 両方の個人（所有者とペアの譲受人）の名前をPBIに表示すると、スプリントセレモニーで役立ち、ペアの譲受人による説明責任が高まります。Azure DevOpsカードを使用したこの例は、[ここ](./add-pairing-field-azure-devops-cards.md)にあります。
 
-Pair programming helps collaboration because both engineers share equal responsibility for bringing the story to completion. This is a mutually beneficial exercise because, while the story owner often has more experience to lean on, the pairing assignee brings a fresh view that is unclouded by repetition.
+## ペアプログラミングがコラボレーションに役立つ理由
 
-Some other benefits include:
+ペアプログラミングは、ストーリーを完成させるために両方のエンジニアが同等の責任を共有するため、コラボレーションに役立ちます。これは相互に有益な演習です。ストーリーの所有者は多くの場合、より多くの経験を積むことができますが、ペアリングの担当者は、繰り返しによって曇らない新鮮なビューをもたらします。
 
-- Fewer defects and increased accountability. Having two sets of eyes allows the engineers more opportunity to catch errors and to remember often-overlooked tasks such as writing unit and integration tests.
-- Pairing allows engineers with different experience and expertise to learn from one another by collaborating and receiving feedback in real-time. Instead of having an engineer work alone on a task for long hours and hit an isolation breaking point, pairing allows the pair to check in with one another.
-- Even something as simple as describing the problem out loud can help uncover issues or bugs in the code.
-- Pairing can help brainstorming as well as validating details such as making the variable names consistent.
+その他の利点は次のとおりです。:
 
-## When to swarm program
+- 欠陥が少なくなり、説明責任が高まります。2つの目を持つことで、エンジニアはエラーを見つけ、ユニットの作成や統合テストなど、見過ごされがちなタスクを思い出す機会が増えます。
+- ペアリングにより、さまざまな経験と専門知識を持つエンジニアが、リアルタイムでコラボレーションしてフィードバックを受け取ることにより、互いに学ぶことができます。エンジニアが長時間一人でタスクに取り組み、孤立の限界点に達する代わりに、ペアリングにより、ペアは互いにチェックインできます。
+- 問題を大声で説明するような単純なものでも、コードの問題やバグを発見するのに役立ちます。
+- ペアリングは、ブレーンストーミングだけでなく、変数名の一貫性を保つなどの詳細の検証にも役立ちます。
 
-It is important to know that not every PBI needs to use swarming. Some sprints may not even warrant swarming at all.
-Swarm when:
+## プログラムを群がらせるとき
 
-- The work is complex enough to have collective minds collaborating (not because the quantity of work is more than what would be completed in one sprint).
-- The task that the swarm works on has become (or is in imminent danger of becoming) a blocker to other stories.
-- An unknown is discovered that needs a collaborative effort to form a decision on how to move forward. The collective knowledge and expertise help move the story forward more quickly and ultimately produced better quality code.
-- A conflict or unresolved difference of opinion arises during a pairing session. Promote the work to become a swarming session to help resolve the conflict.
+すべてのPBIがスウォーミングを使用する必要があるわけではないことを知っておくことが重要です。いくつかのスプリントは、群れをまったく保証しないかもしれません。
+いつ群がる：
 
-## How to swarm program
+- 作業は、集合的な心が協力するのに十分複雑です（作業の量が1回のスプリントで完了する量よりも多いためではありません）。
+- 群れが取り組んでいるタスクは、他のストーリーの妨げになっています（またはなる危険が差し迫っています）。
+- 前進する方法を決定するために協力的な努力が必要な未知のものが発見されました。集合的な知識と専門知識は、ストーリーをより迅速に前進させ、最終的にはより高品質のコードを作成するのに役立ちます。
+- ペアリングセッション中に、対立または未解決の意見の相違が発生します。対立を解決するのを助けるために群がるセッションになるために仕事を促進してください。
 
-As soon the pair finds out that the PBI will warrant swarming, the pair brings it up to the rest of the team (via parking lot during stand-up or asynchronously). Members of the team agree or volunteer to assist.
+## プログラムを群がらせる方法
 
-- The story owner (or pairing assignee) sends Teams call invite to the interested parties. This allows the swarm to have dedicated focus time by blocking time in calendars.
-- During a swarming session, an engineer can branch out if there is something that needs to be handled while the swarm tackles the main problem at hand, then reconnects and reports back. This allows the swarm to focus on a core aspect and to be all on the same page.
-- The Teams call is repeated until resolution is found or alternative path forward is formulated.
+ペアは、PBIが群れを正当化することを発見するとすぐに、チームの他のメンバーにそれをもたらします（スタンドアップ中または非同期で駐車場を介して）。チームのメンバーは、支援することに同意するか、ボランティアで支援します。
 
-## Why swarm programming helps collaboration
+- ストーリーの所有者（またはペアリングの担当者）は、関係者にTeamsコール招待を送信します。これにより、カレンダーで時間をブロックすることにより、群れが専用のフォーカス時間を持てるようになります。
+- 群れのセッション中に、群れが目前の主要な問題に取り組んでいる間に処理する必要がある何かがある場合、エンジニアは分岐して、再接続して報告することができます。これにより、群れはコアの側面に焦点を合わせ、すべて同じページに配置できます。
+- チームの呼び出しは、解決策が見つかるか、代替パスが策定されるまで繰り返されます。
 
-- Swarming allows the collective knowledge and expertise of the team to come together in a focused and unified way.
-- Not only does swarming help close out the item faster, but it also helps the team understand each other’s strengths and weaknesses.
-- Allows the team to build a higher level of trust and work as a cohesive unit.
+## 群れプログラミングがコラボレーションに役立つ理由
 
-## When to decide to swarm, pair, and/or split
+- スウォーミングにより、チームの集合的な知識と専門知識を集中的かつ統一された方法でまとめることができます
+- 群がるのはアイテムをより早く閉じるのに役立つだけでなく、チームがお互いの長所と短所を理解するのにも役立ちます。
+- チームがより高いレベルの信頼を構築し、まとまりのあるユニットとして機能できるようにします。
 
-- While a lot of time can be spent on pair programming, it does make sense to split the work when folks understand how the work will be carried out, and the work to be done is largely prescriptive.
-- Once the story has been jointly tasked out by both engineers, the engineers may choose to tackle some tasks separately and then combine the work together at the end.
-- Pair programming is more helpful when the engineers do not have perfect clarity about what is needed to be done or how it can be done.
-- Swarming is done when the two engineers assigned to the story need an additional sounding board or need expertise that other team members could provide.
+## 群れ、ペアリング、および/または分割を決定するタイミング
 
-## Benefits of increased collaboration
+- ペアプログラミングには多くの時間を費やすことができますが、作業がどのように実行されるかを人々が理解している場合は、作業を分割することは理にかなっています。
+- ストーリーが両方のエンジニアによって共同でタスクアウトされると、エンジニアはいくつかのタスクに別々に取り組み、最後に作業を組み合わせることができます。
+- ペアプログラミングは、エンジニアが何をする必要があるのか​​、またはそれをどのように行うことができるのかについて完全に明確になっていない場合に、より役立ちます。
+- スウォーミングは、ストーリーに割り当てられた2人のエンジニアが追加のサウンドボードを必要とする場合、または他のチームメンバーが提供できる専門知識を必要とする場合に行われます。
 
-Knowledge sharing and bringing CSE and customer engineers together in a ‘code-with’ manner is an important aspect of CSE engagements. This grows both our customers’ and our CSE team’s capability to build on Azure. We are responsible for demonstrating engineering fundamentals and leaving the customer in a better place after we disengage. This can only happen if we collaborate and engage together as a team. In addition to improved software quality, this also adds a beneficial social aspect to the engagements.
+## コラボレーションの強化のメリット
 
-## Resources
+知識を共有し、CSEとカスタマーエンジニアを「コードウィズ」方式でまとめることは、CSEエンゲージメントの重要な側面です。これにより、お客様とCSEチームの両方がAzure上に構築できるようになります。私たちは、エンジニアリングの基礎を示し、お客様を解放した後、より良い場所に残す責任があります。これは、私たちがチームとして協力し、協力する場合にのみ発生する可能性があります。ソフトウェア品質の向上に加えて、これはエンゲージメントに有益な社会的側面も追加します。
 
-- [How to add a pairing custom field in Azure DevOps User Stories](./add-pairing-field-azure-devops-cards.md) - adding a custom field of type _Identity_ in Azure DevOps for pairing
+## 資力
 
-- [On Pair Programming - Martin Fowler](https://martinfowler.com/articles/on-pair-programming.html)
+- [AzureDevOpsユーザーストーリーにペアリングカスタムフィールドを追加する方法](./add-pairing-field-azure-devops-cards.md) - ペアリングのためにAzureDevOpsにIdentityタイプのカスタムフィールドを追加する
 
-- [Pair Programming hands-on lessons](https://github.com/The-V8/pair-programming-sessions) - these can be used (and adapted) to support bringing pair programming into your team (MS internal or including customers)
+- [ペアプログラミングについて-マーティンファウラー](https://martinfowler.com/articles/on-pair-programming.html)
+
+- [ペアプログラミングのハンズオンレッスン](https://github.com/The-V8/pair-programming-sessions) - これらは、チーム（MS内部または顧客を含む）へのペアプログラミングの導入をサポートするために使用（および適合）できます。

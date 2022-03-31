@@ -1,12 +1,14 @@
-# Team Agreements
+# チーム契約
 
-## Sections within Team Agreements
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/team-agreements/
 
-* [Definition of Done](definition-of-done.md)
-* [Definition of Ready](definition-of-ready.md)
-* [Working Agreements](working-agreements.md)
-* [Team Manifesto](team-manifesto.md)
+## チーム契約内のセクション
 
-## Goals
+* [完了の定義](definition-of-done.md)
+* [レディの定義](definition-of-ready.md)
+* [作業協定](working-agreements.md)
+* [チームマニフェスト](team-manifesto.md)
 
-Team agreements help clarify expectations for all team members, whether they are expectations around how the team works together (Working Agreements) or how to judge if a story is complete (Definition of Done).
+## 目標
+
+チーム契約は、チームがどのように連携するか（作業契約）またはストーリーが完了したかどうかを判断する方法（完了の定義）に関する期待であるかどうかにかかわらず、すべてのチームメンバーの期待を明確にするのに役立ちます。

@@ -1,119 +1,120 @@
-# Stand-ups
+# スタンドアップ
 
-The stand-up is a time-boxed ceremony that is held each day of the sprint. In this ceremony, each contributor in the Development Team will answer three simple project questions and an optional social question. This will repeat until each contributor has answered the following questions.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/stand-ups/
 
-1. What did you work on yesterday that contributes to meet the sprint goal?
-2. What are you working on today that will contribute to meet the sprint goal?
-3. Do you have any impediments/blockers or need any help? (defer discussion / resolution to "the parking lot", described below)
-4. An [optional social question](social-question.md), e.g. "would you rather see the past or the future?"
+スタンドアップは、スプリントの毎日開催されるタイムボックス式です。この式典では、開発チームの各貢献者が3つの簡単なプロジェクトの質問とオプションの社会的な質問に答えます。これは、各寄稿者が次の質問に答えるまで繰り返されます。
 
-During the stand-up, additional discussions may arise. Make sure that someone adds them to the parking lot for after meeting discussion.  
+1. 昨日、スプリントの目標を達成するために何に取り組みましたか？
+2. スプリントの目標を達成するために貢献する今日、あなたは何に取り組んでいますか？
+3. 障害/ブロッカーがありますか、または助けが必要ですか？（以下に説明する「駐車場」への議論/解決を延期する）
+4. [オプションの社会的質問](social-question.md)。たとえば、「過去と未来のどちらを見たいですか？」
 
-After that point, the stand-up is concluded.
+スタンドアップ中に、追加の議論が発生する可能性があります。話し合いの後で、誰かがそれらを駐車場に追加するようにしてください。
 
-As a good practice, the items in the parking lot take place right after the stand-up. However, you can opt to discuss the parking lot items at another time before the next stand-up.
-The participation in the parking lot discussion is optional for all members except those explicitly needed for discussion of the issues raised.
+その後、スタンドアップは終了します。
 
-> The term **parking lot** refers to a bucket of comments, concerns, or questions that will be discussed and/or addressed at a later point with potentially fewer contributors. This is part of a strategy to avoid letting the discussion in a meeting shift to a subject that is not aligned with the meeting goals and/or decisions.
+良い習慣として、駐車場のアイテムは立ち上がった直後に行われます。ただし、次のスタンドアップの前に、別の時間に駐車場のアイテムについて話し合うことを選択できます。駐車場の議論への参加は、提起された問題の議論に明示的に必要なメンバーを除いて、すべてのメンバーにとって任意です。
 
-## Goals
+> **駐車場** という用語は、投稿者が少なくなる可能性がある後の時点で議論および/または対処されるコメント、懸念、または質問のバケツを指します。これは、会議での議論が会議の目標や決定に沿っていない主題に移らないようにするための戦略の一部です。
 
-1. Bring awareness of the progress done towards the sprint goal, and the sprint backlog.
-2. Surface any impediments to one or more team members' contributions.
-3. Maintain contact between remote team members to reduce social barriers to collaboration.
+## 目標
 
-## Participation
+1. プリントの目標に向けて行われた進捗状況とスプリントのバックログを認識させます。
+2. 1人または複数のチームメンバーの貢献に対する障害を明らかにします。
+3. コラボレーションに対する社会的障壁を減らすために、リモートチームメンバー間の連絡を維持します。
 
-The entire team should attend the stand-up. Anyone that worked on a task towards the sprint work should answer the three questions. It would be up to the team to decide if they would like updates from members that are not directly working against sprint task work (i.e. Product Owners and Program Managers).
+## 参加
 
-- Process Lead (Required)
-- Product Owner (Optional)
-- Program Manager (Required)
-- Dev Lead + Contributors (Required)
+チーム全体がスタンドアップに参加する必要があります。スプリント作業に向けたタスクに取り組んだ人は、3つの質問に答える必要があります。スプリントタスクの作業に直接取り組んでいないメンバー（つまり、プロダクトオーナーとプログラムマネージャー）からの更新を希望するかどうかを決定するのはチームの責任です。
 
-## Impact
+- プロセスリード（必須）
+- プロダクトオーナー（オプション）
+- プログラムマネージャー（必須）
+- 開発リード+貢献者（必須）
 
-Team members get a clear understanding of what development tasks are going on within the team which helps with collaboration. It also provides a time to address any challenges or blockers that may be stopping specific tasks from being completed, therefore helping with velocity.
+## 影響
 
-## Measures
+チームメンバーは、コラボレーションに役立つチーム内で行われている開発タスクを明確に理解できます。また、特定のタスクの完了を妨げている可能性のある課題やブロッカーに対処するための時間を提供し、速度を向上させます。
 
-Both stand-up length and time to start are important as the stand-up has to be seen as a reliable and efficient meeting that facilitates communication of information versus unnecessary overhead.
+## 対策
 
-### Stand-up Length
+スタンドアップは、情報の伝達と不要なオーバーヘッドを促進する信頼性の高い効率的な会議と見なす必要があるため、スタンドアップの長さと開始までの時間の両方が重要です。
 
-While the length can depend on the team size, if everyone is sticking to one line answers to the key questions, it should be fairly easy to conclude within 5-10 minutes.
+### スタンドアップの長さ
 
-#### Example (team size == ~8)
+長さはチームの規模によって異なりますが、全員が重要な質問に対する1行の回答に固執している場合は、5〜10分以内に結論を出すのはかなり簡単です。
 
-- 1-5 min = Excellent
-- 5-10 min = Great
-- 10-15 min = Good
-- 15+ min = Needs Improvement
+#### 例 (チームサイズ == ~8)
 
-### Time to Start
+- 1〜5分=完璧
+- 5〜10分=すばらしい
+- 10〜15分=良い
+- 15分以上=改善が必要
 
-How long after the scheduled start time did contributors begin providing updates?
+### 始める時間
 
-- 0-1 min = Excellent
-- 1-3 min = Great
-- 3-5 min = Good
-- 5+ min = Needs Improvement
+予定された開始時刻からどのくらい後に、寄稿者は更新の提供を開始しましたか？
 
-### New Tasks Created After Stand-up
+- 0-1分=完璧
+- 1〜3分=すばらしい
+- 3〜5分=良い
+- 5分以上=改善が必要
 
-How many tasks are being generated after the stand-up that didn't exist before? This can indicate how much unplanned work is being done. If creating new tasks after stand-up becomes routine (especially for the same story), this could indicate the story is at higher risk of not being completed. It could also indicate a shift in focus to an unplanned objective.
+### スタンドアップ後に作成された新しいタスク
 
-## Facilitation Guidance
+スタンドアップ後に、以前は存在しなかったタスクがいくつ生成されていますか？これは、計画外の作業がどれだけ行われているかを示している可能性があります。スタンドアップが日常的になった後に新しいタスクを作成する場合（特に同じストーリーの場合）、これはストーリーが完了しないリスクが高いことを示している可能性があります。また、計画外の目的への焦点のシフトを示している可能性もあります。
 
-The Process Lead should facilitate the stand-up meeting.
+## ファシリテーションガイダンス
 
-### Speak to Tasks
+プロセスリーダーは、スタンドアップミーティングを促進する必要があります。
 
-When answering what was worked on and what will be worked on, refer directly to tasks. This has two benefits:
+### タスクに話しかける
 
-1. The answer will naturally be short (e.g. "I finished task 114 yesterday; which was to update the build of the api container image. I will be starting on task 115 today; which is to update the release pipeline for the same container image.").
-2. Unplanned work will be easily identifiable. If the person is unable to refer to a task, that typically indicates they are working on something unplanned or out of scope for the sprint (e.g. Yesterday, I was attempting to optimize some unit tests from last sprint to run faster).
+何に取り組んだのか、何に取り組むのかを答えるときは、タスクを直接参照してください。これには2つの利点があります。:
 
-If a contributor is not working on an existing sprint task they need to either create a new task under an existing sprint story to reflect that work, or defer that work until it's scheduled for a later sprint.
+1. 答えは当然短くなります（たとえば、「昨日タスク114を終了しました。これは、APIコンテナーイメージのビルドを更新することでした。今日はタスク115を開始します。これは、同じコンテナーイメージのリリースパイプラインを更新することです。」 ）。
+2. 計画外の作業は簡単に識別できます。その人がタスクを参照できない場合、それは通常、彼らがスプリントの計画外または範囲外の何かに取り組んでいることを示します（たとえば、昨日、私は最後のスプリントからいくつかの単体テストを最適化してより速く実行しようとしていました）。
 
-> If a contributor provides an update without referring to a task, ask the contributor which task.
+寄稿者が既存のスプリントタスクに取り組んでいない場合は、既存のスプリントストーリーの下に新しいタスクを作成してその作業を反映するか、後のスプリントがスケジュールされるまでその作業を延期する必要があります。
 
-### Parking Lot Discussion Items
+> 寄稿者がタスクを参照せずに更新を提供する場合は、寄稿者にどのタスクを依頼してください。
 
-As contributors are answering the questions, if another contributor has a question or issue to share, they should reserve until after all contributors have finished answering. Once each member has answered all questions, the Process Lead should open up the floor to anyone who may have an open question or unresolved issue to share. This portion of the ceremony is often referred to as the "Parking Lot".
+### 駐車場ディスカッションアイテム
 
-> Parking lot discussions are optional for participants.
+寄稿者が質問に回答しているため、別の寄稿者が共有する質問または問題がある場合は、すべての寄稿者が回答を終了するまで予約する必要があります。各メンバーがすべての質問に回答したら、プロセスリードは、未解決の質問または未解決の問題を共有できる可能性のあるすべての人にフロアを開放する必要があります。セレモニーのこの部分は、しばしば「駐車場」と呼ばれます。
 
-Ensure discussion leaders call out necessary parties for their discussion points upfront, allowing those not needed to leave the meeting.
+> 駐車場のディスカッションは参加者にとってオプションです。
 
-### Social question
+ディスカッションリーダーがディスカッションポイントに必要な関係者を事前に呼び出し、不要な関係者が会議から退会できるようにします。
 
-Teams are frequently geographically distributed and include members who have not worked on projects together previously. Social interactions facilitate the development of trust between team members and lower the barriers to collaboration. A social question-of-the-day that has a one-sentence answer contributes to trust development over the course of many stand-ups, with a minimal additional time commitment. The answer to the social question should be brief and follow the project questions answer. The facilitator may choose the social question or take a suggestion from the room. Description of what makes a good question, and a list of starter questions are available within the [social question readme](social-question.md).
+### 社会的質問
 
-### Start On Time
+チームは地理的に分散していることが多く、これまで一緒にプロジェクトに取り組んだことがないメンバーが含まれます。社会的相互作用は、チームメンバー間の信頼の発展を促進し、コラボレーションへの障壁を低くします。一文の答えがあるその日の社会的な質問は、最小限の追加の時間のコミットメントで、多くのスタンドアップの過程で信頼の発展に貢献します。社会的な質問への答えは簡潔で、プロジェクトの質問の答えに従う必要があります。ファシリテーターは、社会的な質問を選択するか、部屋から提案を受け取ることができます。良い質問となるものの説明、および最初の質問のリストは、[ソーシャル質問のreadme](social-question.md)内にあります。
 
-Make a best effort to begin answering the questions as close to the scheduled start time as possible. Try not to waste time upfront on chit-chat or waiting on all team members to join. This can extend the meeting time significantly. Starting immediately will help ensure stand-ups remain effective and useful over time.
+### 時間通りに開始
 
-### Same Time Every weekday
+可能な限り予定された開始時間に近い時間に質問に答え始めるように最善を尽くしてください。チットチャットで前もって時間を無駄にしたり、すべてのチームメンバーが参加するのを待ったりしないようにしてください。これにより、会議時間が大幅に延長される可能性があります。すぐに始めることは、スタンドアップが長期にわたって効果的で有用であり続けることを確実にするのに役立ちます。
 
-Stand-up should be held at the same time each weekday. The meeting time should be mutually agreed-upon by the contributors, and should take into consideration time zones, working schedules, and other factors so that every team member can reasonably participate.
+### 平日同時間
 
-### Multiple Time zones
+スタンドアップは、平日同じ時間に開催する必要があります。会議の時間は、寄稿者が相互に合意する必要があり、すべてのチームメンバーが合理的に参加できるように、タイムゾーン、作業スケジュール、およびその他の要素を考慮に入れる必要があります。
 
-For team members distributed across time zones, consider scheduling the stand-up at the best convenient time within the time zone that has the most team members.
+### 複数のタイムゾーン
 
-> **Tip**: Whenever you have a large difference between the time zones, consider scheduling the stand up in such a way it does not occur at an inconvenient time for the same time zone every day.
+タイムゾーンに分散しているチームメンバーの場合は、チームメンバーが最も多いタイムゾーン内で最も都合のよい時間にスタンドアップをスケジュールすることを検討してください。
 
-### Contributors Unable to Attend (async updates)
+> **ヒント**: タイムゾーン間に大きな違いがある場合は、毎日同じタイムゾーンの不便な時間に発生しないようにスタンドアップをスケジュールすることを検討してください。
 
-If a contributor knows that they will have to miss the stand-up, ask them to provide their answers to the questions in written form before the stand-up. They could provide these over a shared Teams channel or email to the team. The Process Lead can then read the answers during the stand-up. Reading the update aloud during the stand-up will ensure the answers are communicated to the team.
+### 参加できない寄稿者（非同期更新）
 
-### Remote Located Team Members
+寄稿者がスタンドアップを見逃す必要があることを知っている場合は、スタンドアップの前に質問に対する回答を書面で提供するように依頼してください。これらは、共有チームチャネルを介して、またはチームに電子メールで提供できます。プロセスリードは、スタンドアップ中に回答を読み取ることができます。スタンドアップ中に更新を声に出して読むことで、回答がチームに確実に伝えられます。
 
-If any team member is working remotely, plan to run stand-ups through conference calls. Ask the team members to keep the camera on as much as possible so that they can see each other when speaking against the questions.
+### 離れた場所にいるチームメンバー
 
-> **Tip**: In order to keep the remote stand-up as efficient, in a good pace and with the collective sense as it is in a physically located stand-up, you can agree on applying a "pick the next one approach" in which the current contributor to speak picks the next in a loop until everyone with contributions had answered the questions.
+チームメンバーがリモートで作業している場合は、電話会議を通じてスタンドアップを実行することを計画します。チームメンバーに、質問に反対して話すときにお互いが見えるように、カメラをできるだけオンにしておくように依頼します。
 
-## Resources
+> **ヒント**: リモートスタンドアップを、物理的に配置されたスタンドアップの場合と同じように効率的で、適切なペースで、集合的な意味で維持するために、「次の1つのアプローチを選択する」を適用することに同意できます。話す現在の寄稿者は、寄稿者全員が質問に答えるまで、ループの次の寄稿者を選びます。
 
-- [Daily Scrum - Tips & Tactics](https://www.scrum.org/resources/blog/daily-scrum-tips-tactics)
+## 資力
+
+- [デイリースクラム-ヒントと戦術](https://www.scrum.org/resources/blog/daily-scrum-tips-tactics)

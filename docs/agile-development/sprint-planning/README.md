@@ -1,85 +1,86 @@
-# Sprint Planning
+# スプリント計画
 
-## Goals
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/sprint-planning/
 
-During the [sprint planning](https://www.agilealliance.org/glossary/sprint-planning), the team discusses and agrees on the scope for the upcoming sprint.
+## 目標
 
-Goals:
+[スプリントの計画](https://www.agilealliance.org/glossary/sprint-planning)中に、チームは次のスプリントの範囲について話し合い、合意します。
 
-- Select the **stories** that will be implemented in the sprint.
-- Estimate the **effort** required for the stories in the sprint.
-- Split the stories into **tasks**.
+目標:
 
-General guidance:
+- スプリントで実装される **ストーリー**を選択します。
+- スプリントのストーリーに必要な**労力**を見積もります。
+- ストーリーを**タスク**に分割します。
 
-- The sprint planning should happen at the beginning of the new sprint (or at the end of the previous one). It usually lasts between 1 and 4 hours depending on the size of the team and duration of the sprint.
-- Each story should be able to be completed within the duration of the sprint. Otherwise, the story should be broken up into multiple stories.
-- Each task duration should be somewhere between 2 and 8 hours.
+一般的なガイダンス：
 
-## Participation
+- スプリントの計画は、新しいスプリントの開始時（または前のスプリントの終了時）に行う必要があります。チームの規模とスプリントの期間にもよりますが、通常は1〜4時間続きます。
+- 各ストーリーは、スプリントの期間内に完了することができる必要があります。それ以外の場合は、ストーリーを複数のストーリーに分割する必要があります。
+- 各タスクの期間は、2〜8時間の間にある必要があります。
 
-**Everyone** in the team should participate in the sprint planning, including the Product Owner.
+## 参加
 
-Specific roles:
+プロダクトオーナーを含め、チームの**全員が**スプリント計画に参加する必要があります。
 
-- Process Lead:
-  - Facilitate the conversation.
-  - Ensure everyone is heard.
-  - Remind scrums/agile/other principles and sprint planning goals if necessary, updating the working agreement where needed to ensure a mapping between principals and what is working/not working for the team.
-- [Product owner](https://www.agilealliance.org/glossary/product-owner/):
-  - Prior to the sprint planning: performs some [backlog refinement](../backlog-management/backlog-refinement.md) to ensure that each story that they want to propose for the new sprint (*) :
+特定の役割:
+
+- プロセスリード:
+  - 会話を促進します。
+  - 全員の声が聞こえるようにします。
+  - スクラム/アジャイル/その他の原則と必要に応じてスプリント計画の目標を思い出させ、必要に応じて作業契約を更新して、プリンシパルとチームで機能している/機能していないものとの間のマッピングを確保します。
+- [プロダクトオーナー](https://www.agilealliance.org/glossary/product-owner/):
+  - スプリント計画の前に：新しいスプリントに提案したい各ストーリーを確実にするために、[バックログの改良](../backlog-management/backlog-refinement.md)を実行します（*）：
   
-    - Is in the correct position in the backlog, by right priority order.
-    - Is attending the [definition of ready](../team-agreements/definition-of-ready.md).
-  - Do NOT pre-assign stories to the future sprint. This is the purpose of the sprint planning.
-  - During the meeting:
+    - 正しい優先順位で、バックログの正しい位置にあります。
+    - [準備完了の定義](../team-agreements/definition-of-ready.md).に参加しています。
+  - ストーリーを将来のスプリントに事前に割り当てないでください。これがスプリント計画の目的です。
+  - 会議中：
 
-    - Clarify team's questions and improve the story accordingly, if necessary.
-    - Describe to the team the stories that they propose for the sprint.
+    - チームの質問を明確にし、必要に応じてそれに応じてストーリーを改善します。
+    - チームがスプリントに提案するストーリーをチームに説明します。
 
-- All team members:
+- すべてのチームメンバー：
 
-  - Listen to the product owner story description.
-  - Ask questions to make sure everyone understands each story properly.
-  - [Estimate](estimation.md) the effort for each backlog item, as a team.
-  - Split each story into tasks.
-  - (Optional) self assign first task to team members.
+  - プロダクトオーナーのストーリーの説明を聞いてください。
+  - 質問をして、全員が各ストーリーを正しく理解していることを確認します。
+  - チームとして、各バックログアイテムの労力を[見積り](estimation.md)ます。
+  - （オプション）最初のタスクをチームメンバーに自己割り当てします。
 
-*(\*) some teams find useful to define a **[Definition of ready](../team-agreements/definition-of-ready.md)** that describes the list of things that needs to be done in each story before the **product owner** can propose it for a **sprint**. The list proposed here is the classic minimal definition of ready.*
+*(\*) 一部のチームは、**プロダクトオーナー**が**スプリント**に提案する前に、各ストーリーで実行する必要があることのリストを説明する **[準備完了の定義](../team-agreements/definition-of-ready.md)**定義するのに役立つと考えています。ここで提案されているリストは、readyの古典的な最小限の定義です。*
 
-## Impact
+## 影響
 
-Sprint planning key benefits:
+スプリント計画の主な利点：
 
-- Everyone participates, the entire team is aware of the scope of the sprint.
-- The team has an agreement on the goal of the sprint.
-- Each team member takes responsibility in the sprint scope by participating in the story's discovery, prioritization and estimation.
-- Creates a channel to communicate, discover and discuss dependencies.
+- 全員が参加し、チーム全体がスプリントの範囲を認識しています。
+- チームはスプリントの目標について合意しています。
+- 各チームメンバーは、ストーリーの発見、優先順位付け、および見積もりに参加することにより、スプリントスコープで責任を負います。
+- 依存関係を伝達、発見、議論するためのチャネルを作成します。
 
-## Measures
+## 対策
 
-- How many stories needed more work before being presented (and were rejected because they were not clear enough)?
-- How realistic was the estimation of effort?
-- Team satisfaction (can be assessed during the retrospective): does everyone in the team feel included in sprint planning?
+- 提示される前にさらに作業が必要なストーリーはいくつありますか（十分に明確でなかったために拒否されました）？
+- 努力の見積もりはどれほど現実的でしたか？
+- チームの満足度（回顧展で評価できます）：チームの全員がスプリント計画に含まれていると感じますか？
 
-## Facilitation Guidance
+## ファシリテーションガイダンス
 
-Prior to the meeting:
+会議の前に：
 
-- Set sprint goal.
-- Make sure the backlog is prioritized.
-- Make sure each story that is a candidate for next sprint is [ready](../team-agreements/definition-of-ready.md).
+- スプリントの目標を設定します。
+- バックログが優先されていることを確認してください。
+- 次のスプリントの候補となる各ストーリーの[準備](../team-agreements/definition-of-ready.md)ができていることを確認してください。
 
-During the meeting:
+会議中：
 
-- Confirm team capacity. This should be done using the average velocity (number of points achieved per sprint) and removing the project vacations/holidays/off days. If it helps, you can get the daily average velocity, divide by the number of team members and multiply by number of off days.
-- Timebox (for instance: half of the meeting for story selection, half of the meeting for task splitting).
-- Agree on how much capacity needs to be "saved" for bug fixing (might depend on the sprint).
-- Ensure everyone understands each story that is selected for the sprint.
-- Ensure everyone participates in story effort estimation.
+- チームの能力を確認します。これは、平均速度（スプリントごとに達成されたポイント数）を使用し、プロジェクトの休暇/休日/休日を削除して実行する必要があります。それが役立つ場合は、1日の平均速度を取得し、チームメンバーの数で割り、休みの日数を掛けることができます。
+- タイムボックス（例：会議の半分はストーリーの選択、会議の半分はタスクの分割）。
+- バグ修正のために「保存」する必要のある容量について合意します（スプリントによって異なる場合があります）。
+- スプリントに選択された各ストーリーを全員が理解していることを確認します。
+- 全員がストーリーの取り組みの見積もりに参加するようにします。
 
-Other considerations:
+その他の考慮事項：
 
-- Take into account off days (vacations, national holidays, unavailability).
-- When the backlog reaches a size that makes it difficult to manage by one team, you might want to split into different work streams. This might require thinking about [scrum of scrums](../scrum-of-scrums.md) and all related ceremonies.
-- For Azure DevOps, leverage the [Sprint Goal](https://marketplace.visualstudio.com/items?itemName=keesschollaart.sprint-goal&targetId=e254bbbe-45a2-4344-9bbd-c4ba47e66719&utm_source=vstsproduct&utm_medium=ExtHubManageList) extension to display the goal in the tab-label on every page within the sprint.
+- 休日（休暇、祝日、欠勤）を考慮に入れてください。
+- バックログが1つのチームによる管理を困難にするサイズに達した場合、異なるワークストリームに分割することをお勧めします。 これには、[スクラムのスクラム](../scrum-of-scrums.md)と関連するすべての儀式について考える必要があるかもしれません。
+- Azure DevOpsの場合、[Sprint Goal](https://marketplace.visualstudio.com/items?itemName=keesschollaart.sprint-goal&targetId=e254bbbe-45a2-4344-9bbd-c4ba47e66719&utm_source=vstsproduct&utm_medium=ExtHubManageList)拡張機能を利用して、スプリント内のすべてのページのタブラベルに目標を表示します。

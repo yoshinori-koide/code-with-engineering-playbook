@@ -1,137 +1,49 @@
-# Goals for Estimation
+# 見積もりの​​目標
 
-When a team adopts agile, as the team works together, the process of estimating
-new work becomes more effective. Over time, they get a sense for how their team
-approaches the stories, and the effort that will be required to complete each story.
-With a few successful sprints completed, the team can start to see patterns of
-success and where the team has had failures. The team can start to look at their
-velocity against their estimates and begin to predict with greater accuracy what
-effort will be needed to complete the next story.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/sprint-planning/estimation/
 
-If the makeup of the team is regularly changing, the process of estimation becomes
-challenging as the patterns that drive the estimation process also change. Initially,
-it will take three to five or more sprints to find a good rhythm to the team estimations.
-When the team changes to a new project or a team is reorganized to join with another
-team, the estimation model is essentially reset, and a new baseline must be formed.
+チームがアジャイルを採用する場合、チームが協力することで、新しい作業を見積もるプロセスがより効果的になります。時間が経つにつれて、彼らはチームがストーリーにどのようにアプローチするか、そして各ストーリーを完了するために必要となる努力を理解します。いくつかの成功したスプリントが完了すると、チームは成功のパターンとチームが失敗した場所を確認し始めることができます。チームは、見積もりに対して速度を調べ始め、次のストーリーを完了するために必要な作業をより正確に予測し始めることができます。
 
-Before beginning the estimation process, the team should be clear what the goal of
-the user story is. This means that the work to be done should be clear, and the
-acceptance criteria is agreed on by the team members that are doing estimation.
-If the story is not ready to be handed off to a developer to start working on, it
-is not ready for estimation.
+チームの構成が定期的に変化している場合、見積もりプロセスを推進するパターンも変化するため、見積もりプロセスは困難になります。最初は、チームの見積もりに適したリズムを見つけるために3〜5回以上のスプリントが必要です。チームが新しいプロジェクトに変更されたり、チームが再編成されて別のチームに参加したりすると、見積もりモデルは基本的にリセットされ、新しいベースラインを形成する必要があります。
 
-## Sizing
+見積もりプロセスを開始する前に、チームはユーザーストーリーの目標が何であるかを明確にする必要があります。これは、実行する作業が明確である必要があり、受け入れ基準が見積もりを行っているチームメンバーによって合意されていることを意味します。ストーリーを開発者に渡して作業を開始する準備ができていない場合は、見積もりの​​準備ができていません。
 
-There are many ways to size stories. This is usually where teams get hung up on
-finding the balance between sizing that feel "willy-nilly" and accurately estimating
-the hours to complete the work. It is helpful to remember that this exercise is
-to accurately determine what work can be completed in the sprint...not a precise
-time allocation for the work to be complete.
+## サイジング
 
-In the beginning, to determine sizing, the team will generally pick two or three
-stories that reflect a known amount of work of varying size. Usually, a simple,
-an average, and a complex story will work best. A simple story is one that can be
-completed by a single developer in a time that is relatively short compared to the
-length of the sprint. For example, if your team is running weeklong sprints, a
-simple story might be able to be completed in a day, an average story might be
-two days, and a complex story might take the entire sprint. The key is that there
-is consensus on the team for what the relative sizes reflect. After a baseline is
-agreed upon, the planning team will estimate each story that is ready for development
-and will be given a relative sizing based on the sizing agreed to by the team. Examples
-of estimating approaches are given below.
+ストーリーのサイズを決める方法はたくさんあります。これは通常、チームが「意地悪」と感じるサイジングと作業を完了するための時間を正確に見積もることの間のバランスを見つけることに夢中になっている場所です。この演習は、スプリントで完了することができる作業を正確に決定することであり、作業を完了するための正確な時間割り当てではないことを覚えておくと役立ちます。
 
-As the team works together, they will gain more experience about how the team
-estimates the size stories. There will be more stories to help gauge the relative
-size of the stories being estimated. This will tend to make the estimates more
-accurate over time. As the team works together they will have better data to know
-how much work can be committed to for the next sprint.
+最初に、サイズを決定するために、チームは通常、さまざまなサイズの既知の作業量を反映する2つまたは3つのストーリーを選択します。通常、単純で平均的で複雑なストーリーが最適です。単純なストーリーは、スプリントの長さに比べて比較的短い時間で1人の開発者が完了することができるストーリーです。たとえば、チームが1週間のスプリントを実行している場合、単純なストーリーは1日で完了でき、平均的なストーリーは2日で、複雑なストーリーはスプリント全体を占める可能性があります。重要なのは、相対的なサイズが何を反映しているかについて、チームでコンセンサスがあることです。ベースラインが合意された後、計画チームは開発の準備ができている各ストーリーを見積もり、チームが合意したサイズに基づいて相対的なサイズが与えられます。
 
-### Planning Poker
+チームが協力するにつれて、チームがストーリーのサイズをどのように見積もるかについて、より多くの経験を積むことができます。推定されるストーリーの相対的なサイズを測定するのに役立つストーリーがさらにあります。これにより、時間の経過とともに見積もりがより正確になる傾向があります。チームが協力することで、次のスプリントのためにどれだけの作業を行うことができるかを知るためのより良いデータが得られます。
 
-Possibly the most popular approach to sizing is called Planning Poker. This approach
-assigns sizing based on the fibonacci numbers 1, 2, 3, 5, 8, 13 and 21. This can be
-done with something as low tech as holding up fingers to online tools that allow
-teams to remotely vote. Co-located teams can even choose to purchase playing cards
-that reflect the fibonacci numbers and distribute the cards during the estimating
-time.
+### プランニングポーカー
 
-Online tools like Azure DevOps have extensions that can be installed that help
-remote team members to do estimating effectively. One example of this is the
-"Estimate" extension by Microsoft DevLabs that ties planning poker directly to the
-stories and will update "Story Points" field in the user story.
+おそらく最も人気のあるサイジングのアプローチは、プランニングポーカーと呼ばれています。このアプローチでは、フィボナッチ数1、2、3、5、8、13、21に基づいてサイズを割り当てます。これは、チームがリモートで投票できるオンラインツールに指を置くなどのローテクで行うことができます。同じ場所にいるチームは、フィボナッチ数を反映したトランプを購入し、見積もり時間中にカードを配布することもできます。
 
-Depending on how granular the team wants the numbers, the team should focus not on
-time but on relative work to be done. If you find that your team is saying "this
-should take one day, so it is an 8" you will soon lose the value of the estimation
-exercise. Rather, you should think "this story is more difficult than that story".
-So when the team is estimating a story, the team can ask "How difficult is this
-story compared to the work we did last sprint that was a 5?" Less difficult maybe
-it's a 2 or 3. More difficult it's an 8 or three times as difficult...13. When you
-go beyond 21 you may want to ask if the story can be broken down into smaller chunks.
+Azure DevOpsのようなオンラインツールには、リモートチームメンバーが効果的に見積もりを行うのに役立つ拡張機能がインストールされています。この一例は、プランニングポーカーをストーリーに直接結び付け、ユーザーストーリーの「ストーリーポイント」フィールドを更新するMicrosoftDevLabsによる「見積もり」拡張機能です。
 
-### T-Shirt Sizes
+チームが数値をどの程度細かくしたいかに応じて、チームは時間ではなく、実行する相対的な作業に焦点を当てる必要があります。チームが「これには1日かかるはずなので、8です」と言っている場合は、すぐに見積もりの​​価値が失われます。むしろ、「この話はあの話より難しい」と考えるべきです。したがって、チームがストーリーを見積もるとき、チームは「このストーリーは、前回のスプリントで5だった作業と比較してどれくらい難しいですか？」と尋ねることができます。それほど難しくないかもしれませんが、2または3です。もっと難しいのは8倍または3倍難しいです...13。21を超えると、ストーリーをより小さなチャンクに分割できるかどうかを尋ねることができます。
 
-When using numbers, teams start to over-analyze what the points should be, or they
-try to begin to correlate points to hours on the clock. Teams start to pad their
-estimates so they can justify their work with their time sheet. When you see this
-start to happen, it may be time to remind the team this is about relative sizing
-not about hours to complete the work.
+### Tシャツのサイズ
 
-One way to do this is to switch to T-Shirt sizing. With this approach you have extra
-small, small, medium, large, extra-large, and double extra-large. When you remove
-the correlation to numbers, the team remembers that their goal is only to determine
-how difficult the work is before committing to the work to be done. It also gives
-the product owner visibility that what was perceived as a simple task may be more
-costly and thus less desirable than a couple of other features of a smaller size.
+数字を使用する場合、チームはポイントがどうあるべきかを過剰に分析し始めるか、ポイントを時計の時間に関連付け始めようとします。チームは、タイムシートを使用して作業を正当化できるように、見積もりを埋め始めます。これが起こり始めたのを見るとき、これは作業を完了するのに約数時間ではなく、相対的なサイジングについてであることをチームに思い出させる時かもしれません。
 
-Another benefit of using a less granular approach is that the team won't spend so
-much time trying to come to agreement on the precise measurement of the work. Decisions
-on medium or large are easier than deciding a work item is 5 or 8 points. That said
-this will also put the agile team leader in the position of converting sizes into
-numeric values for the purpose of charting and tracking velocity over time.
+これを行う1つの方法は、Tシャツのサイズに切り替えることです。このアプローチでは、XS、S、M、L、XL、XXLがあります。数字との相関関係を取り除くと、チームは、自分たちの目標は、実行する作業に取り組む前に、作業の難しさを判断することだけであることを思い出します。また、製品所有者は、単純なタスクとして認識されたものの方がコストが高く、したがって、サイズの小さい他のいくつかの機能よりも望ましくない可能性があることを認識できます。
 
-## Estimation in Planning
+より詳細でないアプローチを使用することのもう1つの利点は、チームが作業の正確な測定について合意に達するためにそれほど多くの時間を費やさないことです。中規模または大規模の決定は、作業項目が5または8ポイントであると決定するよりも簡単です。とは言うものの、これにより、アジャイルチームリーダーは、時間の経過に伴う速度のグラフ化と追跡を目的として、サイズを数値に変換できるようになります。
 
-As the team continues the exercise of estimating in the planning meeting, it should be
-viewed as an exercise in relative sizing of the work. Comparing the expected work
-to work that has already been done is helpful for the team to understand how they
-view the complexity of the work.
+## 計画における見積もり
 
-Estimation can be done at any time with the consensus of the team and doesn't
-always have to be done during the sprint planning. It may be helpful to the product
-owner to understand the relative effort for the stories in order to prioritize
-the work. If the Product Owners sees that one feature that they highly value,
-might not be as valuable when they see that three other features that get pushed
-out because of that one story's complexity.
+チームは計画会議で見積もりの​​演習を継続するため、作業の相対的なサイズ設定の演習と見なす必要があります。予想される作業とすでに行われた作業を比較することは、チームが作業の複雑さをどのように見ているかを理解するのに役立ちます。
 
-In the planning meeting, the team looks at the prioritized items that are ready
-for development. The team should work through the items in priority making sure
-that if there is already an estimate the team still agrees with the estimate.
-Finally, the team should estimate how many points the team can deliver in the sprint
-and then make a commitment for the sprint. During the sprint, the team takes the highest
-priority items off of the backlog and works on them to completion. At the end of
-the sprint, the team reports the number of story points completed during the sprint.
-The agile coordinator should track this information so that over time, the team
-can work to get better at estimating the points that each story requires
-as well as how many points can be delivered in a given sprint.
+見積もりはチームのコンセンサスでいつでも行うことができ、スプリント計画中に常に行う必要はありません。作業に優先順位を付けるために、ストーリーの相対的な取り組みを理解することは、プロダクトオーナーにとって役立つ場合があります。プロダクトオーナーが、自分たちが高く評価している1つの機能を見つけた場合、その1つのストーリーの複雑さのために、他の3つの機能が押し出されているのを見るとそれほど価値がない可能性があります。
 
-### Relative Mass
+計画会議では、チームは開発の準備ができている優先項目を確認します。チームは優先的に項目を処理し、すでに見積もりがある場合でもチームが見積もりに同意することを確認する必要があります。最後に、チームはスプリントでチームが提供できるポイント数を見積もり、スプリントにコミットする必要があります。スプリント中に、チームはバックログから最も優先度の高いアイテムを取り除き、それらを完了するまで作業します。スプリントの最後に、チームはスプリント中に完了したストーリーポイントの数を報告します。アジャイルコーディネーターはこの情報を追跡する必要があります。そうすることで、チームは時間の経過とともに、各ストーリーに必要なポイントと、特定のスプリントで提供できるポイントの数をより正確に見積もることができます。
 
-If there are a lot of stories to be estimated, the team can be overwhelmed doing
-this all at once, and the process can be long and unproductive. However, because
-the stories are estimated relative to each other, it may be easier to do a relative
-mass estimation.
+### 相対質量
 
-For each story, either a card or a sticky note is created. The first card is read
-and then placed in the center of the table or board. Then, as each card is read,
-the team asks "Is this easier or harder that that card?", and it is placed in either lower
-or higher position than the story that already exist on the table. This continues
-with each card being placed in a line of difficulty from easiest to most difficult
-until all stories are placed. Finally, the team then finds the "breaks" that represent
-their relative sizing model and record the estimation for each of the cards in that
-grouping.
+見積もるストーリーがたくさんある場合、チームはこれを一度に行うことに圧倒される可能性があり、プロセスは長く非生産的である可能性があります。ただし、ストーリーは相互に相対的に推定されるため、相対的な質量推定を行う方が簡単な場合があります。
 
-When working with remote teams this can be done with a shared story board, or a list
-where the work items can be placed in an ordered ranking. Again, starting with the
-top story, each subsequent story is placed higher or lower in the list based on
-the relative mass of the story.
+ストーリーごとに、カードまたは付箋が作成されます。最初のカードが読み取られ、テーブルまたはボードの中央に配置されます。次に、各カードが読み取られると、チームは「これはそのカードよりも簡単ですか、それとも難しいですか？」と尋ね、テーブルにすでに存在するストーリーよりも低い位置または高い位置に配置されます。これは、すべてのストーリーが配置されるまで、各カードが最も簡単なものから最も難しいものまで難易度の高い列に配置されるまで続きます。最後に、チームは相対的なサイジングモデルを表す「ブレーク」を見つけ、そのグループ内の各カードの見積もりを記録します。
+
+リモートチームで作業する場合、これは共有ストーリーボード、または作業項目を順序付けられたランキングに配置できるリストを使用して行うことができます。繰り返しになりますが、トップストーリーから始めて、後続の各ストーリーは、ストーリーの相対質量に基づいてリストの上位または下位に配置されます。

@@ -1,56 +1,58 @@
-# Social Question of the Day
+# 今日の社会的質問
 
-The social question of the day is an optional short question to follow the [three project questions](README.md) in the daily stand-up. It develops team cohesion and interpersonal trust over the course of an engagement by facilitating the sharing of personal preferences, lifestyle, or other context.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/stand-ups/social-question/
 
-The social question should be chosen before the stand-up. The facilitator should select the question either independently or from the team's asynchronous suggestions. This minimizes delays at the start of the stand-up.
+その日の社会的な質問は、毎日のスタンドアップで[3つのプロジェクトの質問](README.md)に続くオプションの短い質問です。個人的な好み、ライフスタイル、またはその他のコンテキストの共有を促進することにより、エンゲージメントの過程でチームの結束と対人関係の信頼を築きます。
 
-> **Tip:** having the stand-up facilitator role rotate each sprint lets the facilitator choose the social question independently without burdening any one team member.
+社会的な問題は、立ち上がる前に選択する必要があります。ファシリテーターは、独立して、またはチームの非同期の提案から質問を選択する必要があります。これにより、スタンドアップの開始時の遅延が最小限に抑えられます。
 
-## Properties of a good question
+> **ヒント:** スタンドアップファシリテーターの役割で各スプリントをローテーションさせることで、ファシリテーターは1人のチームメンバーに負担をかけることなく、社会的な質問を個別に選択できます。
 
-A good question has a brief answer with small optional elaboration. A yes or no answer doesn't tell you very much about someone, while knowing that their favorite fruit is a [durian](https://en.wikipedia.org/wiki/Durian) is informative.
+## 良い質問の性質
 
-Good questions are low in consequence but allow controversy. Watching someone strongly exclaim that salmon and lox on cinnamon-raisin is the best bagel order is endearing. As a corollary, a good question is one someone is likely to be passionate about. You know a little more about a team member's personality if their eyes light up when describing their favorite karaoke song.
+良い質問には、小さなオプションの詳細を含む簡単な答えがあります。はいまたはいいえの答えは誰かについてあまり教えてくれませんが、彼らの好きな果物[ドリアン](https://en.wikipedia.org/wiki/Durian)であることを知っていることは有益です。
 
-## Starter list of questions
+良い質問は結果として低いですが、論争を許します。誰かがシナモンレーズンのサーモンとロックスが最高のベーグルオーダーであると強く叫ぶのを見るのは愛らしいです。当然の結果として、良い質問は誰かが情熱を持っている可能性が高いものです。チームメンバーのお気に入りのカラオケ曲を説明するときに目を輝かせれば、チームメンバーの性格についてもう少し知ることができます。
 
-Potentially good questions include:
+## 質問のスターターリスト
 
-- What's your Starbucks order?
-- What's your favorite operating system?
-- What's your favorite version of Windows?
-- What's your favorite plant, houseplant or otherwise?
-- What's your favorite fruit?
-- What's your favorite fast food?
-- What's your favorite noodle?
-- What's your favorite text editor?
-- Mountains or beach?
-- DC or Marvel?
-- Coffee with one person from history: who?
-- What's your silliest online purchase?
-- What's your alternate career?
-- What's the best bagel topping?
-- What's your guilty TV pleasure?
-- What's your go-to karaoke song?
-- Would you rather see the past or the future?
-- Would you rather be able to teleport or to fly?
-- Would you rather live underwater or in space for a year?
-- What's your favorite phone app?
-- What's your favorite fish, to eat or otherwise?
-- What was your best costume?
-- Who is someone you admire (from history, from your personal life, etc.)? Give one reason why.
-- What's the best compliment you've ever received?
-- What's your favorite or most used emoji right now?
-- What was your biggest DIY project?
-- What's a spice that you use on everything?
-- What's your top Spotify (or just your favorite) genre/artist for this year?
-- What was your first computer?
-- What's your favorite kind of taco?
-- What's your favorite decade?
-- What's the best way to eat potatoes?
-- What was your best vacation (stay-cations acceptable)?
-- Favorite cartoon?
-- Pick someone in your family and tell us something awesome about them.
-- What was your longest road trip?
-- What thing do you remember learning when you were young that is taught differently now?
-- What was your favorite toy as a child?
+潜在的に良い質問は次のとおりです。:
+
+- スターバックスの注文は何ですか？
+- お気に入りのオペレーティングシステムは何ですか？
+- Windowsのお気に入りのバージョンは何ですか？
+- あなたの好きな植物、観葉植物、またはその他は何ですか？
+- あなたの好きな果物は何ですか？
+- あなたの好きなファーストフードは何ですか？
+- 好きな麺は何ですか？
+- あなたの好きなテキストエディタは何ですか？
+- 山派？ 海派？
+- ジャンプ？マガジン？サンデー？
+- 歴史上の一人のコーヒー：誰？
+- あなたの最も愚かなオンライン購入は何ですか？
+- あなたの別のキャリアは何ですか？
+- 最高のベーグルトッピングは何ですか？
+- あなたの有罪のテレビの喜びは何ですか？
+- カラオケの人気曲は何ですか？
+- 過去と未来のどちらを見たいですか？
+- テレポートしたり飛んだりできますか？
+- 水中に住むのか、それとも宇宙に1年間住むのか。
+- あなたの好きな電話アプリは何ですか？
+- 食べるかどうかにかかわらず、あなたの好きな魚は何ですか？
+- あなたの最高の衣装は何でしたか？
+- あなたが尊敬する人は誰ですか（歴史から、あなたの個人的な生活からなど）？理由を1つ挙げてください。
+- これまでに受けた最高の褒め言葉は何ですか？
+- 現在、お気に入りまたは最もよく使用されている絵文字は何ですか？
+- あなたの最大のDIYプロジェクトは何でしたか？
+- あなたがすべてに使うスパイスは何ですか？
+- 今年のSpotify（またはお気に入り）のトップジャンル/アーティストは何ですか？
+- あなたの最初のコンピューターは何でしたか？
+- あなたの好きなおにぎりは何ですか？
+- あなたの好きな10年は何ですか？
+- じゃがいもを食べる最良の方法は何ですか？
+- あなたの最高の休暇は何でしたか（滞在カチオンは許容されます）？
+- 好きな漫画？
+- あなたの家族の中から誰かを選んで、彼らについて素晴らしいことを教えてください。
+- あなたの最長のロードトリップは何でしたか？
+- 若い頃に今とは違った教え方をしていることを覚えていますか？
+- 子供の頃、好きなおもちゃは何でしたか？
