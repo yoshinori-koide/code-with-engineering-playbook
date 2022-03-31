@@ -57,7 +57,7 @@ Tuckmanの [チームフェーズ](https://en.wikipedia.org/wiki/Tuckman%27s_sta
 
 その後、上記の提案は、アジャイル/チームの機能不全を取り除き、より広いチームの理解、潜在的な時間の節約、および完全な透明性を提供することを目的としています。
 
-## 資力
+## 参考資料
 
 - [タックマンのグループ開発の段階](https://en.wikipedia.org/wiki/Tuckman%27s_stages_of_group_development)
 

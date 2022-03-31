@@ -1,66 +1,68 @@
-# Testing
+# テスト
 
-## Map of Outcomes to Testing Techniques
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/
 
-The table below maps outcomes -- the results that you may want to achieve in your validation efforts -- to one or more techniques that can be used to accomplish that outcome.
+## テスト手法への結果のマップ
 
-To use the table, either eyeball-browse or search for keywords.
+次の表は、結果（検証作業で達成したい結果）を、その結果を達成するために使用できる1つ以上の手法にマップしています。
 
-| When I am working on... | I want to get this outcome... | ...so I should consider |
+テーブルを使用するには、目玉を参照するか、キーワードを検索します。
+
+| 私が取り組んでいるとき... | この結果を得たい... | ..だから私は考慮する必要があります |
 |--|--|--|
-| Development | Prove backward compatibility with existing callers and clients | [Shadow testing](shadow-testing/README.md) |
-| Development; [Integration testing](integration-testing/README.md) | Ensure telemetry is sufficiently detailed and complete to trace and diagnose malfunction in [End-to-End testing](e2e-testing/README.md) flows | Distributed Debug challenges ;  Orphaned call chain analysis |
-| Development | Ensure program logic is correct for a variety of expected, mainline, edge and unexpected inputs | [Unit testing](unit-testing/README.md); Functional tests; [Consumer-driven Contract Testing](cdc-testing/README.md); [Integration testing](integration-testing/README.md) |
-| Development | Prevent regressions in logical correctness; earlier is better | [Unit testing](unit-testing/README.md); Functional tests; [Consumer-driven Contract Testing](cdc-testing/README.md); [Integration testing](integration-testing/README.md); Rings (each of these are expanding scopes of coverage) |
-| Development | Quickly validate mainline correctness of a point of functionality (e.g. single API), manually | Manual smoke testing Tools: postman, powershell, curl |
-| Development | Validate interactions between components in isolation, ensuring that consumer and provider components are compatible and conform to a shared understanding documented in a contract | [Consumer-driven Contract Testing](cdc-testing/README.md) |
-| Development; [Integration testing](integration-testing/README.md) | Validate that multiple components function together across multiple interfaces in a call chain, incl network hops | [Integration testing](integration-testing/README.md); End-to-end ([End-to-End testing](e2e-testing/README.md)) tests; Segmented end-to-end ([End-to-End testing](e2e-testing/README.md)) |
-| Development | Prove disaster recoverability – recover from corruption of data | DR drills |
-| Development | Find vulnerabilities in service Authentication or Authorization | Scenario (security) |
-| Development | Prove correct RBAC and claims interpretation of Authorization code | Scenario (security) |
-| Development | Document and/or enforce valid API usage | [Unit testing](unit-testing/README.md); Functional tests; [Consumer-driven Contract Testing](cdc-testing/README.md)|
-| Development | Prove implementation correctness in advance of a dependency or absent a dependency | [Unit testing](unit-testing/README.md) (with mocks); [Unit testing](unit-testing/README.md) (with emulators); [Consumer-driven Contract Testing](cdc-testing/README.md) |
-| Development | Ensure that the user interface is accessible | Accessibility |
-| Development | Ensure that users can operate the interface | [UI testing (automated)](ui-testing/README.md) (human usability observation) |
-| Development | Prevent regression in user experience | UI automation; [End-to-End testing](e2e-testing/README.md) |
-| Development | Detect and prevent &#39;noisy neighbor&#39; phenomena | [Load testing](performance-testing/load-testing.md) |
-| Development | Detect availability drops | [Synthetic Transaction testing](synthetic-monitoring-tests/README.md); Outside-in probes |
-| Development | Prevent regression in &#39;composite&#39; scenario use cases / workflows (e.g. an ecommerce system might have many APIs that used together in a sequence perform a &quot;shop-and-buy&quot; scenario) | [End-to-End testing](e2e-testing/README.md); Scenario |
-| Development; Operations | Prevent regressions in runtime performance metrics e.g. latency / cost / resource consumption; earlier is better | Rings; [Synthetic Transaction testing](synthetic-monitoring-tests/README.md) / Transaction; Rollback Watchdogs |
-| Development; Optimization | Compare any given metric between 2 candidate implementations or variations in functionality | Flighting; A/B testing|
-| Development; Staging | Prove production system of provisioned capacity meets goals for reliability, availability, resource consumption, performance | [Load testing (stress)](performance-testing/load-testing.md); Spike; Soak; [Performance testing](performance-testing/README.md) |
-| Development; Staging | Understand key user experience performance characteristics – latency, chattiness, resiliency to network errors | Load; [Performance testing](performance-testing/README.md); Scenario (network partitioning) |
-| Development; Staging; Operation | Discover melt points (the loads at which failure or maximum tolerable resource consumption occurs) for each individual component in the stack | Squeeze; [Load testing (stress)](performance-testing/load-testing.md) |
-| Development; Staging; Operation | Discover overall system melt point (the loads at which the end-to-end system fails) and which component is the weakest link in the whole stack | Squeeze; [Load testing (stress)](performance-testing/load-testing.md) |
-| Development; Staging; Operation | Measure capacity limits for given provisioning to predict or satisfy future provisioning needs | Squeeze; [Load testing (stress)](performance-testing/load-testing.md) |
-| Development; Staging; Operation | Create / exercise failover runbook | Failover drills |
-| Development; Staging; Operation | Prove disaster recoverability – loss of data center (the meteor scenario); measure MTTR | DR drills |
-| Development; Staging; Operation | Understand whether observability dashboards are correct, and telemetry is complete; flowing | Trace Validation; [Load testing (stress)](performance-testing/load-testing.md); Scenario; [End-to-End testing](e2e-testing/README.md) |
-| Development; Staging; Operation | Measure impact of seasonality of traffic | [Load testing](performance-testing/load-testing.md) |
-| Development; Staging; Operation | Prove Transaction and alerts correctly notify / take action | [Synthetic Transaction testing](synthetic-monitoring-tests/README.md) (negative cases); [Load testing](performance-testing/load-testing.md) |
-| Development; Staging; Operation; Optimizing | Understand scalability curve, i.e. how the system consumes resources with load | [Load testing (stress)](performance-testing/load-testing.md); [Performance testing](performance-testing/README.md) |
-| Operation; Optimizing | Discover system behavior over long-haul time | Soak |
-| Optimizing | Find cost savings opportunities | Squeeze |
-| Staging; Operation | Measure impact of failover / scale-out (repartitioning, increasing provisioning) / scale-down | Failover drills; Scale drills |
-| Staging; Operation | Create/Exercise runbook for increasing/reducing provisioning | Scale drills |
-| Staging; Operation | Measure behavior under rapid changes in traffic | Spike |
-| Staging; Optimizing | Discover cost metrics per unit load volume (what factors influence cost at what load points, e.g. cost per million concurrent users) | Load (stress) |
-| Development; Operation | Discover points where a system is not resilient to unpredictable yet inevitable failures (network outage, hardware failure, VM host servicing, rack/switch failures, random acts of the Malevolent Divine, solar flares, sharks that eat undersea cable relays, cosmic radiation, power outages, renegade backhoe operators, wolves chewing on junction boxes, …) | Chaos |
-| Development | Perform unit testing on Power platform custom connectors | [Custom Connector Testing](unit-testing/custom-connector.md) |
+| 開発 | 既存の発信者およびクライアントとの下位互換性を証明する | [シャドウテスト](shadow-testing/README.md) |
+| 開発; [統合テスト](integration-testing/README.md) | テレメトリが十分に詳細で完全であることを確認して、 [エンドツーエンドテスト](e2e-testing/README.md) フローの誤動作を追跡および診断します | 分散デバッグの課題; 孤立したコールチェーン分析 |
+| 開発 | プログラムロジックが、予想されるさまざまなメインライン、エッジ、および予期しない入力に対して正しいことを確認します | [単体テスト](unit-testing/README.md); 機能テスト; [消費者主導の契約テスト](cdc-testing/README.md); [統合テスト](integration-testing/README.md) |
+| 開発 | 論理的正しさの回帰を防ぎます。早いほうがいい | [単体テスト](unit-testing/README.md); 機能テスト; [消費者主導の契約テスト](cdc-testing/README.md); [統合テスト](integration-testing/README.md); リング（これらはそれぞれカバレッジの範囲を拡大しています） |
+| 開発 | 機能ポイント（単一のAPIなど）のメインラインの正確性を手動ですばやく検証します | 手動スモークテストツール: postman, powershell, curl |
+| 開発 | コンポーネント間の相互作用を個別に検証し、コンシューマーコンポーネントとプロバイダーコンポーネントに互換性があり、契約に文書化されている共通の理解に準拠していることを確認します | [消費者主導の契約テスト](cdc-testing/README.md) |
+| 開発; [統合テスト](integration-testing/README.md) | ネットワークホップを含む、コールチェーン内の複数のインターフェイスで複数のコンポーネントが一緒に機能することを検証します | [統合テスト](integration-testing/README.md); [エンドツーエンドテスト](e2e-testing/README.md); セグメント化された [エンドツーエンドテスト](e2e-testing/README.md) |
+| 開発	 | 災害時の回復可能性を証明する–データの破損から回復する | DRドリル |
+| 開発	 | サービスの認証または承認の脆弱性を見つける | シナリオ（セキュリティ） |
+| 開発	 | 正しいRBACを証明し、認証コードの解釈を主張する | シナリオ（セキュリティ） |
+| 開発	 | 有効なAPIの使用法を文書化および/または実施する | [単体テスト](unit-testing/README.md); 機能テスト; [消費者主導の契約テスト](cdc-testing/README.md)|
+| 開発	 | 依存関係の前に、または依存関係がない場合に、実装の正確さを証明する | [単体テスト](unit-testing/README.md) (モックを使用); [単体テスト](unit-testing/README.md) (エミュレーターを使用); [消費者主導の契約テスト](cdc-testing/README.md) |
+| 開発	 | ユーザーインターフェイスにアクセスできることを確認します | アクセシビリティ |
+| 開発	 | ユーザーがインターフェースを操作できることを確認します | [UIテスト（自動）](ui-testing/README.md) (人間のユーザビリティ観察) |
+| 開発	 | ユーザーエクスペリエンスの低下を防ぐ | UIオートメーション; [エンドツーエンドテスト](e2e-testing/README.md) |
+| 開発	 | 「騒々しい隣人」現象を検出して防止する | [負荷テスト](performance-testing/load-testing.md) |
+| 開発	 | 可用性の低下を検出する | [合成トランザクションテスト](synthetic-monitoring-tests/README.md); アウトサイドインプローブ |
+| 開発	 | 「複合」シナリオのユースケース/ワークフローでのリグレッションを防止します（たとえば、eコマースシステムでは、シーケンスで一緒に使用される多くのAPIが「ショップアンドバイ」シナリオを実行する場合があります） | [エンドツーエンドテスト](e2e-testing/README.md); シナリオ |
+| 開発; 運用 | レイテンシー/コスト/リソース消費などの実行時パフォーマンスメトリックのリグレッションを防止します。早いほうがいい | リング; [合成トランザクションテスト](synthetic-monitoring-tests/README.md) / トランザクション; ロールバックウォッチドッグ |
+| 開発; 最適化 | 2つの候補実装または機能のバリエーション間で特定のメトリックを比較します | テスト飛行; A/B テスト|
+| 開発; ステージング | プロビジョニングされた容量の本番システムが、信頼性、可用性、リソース消費、パフォーマンスの目標を満たしていることを証明する | [負荷テスト (ストレス)](performance-testing/load-testing.md); スパイクテスト; ソークテスト; [性能試験](performance-testing/README.md) |
+| 開発; ステージング | 主要なユーザーエクスペリエンスのパフォーマンス特性（遅延、おしゃべり、ネットワークエラーに対する回復力）を理解する | ロード; [性能試験](performance-testing/README.md); シナリオ (ネットワーク分離) |
+| 開発; ステージング; 運用 | スタック内の個々のコンポーネントのメルトポイント（障害または最大許容リソース消費が発生する負荷）を検出します | スクイーズ; [負荷テスト (ストレス)](performance-testing/load-testing.md) |
+| 開発; ステージング; 運用 | システム全体の融点（エンドツーエンドシステムに障害が発生する負荷）と、スタック全体で最も弱いリンクであるコンポーネントを検出します | スクイーズ; [負荷テスト (ストレス)](performance-testing/load-testing.md) |
+| 開発; ステージング; 運用 | 特定のプロビジョニングの容量制限を測定して、将来のプロビジョニングのニーズを予測または満たす | スクイーズ; [負荷テスト (ストレス)](performance-testing/load-testing.md) |
+| 開発; ステージング; 運用 | フェイルオーバー手順書の作成/実行 | フェイルオーバードリル |
+| 開発; ステージング; 運用 | 災害復旧可能性を証明する–データセンターの喪失（流星シナリオ）。MTTRを測定する | DRドリル |
+| 開発; ステージング; 運用 | 可観測性ダッシュボードが正しく、テレメトリが完了しているかどうかを理解します。流れる | トレース検証; [負荷テスト (ストレス)](performance-testing/load-testing.md); シナリオ; [エンドツーエンドテスト](e2e-testing/README.md) |
+| 開発; ステージング; 運用 | トラフィックの季節性の影響を測定する | [負荷テスト](performance-testing/load-testing.md) |
+| 開発; ステージング; 運用 | トランザクションとアラートを正しく通知/アクションを実行する | [合成トランザクションテスト](synthetic-monitoring-tests/README.md) (ネガティブケース); [負荷テスト](performance-testing/load-testing.md) |
+| 開発; ステージング; 運用; 効率化 | スケーラビリティ曲線、つまりシステムが負荷のあるリソースをどのように消費するかを理解する | [負荷テスト (ストレス)](performance-testing/load-testing.md); [性能試験](performance-testing/README.md) |
+| 運用; 効率化 | 長距離にわたるシステムの動作を発見する | ソークテスト |
+| 効率化 | コスト削減の機会を見つける | スクイーズ |
+| ステージング; 運用 | フェイルオーバー/スケールアウト（再パーティション化、プロビジョニングの増加）/スケールダウンの影響を測定する | フェイルオーバードリル; スケールドリル |
+| ステージング; 運用 | プロビジョニングを増減するための手順書を作成/実行する | スケールドリル |
+| ステージング; 運用 | トラフィックの急激な変化の下での行動を測定する | スパイク |
+| ステージング; 効率化 | 単位負荷量あたりのコストメトリックを検出します（どの要素がどの負荷ポイントでのコストに影響するか、たとえば、100万人の同時ユーザーあたりのコスト） | [負荷テスト (ストレス)](performance-testing/load-testing.md)  |
+| 開発; 運用 | システムが予測不可能であるが避けられない障害（ネットワークの停止、ハードウェア障害、VMホストのサービス、ラック/スイッチの障害、悪意のある神のランダムな行為、ソーラーフレア、海底ケーブルリレーを食べるサメ、宇宙線、電力）に対して回復力がないポイントを発見します停止、反逆のバックホウオペレーター、ジャンクションボックスを噛むオオカミ、…） | カオステスト |
+| 開発 | PowerPlatformカスタムコネクタで単体テストを実行する | [カスタムコネクタテスト](unit-testing/custom-connector.md) |
 
-## Sections within Testing
+## テスト内のセクション
 
-- [End-to-End testing](e2e-testing/README.md)
-- [Fault Injection testing](fault-injection-testing/README.md)
-- [Integration testing](integration-testing/README.md)
-- [Performance testing](performance-testing/README.md)
-- [Shadow testing](shadow-testing/README.md)
-- [Smoke testing](smoke-testing/README.md)
-- [Synthetic Transaction testing](synthetic-monitoring-tests/README.md)
-- [UI testing](ui-testing/README.md)
-- [Unit testing](unit-testing/README.md)
+- [エンドツーエンドテスト](e2e-testing/README.md)
+- [フォールトインジェクションテスト](fault-injection-testing/README.md)
+- [統合テスト](integration-testing/README.md)
+- [性能試験](performance-testing/README.md)
+- [シャドウテスト](shadow-testing/README.md)
+- [スモークテスト](smoke-testing/README.md)
+- [合成トランザクションテスト](synthetic-monitoring-tests/README.md)
+- [UIテスト](ui-testing/README.md)
+- [単体テスト](unit-testing/README.md)
 
-## Technology Specific Testing
+## テクノロジー固有のテスト
 
-- [Using DevTest Pattern for building containers with AzDO](tech-specific-samples/azdo-container-dev-test-release)
-- [Using Azurite to run blob storage tests in pipeline](tech-specific-samples/blobstorage-unit-tests/README.md)
+- [DevTestパターンを使用してAzDOでコンテナーを構築する](tech-specific-samples/azdo-container-dev-test-release)
+- [Azuriteを使用してパイプラインでBLOBストレージテストを実行する](tech-specific-samples/blobstorage-unit-tests/README.md)
