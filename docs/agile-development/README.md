@@ -1,12 +1,14 @@
-# Agile Development
+# アジャイル開発
 
-## Sections
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/
 
-- [Backlog Management](backlog-management/README.md)
-- [Collaboration](collaboration/README.md)
-- [Delivery Plan](delivery-plan/README.md)
-- [Retrospectives](retrospectives.md)
-- [Scrum of Scrums](scrum-of-scrums.md)
-- [Sprint Planning](sprint-planning/README.md)
-- [Standups](stand-ups/README.md)
-- [Team Agreements](team-agreements/README.md)
+## セクション
+
+- [バックログ管理](backlog-management/README.md)
+- [コラボレーション](collaboration/README.md)
+- [配送計画](delivery-plan/README.md)
+- [回顧展](retrospectives.md)
+- [スクラムのスクラム](scrum-of-scrums.md)
+- [スプリント計画](sprint-planning/README.md)
+- [スタンドアップ](stand-ups/README.md)
+- [チーム契約](team-agreements/README.md)

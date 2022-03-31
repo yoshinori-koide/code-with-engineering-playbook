@@ -1,75 +1,77 @@
-# Structure of a Sprint
+# スプリントの構造
 
-The purpose of this document is to:
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/SPRINT-STRUCTURE/
 
-- Organize content in the playbook for quick reference and discoverability
-- Provide content in a logical structure which reflects the engineering process
-- Extensible hierarchy to allow teams to share deep subject-matter expertise
+このドキュメントの目的は次のとおりです。:
 
-## The first week of a CSE Project
+- クイックリファレンスと発見可能性のためにプレイブックのコンテンツを整理する
+- エンジニアリングプロセスを反映する論理構造でコンテンツを提供する
+- チームが対象分野の深い専門知識を共有できるようにする拡張可能な階層
 
-### Before starting the project
+## CSEプロジェクトの最初の週
 
-- [ ] [Discuss and start writing the Team Agreements](agile-development/team-agreements/README.md). Update these documents with any process decisions made throughout the project
-  - [Working Agreement](agile-development/team-agreements/working-agreements.md)
-  - [Definition of Ready](agile-development/team-agreements/definition-of-ready.md)
-  - [Definition of Done](agile-development/team-agreements/definition-of-done.md)
-  - [Estimation](agile-development/sprint-planning/estimation.md)
-- [ ] [Set up the repository/repositories](source-control/README.md#creating-a-new-repository)
-  - Decide on repository structure/s
-  - Add [README.md](resources/templates/README.md), [LICENSE](resources/templates/LICENSE), [CONTRIBUTING.md](resources/templates/CONTRIBUTING.md), .gitignore, etc
-- [ ] [Build a Product Backlog](agile-development/backlog-management/README.md)
-  - Set up a project in your chosen project management tool (ex. Azure DevOps)
-  - [INVEST](<https://en.wikipedia.org/wiki/INVEST_(mnemonic)>) in good User Stories and Acceptance Criteria
-  - [Non-Functional Requirements Guidance](design/design-patterns/non-functional-requirements-capture-guide.md)
+### プロジェクトを開始する前に
 
-### Day 1
+- [ ] [チーム契約について話し合い、書き始め](agile-development/team-agreements/README.md)ます。 プロジェクト全体で行われたプロセスの決定でこれらのドキュメントを更新します
+  - [労働協約](agile-development/team-agreements/working-agreements.md)
+  - [レディの定義](agile-development/team-agreements/definition-of-ready.md)
+  - [完了の定義](agile-development/team-agreements/definition-of-done.md)
+  - [推定](agile-development/sprint-planning/estimation.md)
+- [ ] [リポジトリ/リポジトリを設定する](source-control/README.md#creating-a-new-repository)
+  - リポジトリ構造を決定する
+  - [README.md](resources/templates/README.md), [LICENSE](resources/templates/LICENSE), [CONTRIBUTING.md](resources/templates/CONTRIBUTING.md)、.gitignoreなどを追加します
+- [ ] [製品バックログを作成する](agile-development/backlog-management/README.md)
+  - 選択したプロジェクト管理ツール（Azure DevOpsなど）でプロジェクトをセットアップします
+  - ユーザーストーリーと受け入れ基準に[INVEST](<https://en.wikipedia.org/wiki/INVEST_(mnemonic)>)する。
+  - [非機能要件ガイダンス](design/design-patterns/non-functional-requirements-capture-guide.md)
 
-- [ ] [Plan the first sprint](agile-development/sprint-planning/README.md)
-  - Agree on a sprint goal, and how to measure the sprint progress
-  - Determine team capacity
-  - Assign user stories to the sprint and split user stories into tasks
-  - Set up Work in Progress (WIP) limits
-- [ ] [Decide on test frameworks and discuss test strategies](automated-testing/README.md)
-  - Discuss the purpose and goals of tests and how to measure test coverage
-  - Agree on how to separate unit tests from integration, load and smoke tests
-  - Design the first test cases
-- [ ] [Decide on branch naming](source-control/naming-branches.md)
-- [ ] [Discuss security needs and verify that secrets are kept out of source control](continuous-delivery/secrets-management/recipes/azure-devops/secrets-per-branch.md)
+### 1日目
 
-### Day 2
+- [ ] [最初のスプリントを計画する](agile-development/sprint-planning/README.md)
+  - スプリントの目標と、スプリントの進捗状況を測定する方法について合意する
+  - チームの能力を決定する
+  - ユーザーストーリーをスプリントに割り当て、ユーザーストーリーをタスクに分割します
+  - 仕掛品（WIP）制限の設定
+- [ ] [テストフレームワークを決定し、テスト戦略について話し合う](automated-testing/README.md)
+  - テストの目的と目標、およびテストカバレッジの測定方法について話し合う
+  - ユニットテストを統合、負荷、およびスモークテストから分離する方法について合意する
+  - 最初のテストケースを設計する
+- [ ] [ブランチの命名を決定する](source-control/naming-branches.md)
+- [ ] [セキュリティのニーズについて話し合い、秘密がソース管理されていないことを確認します](continuous-delivery/secrets-management/recipes/azure-devops/secrets-per-branch.md)
 
-- [ ] [Set up Source Control](source-control/README.md)
-  - Agree on [best practices for commits](source-control/README.md#commit-best-practices)
-- [ ] [Set up basic Continuous Integration with linters and automated tests](continuous-integration/README.md)
-- [ ] [Set up meetings for Daily Stand-ups and decide on a Process Lead](agile-development/stand-ups/README.md)
-  - Discuss purpose, goals, participants and facilitation guidance
-  - Discuss timing, and how to run an efficient stand-up
-- [ ] [If the project has sub-teams, set up a Scrum of Scrums](agile-development/scrum-of-scrums.md)
+### 2日目
 
-### Day 3
+- [ ] [ソース管理を設定する](source-control/README.md)
+  - [コミットのベストプラクティスについて](source-control/README.md#commit-best-practices)合意する
+- [ ] [リンターと自動テストを使用した基本的な継続的インテグレーションを設定します](continuous-integration/README.md)
+- [ ] [毎日のスタンドアップミーティングを設定し、プロセスリードを決定します](agile-development/stand-ups/README.md)
+  - 目的、目標、参加者、促進ガイダンスについて話し合う
+  - タイミングと、効率的なスタンドアップを実行する方法について話し合います
+- [ ] [プロジェクトにサブチームがある場合は、スクラムのスクラムを設定します](agile-development/scrum-of-scrums.md)
 
-- [ ] [Agree on code style](code-reviews/README.md) and on [how to assign Pull Requests](code-reviews/pull-requests.md)
-- [ ] [Set up Build Validation for Pull Requests (2 reviewers, linters, automated tests)](code-reviews/README.md) and agree on [Definition of Done](agile-development/team-agreements/definition-of-done.md)
-- [ ] [Agree on a Code Merging strategy](source-control/merge-strategies.md) and update the [CONTRIBUTING.md](resources/templates/CONTRIBUTING.md)
-- [ ] [Agree on logging and observability frameworks and strategies](observability/README.md)
+### 3日目
 
-### Day 4
+- [ ] [コードスタイル](code-reviews/README.md) と [プルリクエストの割り当て方法について合意する](code-reviews/pull-requests.md)
+- [ ] [プルリクエスト（2人のレビュー担当者、リンター、自動テスト）のビルド検証を設定](code-reviews/README.md)し、[完了の定義](agile-development/team-agreements/definition-of-done.md)に同意する。
+- [ ] [コードマージ戦略に同意](source-control/merge-strategies.md)し、[CONTRIBUTING.md](resources/templates/CONTRIBUTING.md)を更新します
+- [ ] [ロギングと可観測性のフレームワークと戦略について合意する](observability/README.md)
 
-- [ ] [Set up Continuous Deployment](continuous-delivery/README.md)
-  - Determine what environments are appropriate for this solution
-  - For each environment discuss purpose, when deployment should trigger, pre-deployment approvers, sing-off for promotion.
-- [ ] [Decide on a versioning strategy](source-control/component-versioning.md)
-- [ ] Agree on how to [Design a feature and conduct a Design Review](design/design-reviews/README.md)
+### 4日目
 
-### Day 5
+- [ ] [継続的展開を設定する](continuous-delivery/README.md)
+  - このソリューションに適した環境を決定する
+  - 環境ごとに目的について話し合い、展開をトリガーするタイミング、展開前の承認者、昇進のための歌唱。
+- [ ] [バージョン管理戦略を決定する](source-control/component-versioning.md)
+- [ ] [機能を設計し、設計レビューを実施する](design/design-reviews/README.md)方法について合意する
 
-- [ ] Conduct a Sprint Demo
-- [ ] [Conduct a Retrospective](agile-development/retrospectives.md)
-  - Determine required participants, how to capture input (tools) and outcome
-  - Set a timeline, and discuss facilitation, meeting structure etc.
-- [ ] [Refine the Backlog](agile-development/backlog-management/backlog-refinement.md)
-  - Determine required participants
-  - Update the [Definition of Ready](agile-development/team-agreements/definition-of-ready.md)
-  - Update estimates, and the [Estimation](agile-development/sprint-planning/estimation.md) document
-- [ ] [Submit Engineering Feedback for issues encountered](engineering-feedback/README.md)
+### 5日目
+
+- [ ] スプリントデモを実施する
+- [ ] [ふりかえりを行う](agile-development/retrospectives.md)
+  - 必要な参加者、入力（ツール）および結果をキャプチャする方法を決定します
+  - タイムラインを設定し、ファシリテーション、会議の構成などについて話し合います。
+- [ ] [バックログを調整する](agile-development/backlog-management/backlog-refinement.md)
+  - 必要な参加者を決定する
+  - [Readyの定義](agile-development/team-agreements/definition-of-ready.md)を更新します
+  - 見積もりと、[見積もり](agile-development/sprint-planning/estimation.md) ドキュメントを更新する。
+- [ ] [発生した問題についてエンジニアリングフィードバックを送信する](engineering-feedback/README.md)

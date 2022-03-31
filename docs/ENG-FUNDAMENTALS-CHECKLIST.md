@@ -1,5 +1,7 @@
 # 工学の基礎チェックリスト
 
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/ENG-FUNDAMENTALS-CHECKLIST/
+
 このチェックリストは、プロジェクトがエンジニアリングの基礎を満たしていることを確認するのに役立ちます。
 
 ## ソース管理

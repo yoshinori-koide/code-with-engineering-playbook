@@ -1,120 +1,122 @@
-# Retrospectives
+# 回顧展
 
-Development teams working on [CSE](../CSE.md) projects will conduct [agile retrospectives](https://www.amazon.com/Agile-Retrospectives-Making-Teams-Great/dp/0977616649) for each iteration and project milestone.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/retrospectives
 
-## Goals
+[CSE](../CSE.md)プロジェクトに取り組んでいる開発チームは、各イテレーションとプロジェクトのマイルストーンについて[アジャイルな回顧展](https://www.amazon.com/Agile-Retrospectives-Making-Teams-Great/dp/0977616649)を実施します。
 
-1. Continually learn from our engagement, improving our ability to deliver value to our customers.
-1. Involve everyone in the learning and improvement.
-1. The dev team and *the larger org* learn from each engagement.
+## 目標
 
-## Evidence and Measures
+1. 私たちの取り組みから継続的に学び、お客様に価値を提供する能力を向上させます。
+1. 学習と改善に全員を参加させます。
+1. 開発チームと大規模な組織は、各エンゲージメントから学びます。
 
-At the end of each milestone or engagement, the team will write up the results of their retrospective, including 1-3 proposed changes or experiments. Owners will be assigned to each item, to make sure that retrospection leads to action, when desired.
+## 証拠と対策
 
-Proposed changes coming out of iteration retrospectives should be tracked as tasks or bugs in the project backlog.
+各マイルストーンまたはエンゲージメントの最後に、チームは1〜3の提案された変更または実験を含む、回顧の結果を書き留めます。所有者は各アイテムに割り当てられ、必要に応じて振り返りが行動につながることを確認します。
 
-## General Guidance
+反復の回顧から生じる提案された変更は、プロジェクトバックログのタスクまたはバグとして追跡する必要があります。
 
-The [*Agile Retrospectives*](https://www.amazon.com/Agile-Retrospectives-Making-Teams-Great/dp/0977616649) book provides a clear script for conducting retrospectives. Every retrospective should follow some version of the script, depending on the length of the retrospective. The basic script is:
+## 一般的なガイダンス
 
-1. Set the stage.
-1. Gather data.
-1. Generate insights.
-1. Decide what to do.
-1. Close the retrospective.
+[*アジャイルレトロスペクティブ*](https://www.amazon.com/Agile-Retrospectives-Making-Teams-Great/dp/0977616649)の本は、レトロスペクティブを実施するための明確なスクリプトを提供します。すべての回顧展は、回顧展の長さに応じて、スクリプトのいくつかのバージョンに従う必要があります。基本的なスクリプトは次のとおりです。
 
-Within that script, the facilitator can make choices with regard to which activities to use for each element.
+1. ステージを設定します。
+2. データを集めます。
+3. 洞察を生成します。
+4. 何をすべきかを決定します。
+5. ふりかえりを閉じます。
 
-### Project or Milestone Retrospective
+そのスクリプト内で、ファシリテーターは各要素に使用するアクティビティに関して選択を行うことができます。
 
-These are the most intense retrospectives, in that they cover more project working time and should be the strictest with regard to following the ceremony described in the retrospective book. The goal of most project or milestone retrospectives is to identify proposed changes that the engineering crew or all of [CSE](../CSE.md) might try in the next project. Teams should cover the overall project or milestone, including the development phase, how the on-site hack went, how well the customer engineering team engaged, how well the wrap up activities went, how well the whole [CSE](../CSE.md) team worked together, etc.
+### プロジェクトまたはマイルストーン回顧展
 
-A project or milestone retrospective will usually take **3-4 hours**, depending on how long or complex the milestone was and how many people are involved in the retrospective.
+これらは、より多くのプロジェクト作業時間をカバーするという点で最も激しい回顧展であり、回顧展の本に記載されている式典に従うことに関して最も厳格でなければなりません。ほとんどのプロジェクトまたはマイルストーンの回顧展の目標は、エンジニアリングクルーまたは[CSE](../CSE.md)のすべてが次のプロジェクトで試みる可能性のある提案された変更を特定することです。チームは、開発フェーズ、オンサイトハッキングがどのように行われたか、カスタマーエンジニアリングチームがどの程度関与したか、まとめ活動がどの程度うまくいったか、[CSE](../CSE.md)チーム全体がどの程度協力したかなど、プロジェクト全体またはマイルストーンをカバーする必要があります。
 
-We recommend that project and milestone retrospectives bring in an experienced facilitator to work with the team. [CSE](../CSE.md) will maintain a list of experienced facilitators for teams to request.
+プロジェクトまたはマイルストーンの回顧展は、マイルストーンの長さまたは複雑さ、および回顧展に関与している人の数に応じて、通常**3～4時間**かかります。
 
-1. Set the stage.
-    1. Thank everyone for being here.
-    1. Walk through the standard [CSE](../CSE.md) retrospective introduction slide deck, reminding everyone of the purpose, script, and expected behaviors.
-    1. Each participant introduces themselves and their role on the project.
-    1. Do one Set the Stage activity: 4.1-4.3.
-    1. Run a quick Working Agreement activity (4.4) to give participants a chance to add any items to the standard working agreement.
-1. Gather Data.
-    1. Run 2-3 Gather Data activities: 5.1-5.8.
-    1. See the Recommended Activity Recipes section for ideas on selecting activities.
-1. Generate Insights
-    1. Run 1 Generate Insights activity: 6.1-6.9.
-    1. See the Recommended Activity Recipes section for ideas on selecting activities.
-1. Decide What to Do
-    1. Run 1 Decide What to Do activity: 7.1-7.4.
-    1. See the Recommended Activity Recipes section for ideas on selecting activities.
-1. Close the Retrospective.
-    1. Run 1 Close the Retrospective activity: 8.1-8.5.
-    1. See the Recommended Activity Recipes section for ideas on selecting activities.
-    1. Thank everyone for participating.
-1. Follow up on proposed changes and experiments.
+プロジェクトとマイルストーンの回顧展では、経験豊富なファシリテーターを招いてチームと協力することをお勧めします。[CSE](../CSE.md)は、チームが要求できる経験豊富なファシリテーターのリストを維持します。
 
-### Iteration Retrospective
+1. ステージを設定します。
+    1. ここにいてくれてありがとう。
+    2. 標準の[CSE](../CSE.md)レトロスペクティブ紹介スライドデッキをウォークスルーし、目的、スクリプト、および予想される動作をすべての人に思い出させます。
+    3. 各参加者は、プロジェクトでの自己紹介と役割を紹介します。
+    4. ステージアクティビティの設定を1つ実行します: 4.1-4.3.
+    5. クイックワーキングアグリーメントアクティビティ (4.4) を実行して、参加者に標準のワーキングアグリーメントにアイテムを追加する機会を与えます。
+2. データを集めます。
+    1. 2-3 Gather Dataアクティビティを実行します: 5.1-5.8.
+    2. アクティビティの選択に関するアイデアについては、「推奨されるアクティビティレシピ」セクションを参照してください。
+3. インサイトの生成
+    1. 1つのインサイトの生成アクティビティを実行します: 6.1-6.9.
+    2. アクティビティの選択に関するアイデアについては、「推奨されるアクティビティレシピ」セクションを参照してください。
+4. 何をすべきかを決定する
+    1. 実行1何をすべきかを決定するアクティビティ: 7.1-7.4.
+    2. アクティビティの選択に関するアイデアについては、「推奨されるアクティビティレシピ」セクションを参照してください。
+5. ふりかえりを閉じます
+    1. 実行1回顧的アクティビティを閉じます: 8.1-8.5.
+    2. アクティビティの選択に関するアイデアについては、「推奨されるアクティビティレシピ」セクションを参照してください。
+    3. ご参加いただきありがとうございます。
+6. 提案された変更と実験をフォローアップします。
 
-Iteration reviews should follow the ceremony of the retrospective script, but using less time and fewer activities than the project or milestone retrospective. Iteration (sprint) retrospectives will focus more on execution and implementation details and how the team can improve execution for future iterations.
+### 反復回顧展
 
-An iteration retrospective will usually take **1-2 hours**.
+反復レビューは、回顧的スクリプトの儀式に従う必要がありますが、プロジェクトまたはマイルストーン回顧的よりも少ない時間と少ないアクティビティを使用します。イテレーション（スプリント）の回顧展では、実行と実装の詳細、およびチームが将来のイテレーションのために実行を改善する方法に焦点を当てます。
 
-Usually, the Process Lead or Dev Lead will conduct the first one or two iteration retrospectives. After that, it's good for the team to take turns.
+反復回顧は通常**1〜2時間**かかります。
 
-1. Set the stage.
-    1. Run a quick Working Agreement activity (4.4) to give participants a chance to add any items to the standard working agreement.
-    1. Do one Set the Stage activity: 4.1-4.3.
-1. Gather Data / Generate Insights
-    1. Run 1 Gather Data or Generate Insights activity: 5.1-5.8 or 6.1-6.9. Alternate between them on alternating iterations or let the facilitator choose the activity that they believe will be the most helpful.
-    1. See the recommended Activity Recipes section for ideas on selecting activities.
-1. Decide What to Do
-    1. Run 1 Decide What to Do activity: 7.1-7.4.
-    1. See the recommended Activity Recipes section for ideas on selecting activities.
-1. Close the Retrospective
-    1. Make sure someone is responsible for adding the proposed changes and/or experiments to work item tracking.
-    1. Thank everyone for participating.
+通常、プロセスリードまたは開発リードは最初の1回または2回の反復回顧を行います。その後、チームが交代するのは良いことです。
 
-### Single-Day Iteration Retrospective
+1. ステージを設定します。
+    1. クイックワーキングアグリーメントアクティビティ（4.4）を実行して、参加者に標準のワーキングアグリーメントにアイテムを追加する機会を与えます。
+    2. ステージアクティビティの設定を1つ実行します: 4.1-4.3.
+2. データの収集/インサイトの生成
+    1.1つのデータの収集またはインサイトの生成アクティビティを実行します: 5.1-5.8 または 6.1-6.9. 交互に繰り返すか、ファシリテーターに最も役立つと思われるアクティビティを選択させます。
+    2. アクティビティの選択に関するアイデアについては、推奨されるアクティビティレシピのセクションを参照してください。
+3. 何をすべきかを決定する
+    1. 実行1何をすべきかを決定するアクティビティ: 7.1-7.4.
+    2. アクティビティの選択に関するアイデアについては、推奨されるアクティビティレシピのセクションを参照してください。
+4. ふりかえりを閉じる
+    1. 提案された変更や実験を作業項目の追跡に追加する責任がある人がいることを確認します。
+    2. ご参加いただきありがとうございます。
 
-This variation assumes that the team is running an iteration per day, which is common in code-with engagements or hacks that have higher levels of uncertainty. In a single-day sprint, the team runs a 15-30 minute planning session for the day, conducts at least one standup (frequently immediately after lunch), and has a short demo, followed by a short retrospective at the end of the day.
+### 1日反復回顧展
 
-A single-day iteration retrospective will usually take **15-30 minutes**.
+このバリエーションは、チームが1日あたりの反復を実行していることを前提としています。これは、コードで一般的です。不確実性のレベルが高いエンゲージメントまたはハックを使用します。1日のスプリントでは、チームはその日の15〜30分の計画セッションを実行し、少なくとも1回のスタンドアップ（多くの場合、昼食直後）を実施し、短いデモを行い、その後、1日の終わりに短い回顧展を行います。
 
-The Process Lead or Dev Lead will conduct these short retrospectives.
+1日の反復回顧展は、通常**15〜30分**かかります。
 
-1. Set the stage.
-    1. Remind everyone of the team's working agreement for daily retrospectives.
-    1. Give participants a chance to propose changes.
-    1. Do one Set the Stage activity: 4.1-4.3.
-1. Activity
-    1. Run 1 activity from any section of the book.
-    1. The facilitator can choose based on they think the team could use.
-1. Decide What to Do
-    1. The team should decide if they want to make any change for the next day.
-1. Close the Retrospective
-    1. Make sure someone is responsible for adding the proposed changes and/or experiments to work item tracking.
-    1. Thank everyone for participating.
+プロセスリードまたは開発リードは、これらの短い回顧展を実施します。
 
-### Recommended Activity Recipes
+1. ステージを設定します。
+    1. 毎日の回顧展に関するチームの作業合意を全員に思い出させます。
+    2. 参加者に変更を提案する機会を与えます。
+    3. ステージアクティビティの設定を1つ実行します: 4.1-4.3.
+2. アクティビティ
+    1. 本の任意のセクションから1つのアクティビティを実行します。
+    2. ファシリテーターは、チームが使用できると考えていることに基づいて選択できます。
+3. 何をすべきかを決定する
+    1. チームは、翌日に変更を加えるかどうかを決定する必要があります。
+4. ふりかえりを閉じる
+    1. 提案された変更や実験を作業項目の追跡に追加する責任がある人がいることを確認します。
+    2. ご参加いただきありがとうございます。
 
-Below are recommended commendations of activities to use in the slots above.
+### おすすめのアクティビティレシピ
 
-#### Tough Project Milestone
+以下は、上記のスロットで使用するアクティビティの推奨される表彰です。
 
-Give participants a chance to vent before getting into the more analytical parts of the retrospective.
+#### タフなプロジェクトのマイルストーン
 
-1. Set the Stage: Check-in (4.1), using a more emotion-oriented question
-1. Gather Data: Mad Sad Glad (5.4) to bring out emotional responses
-1. Gather Data: Timeline (5.1) to move toward an analytical view
-1. Gather Data: Locate Strengths (5.5) to help people move toward positive
-1. Generate Insights: Five Whys (6.3) or Identify Themes (6.8) to dig into thorny issues or find the underlying connections in the data
-1. Decide What to Do: SMART Goals (7.2) to capture what the team wants to accomplish with proposed changes
-1. Close the Retrospective: Appreciations (8.2) to give people the best chance of leaving with positive energy
+ふりかえりのより分析的な部分に入る前に、参加者にベントする機会を与えます。
 
-## Resources
+1. ステージを設定する：より感情指向の質問を使用して、チェックイン（4.1）
+1. データを収集する：感情的な反応を引き出すためのMad Sad Glad（5.4）
+1. データの収集：分析ビューに移行するためのタイムライン（5.1）
+1. データの収集：強み（5.5）を見つけて、人々が前向きな方向に進むのを支援します
+1. インサイトの生成：5つのなぜ（6.3）またはテーマの特定（6.8）を使用して、厄介な問題を掘り下げたり、データ内の根本的なつながりを見つけたりします
+1. 何をすべきかを決定する：提案された変更でチームが達成したいことを把握するためのSMART目標（7.2）
+1. 回顧展を閉じる：人々に前向きなエネルギーで去る最高のチャンスを与えるための感謝（8.2）
 
-* [*Agile Retrospectives: Making Good Teams Great*](https://www.amazon.com/Agile-Retrospectives-Making-Teams-Great/dp/0977616649)
+## 資力
+
+* [*機敏な回顧：良いチームを素晴らしいものにする*](https://www.amazon.com/Agile-Retrospectives-Making-Teams-Great/dp/0977616649)
 
 ## Q&A

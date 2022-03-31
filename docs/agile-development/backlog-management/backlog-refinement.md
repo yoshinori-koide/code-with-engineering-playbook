@@ -1,43 +1,45 @@
-# Backlog Refinement
+# バックログの絞り込み
 
-## Goals
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/backlog-management/
 
-What are the intended outcomes of the ceremonies?
+## 目標
 
-[Backlog refinement](https://www.agilealliance.org/glossary/backlog-refinement) is when the [product owner](https://www.agilealliance.org/glossary/product-owner/) and some, or all, of the rest of the team review items on the backlog to ensure the backlog contains the appropriate items, that they are prioritized, and that the items at the top of the backlog are ready for development. This activity occurs on a regular basis and may be an officially scheduled meeting or an ongoing activity.
+式典の意図された結果は何ですか？
 
-## Participation
+[バックログの改良](https://www.agilealliance.org/glossary/backlog-refinement)とは、[製品の所有者](https://www.agilealliance.org/glossary/product-owner/)とチームの残りの一部またはすべてがバックログのアイテムをレビューして、バックログに適切なアイテムが含まれていること、それらが優先されていること、およびバックログの上部にあるアイテムの準備ができていることを確認することです。開発のため。この活動は定期的に行われ、公式に予定されている会議または進行中の活動である可能性があります。
 
-What members of the team should participate?
+## 参加
 
-Ideally all the team members could participate. This is an ongoing process in which the Product Owner and the Development Team collaborate on the details of Product Backlog items.
+チームのどのメンバーが参加する必要がありますか？
 
-## Impact
+理想的には、すべてのチームメンバーが参加できます。これは、プロダクトオーナーと開発チームがプロダクトバックログアイテムの詳細について協力する継続的なプロセスです。
 
-What positive impact has been observed as a result of this practice?
+## 影響
 
-The intent of backlog refinement is to ensure that the backlog keeps updating with items that are appropriate to their priority, i.e. higher priority items are with more details than lower priority ones. Also, it is important that at any time there are enough user stories ready for planning in the next or even, where reasonable, the next two or three iterations but not too much further.
+この実践の結果として、どのようなプラスの影響が観察されましたか？
 
-## Measures
+バックログの改良の目的は、バックログが優先度に適したアイテムで更新され続けるようにすることです。つまり、優先度の高いアイテムは、優先度の低いアイテムよりも詳細になります。また、いつでも、次の、または妥当な場合は次の2、3回の反復で計画する準備ができている十分なユーザーストーリーがあることが重要ですが、それ以上はあまりありません。
 
-How might one measure the impact of this ceremony positive or negative?
+## 対策
 
-The expected outcome from the backlog refinement is all the team members are on the same page of what they are going to implement in the next or next few iterations with priority. A positive outcome of refinement is one where each backlog item can reasonably be “done” within the sprint time. Product backlog items that can be “done” by the development team within one sprint are deemed “ready” for selection in a sprint planning.
+この式典のプラスまたはマイナスの影響をどのように測定できるでしょうか。
 
-## Facilitation Guidance
+バックログの改善から期待される結果は、すべてのチームメンバーが、次または次の数回の反復で優先的に実装するものと同じページにいることです。改良の肯定的な結果は、各バックログ項目がスプリント時間内に合理的に「実行」できることです。1つのスプリント内で開発チームが「実行」できる製品バックログアイテムは、スプリント計画で選択するための「準備ができている」と見なされます。
 
-How might one go about running the ceremony? Is there a general pattern that the ceremony should follow?
+## ファシリテーションガイダンス
 
-- Product Owner: presents the ordered backlog and backlog list they'd like in the next iteration.
-- Process Lead: ensure the timebox.
-- Team members: ask questions and request additional details on the backlog if needed.
+どうやって式典を実行するのでしょうか？セレモニーが従うべき一般的なパターンはありますか？
 
-Make sure that the team does not focus on how to implement the items. Instead, the Product Owner and Team discuss the goals and context for these high - priority items on the Product Backlog, providing the Team with insight into the Product Owner’s thinking.
+- プロダクトオーナー：次のイテレーションで必要な順序付けされたバックログとバックログリストを提示します。
+- プロセスリード：タイムボックスを確認します。
+- チームメンバー：必要に応じて、質問をし、バックログに関する追加の詳細を要求します。
 
-## Useful Links
+チームがアイテムの実装方法に集中していないことを確認してください。代わりに、プロダクトオーナーとチームは、プロダクトバックログでこれらの優先度の高いアイテムの目標とコンテキストについて話し合い、チームにプロダクトオーナーの考え方に対する洞察を提供します。
 
-- Always try and deliver in [Minimal Slices](minimal-slices.md)
-- [Backlog Refinement: Who Should Attend and How to Maximize Value](https://www.mountaingoatsoftware.com/blog/backlog-grooming-who-should-attend-and-how-to-maximize-value#:~:text=A%20good%20rule%20of%20thumb,may%20be%20able%20to%20participate)
-- [You're doing backlog refinement wrong. Here's how to do it less wrong](https://clubhouse.io/blog/how-to-do-backlog-refinement-less-wrong/)
-- [multi team backlog refinement](https://www.scrum.org/resources/blog/multi-team-backlog-refinement)
-- [Product Backlog Refinement explained](https://www.scrum.org/resources/blog/product-backlog-refinement-explained-13)
+## 便利なリンク
+
+- 常に[最小限のスライス](minimal-slices.md)で提供してみてください
+- [バックログの改善：誰が参加すべきか、そしてどのように価値を最大化するか](https://www.mountaingoatsoftware.com/blog/backlog-grooming-who-should-attend-and-how-to-maximize-value#:~:text=A%20good%20rule%20of%20thumb,may%20be%20able%20to%20participate)
+- [バックログの調整が間違っています。間違いを少なくする方法は次のとおりです](https://clubhouse.io/blog/how-to-do-backlog-refinement-less-wrong/)
+- [マルチチームのバックログの改善](https://www.scrum.org/resources/blog/multi-team-backlog-refinement)
+- [製品バックログの改良について説明](https://www.scrum.org/resources/blog/product-backlog-refinement-explained-13)

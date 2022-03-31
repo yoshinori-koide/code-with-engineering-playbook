@@ -1,36 +1,38 @@
-# Scrum of Scrums
+# スクラムのスクラム
 
-Scrum of scrums is a technique used to scale Scrum to a larger group working towards the same project goal. In Scrum, we consider a team being too big when going over 10-12 individuals. This should be decided on a case by case basis. If the project is set up in multiple work streams that contain a fixed group of people and a common [stand-up](stand-ups/README.md) meeting is slowing down productivity: scrum of scrums should be considered. The team would identify the different subgroups that would act as a separate scrum teams with their own backlog, board and [stand-up](stand-ups/README.md).
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/scrum-of-scrums/
 
-## Goals
+スクラムのスクラムは、同じプロジェクトの目標に向けて作業するより大きなグループにスクラムをスケーリングするために使用される手法です。スクラムでは、10〜12人を超える場合、チームが大きすぎると見なします。これは、ケースバイケースで決定する必要があります。プロジェクトが固定グループの人々を含む複数のワークストリームで設定され、一般的な[スタンドアップ](stand-ups/README.md)ミーティングが生産性を低下させている場合：スクラムのスクラムを検討する必要があります。チームは、独自のバックログ、ボード、および[スタンドアップ](stand-ups/README.md)を備えた個別のスクラムチームとして機能するさまざまなサブグループを識別します。
 
-The goal of the scrum of scrums ceremony is to give sub-teams the agility they need while not loosing visibility and coordination. It also helps to ensure that the sub-teams are achieving their sprint goals, and they are going in the right direction to achieve the overall project goal.
+## 目標
 
-The scrum of scrums ceremony happens every day and can be seen as a regular [stand-up](stand-ups/README.md):
+スクラムオブスクラムセレモニーの目標は、可視性と調整を失うことなく、サブチームに必要な敏捷性を与えることです。また、サブチームがスプリントの目標を達成し、プロジェクト全体の目標を達成するために正しい方向に進んでいることを確認するのにも役立ちます。
 
-- What was done the day before by the sub-team.
-- What will be done today by the sub-team.
-- What are blockers or other issues for the sub-team.
-- What are the blockers or issues that may impact other sub-teams.
+スクラムセレモニーのスクラムは毎日行われ、定期的な[スタンドアップ](stand-ups/README.md)として見ることができます：
 
-The outcome of the meeting will result in a list of impediments related to coordination of the whole project. Solutions could be: agreeing on interfaces between teams, discussing architecture changes, evolving responsibility boundaries, etc.
+- 前日にサブチームによって行われたこと。
+- サブチームによって今日何が行われるか。
+- サブチームのブロッカーまたはその他の問題は何ですか。
+- 他のサブチームに影響を与える可能性のあるブロッカーまたは問題は何ですか。
 
-This list of impediments is usually managed in a separate [backlog](backlog-management/README.md) but does not have to.
+会議の結果は、プロジェクト全体の調整に関連する障害のリストになります。解決策は次のとおりです。チーム間のインターフェースについて合意する、アーキテクチャの変更について話し合う、責任の境界を進化させるなど。
 
-## Participation
+この障害のリストは通常​​、別の[バックログ](backlog-management/README.md)で管理されますが、管理する必要はありません。
 
-The common guideline is to have on average one person per sub-team to participate in the scrum of scrums. Ideally, the Process Lead of each sub-team would represent them in this ceremony. In some instances, the representative for the day is selected at the end of each sub-team daily [stand-up](stand-ups/README.md) and could change every day. In practice, having a fixed representative tends to be more efficient in the long term.
+## 参加
 
-## Impact
+一般的なガイドラインは、スクラムのスクラムに参加するために、サブチームごとに平均して1人が参加することです。理想的には、各サブチームのプロセスリーダーがこの式典でそれらを代表します。場合によっては、その日の代表者は、各サブチームの毎日の[スタンドアップ](stand-ups/README.md)の最後に選ばれ、毎日変わる可能性があります。実際には、固定された代表者を持つことは、長期的にはより効率的である傾向があります。
 
-This practice is helpful in cases of longer projects and with a larger scope, requiring more people. When having more people, it is usually easier to divide the project in sub-teams. Having a daily scrum of scrums improves communication, lowers the risk of integration issues and increases the project chances of success.
+## 影響
 
-When choosing to implement Scrum of Scrums, you need to keep in mind that some team members will have additional meetings to coordinate and participate in. Also: all team members for each sub-team need to be updated on the decisions at a later point to ensure a good flow of information.
+この方法は、プロジェクトが長く、範囲が広く、より多くの人員が必要な場合に役立ちます。より多くの人がいる場合、通常、プロジェクトをサブチームに分割する方が簡単です。毎日スクラムのスクラムを用意することで、コミュニケーションが改善され、統合の問題のリスクが低下し、プロジェクトが成功する可能性が高まります。
 
-## Measures
+スクラムオブスクラムの実装を選択するときは、一部のチームメンバーが調整および参加するための追加の会議を開催することを覚えておく必要があります。また、各サブチームのすべてのチームメンバーは、後の時点で決定について更新する必要があります。情報の流れを確保します。
 
-The easiest way to measure the impact is by tracking the time to resolve issues in the scrum of scrums backlog. You can also track issues reported during the [retrospective](retrospectives.md) related to global coordination (is it well done? can it be improved?).
+## 対策
 
-## Facilitation Guidance
+影響を測定する最も簡単な方法は、スクラムバックログのスクラムの問題を解決する時間を追跡することです。 また、グローバルな調整に関連する[ふりかえり](retrospectives.md)中に報告された問題を追跡することもできます（それはうまくいっていますか？改善できますか？）。
 
-This should be facilitated like a regular [stand-up](stand-ups/README.md).
+## ファシリテーションガイダンス
+
+これは、通常の[スタンドアップ](stand-ups/README.md)のように促進する必要があります。

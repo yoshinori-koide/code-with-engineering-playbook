@@ -1,42 +1,43 @@
-# Minimalism Slices
+# ミニマリズムスライス
 
-## Always deliver your work using minimal valuable slices:
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/backlog-management/minimal-slices/
 
-- Split your work item into small chunks that are contributed in incremental commits.
+## 常に最小限の貴重なスライスを使用して作業を提供します。:
 
-- Contribute your chunks frequently. Follow an iterative approach by regularly providing updates and changes to the team. This allows for instant feedback and early issue discovery and ensures you are developing in the right direction, both technically and functionally.
+- 作業項目を小さなチャンクに分割し、増分コミットで提供します。
 
-- Do NOT work independently on your task without providing any updates to your team.
+- チャンクを頻繁に投稿してください。チームに定期的に更新と変更を提供することにより、反復的なアプローチに従います。これにより、即時のフィードバックと早期の問題発見が可能になり、技術的にも機能的にも正しい方向に開発していることが保証されます。
 
-### Example
+- チームに更新を提供せずに、タスクを独立して作業しないでください。
 
-Imagine you are working on adding UWP (Universal Windows Platform) application building functionality for existing continuous integration service which already has Android/iOS support.
+### 例
 
-#### Bad approach:
+すでにAndroid/iOSをサポートしている既存の継続的インテグレーションサービスにUWP（ユニバーサルWindowsプラットフォーム）アプリケーション構築機能を追加する作業をしていると想像してください。
 
-After six weeks of work you created PR with all required functionality, including portal UI (build settings), backend REST API (UWP build functionality), telemetry, unit and integration tests, etc.
+#### 悪いアプローチ:
 
-#### Good approach:
+6週間の作業の後、ポータルUI（ビルド設定）、バックエンドREST API（UWPビルド機能）、テレメトリ、ユニットおよび統合テストなど、必要なすべての機能を備えたPRを作成しました。
 
-You divided your feature into smaller user stories (which in turn were divided into multiple tasks) and started working on them one by one:
+#### 良いアプローチ:
 
-- As a user I can successfully build UWP apps using current service
-- As a user I can see telemetry when building the apps
-- As a user I have the ability to select build configuration (debug, release)
-- As a user I have the ability to select target platform (arm, x86, x64)
+機能をより小さなユーザーストーリーに分割し（次に複数のタスクに分割しました）、それらを1つずつ作業し始めました。:
+
+- ユーザーとして、現在のサービスを使用してUWPアプリを正常に構築できます
+- ユーザーとして、アプリを構築するときにテレメトリを見ることができます
+- ユーザーとして、ビルド構成（デバッグ、リリース）を選択することができます
+- ユーザーとして、ターゲットプラットフォーム（arm、x86、x64）を選択することができます
 - ...
 
-You also divided your stories into smaller tasks and sent PRs based on those tasks.
-E.g. you have the following tasks for the first user story above:
+また、ストーリーを小さなタスクに分割し、それらのタスクに基づいてPRを送信しました。たとえば、上記の最初のユーザーストーリーには、次のタスクがあります。:
 
-- Enable UWP platform on backend
-- Add `build` button to the UI (build first solution file found)
-- Add `select solution file` dropdown to the UI
-- Implement unit tests
-- Implement integration tests to verify build succeeded
-- Update documentation
+- バックエンドでUWPプラットフォームを有効にする
+- `build` UIにボタンを追加します（最初のソリューションファイルをビルドします）
+- UIに`select solution file`ドロップダウンを追加
+- 単体テストを実装する
+- 統合テストを実装して、ビルドが成功したことを確認します
+- ドキュメントを更新する
 - ...
 
-### Resources
+### 資力
 
-- [Minimalism Rules](http://minifesto.org/)
+- [ミニマリズムのルール](http://minifesto.org/)

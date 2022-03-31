@@ -1,9 +1,9 @@
-# External Feedback
+# 外部フィードバック
 
-Various stakeholders can provide feedback to the working product during a project, beyond any formal
-review and feedback sessions required by the organization. The frequency and method of collecting
-feedback through reviews varies depending on the case, but a couple of good practices are:
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/agile-development/backlog-management/external-feedback/
 
-- Capture each review in the backlog as a separate user story.
-- Standardize the tasks that implement this user story.
-- Plan for a review user story per Epic / Feature in your backlog proactively.
+さまざまな利害関係者は、組織が必要とする正式なレビューやフィードバックセッションを超えて、プロジェクト中に作業中の製品にフィードバックを提供できます。レビューを通じてフィードバックを収集する頻度と方法はケースによって異なりますが、いくつかの優れた方法は次のとおりです。
+
+- バックログの各レビューを個別のユーザーストーリーとしてキャプチャします。
+- このユーザーストーリーを実装するタスクを標準化します。
+- バックログのエピック/機能ごとにレビューユーザーストーリーを積極的に計画します。
