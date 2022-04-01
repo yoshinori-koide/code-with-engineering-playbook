@@ -1,171 +1,173 @@
-# E2E Testing
+# E2Eテスト
 
-End-to-end (E2E) testing is a Software testing methodology to test a functional and data application flow consisting of several sub-systems working together from  start to end.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/e2e-testing/
 
-At times, these systems are developed in different technologies by different teams or organizations. Finally, they come together to form a functional business application.  Hence, testing a single system would not suffice. Therefore, end-to-end testing verifies the application from start to end putting all its components together.
+エンドツーエンド（E2E）テストは、最初から最後まで連携して動作する複数のサブシステムで構成される機能およびデータアプリケーションフローをテストするためのソフトウェアテスト方法です。
+
+これらのシステムは、さまざまなチームや組織によってさまざまなテクノロジーで開発される場合があります。最後に、それらが一緒になって機能的なビジネスアプリケーションを形成します。したがって、単一のシステムをテストするだけでは不十分です。したがって、エンドツーエンドのテストでは、アプリケーションを最初から最後まで検証し、すべてのコンポーネントをまとめます。
 
 ![End to End Testing](./images/e2e-testing.png)
 
-## Why E2E Testing [The Why]
+## なぜE2Eテストを行うのか[その理由]
 
-In many commercial software application scenarios, a modern software system consists of its interconnection with multiple sub-systems. These sub-systems can be within the same organization or can be components of different organizations. Also, these sub-systems can have somewhat similar or different lifetime release cycle from the current system. As a result, if there is any failure or fault in any sub-system, it can adversely affect the whole software system leading to its collapse.
+多くの商用ソフトウェアアプリケーションシナリオでは、最新のソフトウェアシステムは、複数のサブシステムとの相互接続で構成されています。これらのサブシステムは、同じ組織内にある場合も、異なる組織のコンポーネントである場合もあります。また、これらのサブシステムは、現在のシステムと多少類似した、または異なるライフタイムリリースサイクルを持つことができます。その結果、サブシステムに障害や障害が発生した場合、ソフトウェアシステム全体に悪影響を及ぼし、システムが崩壊する可能性があります。
 
 ![E2E Testing Pyramid](./images/testing-pyramid.png)
 
-The above illustration is a testing pyramid from [Kent C. Dodd’s blog](https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c) which is a combination of the pyramids from [Martin Fowler’s blog](https://martinfowler.com/bliki/TestPyramid.html) and the [Google Testing Blog](https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html).
+上の図は、 [Kent C. Doddのブログ](https://blog.kentcdodds.com/write-tests-not-too-many-mostly-integration-5e8c7fff591c)のテストピラミッドであり [MartinFowlerのブログ](https://martinfowler.com/bliki/TestPyramid.html)と[Google Testing Blog](https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html)のピラミッドを組み合わせたものです。
 
-The majority of your tests are at the bottom of the pyramid. As you move up the pyramid, the number of tests gets smaller. Also, going up the pyramid, tests get slower and more expensive to write, run, and maintain. Each type of testing vary for its purpose, application and the areas it's supposed to cover. For more information on comparison analysis of different testing types, please see this [## Unit vs Integration vs System vs E2E Testing](../README.md) document.
+テストの大部分はピラミッドの下部にあります。ピラミッドを上に移動すると、テストの数が少なくなります。また、ピラミッドを上っていくと、テストの作成、実行、および保守に時間がかかり、コストが高くなります。各タイプのテストは、その目的、アプリケーション、および対象となる領域によって異なります。さまざまなテストタイプの比較分析の詳細については、この[## ユニットvs統合vsシステムvsE2Eテスト](../README.md)のドキュメントを参照してください。
 
-## E2E Testing Design Blocks [The What]
+## E2Eテストデザインブロック[その内容]
 
 ![E2E Testing Design Framework](./images/e2e-blocks.png)
 
-We will look into all the 3 categories one by one:
+3つのカテゴリすべてを1つずつ調べます。
 
-### User Functions
+### ユーザー機能
 
-Following actions should be performed as a part of building user functions:
+ユーザー機能の構築の一環として、次のアクションを実行する必要があります。
 
-- List user initiated functions of the software systems, and their interconnected sub-systems.
-- For any function, keep track of the actions performed as well as Input and Output data.
-- Find the relations, if any between different Users functions.
-- Find out the nature of different user functions i.e. if they are independent or are reusable.
+- ソフトウェアシステムのユーザーが開始した機能、およびそれらの相互接続されたサブシステムを一覧表示します。
+- どの関数でも、実行されたアクションと入力および出力データを追跡します。
+- 異なるユーザー関数間に関係がある場合は、それを見つけます。
+- さまざまなユーザー機能の性質、つまり、それらが独立しているか、再利用可能かを調べます。
 
-### Conditions
+### 条件
 
-Following activities should be performed as a part of building conditions based on user functions:
+以下の活動は、ユーザー機能に基づいた建築条件の一部として実行する必要があります。
 
-- For each and every user functions, a set of conditions should be prepared.
-- Timing, data conditions and other factors that affect user functions can be considered as parameters.
+- すべてのユーザー機能について、一連の条件を準備する必要があります。
+- タイミング、データ条件、およびユーザー機能に影響を与えるその他の要因は、パラメーターと見なすことができます。
 
-### Test Cases
+### テストケース
 
-Following factors should be considered for building test cases:
+テストケースを作成するには、次の要素を考慮する必要があります。
 
-- For every scenario, one or more test cases should be created to test each and every functionality of the user functions. If possible, these test cases should be automated through the standard CI/CD build pipeline processes with the track of each successful and failed build in AzDO.
-- Every single condition should be enlisted as a separate test case.
+- すべてのシナリオで、ユーザー機能のすべての機能をテストするために1つ以上のテストケースを作成する必要があります。可能であれば、これらのテストケースは、AzDOで成功したビルドと失敗したビルドを追跡する標準のCI/CDビルドパイプラインプロセスを通じて自動化する必要があります。
+- すべての条件は、個別のテストケースとして参加する必要があります。
 
-## Applying the E2E testing [The How]
+## E2Eテストの適用[その方法]
 
-Like any other testing, E2E testing also goes through formal planning, test execution, and closure phases.
+他のテストと同様に、E2Eテストも正式な計画、テストの実行、および終了のフェーズを経ます。
 
-E2E testing is done with the following steps:
+E2Eテストは、次の手順で実行されます。
 
-### Planning
+### 計画
 
-- Business and Functional Requirement analysis
-- Test plan development
-- Test case development
-- Production like Environment setup for the testing
-- Test data setup
-- Decide exit criteria
-- Choose the testing methods that most applicable to your system. For the definition of the various testing methods, please see [Testing Methods](./testing-methods.md) document.
+- ビジネスおよび機能要件の分析
+- テスト計画の作成
+- テストケースの開発
+- テスト用の環境設定のような本番環境
+- テストデータの設定
+- 終了基準を決定する
+- システムに最も適したテスト方法を選択してください。さまざまなテスト方法の定義については、[テスト方法](./testing-methods.md)のドキュメントを参照してください。
 
-### Pre-requisite
+### 前提条件
 
-- System Testing should be complete for all the participating systems.
-- All subsystems should be combined to work as a complete application.
-- Production like test environment should be ready.
+- システムテストは、参加しているすべてのシステムに対して完了する必要があります。
+- 完全なアプリケーションとして機能するには、すべてのサブシステムを組み合わせる必要があります。
+- テスト環境のような本番環境の準備ができている必要があります。
 
-### Test Execution
+### テストの実行
 
-- Execute the test cases
-- Register the test results and decide on pass and failure
-- Report the Bugs in the bug reporting tool
-- Re-verify the bug fixes
+- テストケースを実行する
+- テスト結果を登録し、合格と不合格を決定します
+- バグ報告ツールでバグを報告する
+- バグ修正を再確認する
 
-### Test closure
+### テストクロージャ
 
-- Test report preparation
-- Evaluation of exit criteria
-- Test phase closure
+- テストレポートの準備
+- 終了基準の評価
+- テストフェーズの終了
 
-### Test Metrics
+### テストメトリクス
 
-The tracing the quality metrics gives insight about the current status of testing. Some common metrics of E2E testing are:
+品質メトリックをトレースすると、テストの現在のステータスに関する洞察が得られます。E2Eテストの一般的なメトリックは次のとおりです。
 
-- **Test case preparation status**: Number of test cases ready versus the total number of test cases.
-- **Frequent Test progress**: Number of test cases executed in the consistent frequent manner, e.g. weekly, versus a target number of the test cases in the same time period.
-- **Defects Status**: This metric represents the status of the defects found during testing. Defects should be logged into defect tracking tool (e.g. AzDO backlog) and resolved as per their severity and priority. Therefore, the percentage of open and closed defects as per their severity and priority should be calculated to track this metric. The AzDO Dashboard Query can be used to track this metric.
-- **Test environment availability**: This metric tracks the duration of the test environment used for end-to-end testing versus its scheduled allocation duration.
+- **テストケースの準備状況**: 準備ができているテストケースの数とテストケースの総数。
+- **頻繁なテストの進行状況**: 同じ期間のテストケースの目標数に対する、一貫した頻繁な方法で実行されたテストケースの数（毎週など）。
+- **欠陥ステータス**: このメトリックは、テスト中に検出された欠陥のステータスを表します。欠陥は、欠陥追跡ツール（AzDOバックログなど）にログインし、重大度と優先度に従って解決する必要があります。したがって、このメトリックを追跡するには、重大度と優先度に応じたオープンおよびクローズの欠陥の割合を計算する必要があります。AzDOダッシュボードクエリを使用して、このメトリックを追跡できます。
+- **テスト環境の可用性**: このメトリックは、エンドツーエンドのテストに使用されるテスト環境の期間と、スケジュールされた割り当て期間を追跡します。
 
-## E2E Testing Frameworks and Tools
+## E2Eテストフレームワークとツール
 
 ### 1. Gauge Framework
 
 ![Gauge Framework](./images/gauge.jpg)
 
-Gauge is a free and open source framework for writing and running E2E tests. Some key features of Gauge that makes it unique include:
+Gaugeは、E2Eテストを作成および実行するための無料のオープンソースフレームワークです。ゲージをユニークにするいくつかの重要な機能は次のとおりです。
 
-- Simple, flexible and rich syntax based on Markdown.
-- Consistent cross-platform/language support for writing test code.
-- A modular architecture with plugins support.
-- Supports data driven execution and external data sources.
-- Helps you create maintainable test suites.
-- Supports Visual Studio Code, Intellij IDEA, IDE Support.
-- Supports html, json and XML reporting.
+- Markdownに基づくシンプルで柔軟で豊富な構文。
+- テストコードを書くための一貫したクロスプラットフォーム/言語サポート。
+- プラグインをサポートするモジュラーアーキテクチャ。
+- データ駆動型の実行と外部データソースをサポートします。
+- 保守可能なテストスイートの作成に役立ちます。
+- Visual Studio Code、Intellij IDEA、IDEサポートをサポートします。
+- html、json、およびXMLレポートをサポートします。
 
-[Gauge Framework Website](https://gauge.org/)
+[Gauge Framework のWebサイト](https://gauge.org/)
 
 ### 2. Robot Framework
 
 ![Robot Framework](./images/robot.jpg)
 
-Robot Framework is a generic open source automation framework. The framework has easy syntax, utilizing human-readable keywords. Its capabilities can be extended by libraries implemented with Python or Java.
+Robot Frameworkは、一般的なオープンソースの自動化フレームワークです。フレームワークは、人間が読めるキーワードを利用して、簡単な構文を持っています。その機能は、PythonまたはJavaで実装されたライブラリによって拡張できます。
 
-Robot shares a lot of the same "pros" as Gauge, except the developer tooling and the syntax. In our usage, we found the VS Code Intellisense offered with Gauge to be much more stable than the offerings for Robot. We also found the syntax to be less readable than what Gauge offered. While both frameworks allow for markup based test case definitions, the Gauge syntax reads much more like an English sentence than Robot. Finally, Intellisense is baked into the markup files for Gauge test cases, which will create a function stub for the actual test definition if the developer allows it. The same cannot be said of the Robot Framework.
+Robotは、開発者ツールと構文を除いて、Gaugeと同じ「長所」をたくさん共有しています。私たちの使用法では、Gaugeで提供されるVS Code Intellisenseは、Robotで提供されるものよりもはるかに安定していることがわかりました。また、Gaugeが提供する構文よりも構文が読みにくいことがわかりました。どちらのフレームワークでもマークアップベースのテストケース定義が可能ですが、Gauge構文はRobotよりも英語の文のように読みます。最後に、IntellisenseはGaugeテストケースのマークアップファイルに組み込まれます。これにより、開発者が許可した場合、実際のテスト定義の関数スタブが作成されます。ロボットフレームワークについても同じことは言えません。
 
-[Robot Framework Website](https://robotframework.org/#introduction)
+[Robot Framework のWebサイト](https://robotframework.org/#introduction)
 
 ### 3. TestCraft
 
 ![TestCraft](./images/TestCraft-logo.png)
 
-TestCraft is a codeless Selenium test automation platform. Its revolutionary AI technology and unique visual modeling allow for faster test creation and execution while eliminating test maintenance overhead.
+TestCraftは、コードレスのSeleniumテスト自動化プラットフォームです。その革新的なAIテクノロジーと独自のビジュアルモデリングにより、テストのメンテナンスのオーバーヘッドを排除しながら、テストの作成と実行を高速化できます。
 
-The testers create fully automated test scenarios without coding. Customers find bugs faster, release more frequently, integrate with the CI/CD approach and improve the overall quality of their digital products. This all creates a complete end-to-end testing experience.
+テスターは、コーディングなしで完全に自動化されたテストシナリオを作成します。顧客はバグをより早く見つけ、より頻繁にリリースし、CI / CDアプローチと統合し、デジタル製品の全体的な品質を向上させます。これにより、完全なエンドツーエンドのテストエクスペリエンスが実現します。
 
-[TestCraft Website](https://www.testcraft.io/?utm_campaign=SoftwareTestingHelp%20&utm_source=SoftwareTestingHelp&utm_medium=EndtoEndTestingPage) or get it  from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=testcraft.build-release-task)
+[TestCraft のWebサイト](https://www.testcraft.io/?utm_campaign=SoftwareTestingHelp%20&utm_source=SoftwareTestingHelp&utm_medium=EndtoEndTestingPage) もしくは [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=testcraft.build-release-task)から入手してください
 
 ### 4. Ranorex Studio
 
 ![Ranorex Studio](./images/ranorex-studio2.png)
 
-**Ranorex Studio** is a complete end-to-end test automation tool for desktop, web, and mobile applications. Create reliable tests fast without any coding at all, or using the full IDE. Use external CSV or Excel files, or a SQL database as inputs to your tests.
+**Ranorex Studio** は、デスクトップ、Web、およびモバイルアプリケーション向けの完全なエンドツーエンドのテスト自動化ツールです。コーディングをまったく行わずに、または完全なIDEを使用して、信頼性の高いテストをすばやく作成します。テストへの入力として、外部のCSVファイルまたはExcelファイル、あるいはSQLデータベースを使用します。
 
-Run tests in parallel or on a Selenium Grid with built-in Selenium WebDriver. Ranorex Studio integrates with your CI/CD process to shorten your release cycles without sacrificing quality.
+並列に、または組み込みのSeleniumWebDriverを備えたSeleniumグリッドでテストを実行します。RanorexStudioはCI/CDプロセスと統合して、品質を犠牲にすることなくリリースサイクルを短縮します。
 
-**Ranorex Studio** tests also integrate with Azure DevOps (AzDO), which can be run as part of a build pipeline in AzDO.
+**Ranorex Studio** テストは、AzDOのビルドパイプラインの一部として実行できるAzure DevOps（AzDO）とも統合されています。
 
-[Ranorex Studio Website](https://www.ranorex.com/ranorex-studio-test-automation/?utm_source=softwaretestinghelp&utm_medium=cpc&utm_campaign=softwaretestinghelp_what-is-end-to-end-testing) or read about its [integration with AzDO](https://www.ranorex.com/help/latest/interfaces-connectivity/azure-devops-integration/introduction/)
+[Ranorex Studio  のWebサイト](https://www.ranorex.com/ranorex-studio-test-automation/?utm_source=softwaretestinghelp&utm_medium=cpc&utm_campaign=softwaretestinghelp_what-is-end-to-end-testing)または [AzDOとの統合](https://www.ranorex.com/help/latest/interfaces-connectivity/azure-devops-integration/introduction/)について
 
 ### 5. Katalon Studio
 
 ![Katalon](./images/New-Logo-Katalon-Studio.png)
 
-**Katalon Studio** is an excellent end-to-end automation solution for web, API, mobile, and desktop testing with DevOps support.
+**Katalon Studio**は、DevOpsをサポートする、Web、API、モバイル、およびデスクトップのテストのための優れたエンドツーエンドの自動化ソリューションです。
 
-With Katalon Studio, automated testing can be easily integrated into any CI/CD pipeline to release products faster while guaranteeing high quality. Katalon Studio customizes for users from beginners to experts. Robust functions such as Spying, Recording, Dual-editor interface and Custom Keywords make setting up, creating and maintaining tests possible for users.
+Katalon Studioを使用すると、自動テストをCI / CDパイプラインに簡単に統合して、高品質を保証しながら製品をより迅速にリリースできます。Katalon Studioは、初心者から専門家までのユーザー向けにカスタマイズします。スパイ、記録、デュアルエディターインターフェース、カスタムキーワードなどの堅牢な機能により、ユーザーがテストを設定、作成、維持できるようになります。
 
-Built on top of Selenium and Appium, Katalon Studio helps standardize your end-to-end tests standardized. It also complies with the most popular frameworks to work seamlessly with other tools in the automated testing ecosystem.
+SeleniumとAppiumの上に構築されたKatalonStudioは、標準化されたエンドツーエンドのテストを標準化するのに役立ちます。また、最も一般的なフレームワークに準拠しており、自動テストエコシステムの他のツールとシームレスに連携します。
 
-Katalon is endorsed by Gartner, IT professionals, and a large testing community.
+Katalonは、Gartner、ITプロフェッショナル、および大規模なテストコミュニティによって承認されています。
 
-> Note: At the time of this writing, Katalon Studio extension for AzDO was NOT available for Linux.
+> 注：この記事の執筆時点では、AzDO用のKatalonStudio拡張機能はLinuxでは使用できませんでした。
 
-[Katalon Studio Website](https://www.katalon.com/) or read about its [integration with AzDO](https://docs.katalon.com/katalon-studio/docs/azure-devops-extension.html#installation)
+[Katalon Studio  のWebサイト](https://www.katalon.com/) もしくは [AzDOとの統合](https://docs.katalon.com/katalon-studio/docs/azure-devops-extension.html#installation)について
 
-## Conclusion
+## 結論
 
-Hope you learned various aspects of E2E testing like its processes, metrics, the difference between Unit, Integration  and E2E testing, and the various recommended E2E test frameworks and tools.
+プロセス、メトリック、ユニット、統合、E2Eテストの違い、推奨されるさまざまなE2Eテストフレームワークやツールなど、E2Eテストのさまざまな側面を学んだことを願っています。
 
-For any commercial release of the software, E2E test verification plays an important role as it tests the entire application in an environment that exactly imitates real-world users like network communication, middleware and backend services interaction, etc.
+ソフトウェアの商用リリースでは、E2Eテスト検証は、ネットワーク通信、ミドルウェア、バックエンドサービスの相互作用など、実際のユーザーを正確に模倣する環境でアプリケーション全体をテストするため、重要な役割を果たします。
 
-Finally, the E2E test is often performed manually as the cost of automating such test cases is too high to be afforded by any organization. Having said that, the ultimate goal of each organization is to make the e2e testing as streamlined as possible adding full and semi-automation testing components into the process. Hence, the various E2E testing frameworks and tools listed in this article come to the rescue.
+最後に、E2Eテストは、そのようなテストケースを自動化するコストが高すぎて組織が負担できないため、手動で実行されることがよくあります。そうは言っても、各組織の最終的な目標は、e2eテストを可能な限り合理化して、プロセスに全自動および半自動のテストコンポーネントを追加することです。したがって、この記事にリストされているさまざまなE2Eテストフレームワークとツールが役に立ちます。
 
-## Resources
+## 参考資料
 
-- [Wikipedia: Software testing](https://en.wikipedia.org/wiki/Software_testing)
-- [Wikipedia: Unit testing](https://en.wikipedia.org/wiki/Unit_testing)
-- [Wikipedia: Integration testing](https://en.wikipedia.org/wiki/Integration_testing)
-- [Wikipedia: System testing](https://en.wikipedia.org/wiki/System_testing)
+- [ウィキペディア：ソフトウェアテスト](https://en.wikipedia.org/wiki/Software_testing)
+- [ウィキペディア：ユニットテスト](https://en.wikipedia.org/wiki/Unit_testing)
+- [ウィキペディア：統合テスト](https://en.wikipedia.org/wiki/Integration_testing)
+- [ウィキペディア：システムテスト](https://en.wikipedia.org/wiki/System_testing)

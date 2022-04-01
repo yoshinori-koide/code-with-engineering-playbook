@@ -1,172 +1,121 @@
-# Performance Testing
+# 性能試験
 
-Performance Testing is an overloaded term that is used to refer to several
-subcategories of performance related testing, each of which has different purpose.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/performance-testing/
 
-A good description of overall performance testing is as follows:
+パフォーマンステストは、パフォーマンス関連のテストのいくつかのサブカテゴリを指すために使用される過負荷の用語であり、それぞれが異なる目的を持っています。
 
-> Performance testing is a type of testing intended to determine the
-responsiveness, throughput, reliability, and/or scalability of a system under a
-given workload. [Performance Testing Guidance for Web
-Applications](https://docs.microsoft.com/en-us/archive/blogs/dajung/ebook-pnp-performance-testing-guidance-for-web-applications).
+全体的なパフォーマンステストの適切な説明は次のとおりです。
 
-Before getting into the different subcategories of performance tests let us
-understand why performance testing is typically done.
+> パフォーマンステストは、特定のワークロードでのシステムの応答性、スループット、信頼性、および/またはスケーラビリティを判断することを目的としたテストの一種です。[Webアプリケーションのパフォーマンステストガイダンス](https://docs.microsoft.com/en-us/archive/blogs/dajung/ebook-pnp-performance-testing-guidance-for-web-applications).
 
-## Why Performance Testing
+パフォーマンステストのさまざまなサブカテゴリに入る前に、パフォーマンステストが通常行われる理由を理解しましょう。
 
-Performance testing is commonly conducted to accomplish one or more the
-following:
+## パフォーマンステストを行う理由
 
-- **Tune the system's performance**
+パフォーマンステストは通常​​、次の1つ以上を達成するために実施されます。
 
-  - Identifying bottlenecks and issues with the system at different load
-    levels.
+- **システムのパフォーマンスを調整する**
 
-  - Comparing performance characteristics of the system for different system
-    configurations.
+  - さまざまな負荷レベルでのシステムのボトルネックと問題を特定します。
 
-  - Come up with a scaling strategy for the system.
+  - さまざまなシステム構成のシステムのパフォーマンス特性を比較します。
 
-- Assist in **capacity planning**
+  - システムのスケーリング戦略を考え出します。
 
-  - Capacity planning is the process of determining what type of hardware and
-    software resources are required to run an application to support pre-defined performance goals.
+- **キャパシティプランニング**を支援する
 
-  - Capacity planning involves identifying business
-    expectations, the periodic fluctuations of application usage, considering
-    the cost of running the hardware and software infrastructure.
+  - キャパシティプランニングは、事前定義されたパフォーマンス目標をサポートするためにアプリケーションを実行するために必要なハードウェアおよびソフトウェアリソースのタイプを決定するプロセスです。
 
-- Assess the **system's readiness** for release:
+  - キャパシティプランニングには、ハードウェアおよびソフトウェアインフラストラクチャの実行コストを考慮して、ビジネスの期待、アプリケーション使用量の定期的な変動を特定することが含まれます。
+
+- リリースに向けた**システムの準備状況** の評価
   
-  - Evaluating the system's performance characteristics (response time, throughput)
-  in a production-like environment.
-  The goal is to ensure that performance goals can be achieved upon release.
+  - 本番環境のような環境でのシステムのパフォーマンス特性（応答時間、スループット）の評価。目標は、リリース時にパフォーマンスの目標を確実に達成できるようにすることです。
 
-- Evaluate the **performance impact of application changes**
+- **アプリケーションの変更によるパフォーマンスへの影響** の評価
 
-  - Comparing the performance characteristics of an application after a change
-    to the values of performance characteristics during previous runs (or
-    baseline values), can provide an indication of performance issues (performance regression) or
-    enhancements introduced due to a change
+  - 以前の実行中のパフォーマンス特性の値（またはベースライン値）を変更した後のアプリケーションのパフォーマンス特性を比較すると、パフォーマンスの問題（パフォーマンスの低下）または変更によって導入された拡張機能を示すことができます。
   
-## Key Performance Testing categories
+## 主要なパフォーマンステストのカテゴリ
 
-Performance testing is a broad topic. There are many areas where you can perform
-tests. In broad strokes you can perform tests on the backend and on the front
-end. You can test the performance of individual components as well as testing
-the end\-to\-end functionality.
+パフォーマンステストは幅広いトピックです。テストを実行できる領域はたくさんあります。広いストロークでは、バックエンドとフロントエンドでテストを実行できます。個々のコンポーネントのパフォーマンスをテストするだけでなく、エンドツーエンドの機能をテストすることもできます。
 
-There are several categories of tests as well:
+テストにはいくつかのカテゴリもあります。
 
-### [Load Testing](./load-testing.md)
+### [負荷テスト](./load-testing.md)
 
-This is the subcategory of performance testing that focuses on validating the
-performance characteristics of a system, when the system faces the load volumes
-which are expected during production operation. An **Endurance Test** or a **Soak Test**
-is a load test carried over a long duration ranging from several hours to
-days.
+これは、システムが実稼働中に予想される負荷量に直面したときに、システムのパフォーマンス特性を検証することに焦点を当てたパフォーマンステストのサブカテゴリです。**耐久性テスト** もしくは**ソークテスト** は、数時間から数日にわたる長期間にわたって実施される負荷テストです。
 
-### Stress Testing
+### ストレステスト
 
-This is the subcategory of performance testing that focuses on validating the
-performance characteristics of a system when the system faces extreme load. The
-goal is to evaluate how does the system handles being pressured to its limits,
-does it recover (i.e., scale\-out) or does it just break and fail?
+これは、システムが極端な負荷に直面したときにシステムのパフォーマンス特性を検証することに焦点を当てたパフォーマンステストのサブカテゴリです。目標は、システムが限界までのプレッシャーにどのように対処するか、回復するか（つまり、スケールアウトするか）、または単に壊れて失敗するかを評価することです。
 
-### Endurance Testing
+### 耐久性試験
 
-The goal of endurance testing is to make sure that the system can maintain
-good performance under extended periods of load.
+耐久性テストの目標は、システムが長期間の負荷の下で良好なパフォーマンスを維持できることを確認することです。
 
-### Spike testing
+### スパイクテスト
 
-The goal of Spike testing is to validate that a software system can respond well
-to large and sudden spikes.
+スパイクテストの目標は、ソフトウェアシステムが大規模で突然の大波に適切に応答できることを検証することです。
 
-### Chaos testing
+### カオステスト
 
-Chaos testing or Chaos engineering is the practice of experimenting on a system
-to build confidence that the system can withstand turbulent conditions in
-production. Its goal is to identify weaknesses before they manifest system wide.
-Developers often implement fallback procedures for service failure. Chaos
-testing arbitrarily shuts down different parts of the system to validate that
-fallback procedures function correctly.
+カオステストまたはカオスエンジニアリングは、システムが生産中の乱流条件に耐えることができるという確信を構築するために、システムで実験する方法です。その目標は、システム全体に現れる前に弱点を特定することです。開発者は、サービス障害のフォールバック手順を実装することがよくあります。カオステストは、フォールバック手順が正しく機能することを検証するために、システムのさまざまな部分を任意にシャットダウンします。
 
-## Performance monitor metrics
+## パフォーマンスモニターのメトリック
 
-When executing the various types of testing approaches, whether it is stress,
-endurance, spike, or chaos testing, it is important to capture various
-metrics to see how the system performs.
+パフォーマンスモニターのメトリック
 
-At the basic hardware level, there are four areas to consider.
+基本的なハードウェアレベルでは、考慮すべき4つの領域があります。
 
-- Physical disk
-- Memory
-- Processor
-- Network
+- 物理ディスク
+- メモリー
+- プロセッサー
+- 通信網
 
-These four areas are inextricably linked, meaning that poor performance in one
-area will lead to poor performance in another area. Engineers concerned with
-understanding application performance, should focus on these four core areas.
+これらの4つの領域は密接に関連しています。つまり、ある領域でパフォーマンスが低下すると、別の領域でパフォーマンスが低下します。アプリケーションのパフォーマンスの理解に関心のあるエンジニアは、これら4つのコア領域に焦点を当てる必要があります。
 
-The classic example of how performance in one area can affect performance in
-another area is memory pressure.
+ある領域のパフォーマンスが別の領域のパフォーマンスにどのように影響するかを示す典型的な例は、メモリの負荷です。
 
-If an application's available memory is running low, the operating system will
-try to compensate for shortages in memory by transferring pages of data from
-memory to disk, thus freeing up memory. But this work requires help from the CPU
-and the physical disk.
+アプリケーションの使用可能なメモリが不足している場合、オペレーティングシステムは、データのページをメモリからディスクに転送してメモリを解放することにより、メモリの不足を補おうとします。ただし、この作業にはCPUと物理ディスクの支援が必要です。
 
-This means that when you look at performance when there are low amounts of
-memory, you will also notice spikes in disk activity as well as CPU.
+つまり、メモリの量が少ない場合のパフォーマンスを見ると、CPUだけでなくディスクアクティビティも急上昇していることがわかります。
 
-## Physical Disk
+## 物理ディスク
 
-Almost all software systems are dependent on the performance of the physical
-disk. This is especially true for the performance of databases. More modern
-approaches to using SSD’s for physical disk storage can dramatically improve the
-performance of applications. Here are some of the metrics that you can capture
-and analyze:
+ほとんどすべてのソフトウェアシステムは、物理ディスクのパフォーマンスに依存しています。これは、データベースのパフォーマンスに特に当てはまります。物理ディスクストレージにSSDを使用するための最新のアプローチにより、アプリケーションのパフォーマンスを劇的に向上させることができます。キャプチャして分析できるメトリックの一部を次に示します。
 
 | Counter | Description  |
 |:-------------------- |:--------------------  |
-| Avg. Disk Queue Length | This value is derived using the (Disk Transfers/sec)*(Disk sec/Transfer) counters. This metric describes the disk queue over time, smoothing out any quick spikes. Having any physical disk with an average queue length over 2 for prolonged periods of time can be an indication that your disk is a bottleneck.  |
-| % Idle Time | This is a measure of the percentage of time that the disk was idle. ie. there are no pending disk requests from the operating system waiting to be completed. A low number here is a positive sign that disk has excess capacity to service or write requests from the operating system.  |
-| Avg. Disk sec/Read and Avg. Disk sec/Write | These both measure the latency of your disks. Latency is defined as the average time it takes for a disk transfer to complete. You obviously want is low numbers as possible but need to be careful to account for inherent speed differences between SSD and traditional spinning disks. For this counter is important to define a baseline after the hardware is installed. Then use this value going forward to determine if you are experiencing any latency issues related to the hardware.  |
-| Disk Reads/sec and Disk Writes/sec | These counters each measure the total number of IO requests completed per second. Similar to the latency counters, good and bad values for these counters depend on your disk hardware but values higher than your initial baseline don't normally point to a hardware issue in this case. This counter can be useful to identify spikes in disk I/O.  |
+| 平均 ディスクキューの長さ | この値は、（Disk Transfers / sec）*（Disk sec / Transfer）カウンターを使用して算出されます。このメトリックは、時間の経過に伴うディスクキューを表し、急激なスパイクを滑らかにします。平均キュー長が2を超える物理ディスクを長期間使用している場合は、ディスクがボトルネックになっている可能性があります。 |
+| ％ アイドルタイム | これは、ディスクがアイドル状態だった時間の割合の尺度です。すなわち。完了するのを待っているオペレーティングシステムからの保留中のディスク要求はありません。ここでの低い数値は、ディスクにオペレーティングシステムからの要求を処理または書き込むための過剰な容量があることを示す肯定的な兆候です。 |
+| 平均 ディスク秒/読み取りおよび平均 ディスク秒/書き込み | これらは両方とも、ディスクの遅延を測定します。遅延は、ディスク転送が完了するまでにかかる平均時間として定義されます。明らかに必要なのは可能な限り少ない数値ですが、SSDと従来の回転ディスクの固有の速度の違いを考慮する必要があります。このカウンターでは、ハードウェアのインストール後にベースラインを定義することが重要です。次に、この値を使用して、ハードウェアに関連する遅延の問題が発生しているかどうかを判断します。  |
+| ディスク読み取り/秒およびディスク書き込み/秒 | これらのカウンターはそれぞれ、1秒あたりに完了したIO要求の総数を測定します。レイテンシーカウンターと同様に、これらのカウンターの良い値と悪い値はディスクハードウェアによって異なりますが、この場合、通常、初期ベースラインよりも高い値はハードウェアの問題を示していません。このカウンターは、ディスクI/Oのスパイクを識別するのに役立ちます。  |
 
-## Processor
+## プロセッサー
 
-It is important to understand the amount of time spent in kernel or privileged
-mode. In general, if code is spending too much time executing operating system
-calls, that could be an area of concern because it will not allow you to run
-your user mode applications, such as your databases, Web servers/services, etc.
+カーネルモードまたは特権モードで費やされた時間を理解することが重要です。一般に、コードがオペレーティングシステムコールの実行に多くの時間を費やしている場合、データベース、Webサーバー/サービスなどのユーザーモードアプリケーションを実行できないため、これは懸念事項となる可能性があります。
 
-The guideline is that the CPU should only spend about 20% of the total processor
-time running in kernel mode.
+ガイドラインでは、CPUはカーネルモードで実行されている合計プロセッサ時間の約20％のみを費やす必要があります。
 
 | Counter | Description  |
 |:-------------------- |:--------------------  |
-| % Processor time | This is the percentage of total elapsed time that the processor was busy executing. This counter can either be too high or too low. If your processor time is consistently below 40%, then there is a question as to whether you have over provisioned your CPU. 70% is generally considered a good target number and if you start going higher than 70%, you may want to explore why there is high CPU pressure.
-| % Privileged (Kernel Mode) time | This measures the percentage of elapsed time the processor spent executing in kernel mode. Since this counter takes into account only kernel operations a high percentage of privileged time (greater than 25%) may indicate driver or hardware issue that should be investigated.  |
-| % User time | The percentage of elapsed time the processor spent executing in user mode (your application code). A good guideline is to be consistently below 65% as you want to have some buffer for both the kernel operations mentioned above as well as any other bursts of CPU required by other applications.  |
-| Queue Length | This is the number of threads that are ready to execute but waiting for a core to become available. On single core machines a sustained value greater than 2-3 can mean that you have some CPU pressure. Similarly, for a multicore machine divide the queue length by the number of cores and if that is continuously greater than 2-3 there might be CPU pressure.  |
+| ％プロセッサ時間 | これは、プロセッサが実行でビジー状態だった合計経過時間のパーセンテージです。このカウンターは高すぎるか低すぎる可能性があります。プロセッサ時間が常に40％を下回っている場合は、CPUをオーバープロビジョニングしたかどうかについて疑問があります。70％は一般に適切な目標数と見なされ、70％を超え始めた場合は、CPUの負荷が高い理由を調査することをお勧めします。|
+| ％特権（カーネルモード）時間 | これは、プロセッサがカーネルモードでの実行に費やした経過時間のパーセンテージを測定します。このカウンターはカーネル操作のみを考慮しているため、特権時間の割合が高い（25％を超える）場合は、調査が必要なドライバーまたはハードウェアの問題を示している可能性があります。 |
+| ％ユーザー時間 | プロセッサがユーザーモード（アプリケーションコード）での実行に費やした経過時間の割合。上記のカーネル操作と、他のアプリケーションで必要なCPUのその他のバーストの両方にある程度のバッファーが必要なため、適切なガイドラインは常に65％未満にすることです。 |
+| キューの長さ | これは、実行の準備ができているが、コアが使用可能になるのを待っているスレッドの数です。シングルコアマシンでは、2〜3を超える持続値は、CPUにある程度の負荷がかかっていることを意味する場合があります。同様に、マルチコアマシンの場合、キューの長さをコアの数で割ります。それが継続的に2〜3を超える場合は、CPUに負荷がかかる可能性があります。 |
 
-## Network Adapter
+## ネットワークアダプター
 
-Network speed is often a hidden culprit of poor performance. Finding the root
-cause to poor network performance is often difficult. The source of issues can
-originate from bandwidth hogs such as videoconferencing, transaction data,
-network backups, recreational videos.
+多くの場合、ネットワーク速度はパフォーマンス低下の隠れた原因です。多くの場合、ネットワークパフォーマンスの低下の根本原因を見つけることは困難です。問題の原因は、ビデオ会議、トランザクションデータ、ネットワークバックアップ、レクリエーションビデオなどの帯域幅の浪費に起因する可能性があります。
 
-In fact, the three most common reasons for a network slow down are:
+実際、ネットワークの速度が低下する最も一般的な3つの理由は次のとおりです。
 
-- Congestion
-- Data corruption
-- Collisions
+- 混雑
+- データの破損
+- 衝突
 
-Some of the tools that can help include:
+役立つツールには、次のものがあります。:
 
 - ifconfig
 - netstat
@@ -175,97 +124,80 @@ Some of the tools that can help include:
 - tcpdump
 - WireShark
 
-Troubleshooting network performance usually begins with checking the hardware.
-Typical things to explore is whether there are any loose wires or checking that
-all routers are powered up. It is not always possible to do so, but sometimes a
-simple case of power recycling of the modem or router can solve many problems.
+ネットワークパフォーマンスのトラブルシューティングは通常、ハードウェアのチェックから始まります。調査する典型的なことは、配線が緩んでいないかどうか、またはすべてのルーターの電源が入っていることを確認することです。常にそうすることが可能であるとは限りませんが、モデムまたはルーターのパワーリサイクルの単純なケースで多くの問題を解決できる場合があります。
 
-Network specialists often perform the following sequence of troubleshooting steps:
+ネットワークスペシャリストは、多くの場合、次の一連のトラブルシューティング手順を実行します。
 
-- Check the hardware
-- Use IP config
-- Use ping and tracert
-- Perform DNS Check
+- ハードウェアを確認してください
+- ipconfigを使用する
+- pingとtracertを使用する
+- DNSチェックを実行する
 
-More advanced approaches often involve looking at some of the networking
-performance counters, as explained below.
+以下で説明するように、より高度なアプローチでは、多くの場合、ネットワークパフォーマンスカウンターのいくつかを調べる必要があります。
 
-### Network Counters
+### ネットワークカウンター
 
-The table above gives you some reference points to better understand what you
-can expect out of your network. Here are some counters that can help you
-understand where the bottlenecks might exist:
+上記の表は、ネットワークに期待できることをよりよく理解するためのいくつかの参照ポイントを示しています。ボトルネックが存在する可能性のある場所を理解するのに役立ついくつかのカウンターを次に示します。
 
-| Counter | Description  |
+| カウンター | 説明  |
 |:-------------------- |:--------------------  |
-| Bytes Received/sec | The rate at which bytes are received over each network adapter.  |
-| Bytes Sent/sec | The rate at which bytes are sent over each network adapter.  |
-| Bytes Total/sec | The number of bytes sent and received over the network.  |
-| Segments Received/sec | The rate at which segments are received for the protocol  |
-| Segments Sent/sec | The rate at which segments are sent.  |
-| % Interrupt Time | The percentage of time the processor spends receiving and servicing hardware interrupts. This value is an indirect indicator of the activity of devices that generate interrupts, such as network adapters.  |
+| 受信バイト数/秒 | 各ネットワークアダプタを介してバイトが受信される速度。  |
+| 送信バイト数/秒 | 各ネットワークアダプタを介してバイトが送信される速度。 |
+| 合計バイト数/秒 | ネットワークを介して送受信されたバイト数。 |
+| 受信したセグメント/秒 | プロトコルでセグメントが受信されるレート |
+| 送信されたセグメント/秒 | セグメントが送信されるレート。 |
+| ％割り込み時間 | プロセッサがハードウェア割り込みの受信とサービスに費やす時間の割合。この値は、ネットワークアダプターなど、割り込みを生成するデバイスのアクティビティの間接的な指標です。 |
 
-> There is an important distinction between **latency** and **throughput**.
-**Latency** measures the time it takes for a packet to be transferred across the
-network, either in terms of a one\-way transmission or a round\-trip
-transmission. **Throughput** is different and attempts to measure the quantity
-of data being sent and received within a unit of time.
+> **レイテンシ/遅延** と **スループット**には重要な違いがあります。**レイテンシ/遅延**は、パケットがネットワークを介して転送されるのにかかる時間を、一方向の送信または往復の送信のいずれかで測定します。**スループット**は異なり、単位時間内に送受信されるデータの量を測定しようとします。
 
-## Memory
+## メモリー
 
-| Counter | Description  |
+| カウンター | 説明  |
 |:-------------------- |:--------------------  |
-| Available MBs | This counter represents the amount of memory that is available to applications that are executing. Low memory can trigger Page Faults, whereby additional pressure is put on the CPU to swap memory to and from the disk. if the amount of available memory dips below 10%, more memory should be obtained.  |
-| Pages/sec | This is actually the sum of &quot;Pages Input/sec&quot; and &quot;Pages Output/sec&quot; counters which is the rate at which pages are being read and written as a result of pages faults. Small spikes with this value do not mean there is an issue but sustained values of greater than 50 can mean that system memory is a bottleneck.  |
-| Paging File(_Total)\% Usage | The percentage of the system page file that is currently in use. This is not directly related to performance, but you can run into serious application issues if the page file does become completely full and additional memory is still being requested by applications.  |
+| 利用可能 MB | このカウンターは、実行中のアプリケーションが使用できるメモリの量を表します。メモリが少ないとページフォールトが発生する可能性があります。これにより、ディスクとの間でメモリを交換するためにCPUに追加の圧力がかかります。使用可能なメモリの量が10％を下回る場合は、より多くのメモリを取得する必要があります。 |
+| ページ/秒 | これは、実際には「ページ入力/秒」と「ページ出力/秒」カウンターの合計であり、ページフォールトの結果としてページが読み書きされる速度です。この値の小さなスパイクは問題があることを意味しませんが、50を超える持続値は、システムメモリがボトルネックであることを意味する可能性があります。 |
+| ページングファイル（_Total）\％使用量 | 現在使用されているシステムページファイルの割合。これはパフォーマンスとは直接関係ありませんが、ページファイルが完全にいっぱいになり、アプリケーションから追加のメモリが要求されている場合は、アプリケーションで重大な問題が発生する可能性があります。 |
 
-## Key Performance testing activities
+## 主要なパフォーマンステスト活動
 
-Performance testing activities vary depending on the subcategory of performance
-testing and the system's requirements and constraints. For specific guidance you can
-follow the link to the subcategory of performance tests listed above.
-The following activities might be included depending on the performance test subcategory:
+パフォーマンステストのアクティビティは、パフォーマンステストのサブカテゴリとシステムの要件および制約によって異なります。具体的なガイダンスについては、上記のパフォーマンステストのサブカテゴリへのリンクをたどることができます。パフォーマンステストのサブカテゴリによっては、次のアクティビティが含まれる場合があります。
 
-### Identify the Acceptance criteria for the tests
+### テストの合格基準を特定する
 
-This will generally include identifying the goals and constraints
-for the performance characteristics of the system
+これには通常、システムのパフォーマンス特性の目標と制約を特定することが含まれます
 
-### Plan and design the tests
+### テストの計画と設計
 
-In general we need to consider the following points:
+一般に、次の点を考慮する必要があります。
 
-- Defining the load the application should be tested with
+- アプリケーションをテストする必要がある負荷の定義
 
-- Establishing the metrics to be collected
+- 収集するメトリックを確立する
 
-- Establish what tools will be used for the tests
+- テストに使用するツールを確立します
 
-- Establish the performance test frequency: whether the performance tests be
-  done as a part of the feature development sprints, or only prior to release to
-  a major environment?
+- パフォーマンステストの頻度を確立します。パフォーマンステストを機能開発スプリントの一部として実行するのか、それとも主要な環境にリリースする前にのみ実行するのか。
 
-### Implementation
+### 実装
 
-- Implement the performance tests according to the designed approach.
+- 設計されたアプローチに従ってパフォーマンステストを実装します。
 
-- Instrument the system and ensure that is emitting the needed performance metrics.
+- システムをインストルメント化し、必要なパフォーマンスメトリックを放出していることを確認します。
 
-### Test Execution
+### テストの実行
 
-- Execute the tests and collect performance metrics.
+- テストを実行し、パフォーマンスメトリックを収集します。
 
-### Result analysis and re-testing
+### 結果の分析と再テスト
 
-- Analyze the results/performance metrics from the tests.
+- テストの結果/パフォーマンスメトリックを分析します。
 
-- Identify needed changes to tweak the system (i.e., code, infrastructure) to better accommodate the test objectives.
+- テストの目的によりよく対応するために、システム（つまり、コード、インフラストラクチャ）を微調整するために必要な変更を特定します。
 
-- Then test again. This cycle continues until the test objective is achieved.
+- その後、もう一度テストします。このサイクルは、テストの目的が達成されるまで続きます。
 
-The [Iterative Performance Test Template](./iterative-perf-test-template.md) can be used to capture details about the test result for every iterations.
+[Iterative/反復パフォーマンステストテンプレート](./iterative-perf-test-template.md)を使用して、反復ごとのテスト結果に関する詳細をキャプチャできます。
 
-## Resources
+## 参考資料
 
-- [Patters and Practices: Performance Testing Guidance for Web
-  Applications](https://docs.microsoft.com/en-us/archive/blogs/dajung/ebook-pnp-performance-testing-guidance-for-web-applications)
+- [パターンと実践：Webアプリケーションのパフォーマンステストガイダンス](https://docs.microsoft.com/en-us/archive/blogs/dajung/ebook-pnp-performance-testing-guidance-for-web-applications)

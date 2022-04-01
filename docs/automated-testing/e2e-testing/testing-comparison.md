@@ -1,14 +1,16 @@
-# Unit vs Integration vs System vs E2E Testing
+# ユニットvs統合vsシステムvsE2Eテスト
 
-The table below illustrates the most critical characteristics and differences among Unit, Integration, System, and End-to-End Testing, and when to apply each methodology in a project.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/e2e-testing/testing-comparison/
 
-|  | Unit Test | Integration Test | System Testing | E2E Test |
+次の表は、ユニット、統合、システム、およびエンドツーエンドのテスト間の最も重要な特性と違い、およびプロジェクトで各方法論をいつ適用するかを示しています。
+
+|  | 単体テスト	 | 統合テスト | システムテスト | E2Eテスト |
 |----|-----------|------------|------|----------|
-| **Scope** | Modules, APIs | Modules, interfaces | Application, system | All sub-systems, network dependencies, services and databases |
-| **Size** | Tiny | Small to medium | Large | X-Large |
-| **Environment** | Development | Integration test | QA test | Production like |
-| **Data** | Mock data | Test data | Test data | Copy of real production data |
-| **System Under Test** | Isolated unit test | Interfaces and flow data between the modules | Particular system as a whole | Application flow from start to end |
-| **Scenarios** | Developer perspectives | Developers and IT Pro tester perspectives | Developer and QA tester perspectives | End-user perspectives |
-| **When** | After each build | After Unit testing | Before E2E testing and after Unit and Integration testing | After System testing |
-**Automated or Manual** | Automated | Manual or automated  | Manual or automated | Manual |
+| **範囲** | モジュール、APIs | モジュール、インターフェース | アプリケーション、システム | すべてのサブシステム、ネットワークの依存関係、サービス、およびデータベース |
+| **サイズ** | 小さい | 小から中 | 大きい | XL |
+| **環境** | 開発 | 統合テスト | QAテスト | 本番相当 |
+| **データ** | モックデータ | テストデータ | テストデータ | 実際の本番データ相当 |
+| **テスト対象システム** | 分離された単体テスト | モジュール間のインターフェースとフローデータ | 全体としての特定のシステム | 最初から最後までのアプリケーションフロー |
+| **シナリオ** | 開発者の視点 | 開発者とITプロテスターの視点 | 開発者とQAテスターの視点 | エンドユーザーの視点 |
+| **いつ** | 各ビルド後 | ユニットテスト後 | E2Eテストの前とユニットおよび統合テストの後 | システムテスト後 |
+**自動または手動** | 自動 | 手動または自動  | 手動または自動 | マニュアル |

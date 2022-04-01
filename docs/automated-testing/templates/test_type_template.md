@@ -1,58 +1,60 @@
-# Insert Test Technique Name Here
+# ここにテスト手法の名前を挿入します
 
-Put a 2-3 sentence overview about the test technique here.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/templates/test_type_template/
 
-## When To Use
+ここに、テスト手法に関する2〜3文の概要を記載します。
 
-### Problem Addressed
+## いつ使用するか
 
-Describing the problem that this test type addresses, this should focus on the motivation behind the test type/technique to help the reader correlate this technique to their problem.
+### 対処された問題
 
-### When to Avoid
+このテストタイプが対処する問題を説明する場合、これは、読者がこのテクニックを問題に関連付けるのに役立つ、テストタイプ/テクニックの背後にある動機に焦点を当てる必要があります。
 
-Describe when NOT to use, if applicable.
+### 避けるべきとき
 
-### ROI Tipping Point
+該当する場合は、使用しない場合を説明してください。
 
-How much is enough?  For example, some opine that unit test ROI drops significantly at 80% block coverage and when the codebase is well-exercised by real traffic in production.
+### ROIの転換点
 
-### Applicable to
+いくらで十分ですか？たとえば、単体テストのROIが80％のブロックカバレッジで大幅に低下し、コードベースが本番環境の実際のトラフィックによって十分に実行されている場合、一部の意見があります。
 
-- [ ] Local dev 'desktop'
-- [ ] Build pipelines
-- [ ] Non-production deployments
-- [ ] Production deployments
+### 適用可能
+
+- [ ] ローカル開発者'デスクトップ'
+- [ ] パイプラインを構築する
+- [ ] 非実稼働展開
+- [ ] 本番環境への展開
   
-## NOTE: If there is great (clear, succinct) documentation for the technique on the web, supply a pointer and skip the rest of this template.  No need to re-type content
+## 注: Web上にこの手法に関する優れた（明確で簡潔な）ドキュメントがある場合は、ポインターを指定して、このテンプレートの残りの部分をスキップしてください。コンテンツを再入力する必要はありません
 
-## How to Use
+## 使い方
 
-### Architecture
+### アーキテクチャ
 
-Describe the components of the technique and how they interact with each other and the subject of the test technique.  Add a simple diagram of how the technique's parts are organized, if helpful to illustrate.
+テクニックのコンポーネントと、それらが互いにどのように相互作用するか、およびテストテクニックの主題を説明します。説明に役立つ場合は、テクニックのパーツがどのように編成されているかを示す簡単な図を追加します。
 
-### Pre-requisites
+### 前提条件
 
-Anything required in advance?
+事前に必要なものはありますか？
 
-### High-level Step-by-step
+### 大まかな Step-by-step
 
 1.
 1.
 1.
 
-## Best Practices and Advice
+## ベストプラクティスとアドバイス
 
-Describe what good testing looks like for this technique, best practices, pitfalls.
+この手法、ベストプラクティス、落とし穴について、適切なテストがどのように見えるかを説明してください。
 
-### Anti patterns
+### アンチパターン
 
-e.g. unit tests should never require off-box or even out-of-process dependencies.  Are there similar things to avoid when applying this technique?
+たとえば、単体テストでは、オフボックスまたはアウトプロセスの依存関係さえも必要としないはずです。このテクニックを適用するときに避けるべき同様のことはありますか？
 
-## Frameworks, Tools, Templates
+## フレームワーク、ツール、テンプレート
 
-Describe known good (i.e. actually used and known to provide good results) frameworks, tools, templates, their pros and cons, with links.
+既知の優れた（つまり、実際に使用され、優れた結果を提供することが知られている）フレームワーク、ツール、テンプレート、それらの長所と短所をリンクとともに説明します。
 
-## Resources
+## 参考資料
 
-Provide links to further readings about this technique to dive deeper.
+深く掘り下げるために、このテクニックに関するさらなる読み物へのリンクを提供してください。

@@ -1,31 +1,33 @@
-# Smoke Testing
+# スモークテスト
 
-Smoke tests, sometimes named ***Sanity***, ***Acceptance***, or ***Build/Release Verification*** tests, are a sub-type of system/functional tests that are usually used as gates that verify the application's readiness as a preliminary step. If an application passes the smoke tests, it is acceptable, or in a stable-enough state, for the next stages of testing or deployment.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/smoke-testing/
 
-## When To Use
+スモークテストは、"**Sanity**"、"**Acceptance**"、もしくは"**Build/Release Verification**"テストと呼ばれることもあり、システム/機能テストのサブタイプであり、通常、準備段階としてアプリケーションの準備ができていることを検証するゲートとして使用されます。アプリケーションがスモークテストに合格した場合、テストまたは展開の次の段階で許容できるか、十分に安定した状態です。
 
-### Problem Addressed
+## いつ使用するか
 
-Smoke tests are meant to find, as early as possible, if an application is working or not. The goal of smoke tests is to save time; if the current version of the application does not pass smoke tests, then the rest of the integration or deployment chain for it can be abandoned. Smoke tests do not aim to provide full functionality coverage but instead focus on a few quick acceptance invocations for which the application should, at all times, respond correctly to.
+### 対処された問題
 
-### ROI Tipping Point
+スモークテストは、アプリケーションが機能しているかどうかをできるだけ早く見つけることを目的としています。スモークテストの目標は時間を節約することです。アプリケーションの現在のバージョンがスモークテストに合格しない場合、そのアプリケーションの残りの統合またはデプロイメントチェーンを放棄することができます。スモークテストは、完全な機能をカバーすることを目的とはしていませんが、代わりに、アプリケーションが常に正しく応答する必要があるいくつかの迅速な受け入れ呼び出しに焦点を当てています。
 
-Smoke tests cover only the most critical application path, and should not be used to actually test the application's behaviour, keeping execution time and complexity to minimum. The tests can be formed of a subset of the application's integration or e2e tests, and they cover as much of the functionality with as little depth as required.
+### ROIの転換点
 
-The golden rule of a good smoke test is that it saves time on validating that the application is acceptable to a stage where better, more thorough testing will begin.
+スモークテストは最も重要なアプリケーションパスのみを対象としているため、実行時間と複雑さを最小限に抑えながら、アプリケーションの動作を実際にテストするために使用しないでください。テストは、アプリケーションの統合テストまたはe2eテストのサブセットで構成でき、必要なだけの深さで機能の多くをカバーします。
 
-### Applicable to
+優れたスモークテストの黄金律は、より優れた、より徹底的なテストが開始される段階でアプリケーションが受け入れ可能であることを検証する時間を節約することです。
 
-- [x] **Local dev desktop** - *Example:* Applying manual smoke testing to verify that the application is OK.
-- [x] **Build pipelines** - *Example:* Running a small set of the integration test suite before running the full coverage of tests, which may take a long time.
-- [x] **Non-production and Production deployments** - *Example:* Running a curl command to the product's API and asserting the response is 200 before running load test which consume resources.
-- [x] **PR Validation** - *Example:* - Deploying the application chart to a test namespace and validating the release is successful and no immediate regressions are merged.
+### 適用可能
 
-## Conclusion
+- [x] **ローカル開発デスクトップ** - *例:* 手動のスモークテストを適用して、アプリケーションに問題がないことを確認します。.
+- [x] **パイプラインの構築** - *例:* ストの全範囲を実行する前に、統合テストスイートの小さなセットを実行します。これには長い時間がかかる場合があります。
+- [x] **非本番環境と本番環境のデプロイ** - *例:* リソースを消費する負荷テストを実行する前に、製品のAPIに対してcurlコマンドを実行し、応答をアサートすると200になります。
+- [x] **PR 検証** - *例:* - アプリケーションチャートをテスト名前空間にデプロイし、リリースを検証することは成功し、即時のリグレッションはマージされません。
 
-Smoke testing is a low-effort, high-impact step to ship more reliable software. It should be considered amongst the first stages to implement when planning continuously integrated and delivered systems.
+## 結論
 
-## Resources
+スモークテストは、より信頼性の高いソフトウェアを出荷するための、労力と影響が少ないステップです。継続的インテグレーションおよびデリバリーシステムを計画する際に実装する最初の段階の1つとして検討する必要があります。
 
-- [Wikipedia - Smoke Testing](https://en.wikipedia.org/wiki/Smoke_testing_(software))
-- [Google SRE Book - System Tests](https://landing.google.com/sre/sre-book/chapters/testing-reliability/#system-tests)
+## 参考資料
+
+- [Wikipedia - スモークテスト](https://en.wikipedia.org/wiki/Smoke_testing_(software))
+- [Google SRE Book - システムテスト](https://landing.google.com/sre/sre-book/chapters/testing-reliability/#system-tests)

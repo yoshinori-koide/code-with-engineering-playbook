@@ -1,18 +1,20 @@
 # Gauge Framework
 
-Gauge is a free and open source framework for writing and running E2E tests. Some key features of Gauge that makes it unique include:
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/e2e-testing/recipes/gauge-framework/
 
-- Simple, flexible and rich syntax based on Markdown.
-- Consistent cross-platform/language support for writing test code.
-- A modular architecture with plugins support
-- Extensible through plugins and hackable.
-- Supports data driven execution and external data sources
-- Helps you create maintainable test suites
-- Supports Visual Studio Code, Intellij IDEA, IDE Support
+Gauge は、E2Eテストを作成および実行するための無料のオープンソースフレームワークです。ゲージをユニークにするいくつかの重要な機能は次のとおりです。
 
-## What is a Specification
+- Markdownに基づくシンプルで柔軟で豊富な構文。
+- テストコードを書くための一貫したクロスプラットフォーム/言語サポート。
+- プラグインをサポートするモジュラーアーキテクチャ
+- プラグインを介して拡張可能で、ハッキング可能です。
+- データ駆動型の実行と外部データソースをサポートします
+- 保守可能なテストスイートの作成に役立ちます
+- Visual Studio Code、Intellij IDEA、IDEサポートをサポート
 
-Gauge specifications are written using a Markdown syntax. For example
+## 仕様とは
+
+ゲージの仕様は、Markdown構文を使用して記述されています。例えば
 
 ```bash
 # Search for the data blob
@@ -21,11 +23,11 @@ Gauge specifications are written using a Markdown syntax. For example
 * Goto Azure blob
 ```
 
-In this specification *Search for the data blob* is the **specification heading**, *Look for file* is a **scenario** with a step *Goto Azure blob*
+このテスト仕様における *Search for the data blob* の箇所は **テスト仕様の見出し**で, *Look for file* の箇所は **シナリオ** で *Goto Azure blob* というステップが含まれます。
 
-## What is an Implementation
+## 実装とは
 
-You can implement the steps in a specification using a programming language, for example:
+プログラミング言語を使用して、仕様のステップを実装できます。次に例を示します。
 
 ```bash
 from getgauge.python import step
@@ -37,7 +39,7 @@ def gotoAzureStorage():
   Driver.driver.get(URL)
 ```
 
-The Gauge runner reads and runs steps and its implementation for every scenario in the specification and generates a report of passing or failing scenarios.
+Gaugeランナーは、仕様内のすべてのシナリオのステップとその実装を読み取って実行し、合格または不合格のシナリオのレポートを生成します。
 
 ```bash
 # Search for the data blob
@@ -49,11 +51,11 @@ Specifications:       1 executed      1 passed        0 failed        0 skipped
 Scenarios:    1 executed      1 passed        0 failed        0 skipped
 ```
 
-## Re-using Steps
+## 手順の再利用
 
-Gauge helps you focus on testing the flow of an application. Gauge does this by making steps as re-usable as possible. With Gauge, you don’t need to build custom frameworks using a programming language.
+Gaugeは、アプリケーションのフローのテストに集中するのに役立ちます。Gaugeは、ステップを可能な限り再利用可能にすることでこれを行います。Gaugeを使用すると、プログラミング言語を使用してカスタムフレームワークを構築する必要はありません。
 
-For example, Gauge steps can pass parameters to an implementation by using a text with quotes.
+たとえば、ゲージステップは、引用符付きのテキストを使用して、パラメータを実装に渡すことができます。
 
 ```bash
 # Search for the data blob
@@ -63,7 +65,7 @@ For example, Gauge steps can pass parameters to an implementation by using a tex
 * Search for "store_data.csv"
 ```
 
-The implementation can now use “store_data.csv” as follows
+これで、実装は次のように「store_data.csv」を使用できます。
 
 ```bash
 from getgauge.python import step
@@ -78,7 +80,7 @@ step("Search for <query>", (query) => {
   press("Enter");
 ```
 
-You can then re-use this step within or across scenarios with different parameters:
+その後、さまざまなパラメータを使用して、シナリオ内またはシナリオ間でこのステップを再利用できます。
 
 ```bash
 # Search for the data blob
@@ -92,7 +94,7 @@ You can then re-use this step within or across scenarios with different paramete
 * Search for "store_2.csv"
 ```
 
-Or combine more than one step into **concepts**
+または、複数のステップを組み合わせて **概念** を作成できます。
 
 ```bash
 # Search Azure Storage for <query>
@@ -100,7 +102,7 @@ Or combine more than one step into **concepts**
 * Search for "store_1.csv"
 ```
 
-The concept, Search Azure Storage for `<query>` can be used like a step in a specification
+Search Azure Storage forの概念<query>は、仕様のステップのように使用できます
 
 ```bash
 # Search for the data blob
@@ -112,9 +114,9 @@ The concept, Search Azure Storage for `<query>` can be used like a step in a spe
 * Search Azure Storage for "store_2.csv"
 ```
 
-## Data-Driven Testing
+## データ駆動型テスト Data-Driven Testing 
 
-Gauge also supports data driven testing using Markdown tables as well as external csv files for example
+Gaugeは、Markdownテーブルや外部csvファイルなどを使用したデータ駆動型テストもサポートしています。
 
 ```bash
 # Search for the data blob
@@ -129,29 +131,29 @@ Gauge also supports data driven testing using Markdown tables as well as externa
 * Search Azure Storage for <query>
 ```
 
-This will execute the scenario for all rows in the table.
+これにより、テーブル内のすべての行に対してシナリオが実行されます。
 
-In the examples above, we refactored a specification to be concise and flexible without changing the implementation.
+上記の例では、実装を変更せずに簡潔で柔軟になるように仕様をリファクタリングしました。
 
-## Other Features
+## その他の機能
 
-This is brief introduction to a few Gauge features. Please refer to the Gauge documentation for additional features such as:
+これは、いくつかのゲージ機能の簡単な紹介です。次のような追加機能については、ゲージのドキュメントを参照してください。
 
-- [Reports](https://docs.gauge.org/getting_started/view-a-report.html)
-- [Tags](https://docs.gauge.org/execution.html?#filter-specifications-and-scenarios-by-using-tags)
-- [Parallel execution](https://docs.gauge.org/execution.html#filter-specifications-and-scenarios-by-using-tags)
-- [Environments](https://docs.gauge.org/configuration.html#using-environments-in-a-gauge-project)
-- [Screenshots](https://docs.gauge.org/writing-specifications.html#taking-custom-screenshots)
-- [Plugins](https://docs.gauge.org/plugin.html)
-- And much more
+- [レポート](https://docs.gauge.org/getting_started/view-a-report.html)
+- [タグ](https://docs.gauge.org/execution.html?#filter-specifications-and-scenarios-by-using-tags)
+- [並列実行](https://docs.gauge.org/execution.html#filter-specifications-and-scenarios-by-using-tags)
+- [環境](https://docs.gauge.org/configuration.html#using-environments-in-a-gauge-project)
+- [スクリーンショット](https://docs.gauge.org/writing-specifications.html#taking-custom-screenshots)
+- [プラグイン](https://docs.gauge.org/plugin.html)
+- その他 いろいろ
 
-## Installing Gauge
+## ゲージのインストール
 
-This getting started guide takes you through the core features of Gauge. By the end of this guide, you’ll be able to install Gauge and learn how to create your first Gauge test automation project.
+この入門ガイドでは、ゲージのコア機能について説明します。このガイドの終わりまでに、Gaugeをインストールして、最初のGaugeテスト自動化プロジェクトを作成する方法を学ぶことができます。
 
-## Installation Instructions for Windows OS
+## WindowsOSのインストール手順
 
-### Step 1: Installing Gauge on Windows
+### Step 1: Windowsにゲージをインストールする
 
 This section gives specific instructions on setting up Gauge in a Microsoft Windows environment.
 Download the following [installation bundle](https://github.com/getgauge/gauge/releases/download/v1.0.6/gauge-1.0.6-windows.x86_64.exe) to get the latest stable release of Gauge.

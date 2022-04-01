@@ -1,68 +1,70 @@
-# User Interface Testing
+# ユーザーインターフェイスのテスト
 
-This section is primarily geared towards web-based UIs, but the guidance is similar for mobile and OS based applications.  
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/ui-testing/
 
-## Applicability
+このセクションは主にWebベースのUIを対象としていますが、ガイダンスはモバイルアプリケーションとOSベースのアプリケーションで同様です。 
 
-UI Testing is not always going to be applicable, for example applications without a UI or parts of an application that require no human interaction.  In those cases unit, functional and integration/e2e testing would be the primary means.  UI Testing is going to be mainly applicable when dealing with a public facing UI that is used in a diverse environment or in a mission critical UI that requires higher fidelity.  With something like an admin UI that is used by just a handful of people, UI Testing is still valuable but not as high priority.
+## 適用性
 
-## Goals
+UIテストは、常に適用できるとは限りません。たとえば、UIのない​​アプリケーションや、人間の操作を必要としないアプリケーションの一部などです。そのような場合、ユニット、機能、統合/e2eテストが主要な手段になります。UIテストは、主に、多様な環境で使用される公開UIや、より高い忠実度を必要とするミッションクリティカルなUIを扱う場合に適用されます。ほんの一握りの人が使用する管理UIのようなものでは、UIテストは依然として価値がありますが、優先度はそれほど高くありません。
 
-UI testing provides the ability to ensure that users have a consistent visual user experience across a variety of means of access and that the user interaction is consistent with the function requirements.
+## 目標
 
-- Ensure the UI appearance and interaction satisfy the functional and non-functional requirements
-- Detect changes in the UI both across devices and delivery platforms and between code changes
-- Provide confidence to designers and developers the user experience is consistent
-- Support fast code evolution and refactoring while reducing the risk of regressions
+UIテストは、ユーザーがさまざまなアクセス手段にわたって一貫した視覚的なユーザーエクスペリエンスを持ち、ユーザーの操作が機能要件と一致していることを確認する機能を提供します。
 
-## Evidence and Measures
+- UIの外観と相互作用が機能要件と非機能要件を満たしていることを確認します
+- デバイスと配信プラットフォームの両方、およびコード変更間のUIの変更を検出します
+- デザイナーと開発者に自信を与えるユーザーエクスペリエンスは一貫している
+- リグレッションのリスクを軽減しながら、コードの迅速な進化とリファクタリングをサポートします
 
-Integrating UI Tests in to your CI/CD is necessary but more challenging than unit tests.  The increased challenge is that UI tests either need to run headlessly with something like [Puppeteer](https://github.com/puppeteer/puppeteer) or there needs to be more extensive orchestration with Azure DevOps or GitHub that would handle the full testing integration for you like [BrowserStack](https://www.browserstack.com/automate/azure)
+## 証拠と対策
 
-Integrations like `BrowserStack` are nice since they provide Azure DevOps reports as part of the test run.
+UIテストをCI/CDに統合することは必要ですが、単体テストよりも困難です。増大する課題は、UIテストを[Puppeteer](https://github.com/puppeteer/puppeteer)のようなものでヘッドレスで実行する必要があるか、[BrowserStack](https://www.browserstack.com/automate/azure)のような完全なテスト統合を処理するAzureDevOpsまたはGitHubとのより広範なオーケストレーションが必要であるということです。
 
-That said, Azure DevOps supports a variety of test adapters, so you can use any UI Testing framework that supports outputting the test results to one of the output formats listed at [Publish Test Results task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=yaml).
+`BrowserStack`のような統合ツールはテスト実行の一部としてAzure DevOpsレポートを提供するため、優れています。
 
-If you're using an Azure DevOps pipeline to run UI tests, consider using a [self hosted agent](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=azure-devops&tabs=browser) in order to manage framework versions and avoid unexpected updates.
+とはいえ、Azure DevOpsはさまざまなテストアダプターをサポートしているため、テスト結果の[テスト結果の公開タスク](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=yaml)にリストされている出力形式の1つへのテスト結果の出力をサポートする任意のUIテストフレームワークを使用できます。
 
-## General Guidance
+Azure DevOpsパイプラインを使用してUIテストを実行している場合は、フレームワークのバージョンを管理し、予期しない更新を回避するために、[セルフホストエージェント](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=azure-devops&tabs=browser)の使用を検討してください。
 
-The scope of UI testing should be strategic. UI tests can take a significant amount of time to both implement and run, and it's challenging to test every type of user interaction in a production application due to the large number of possible interactions.
+## 一般的なガイダンス
 
-Designing the UI tests around the functional tests makes sense.  For example, given an input form, a UI test would ensure that the visual representation is consistent across devices, is accessible and interactable, and is consistent across code changes.
+UIテストの範囲は戦略的である必要があります。UIテストは、実装と実行の両方にかなりの時間がかかる可能性があり、可能な対話の数が多いため、実稼働アプリケーションですべてのタイプのユーザー対話をテストすることは困難です。
 
-UI Tests will catch 'runtime' bugs that unit and functional tests won't.  For example if the submit button for an input form is rendered but not clickable due to a positioning bug in the UI, then this could be considered a runtime bug that would not have been caught by unit or functional tests.
+機能テストを中心にUIテストを設計することは理にかなっています。たとえば、入力フォームが与えられた場合、UIテストは、視覚的表現がデバイス間で一貫しており、アクセス可能で相互作用可能であり、コード変更全体で一貫していることを確認します。
 
-UI Tests can run on mock data or snapshots of production data, like in QA or staging.
+UIテストは、ユニットテストと機能テストでは検出されない「ランタイム」バグを検出します。たとえば、入力フォームの送信ボタンがレンダリングされているが、UIの位置のバグのためにクリックできない場合、これはユニットテストまたは機能テストでは検出されなかったランタイムバグと見なすことができます。
 
-### Writing Tests
+UIテストは、QAやステージングのように、モックデータまたは本番データのスナップショットで実行できます。
 
-Good UI tests follow a few general principles:
+### テストの記述
 
-- Choose a UI testing framework that enables quick feedback and is easy to use
-- Design the UI to be easily testable.  For example, add CSS selectors or set the id on elements in a web page to allow easier selecting.
-- Test on all primary devices that the user uses, don't just test on a single device or OS.
-- When a test mutates data ensure that data is created on demand and cleaned up after.  The consequence of not doing this would be inconsistent testing.  
+優れたUIテストは、いくつかの一般的な原則に従います。
 
-### Common Issues
+- 迅速なフィードバックを可能にし、使いやすいUIテストフレームワークを選択してください
+- 簡単にテストできるようにUIを設計します。たとえば、CSSセレクターを追加するか、Webページの要素にIDを設定して、簡単に選択できるようにします。
+- 単一のデバイスやOSでテストするだけでなく、ユーザーが使用するすべてのプライマリデバイスでテストします。
+- テストでデータを変更する場合は、データがオンデマンドで作成され、後でクリーンアップされることを確認してください。これを行わないと、テストに一貫性がなくなります。 
 
-UI Testing can get very challenging at the lower level, especially with a testing framework like Selenium.  If you choose to go this route, then you'll likely encounter timeouts, missing elements, and you'll have significant friction with the testing framework itself.  Due to many issues with UI testing there have been a number of free and paid solutions that help alleviate certain issues with frameworks like Selenium.  This is why you'll find Cypress in the recommended frameworks as it solves many of the known issues with Selenium.
+### 一般的な問題
 
-This is an important point though.  Depending on the UI testing framework you choose will result in either a smoother test creation experience, or a very frustrating and time-consuming one.  If you were to choose just Selenium the development costs and time costs would likely be very high.  It's better to use either a framework built on top of Selenium or one that attempts to solve many of the problems with something like Selenium.
+UIテストは、特にSeleniumのようなテストフレームワークでは、下位レベルで非常に困難になる可能性があります。このルートを選択すると、タイムアウトや要素の欠落が発生する可能性が高く、テストフレームワーク自体との摩擦が大きくなります。UIテストには多くの問題があるため、Seleniumなどのフレームワークの特定の問題を軽減するのに役立つ無料および有料のソリューションがいくつかあります。これが、Seleniumの既知の問題の多くを解決するため、推奨されるフレームワークにCypressが含まれている理由です。
 
-Note there that there are further considerations as when running headlessly the UI can render differently than what you may see on your development machine, particularly with web applications.  Furthermore, note that when rendering in different page dimensions elements may disappear on the page due to CSS rules, therefore not be selectable by certain frameworks with default options out of the box.  All of these issues can be resolved and worked around, but the rendering demonstrates another particular challenge of UI testing.
+ただし、これは重要なポイントです。選択したUIテストフレームワークに応じて、よりスムーズなテスト作成エクスペリエンス、または非常に苛立たしく時間のかかるテスト作成エクスペリエンスが得られます。セレンだけを選択した場合、開発コストと時間コストは非常に高くなる可能性があります。Selenium上に構築されたフレームワーク、またはSeleniumのようなもので多くの問題を解決しようとするフレームワークのいずれかを使用することをお勧めします。
 
-## Specific Guidance
+ヘッドレスで実行する場合、特にWebアプリケーションでは、UIが開発マシンで表示されるものとは異なるレンダリングになる可能性があるため、さらに考慮事項があることに注意してください。さらに、異なるページサイズでレンダリングする場合、CSSルールのために要素がページ上に表示されなくなる可能性があるため、デフォルトのオプションを使用する特定のフレームワークでは選択できないことに注意してください。これらの問題はすべて解決して回避できますが、レンダリングはUIテストの別の特定の課題を示しています。
 
-Recommended testing frameworks:
+## 具体的なガイダンス
 
-- Web
+推奨されるテストフレームワーク:
+
+- ウェブ
   - [BrowserStack](https://www.browserstack.com)
   - [Cypress](https://www.cypress.io)
   - [Jest](https://jestjs.io/docs/en/snapshot-testing)
   - [Selenium](https://www.selenium.dev)
-- OS/Mobile Applications
+- OS/モバイルアプリケーション
   - [Coded UI tests (CUITs)](https://docs.microsoft.com/en-us/visualstudio/test/use-ui-automation-to-test-your-code?view=vs-2019)
   - [Xamarin.UITest](https://docs.microsoft.com/en-us/appcenter/test-cloud/uitest/)
 
-> Note that the framework listed above that is paid is BrowserStack, it's listed as it's an industry standard, the rest are open source and free.
+> 注: 有料の上記のフレームワークはBrowserStackであり、業界標準としてリストされており、残りはオープンソースで無料であることに注意してください。

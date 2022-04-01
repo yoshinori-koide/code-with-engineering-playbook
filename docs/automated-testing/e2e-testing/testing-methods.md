@@ -1,26 +1,28 @@
-# E2E Testing Methods
+# E2Eテスト方法
 
-## Horizontal Test
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/e2e-testing/testing-comparison/
 
-This method is used very commonly. It occurs horizontally across the context of multiple applications. Take an example of a data ingest management system.
+## 水平テスト
+
+この方法は非常に一般的に使用されます。これは、複数のアプリケーションのコンテキスト全体で水平方向に発生します。データ取り込み管理システムの例を見てみましょう。
 
 ![Horizontal Test](./images/horizontal-e2e-testing.png)
 
-The inbound data may be  injected from various sources, but it then "flatten" into a horizontal processing pipeline that may include various components, such as a gateway API, data transformation, data validation, storage, etc... Throughout the entire Extract-Transform-Load (ETL) processing, the data flow can be tracked and monitored under the horizontal spectrum with little sprinkles of optional, and thus not important for the overall E2E test case, services, like logging, auditing, authentication.
+インバウンドデータはさまざまなソースから注入される可能性がありますが、その後、ゲートウェイAPI、データ変換、データ検証、ストレージなどのさまざまなコンポーネントを含む可能性のある水平処理パイプラインに「フラット化」されます。 Transform-Load（ETL）処理では、データフローを水平スペクトルで追跡および監視でき、オプションをほとんど使用しないため、E2Eテストケース全体、ロギング、監査、認証などのサービスにとって重要ではありません。
 
-## Vertical Test
+## 垂直テスト
 
-In this method, all most critical transactions of any application are verified and evaluated right from the start to finish. Each individual layer of the application is tested starting from top to bottom. Take an example of a web-based application that uses middleware services for reaching back-end resources.
+この方法では、アプリケーションの最も重要なすべてのトランザクションが最初から最後まで検証および評価されます。アプリケーションの個々のレイヤーは、上から下に向かってテストされます。バックエンドリソースに到達するためにミドルウェアサービスを使用するWebベースのアプリケーションの例を見てみましょう。
 
 ![Vertical Test](./images/vertical-e2e-testing.png)
 
- In such case, each layer (tier) is required to be fully tested in conjunction with the "connected" layers above and beneath, in which services "talk" to each other during the end to end data flow. All these complex testing scenarios will require proper validation and dedicated automated testing. Thus, this method is much more difficult.
+ このような場合、各レイヤー（層）は、上下の「接続された」レイヤーと組み合わせて完全にテストする必要があります。このレイヤーでは、エンドツーエンドのデータフロー中にサービスが相互に「通信」します。これらの複雑なテストシナリオはすべて、適切な検証と専用の自動テストが必要になります。したがって、この方法ははるかに困難です。
 
-## E2E Test Cases Design Guidelines
+## E2Eテストケースの設計ガイドライン
 
-Below enlisted are few **guidelines** that should be kept in mind while designing the test cases for performing E2E testing:
+以下に、E2Eテストを実行するためのテストケースを設計する際に留意する必要のあるいくつかの **ガイドライン** を示します。
 
-- Test cases should be designed from the end user’s perspective.
-- Should focus on testing some existing features of the system.
-- Multiple scenarios should be considered for creating multiple test cases.
-- Different sets of test cases should be created to focus on multiple scenarios of the system.
+- テストケースは、エンドユーザーの観点から設計する必要があります。
+- システムのいくつかの既存の機能のテストに焦点を当てる必要があります。
+- 複数のテストケースを作成するには、複数のシナリオを検討する必要があります。
+- システムの複数のシナリオに焦点を当てるために、さまざまなテストケースのセットを作成する必要があります。

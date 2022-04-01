@@ -1,98 +1,97 @@
-# Synthetic Monitoring Tests
+# 合成モニタリングテスト
 
-Synthetic Monitoring Tests are a set of functional tests that target a live system in production. The focus of these tests, which are sometimes named "watchdog", "active monitoring" or "synthetic transactions", is to verify the product's health and resilience continuously.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/synthetic-monitoring-tests/
 
-## Why Synthetic Monitoring tests
+Synthetic Monitoring Testsは、実稼働中のシステムを対象とした一連の機能テストです。これらのテストの焦点は、「ウォッチドッグ」、「アクティブモニタリング」、または「合成トランザクション」と呼ばれることもあり、製品の正常性と回復力を継続的に検証することです。
 
-Traditionally, software providers rely on testing through CI/CD stages in the well known [testing pyramid](https://martinfowler.com/bliki/TestPyramid.html) (unit, integration, e2e) to validate that the product is healthy and without regressions. Such tests will run on the build agent or in the test/stage environment before being deployed to production and released to live user traffic. During the services' lifetime in the production environment, they are safeguarded by monitoring and alerting tools that rely on Real User Metrics/Monitoring ([RUM](https://en.wikipedia.org/wiki/Real_user_monitoring)).
+## 合成モニタリングテストを行う理由
 
-However, as more organizations today provide highly-available (99.9+ SLA) products, they find that the nature of long-lived distributed applications, which typically rely on several hardware and software components, is to fail. Frequent releases (sometimes multiple times per day) of various components of the system can create further instability. This rapid rate of change to the production environment tends to make testing during CI/CD stages not hermetic and actually not representative of the end user experience and how the production system actually behaves.
+従来、ソフトウェアプロバイダーは、製品が正常でリグレッションがないことを検証するために、よく知られている[テストピラミッド](https://martinfowler.com/bliki/TestPyramid.html)（ユニット、統合、e2e）のCI/CDステージを介したテストに依存しています。このようなテストは、ビルドエージェントまたはテスト/ステージ環境で実行されてから、本番環境にデプロイされ、ライブユーザートラフィックにリリースされます。 実稼働環境でのサービスの存続期間中、サービスは、Real User Metrics / Monitoring（ [RUM](https://en.wikipedia.org/wiki/Real_user_monitoring) ）に依存する監視およびアラートツールによって保護されます。
 
-For such systems, the ambition of service engineering teams is to reduce to a minimum the time it takes to fix errors, or the [MTTR - Mean Time To Repair](https://en.wikipedia.org/wiki/Mean_time_to_repair). It is a continuous effort, performed on the live/production system. Synthetic Monitors can be used to detect the following issues:
+ただし、今日、高可用性（99.9+ SLA）製品を提供する組織が増えるにつれ、通常はいくつかのハードウェアおよびソフトウェアコンポーネントに依存する、長寿命の分散アプリケーションの性質が機能しなくなることがわかります。システムのさまざまなコンポーネントが頻繁にリリースされると（1日に複数回リリースされることもあります）、さらに不安定になる可能性があります。実稼働環境へのこの急速な変化は、CI / CDステージでのテストを気密ではなく、実際にはエンドユーザーエクスペリエンスや実稼働システムの実際の動作を表していない傾向があります。
 
-- Availability - Is the system or specific region available.
-- Transactions and customer journeys - Known good requests should work, while known bad requests should error.
-- Performance - How fast are actions and is that performance maintained through high loads and through version releases.
-- 3rd Party components - Cloud or software components used by the system may fail.
+このようなシステムの場合、サービスエンジニアリングチームの目標は、エラーの修正にかかる時間を最小限に抑えること、つまり [MTTR - Mean Time To Repair/平均修復時間](https://en.wikipedia.org/wiki/Mean_time_to_repair)を短縮することです。これは、ライブ/プロダクションシステムで実行される継続的な取り組みです。合成モニターは、次の問題を検出するために使用できます。
 
-### Shift-Right Testing
+- 可用性 - システムまたは特定の地域が利用可能ですか。
+- トランザクションとカスタマージャーニー - 既知の良いリクエストは機能するはずですが、既知の悪いリクエストはエラーになるはずです。
+- パフォーマンス - アクションの速度と、高負荷およびバージョンリリースを通じてパフォーマンスが維持される速度。
+- サードパーティコンポーネント - システムで使用されているクラウドまたはソフトウェアコンポーネントが失敗する可能性があります。
 
-Synthetic Monitoring tests are a subset of tests that run in production, sometimes named Test-in-Production or Shift-Right tests.
-With [Shift-Left](https://en.wikipedia.org/wiki/Shift-left_testing) paradigms that are so popular, the approach is to perform testing as early as possible in the application development lifecycle (i.e., moved left on the project timeline).
-Shift right compliments and adds on top of Shift-Left. It refers to running tests late in the cycle, during deployment, release, and post-release when the product is serving production traffic. They provide modern engineering teams a broader set of tools to assure high SLAs over time.
+### Shift-Rightテスト
 
-## Synthetic Monitoring tests Design Blocks
+Synthetic Monitoringテストは、実稼働環境で実行されるテストのサブセットであり、実稼働環境テストまたはShift-Rightテストと呼ばれることもあります。
+非常に人気のある[Shift-Left](https://en.wikipedia.org/wiki/Shift-left_testing)パラダイムでは、アプローチは、アプリケーション開発ライフサイクルのできるだけ早い段階でテストを実行することです（つまり、プロジェクトのタイムラインで左に移動します）。
+Shift-Rightテストは、Shift-Leftの上に補完して追加します。これは、サイクルの後半、展開中、リリース中、および製品が本番トラフィックにサービスを提供しているときのリリース後のテストを実行することを指します。これらは、最新のエンジニアリングチームに、長期にわたって高いSLAを保証するための幅広いツールセットを提供します。
 
-A synthetic monitoring test is a test that uses synthetic data and real testing accounts to inject user behaviors to the system and validates their effect, usually by passively relying on existing monitoring and alerting capabilities.
-Components of synthetic monitoring tests include **Probes**, test code/ accounts which generates data, and **Monitoring tools** placed to validate both the system's behavior under test and the health of the probes themselves.
+## 合成モニタリングテストデザインブロック
+
+合成監視テストは、合成データと実際のテストアカウントを使用して、ユーザーの動作をシステムに注入し、通常は既存の監視およびアラート機能に受動的に依存することで、その効果を検証するテストです。合成監視テストのコンポーネントには、**プローブ**、データを生成するテストコード/アカウント、およびテスト対象のシステムの動作とプローブ自体の状態の両方を検証するために配置された**監視ツール**が含まれます。
 
 ![E2E Testing Pyramid](./images/syntheticMonitoring.png)
 
-### Probes
+### プローブ
 
-Probes are the source of synthetic user actions that drive testing. They target the product's front-end or publicly-facing APIs and are running on their own production environment.
-A Synthetic Monitoring test is, in fact, very related to black-box tests and would usually focus on end-to-end scenarios from a user's perspective. It is not uncommon for the same code for e2e or integration tests to be used to implement the probe.
+プローブは、テストを推進する合成ユーザーアクションのソースです。これらは、製品のフロントエンドまたは公開されているAPIを対象としており、独自の本番環境で実行されています。合成モニタリングテストは、実際、ブラックボックステストと非常に関連があり、通常、ユーザーの観点からエンドツーエンドのシナリオに焦点を当てます。プローブの実装にe2eまたは統合テストの同じコードが使用されることは珍しくありません。
 
-### Monitoring
+### モニタリング
 
-Given that Synthetic Monitoring tests are continuously running, at intervals, in a production environment, the assertion of system behavior through analysis relies on existing monitoring pillars used in live system (Logging, Metrics, Distributed Tracing).
-There would usually be a finite set of tests, and key metrics that are used to build monitors and alerts to assert against the known [SLO](https://en.wikipedia.org/wiki/Service-level_objective), and verify that the [OKR](https://en.wikipedia.org/wiki/OKR) for that system are maintained. The monitoring tools are effectively capturing both RUMs and synthetic data generated by the probes.
+Synthetic Monitoringテストが実稼働環境で定期的に継続的に実行されていることを考えると、分析によるシステム動作のアサーションは、ライブシステムで使用されている既存の監視の柱（ロギング、メトリック、分散トレース）に依存します。
+通常、有限のテストセットと、既知の[SLO/Service Level Objective](https://en.wikipedia.org/wiki/Service-level_objective)に対してアサートするモニターとアラートを構築し、そのシステムの[OKR/Objectives and key results](https://en.wikipedia.org/wiki/OKR)が維持されていることを確認するために使用される主要なメトリックがあります。監視ツールは、プローブによって生成されたRUMと合成データの両方を効果的にキャプチャします。
 
-## Applying Synthetic Monitoring Tests
+## 合成モニタリングテストの適用
 
-### Asserting the system under tests
+### テスト中のシステムのアサート
 
-Synthetic monitoring tests are usually statistical. Test metrics are compared against some historical or running average with a time dimension *(Example: Over the last 30 days, for this time of day, the mean average response time is 250ms for AddToCart operation with a standard deviation from the mean of +/- 32ms)*. So if an observed measurement is within a [deviation of the norm](https://en.wikipedia.org/wiki/Standard_deviation) at any time, the services are probably healthy.
+合成モニタリングテストは通常​​統計的です。テストメトリックは、時間ディメンションを使用して、過去の平均または実行中の平均と比較されます（例：過去30日間、この時間帯のAddToCart操作の平均平均応答時間は250ミリ秒で、平均から+/-の標準偏差があります。 32ms）。したがって、観測された測定値がいつでも[標準偏差](https://en.wikipedia.org/wiki/Standard_deviation)内にある場合、サービスはおそらく正常です。
 
-### Building a Synthetic Monitoring Solution
+### 合成モニタリングソリューションの構築
 
-At a high level, building synthetic monitors usually consists of the following steps:
+大まかに言えば、合成モニターの構築は通常、次の手順で構成されます。
 
-- Determine the metric to be validated (functional result, latency, etc.)
-- Build a piece of automation that measures that metric against the system, and gathers telemetry into the system's existing monitoring infrastructure.
-- Set up monitoring alarms/actions/responses that detect the failure of the system to meet the desired goal of the metric.
-- Run the test case automation continuously at an appropriate interval.
+- 検証するメトリックを決定します（機能結果、遅延など）
+- システムに対してそのメトリックを測定し、テレメトリをシステムの既存の監視インフラストラクチャに収集する自動化を構築します。
+- メトリックの目的の目標を達成するためにシステムの障害を検出する監視アラーム/アクション/応答を設定します。
+- テストケースの自動化を適切な間隔で継続的に実行します。
 
-### Monitoring the health of tests
+### テストの状態の監視
 
-Probes runtime is a production environment on its own, and the health of tests is critical. Many providers offer cloud-based systems that host such runtimes, while some organizations use existing production environments to run these tests on. In either way, a monitor-the-monitor strategy should be a first-class citizen of the production environment's alerting systems.
+プローブのランタイムはそれ自体が実稼働環境であり、テストの正常性は非常に重要です。多くのプロバイダーは、そのようなランタイムをホストするクラウドベースのシステムを提供していますが、一部の組織は、既存の本番環境を使用してこれらのテストを実行しています。いずれにせよ、モニター・ザ・モニター戦略は、実稼働環境のアラートシステムの第一級市民でなければなりません。
 
-### Synthetic Monitoring and Real User Monitoring
+### 合成モニタリングと実際のユーザーモニタリング
 
-Synthetic monitoring does not replace the need for RUM. Probes are predictable code that verifies specific scenarios, and they do not 100% completely and truly represent how a user session is handled. On the other hand, prefer not to use RUMs to test for site reliability because:
+合成モニタリングは、RUMの必要性に取って代わるものではありません。プローブは、特定のシナリオを検証する予測可能なコードであり、100％完全にではなく、ユーザーセッションの処理方法を真に表します。一方、サイトの信頼性をテストするためにRUMを使用しないことをお勧めします。理由は次のとおりです。
 
-- As the name implies, RUM requires user traffic. The site may be down, but since no user visited the monitored path, no alerts were triggered yet.
-- Inconsistent Traffic and usage patterns make it hard to gauge for benchmarks.
+- 名前が示すように、RUMにはユーザートラフィックが必要です。サイトがダウンしている可能性がありますが、監視対象のパスにアクセスしたユーザーがいないため、アラートはまだトリガーされていません。
+- 一貫性のないトラフィックと使用パターンにより、ベンチマークの測定が困難になります。
 
-### Risks
+### リスク
 
-Testing in production, in general, has a risk factor attached to it, which does not exist tests executed during CI/CD stages. Specifically, in synthetic monitoring tests, the following may affect the production environment:
+一般に、本番環境でのテストにはリスク要因が付随していますが、CI/CDステージで実行されるテストは存在しません。具体的には、合成監視テストでは、次のことが本番環境に影響を与える可能性があります。
 
-- Corrupted or invalid data - Tests inject test data which may be in some ways corrupt. Consider using a testing schema.
-- Protected data leakage - Tests run in a production environment and emit logs or trace that may contain protected data.
-- Overloaded systems - Synthetic tests may cause errors or overload the system.
-- Unintended side effects or impacts on other production systems.
-- Skewed analytics (traffic funnels, A/B test results, etc.)
-- Auth/AuthZ - Tests are required to run in production where access to tokens and secrets may be restricted or more challenging to retrieve.
+- 破損または無効なデータ - テストは、何らかの方法で破損している可能性のあるテストデータを挿入します。テストスキーマの使用を検討してください。
+- 保護されたデータの漏洩 - テストは実稼働環境で実行され、保護されたデータを含む可能性のあるログまたはトレースを出力します。
+- システムの過負荷 - 合成テストにより、エラーが発生したり、システムが過負荷になる可能性があります。
+- 意図しない副作用または他の本番システムへの影響。
+- 歪んだ分析（トラフィックファネル、A / Bテスト結果など）
+- Auth/AuthZ - トークンとシークレットへのアクセスが制限されているか、取得がより困難な本番環境でテストを実行する必要があります。
 
-## Synthetic Monitoring tests Frameworks and Tools
+## 合成モニタリングテストフレームワークとツール
 
-Most key monitoring/APM players have an enterprise product that supports synthetic monitoring built into their systems (see list below). Such offerings make some of the risks raised above irrelevant as the integration and runtime aspects of the solution are OOTB. However, such solutions are typically pricey.
+ほとんどの主要な監視/APMプレーヤーには、システムに組み込まれた合成監視をサポートするエンタープライズ製品があります（以下のリストを参照）。ソリューションの統合と実行時の側面はOOTBであるため、このような製品では、上記で発生したリスクの一部が無関係になります。ただし、このようなソリューションは通常、高価です。
 
-Some organizations prefer running probes on existing infrastructure using known tools such as [Postman](https://www.postman.com/), [Wrk](https://github.com/wg/wrk), [JMeter](https://jmeter.apache.org/), [Selenium](https://www.selenium.dev/) or even custom code to generate the synthetic data. Such solutions must account for isolating and decoupling the probe's production environment from the core product's as well as provide monitoring, geo-distribution, and maintaining test health.
+一部の組織は、 [Postman](https://www.postman.com/), [Wrk](https://github.com/wg/wrk), [JMeter](https://jmeter.apache.org/), [Selenium](https://www.selenium.dev/)、さらにはカスタムコードなどの既知のツールを使用して既存のインフラストラクチャでプローブを実行し、合成データを生成することを好みます。このようなソリューションは、プローブの実稼働環境をコア製品から分離および分離することを考慮し、監視、地理的分布、およびテストの正常性の維持を提供する必要があります。
 
-- [Application Insights availability](https://docs.microsoft.com/en-us/azure/azure-monitor/app/monitor-web-app-availability) - Simple availability tests that allow some customization using [Multi-step web test](https://docs.microsoft.com/en-us/azure/azure-monitor/app/availability-multistep)
+- [Application Insightsによる可用性](https://docs.microsoft.com/en-us/azure/azure-monitor/app/monitor-web-app-availability) - [マルチステップWebテスト](https://docs.microsoft.com/en-us/azure/azure-monitor/app/availability-multistep)を使用したカスタマイズを可能にするシンプルな可用性テスト
 - [DataDog Synthetics](https://www.datadoghq.com/dg/apm/synthetics/api-test/)
 - [Dynatrace Synthetic Monitoring](https://www.dynatrace.com/platform/synthetic-monitoring/)
 - [New Relic Synthetics](https://newrelic.com/products/synthetics)
 
-## Conclusion
+## 結論
 
-The value of production tests, in general, and specifically Synthetic monitoring, is only there for particular engagement types, and there is associated risk and cost to them. However, when applicable, they provide continuous assurance that there are no system failures from a user's perspective.
-When developing a PaaS/SaaS solution, Synthetic monitoring is key to the success of service reliability teams, and they are becoming an integral part of the quality assurance stack of highly available products.
+一般に、生産テスト、特に合成モニタリングの価値は、特定のエンゲージメントタイプにのみ存在し、それに関連するリスクとコストがあります。ただし、該当する場合は、ユーザーの観点からシステム障害が発生しないことを継続的に保証します。PaaS / SaaSソリューションを開発する場合、合成モニタリングはサービス信頼性チームの成功の鍵であり、それらは高可用性製品の品質保証スタックの不可欠な部分になりつつあります。
 
-## Resources
+## 参考資料
 
-- [Google SRE book - Testing Reliability](https://landing.google.com/sre/sre-book/chapters/testing-reliability/)
-- [Microsoft DevOps Architectures - Shift Right to Test in Production](https://docs.microsoft.com/en-us/devops/deliver/shift-right-test-production)
-- [Martin Fowler - Synthetic Monitoring](https://martinfowler.com/bliki/SyntheticMonitoring.html)
+- [Google SRE book - 信頼性のテスト](https://landing.google.com/sre/sre-book/chapters/testing-reliability/)
+- [Microsoft DevOps Architectures - 本番環境でテストするために右にシフト](https://docs.microsoft.com/en-us/devops/deliver/shift-right-test-production)
+- [マーティンファウラー - 合成モニタリング](https://martinfowler.com/bliki/SyntheticMonitoring.html)

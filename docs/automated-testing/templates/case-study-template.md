@@ -1,39 +1,39 @@
-# ~Customer Project~ Case Study
+# 〜顧客プロジェクト〜ケーススタディ
 
-## Background
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/templates/case-study-template/
 
-Describe the customer and business requirements with the explicit problem statement.
+## バックグラウンド
 
-## System Under Test (SUT)
+明確な問題ステートメントを使用して、顧客とビジネスの要件を説明します。
 
-Include the system's conceptual architecture and highlight the architecture components that were included in the E2E testing.
+## System Under Test /テスト対象システム (SUT)
 
-## Problems and Limitations
+システムの概念アーキテクチャを含め、E2Eテストに含まれていたアーキテクチャコンポーネントを強調します。
 
-Describe about the problems of the overall SUT solution that prevented from testing specific (or any) part of the solution.
-Describe limitation of the testing tools and framework(s) used in this implementation
+## 問題と制限
 
-## E2E Testing Framework and Tools
+ソリューションの特定の（または任意の）部分をテストできなかったSUTソリューション全体の問題について説明します。この実装で使用されるテストツールとフレームワークの制限について説明してください
 
-Describe what testing framework and/or tools were used to implement E2E testing in the SUT.
+## E2Eテストフレームワークとツール
 
-## Test Cases
+SUTでE2Eテストを実装するために使用されたテストフレームワークやツールについて説明してください。
 
-Describe the E2E test cases were created to E2E test the SUT
+## テストケース
 
-## Test Metrics
+SUTをE2Eテストするために作成されたE2Eテストケースについて説明する
 
-Describe any architecture solution were used to monitor, observe and track the various service states that were used as the E2E testing metrics. Also, include the list of test cases were build to measure the progress of E2E testing.
+## テストメトリクス
 
-## E2E Testing Architecture
+E2Eテストメトリクスとして使用されたさまざまなサービス状態を監視、監視、追跡するために使用されたアーキテクチャソリューションについて説明してください。また、E2Eテストの進行状況を測定するために作成されたテストケースのリストを含めます。
 
-Describe any testing architecture were built to run E2E testing.
+## E2Eテストアーキテクチャ
 
-## E2E Testing Implementation (Code samples)
+E2Eテストを実行するために構築されたテストアーキテクチャについて説明してください。
 
-Include sample test cases and their implementation in the programming language of choice.
-Include any common reusable code implementation blocks that could be leveraged in the future project's E2E testing implementation.
+## E2Eテストの実装（コードサンプル）
 
-## E2E Testing Reporting and Results
+サンプルのテストケースとその実装を、選択したプログラミング言語に含めます。将来のプロジェクトのE2Eテスト実装で活用できる一般的な再利用可能なコード実装ブロックを含めます。
 
-Include sample of E2E testing reports and results obtained from the E2E testing runs in this project.
+## E2Eテストのレポートと結果
+
+このプロジェクトでのE2Eテストの実行から得られたE2Eテストレポートと結果のサンプルを含めます。

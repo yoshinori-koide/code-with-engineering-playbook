@@ -1,58 +1,60 @@
-# Integration Testing
+# 統合テスト
 
-Integration testing is a software testing methodology used to determine how well individually developed components, or modules of a system communicate with each other. This method of testing confirms that an aggregate of a system, or sub-system, works together correctly or otherwise exposes erroneous behavior between two or more units of code.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/integration-testing/
 
-## Why Integration Testing
+統合テストは、個別に開発されたコンポーネントまたはシステムのモジュールが相互に通信する方法を決定するために使用されるソフトウェアテスト方法です。このテスト方法では、システムの集合体またはサブシステムが正しく連携するか、2つ以上のコードユニット間で誤った動作が発生することを確認します。
 
-Because one component of a system may be developed independently or in isolation of another it is important to verify the interaction of some or all components. A complex system may be composed of databases, APIs, interfaces, and more, that all interact with each other or additional external systems. Integration tests expose system-level issues such as broken database schemas or faulty third-party API integration. It ensures higher test coverage and serves as an important feedback loop throughout development.
+## 統合テストを行う理由
 
-## Integration Testing Design Blocks
+システムの1つのコンポーネントは独立して開発される場合もあれば、別のコンポーネントとは別に開発される場合もあるため、一部またはすべてのコンポーネントの相互作用を検証することが重要です。複雑なシステムは、データベース、API、インターフェースなどで構成されている場合があり、これらはすべて相互に作用するか、追加の外部システムと相互作用します。統合テストでは、データベーススキーマの破損やサードパーティのAPI統合の欠陥などのシステムレベルの問題が明らかになります。これにより、より高いテストカバレッジが保証され、開発全体を通じて重要なフィードバックループとして機能します。
 
-Consider a banking application with three modules: login, transfers, and current balance, all developed independently. An integration test may verify when a user logs in they are re-directed to their current balance with the correct amount for the specific mock user. Another integration test may perform a transfer of a specified amount of money. The test may confirm there are sufficient funds in the account to perform the transfer, and after the transfer the current balance is updated appropriately for the mock user. The login page may be mocked with a test user and mock credentials if this module is not completed when testing the transfers module.
+## 統合テストの設計ブロック
 
-Integration testing is done by the developer or QA tester. In the past, integration testing always happened after unit and before system and E2E testing. Compared to unit-tests, integration tests are fewer in quantity, usually run slower, and are more expensive to set up and develop. Now, if a team is following agile principles, integration tests can be performed before or after unit tests, early and often, as there is no need to wait for sequential processes. Additionally, integration tests can utilize mock data in order to simulate a complete system. There is an abundance of language-specific testing frameworks that can be used throughout the entire development lifecycle.
+ログイン、転送、現在の残高の3つのモジュールを備えた銀行アプリケーションについて考えてみます。これらはすべて独立して開発されています。統合テストでは、ユーザーがログインすると、特定の模擬ユーザーの正しい金額で現在の残高にリダイレクトされることを確認できます。別の統合テストでは、指定された金額の送金が実行される場合があります。テストでは、口座に送金を実行するのに十分な資金があることを確認できます。送金後、現在の残高は模擬ユーザーに合わせて適切に更新されます。転送モジュールのテスト時にこのモジュールが完了していない場合、ログインページはテストユーザーとモック資格情報でモックされる可能性があります。
 
-\*\* It is important to note the difference between integration and acceptance testing. Integration testing confirms a group of components work together as intended from a technical perspective, while acceptance testing confirms a group of components work together as intended from a business scenario.
+統合テストは、開発者またはQAテスターに​​よって行われます。これまで、統合テストは常にユニットの後、システムおよびE2Eテストの前に行われました。単体テストと比較すると、統合テストは量が少なく、通常は実行速度が遅く、セットアップと開発に費用がかかります。現在、チームがアジャイルの原則に従っている場合、統合テストは、順次プロセスを待つ必要がないため、単体テストの前または後に、早い段階で頻繁に実行できます。さらに、統合テストでは、システム全体をシミュレートするためにモックデータを利用できます。開発ライフサイクル全体で使用できる言語固有のテストフレームワークが豊富にあります。
 
-## Applying Integration Testing
+\*\* 統合テストと受け入れテストの違いに注意することが重要です。統合テストでは、コンポーネントのグループが技術的な観点から意図したとおりに機能することを確認し、受け入れテストでは、コンポーネントのグループがビジネスシナリオで意図したとおりに機能することを確認します。
 
-Prior to writing integration tests, the engineers must identify the different components of the system, and their intended behaviors and inputs and outputs. The architecture of the project must be fully documented or specified somewhere that can be readily referenced (e.g., the architecture diagram).
+## 統合テストの適用
 
-There are two main techniques for integration testing.
+統合テストを作成する前に、エンジニアはシステムのさまざまなコンポーネント、およびそれらの意図された動作と入力および出力を特定する必要があります。プロジェクトのアーキテクチャは、完全に文書化されているか、簡単に参照できる場所で指定されている必要があります（アーキテクチャ図など）。
 
-### Big Bang
+統合テストには、主に2つの手法があります。
 
-Big Bang integration testing is when all components are tested as a single unit. This is best for small system as a system too large may be difficult to localize for potential errors from failed tests. This approach also requires all components in the system under test to be completed which may delay when testing begins.
+### ビッグ・バン
+
+ビッグバン統合テストは、すべてのコンポーネントが単一のユニットとしてテストされる場合です。システムが大きすぎると、失敗したテストによる潜在的なエラーを特定するのが難しい場合があるため、これは小規模なシステムに最適です。このアプローチでは、テスト対象のシステム内のすべてのコンポーネントを完了する必要があり、テストの開始時に遅延する可能性があります。
 
 ![Big Bang Integration Testing](./images/bigBang.jpg)
 
-### Incremental Testing
+### インクリメンタルテスト
 
-Incremental testing is when two or more components that are logically related are tested as a unit. After testing the unit, additional components are combined and tested all together. This process repeats until all necessary components are tested.
+インクリメンタルテストとは、論理的に関連する2つ以上のコンポーネントを1つのユニットとしてテストすることです。ユニットをテストした後、追加のコンポーネントを組み合わせて、すべて一緒にテストします。このプロセスは、必要なすべてのコンポーネントがテストされるまで繰り返されます。
 
-#### Top Down
+#### トップダウン
 
-Top down testing is when higher level components are tested following the control flow of a software system. In the scenario, what is commonly referred to as stubs are used to emulate the behavior of lower level modules not yet complete or merged in the integration test.
+トップダウンテストは、ソフトウェアシステムの制御フローに従って上位レベルのコンポーネントをテストする場合です。このシナリオでは、一般にスタブと呼ばれるものを使用して、統合テストでまだ完了していない、またはマージされていない下位レベルのモジュールの動作をエミュレートします。
 
 ![Top Down Integration Testing](./images/topDown.png)
 
-#### Bottom Up
+#### ボトムアップ
 
-Bottom up testing is when lower level modules are tested together. In the scenario, what is commonly referred to as drivers are used to emulate the behavior of higher level modules not yet complete or included in the integration test.
+ボトムアップテストは、下位レベルのモジュールを一緒にテストする場合です。このシナリオでは、一般にドライバーと呼ばれるものを使用して、まだ完了していない、または統合テストに含まれていない高レベルのモジュールの動作をエミュレートします。
 
 ![Bottom Up Integration Testing](./images/bottomUp.jpg)
 
-A third approach known as the sandwich or hybrid model combines the bottom up and town down approaches to test lower and higher level components at the same time.
+サンドイッチまたはハイブリッドモデルとして知られる3番目のアプローチは、ボトムアップアプローチとタウンダウンアプローチを組み合わせて、下位レベルと上位レベルのコンポーネントを同時にテストします。
 
-### Things to Avoid
+### 避けるべきこと
 
-There is a tradeoff a developer must make between integration test code coverage and engineering cycles. With mock dependencies, test data, and multiple environments at test, too many integration tests are infeasible to maintain and become increasingly less meaningful. Too much mocking will slow down the test suite, make scaling difficult, and may be a sign the developer should consider other tests for the scenario such as acceptance or E2E.
+開発者が統合テストコードカバレッジとエンジニアリングサイクルの間で行わなければならないトレードオフがあります。模擬の依存関係、テストデータ、およびテスト中の複数の環境では、統合テストが多すぎると維持できなくなり、意味がなくなります。モックが多すぎると、テストスイートの速度が低下し、スケーリングが困難になります。これは、開発者が受け入れやE2Eなどのシナリオの他のテストを検討する必要がある兆候である可能性があります。
 
-Integration tests of complex systems require high maintenance. Avoid testing business logic in integration tests by keeping test suites separate. Do not test beyond the acceptance criteria of the task and be sure to clean up any resources created for a given test. Additionally, avoid writing tests in a production environment. Instead, write them in a scaled-down copy environment.
+複雑なシステムの統合テストには、高度なメンテナンスが必要です。テストスイートを分離しておくことにより、統合テストでビジネスロジックをテストすることは避けてください。タスクの受け入れ基準を超えてテストしないでください。また、特定のテスト用に作成されたリソースを必ずクリーンアップしてください。さらに、実稼働環境でテストを作成することは避けてください。代わりに、縮小されたコピー環境でそれらを記述してください。
 
-## Integration Testing Frameworks and Tools
+## 統合テストのフレームワークとツール
 
-Many tools and frameworks can be used to write both unit and integration tests. The following tools are for automating integration tests.
+多くのツールとフレームワークを使用して、ユニットテストと統合テストの両方を作成できます。次のツールは、統合テストを自動化するためのものです。
 
 - [JUnit](https://junit.org/junit5/)
 - [Robot Framework](https://robotframework.org/)
@@ -61,16 +63,16 @@ Many tools and frameworks can be used to write both unit and integration tests. 
 - [Selenium](https://www.selenium.dev/)
 - [Behave (Python)](https://behave.readthedocs.io/en/latest/tutorial.html)
 
-## Conclusion
+## 結論
 
-Integration testing demonstrates how one module of a system, or external system, interfaces with another. This can be a test of two components, a sub-system, a whole system, or a collection of systems. Tests should be written frequently and throughout the entire development lifecycle using an appropriate amount of mocked dependencies and test data. Because integration tests prove that independently developed modules interface as technically designed, it increases confidence in the development cycle providing a path for a system that deploys and scales.
+統合テストは、システムの1つのモジュールまたは外部システムが別のモジュールとどのようにインターフェースするかを示します。これは、サブシステム、システム全体、またはシステムのコレクションの2つのコンポーネントのテストになります。テストは、適切な量のモックされた依存関係とテストデータを使用して、開発ライフサイクル全体を通じて頻繁に作成する必要があります。統合テストは、独立して開発されたモジュールが技術的に設計されたとおりにインターフェースすることを証明するため、開発サイクルの信頼性を高め、展開および拡張するシステムへのパスを提供します。
 
-## Resources
+## 参考資料
 
 <!-- markdown-link-check-disable -->
-- [Integration testing approaches](https://www.softwaretestinghelp.com/what-is-integration-testing/)
+- [統合テストのアプローチ](https://www.softwaretestinghelp.com/what-is-integration-testing/)
 <!-- markdown-link-check-enable -->
-- [Integration testing pros and cons](https://www.geeksforgeeks.org/software-engineering-integration-testing/)
-- [Integration tests mocks and stubs](https://circleci.com/blog/how-to-test-software-part-i-mocking-stubbing-and-contract-testing/)
-- [Software Testing: Principles and Practices](https://www.goodreads.com/book/show/21278464-software-testing)
-- [Integration testing Behave test quick start](https://github.com/Nick287/Behave-Quick-Start)
+- [統合テストの長所と短所](https://www.geeksforgeeks.org/software-engineering-integration-testing/)
+- [統合テストのモックとスタブ](https://circleci.com/blog/how-to-test-software-part-i-mocking-stubbing-and-contract-testing/)
+- [ソフトウェアテスト：原則と実践](https://www.goodreads.com/book/show/21278464-software-testing)
+- [統合テスト動作テストのクイックスタート](https://github.com/Nick287/Behave-Quick-Start)

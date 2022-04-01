@@ -1,111 +1,113 @@
-# Fault Injection Testing
+# フォールトインジェクションテスト
 
-Fault injection testing is the deliberate introduction of errors and faults to a system to validate and harden its stability and reliability. The goal is to improve the system's design for resiliency and performance under intermittent failure conditions over time.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/fault-injection-testing/
 
-## When To Use
+フォールトインジェクションテストは、システムの安定性と信頼性を検証および強化するために、システムにエラーと障害を意図的に導入することです。目標は、時間の経過とともに断続的な障害状態での復元力とパフォーマンスに関するシステムの設計を改善することです。
 
-### Problem Addressed
+## いつ使用するか
 
-Systems need to be resilient to the conditions that caused inevitable production disruptions. Modern applications are built with an increasing number of dependencies; on infrastructure, platform, network, 3rd party software or APIs, etc. Such systems increase the risk of impact from dependency disruptions. Each dependent component may fail. Furthermore, its interactions with other components may propagate the failure.
+### 対処された問題
 
-Fault injection methods are a way to increase coverage and validate software robustness and error handling, either at build-time or at run-time, with the intention of "embracing failure" as part of the development lifecycle. These methods assist engineering teams in designing and continuously validating for failure, accounting for known and unknown failure conditions, architect for redundancy, employ retry and back-off mechanisms, etc.
+システムは、避けられない生産の中断を引き起こした条件に対して回復力がある必要があります。最新のアプリケーションは、依存関係の数が増えて構築されています。インフラストラクチャ、プラットフォーム、ネットワーク、サードパーティのソフトウェアまたはAPIなど。このようなシステムは、依存関係の混乱による影響のリスクを高めます。各依存コンポーネントは失敗する可能性があります。さらに、他のコンポーネントとの相互作用により、障害が伝播する可能性があります。
 
-### Applicable to
+フォールトインジェクション方式は、開発ライフサイクルの一部として「障害を受け入れる」ことを目的として、ビルド時または実行時に、カバレッジを拡大し、ソフトウェアの堅牢性とエラー処理を検証する方法です。これらの方法は、エンジニアリングチームが障害の設計と継続的な検証、既知および未知の障害状態の説明、冗長性の設計、再試行およびバックオフメカニズムの採用などを支援します。
 
-* **Software** - Error handling code paths, in-process memory management.
-  * *Example tests:* Edge-case unit/integration tests and/or [load tests](../performance-testing/load-testing.md) (i.e. stress and soak).
-* **Protocol** - Vulnerabilities in communication interfaces such as command line parameters or APIs.
-  * *Example tests:* [Fuzzing](https://owasp.org/www-community/Fuzzing) provides invalid, unexpected, or random data as input we can assess the level of protocol stability of a component.
-* **Infrastructure** - Outages, networking issues, hardware failures.
-  * *Example tests:* Using different methods to cause fault in the underlying infrastructure such as Shut down virtual machine (VM) instances, crash processes, expire certificates, introduce network latency, etc. This level of testing relies on statistical metrics observations over time and measuring the deviations of its observed behavior during fault, or its recovery time.
+### 適用可能なのは
 
-## How to Use
+* **ソフトウェア** - コードパスの処理エラー、インプロセスメモリ管理。
+  * *テストの例:* エッジケースユニット/統合テストおよび/または [負荷テスト](../performance-testing/load-testing.md) (つまり、ストレスとソーク).
+* **プロトコル** - コマンドラインパラメータやAPIなどの通信インターフェイスの脆弱性。
+  * *テスト例:* [ファジング](https://owasp.org/www-community/Fuzzing) は、コンポーネントのプロトコルの安定性のレベルを評価できる入力として、無効、予期しない、またはランダムなデータを提供します。
+* **インフラストラクチャ** - 停止、ネットワークの問題、ハードウェア障害。
+  * *テストの例:* さまざまな方法を使用して、仮想マシン（VM）インスタンスのシャットダウン、プロセスのクラッシュ、証明書の期限切れ、ネットワークレイテンシの導入など、基盤となるインフラストラクチャに障害を発生させます。このレベルのテストは、時間の経過に伴う統計メトリックの観察と測定に依存します。障害時に観察された動作の偏差、または回復時間。
 
-### Architecture
+## 使い方
 
-#### Terminology
+### アーキテクチャ
 
-* **Fault** - The adjudged or hypothesized cause of an error.
-* **Error** - That part of the system state that may cause a subsequent failure.
-* **Failure** - An event that occurs when the delivered service deviates from correct state.
-* **Fault-Error-Failure cycle** - A key mechanism in [dependability](https://en.wikipedia.org/wiki/Dependability): A fault may cause an error. An error may cause further errors within the system boundary; therefore each new error acts as a fault. When error states are observed at the system boundary, they are termed failures.
-(Modeled by [Laprie/Aviˇzienis](https://www.nasa.gov/pdf/636745main_day_3-algirdas_avizienis.pdf))
+#### 用語
 
-#### Fault Injection Testing Basics
+* **Fault/障害** - エラーが判断された、または仮定されたその原因。
+* **Error/エラー** - その後の障害を引き起こす可能性のあるシステム状態の部分。
+* **Failure/失敗** - 提供されたサービスが正しい状態から逸脱したときに発生するイベント。
+* **Fault-Error-Failure cycle/障害-エラー-失敗サイクル** - -[信頼性](https://en.wikipedia.org/wiki/Dependability)の重要なメカニズム：フォールトはエラーを引き起こす可能性があります。エラーが発生すると、システム境界内でさらにエラーが発生する可能性があります。したがって、新しいエラーはそれぞれ障害として機能します。システム境界でエラー状態が観察された場合、それらはFailure/失敗と呼ばれます。(https://en.wikipedia.org/wiki/Dependability)
+([Laprie/Aviˇzienis](https://www.nasa.gov/pdf/636745main_day_3-algirdas_avizienis.pdf)によってモデル化されました)
 
-Fault injection is an advanced form of testing where the system is subjected to different [failure modes](https://en.wikipedia.org/wiki/Failure_mode_and_effects_analysis), and where the testing engineer may know in advance what is the expected outcome, as in the case of release validation tests, or in an exploration to find potential issues in the product, which should be mitigated.
+#### フォールトインジェクションテストの基本
 
-#### Fault Injection and Chaos Engineering
+フォールトインジェクションは、システムがさまざまな[障害モード](https://en.wikipedia.org/wiki/Failure_mode_and_effects_analysis)にさらされ、リリース検証テストの場合のように、または潜在的な問題を見つけるための調査で、テストエンジニアが期待される結果を事前に知ることができる高度な形式のテストです。製品内で、軽減する必要があります。
 
-Fault injection testing is a specific approach to testing one condition. It introduces a failure into a system to validate its robustness. Chaos engineering, coined by Netflix, is a practice for generating new information. There is an overlap in concerns and often in tooling between the terms, and many times chaos engineering uses fault injection to introduce the required effects to the system.
+#### フォールトインジェクションとカオスエンジニアリング
 
-### High-level Step-by-step
+フォールトインジェクションテストは、1つの条件をテストするための特定のアプローチです。システムの堅牢性を検証するために、システムに障害が発生します。Netflixによって造られたカオスエンジニアリングは、新しい情報を生成するための実践です。懸念事項と用語間のツールには重複があり、多くの場合、カオスエンジニアリングはフォールトインジェクションを使用してシステムに必要な効果を導入します。
 
-#### Fault injection testing in the development cycle
+### 高レベルのステップバイステップ
 
-Fault injection is an effective way to find security bugs in software, so much so that the [Microsoft Security Development Lifecycle](https://www.microsoft.com/en-us/securityengineering/sdl/practices) requires fuzzing at every untrusted interface of every product and penetration testing which includes introducing faults to the system, to uncover potential vulnerabilities resulting from coding errors, system configuration faults, or other operational deployment weaknesses.
+#### 開発サイクルでのフォールトインジェクションテスト
 
-Automated fault injection coverage in a CI pipeline promotes a [Shift-Left](https://en.wikipedia.org/wiki/Shift-left_testing) approach of testing earlier in the lifecycle for potential issues.
-Examples of performing fault injection during the development lifecycle:
+フォールトインジェクションはソフトウェアのセキュリティバグを見つける効果的な方法であるため、[Microsoftセキュリティ開発ライフサイクル](https://www.microsoft.com/en-us/securityengineering/sdl/practices)では、コーディングエラーに起因する潜在的な脆弱性を明らかにするために、すべての製品の信頼できないすべてのインターフェイスでファジングを行い、システムに障害を導入することを含む侵入テストを行う必要があります。 、システム構成の障害、またはその他の運用上の展開の弱点。
 
-* Using fuzzing tools in CI.
-* Execute existing end-to-end scenario tests (such as integration or stress tests), which are augmented with fault injection.
-* Write regression and acceptance tests based on issues that were found and fixed or based on resolved service incidents.
-* Ad-hoc (manual) validations of fault in the dev environment for new features.
+CIパイプラインの自動フォールトインジェクションカバレッジは、潜在的な問題についてライフサイクルの早い段階でテストするShift-Leftアプローチを促進します。開発ライフサイクル中に[Shift-Left テスト](https://en.wikipedia.org/wiki/Shift-left_testing)アプローチを促進します。
+開発ライフサイクル中にフォールトインジェクションを実行する例：
 
-#### Fault injection testing in the release cycle
+* CIでファジングツールを使用する。
+* フォールトインジェクションで強化された既存のエンドツーエンドのシナリオテスト（統合テストやストレステストなど）を実行します。
+* 検出されて修正された問題、または解決されたサービスインシデントに基づいて、リグレッションテストと受け入れテストを作成します。
+* 新機能のための開発環境での障害のアドホック（手動）検証。
 
-Much like [Synthetic Monitoring Tests](../synthetic-monitoring-tests/README.md), fault injection testing in the release cycle is a part of [Shift-Right testing](https://docs.microsoft.com/en-us/devops/deliver/shift-right-test-production) approach, which uses safe methods to perform tests in a production or pre-production environment. Given the nature of distributed, cloud-based applications, it is very difficult to simulate the real behavior of services outside their production environment. Testers are encouraged to run tests where it really matters, on a live system with customer traffic.
+#### リリースサイクルでのフォールトインジェクションテスト
 
-Fault injection tests rely on metrics observability and are usually statistical; The following high-level steps provide a sample of practicing fault injection and chaos engineering:
+[Synthetic Monitoring Tests](../synthetic-monitoring-tests/README.md)と同様にリリースサイクルでのフォールトインジェクションテストは、実稼働環境または実稼働前環境でテストを実行するために安全な方法を使用する[Shift-Right テスト](https://docs.microsoft.com/en-us/devops/deliver/shift-right-test-production) アプローチの一部です。 分散型のクラウドベースのアプリケーションの性質を考えると、本番環境外のサービスの実際の動作をシミュレートすることは非常に困難です。テスターは、顧客トラフィックのあるライブシステムで、本当に重要な場所でテストを実行することをお勧めします。
 
-* Measure and define a steady (healthy) state for the system's interoperability.
-* hypothesize based on a fault mode.
-* Introduce real-world fault-events to the system.
-* Measure the state and compare it to the baseline state.
-* Document the process and the observations
-* Identify and act on the result
+フォールトインジェクションテストは、メトリックの可観測性に依存しており、通常は統計的です。次の高レベルの手順は、フォールトインジェクションとカオスエンジニアリングの実践のサンプルを提供します。
 
-## Best Practices and Advice
+* システムの相互運用性の安定した（正常な）状態を測定および定義します。
+* 障害モードに基づいて仮説を立てます。
+* システムに実際の障害イベントを導入します。
+* 状態を測定し、ベースライン状態と比較します。
+* プロセスと観察結果を文書化する
+* 結果を特定して行動する
 
-Experimenting in production has the benefit of running tests against a live system with real user traffic, ensuring its health, or building confidence in its ability to handle errors gracefully. However, it has the potential to cause unnecessary customer pain.
-A test can either succeed or fail. In the event of failure, there will likely be some impact on the production environment. Thinking about the **Blast Radius** of the effect, should the test fail, is a crucial step to conduct beforehand. The following practices may help minimize such risk:
+## ベストプラクティスとアドバイス
 
-* Run tests in a non-production environment first. Understand how the system behaves in a safe environment, using synthetic workload, before introducing potential risk to customer traffic.
-* Use fault injection as gates in different stages through the CD pipeline.
-* Deploy and test on Blue/Green and Canary deployments. Use methods such as traffic shadowing (a.k.a. [Dark Traffic](https://cloud.google.com/blog/products/gcp/cre-life-lessons-what-is-a-dark-launch-and-what-does-it-do-for-me)) to get customer traffic to the staging slot.
-* Strive to achieve a balance between collecting actual result data while affecting as few production users as possible.
-* Use defensive design principles such as circuit breaking and the bulkhead patterns.
-* Agreed on a budget (in terms of Service Level Objective (SLO)) as an investment in chaos and fault injection.
-* Grow the risk incrementally - Start with hardening the core and expand out in layers. At each point, progress should be locked in with automated regression tests.
+本番環境での実験には、実際のユーザートラフィックを使用してライブシステムに対してテストを実行したり、システムの正常性を確保したり、エラーを適切に処理する能力に自信を持たせたりするという利点があります。本番環境での実験には、実際のユーザートラフィックを使用してライブシステムに対してテストを実行したり、システムの正常性を確保したり、エラーを適切に処理する能力に自信を持たせたりするという利点があります。
+テストは成功することも失敗することもあります。障害が発生した場合、本番環境に何らかの影響が及ぶ可能性があります。テストが失敗した場合に、 効果の**ブラスト(爆風)半径**について考えることは、事前に実行する重要なステップです。次の方法は、このようなリスクを最小限に抑えるのに役立つ場合があります。
 
-## Fault Injection Testing Frameworks and Tools
+* 最初に非実稼働環境でテストを実行します。顧客のトラフィックに潜在的なリスクをもたらす前に、合成ワークロードを使用して、システムが安全な環境でどのように動作するかを理解します。
+* CDパイプラインを介したさまざまな段階のゲートとしてフォールトインジェクションを使用します。
+* ブルー/グリーンおよびカナリアの展開で展開およびテストします。トラフィックシャドウイング (別名 [ダークトラフィック](https://cloud.google.com/blog/products/gcp/cre-life-lessons-what-is-a-dark-launch-and-what-does-it-do-for-me)) などの方法を使用して、顧客のトラフィックをステージングスロットに誘導します。
+* できるだけ少ない本番ユーザーに影響を与えながら、実際の結果データを収集することの間のバランスを達成するように努めてください。
+* 回路遮断やバルクヘッドパターンなどの防御設計の原則を使用します。
+* カオスとフォールトインジェクションへの投資として、予算（サービスレベル目標（SLO）の観点から）について合意しました。
+* リスクを段階的に拡大する-コアを強化することから始めて、レイヤーで拡張します。各時点で、進行状況は自動回帰テストで固定する必要があります。
+
+## フォールトインジェクションテストのフレームワークとツール
 
 ### Fuzzing
 
-* [OneFuzz](https://github.com/microsoft/onefuzz) - is a Microsoft open-source self-hosted fuzzing-as-a-service platform which is easy to integrate into CI pipelines.
-* [AFL](https://lcamtuf.coredump.cx/afl/) and [WinAFL](https://github.com/googleprojectzero/winafl) - Popular fuzz tools by Google's project zero team which is used locally to target binaries on Linux or Windows.
-* [WebScarab](https://github.com/OWASP/OWASP-WebScarab) - A web-focused fuzzer owned by OWASP which can be found in [Kali linux](https://tools.kali.org/web-applications/webscarab) distributions.
+* [OneFuzz](https://github.com/microsoft/onefuzz) - CIパイプラインに簡単に統合できる、Microsoftのオープンソースのセルフホスト型サービスとしてのファジングプラットフォームです。
+* [AFL](https://lcamtuf.coredump.cx/afl/)、[WinAFL](https://github.com/googleprojectzero/winafl) - LinuxまたはWindowsのバイナリをターゲットにするためにローカルで使用されるGoogleのプロジェクトゼロチームによって人気のあるファズツール。
+* [WebScarab](https://github.com/OWASP/OWASP-WebScarab) - OWASPが所有するWebに焦点を合わせたファザーで、[Kali linux](https://tools.kali.org/web-applications/webscarab) ディストリビューションに含まれます。
 
 ### Chaos
 
-* [Chaos toolkit](https://chaostoolkit.org/) - A declarative, modular chaos platform with many extensions, including the [Azure actions and probes kit](https://github.com/chaostoolkit-incubator/chaostoolkit-azure).
-* [Kraken](https://github.com/openshift-scale/kraken) - An Openshift-specific chaos tool, maintained by Redhat.
-* [Chaos Monkey](https://github.com/netflix/chaosmonkey) - The Netflix platform which popularized chaos engineering (doesn't support Azure OOTB).
+* [Chaos toolkit](https://chaostoolkit.org/) - [Azureアクションおよびプローブキット](https://github.com/chaostoolkit-incubator/chaostoolkit-azure)を含む多くの拡張機能を備えた宣言型のモジュラーカオスプラットフォーム。
+* [Kraken](https://github.com/openshift-scale/kraken) - Redhatによって保守されているOpenshift固有のカオスツール。
+* [Chaos Monkey](https://github.com/netflix/chaosmonkey) - カオスエンジニアリングを普及させたNetflixプラットフォーム（Azure OOTBをサポートしていません）。
 
-## Conclusion
+## 結論
 
-From the [principals of chaos](https://principlesofchaos.org/): "The harder it is to disrupt the steady-state, the more confidence we have in the behavior of the system. If a weakness is uncovered, we now have a target for improvement before that behavior manifests in the system at large".
+[カオスの原理](https://principlesofchaos.org/)より: 「定常状態を混乱させるのが難しいほど、システムの動作に対する信頼が高まります。弱点が明らかになった場合、その動作がシステムに現れる前に、改善の目標があります。一般の"。
 
-Fault injection techniques increase resilience and confidence in the products we ship. They are used across the industry to validate applications and platforms before and while they are delivered to customers.
-Fault injection is a powerful tool and should be used with caution. Cases such as the [Cloudflare 30 minute global outage](https://blog.cloudflare.com/cloudflare-outage/), which was caused due to a deployment of code that was meant to be “dark launched”, entail the importance of curtailing the blast radius in the system during experiments.
+フォールトインジェクション技術は、出荷する製品の回復力と信頼性を高めます。これらは、顧客に提供される前と提供されている間に、アプリケーションとプラットフォームを検証するために業界全体で使用されます。
+フォールトインジェクションは強力なツールであり、注意して使用する必要があります。「ダークローンチ」を意図したコードの展開が原因で発生した[Cloudflareの30分間のグローバル停止](https://blog.cloudflare.com/cloudflare-outage/)などのケースでは、実験中にシステムのブラスト(爆風)半径を縮小することが重要です。
 
-## Resources
+## 参考資料
 
-* [Mark Russinovich's fault injection and chaos engineering blog post](https://azure.microsoft.com/en-au/blog/advancing-resilience-through-chaos-engineering-and-fault-injection/)
-* [Cindy Sridharan's Testing in production blog post](https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1)
-* [Cindy Sridharan's Testing in production blog post cont.](https://medium.com/@copyconstruct/testing-in-production-the-hard-parts-3f06cefaf592)
-* [Fault injection in Azure Search](https://azure.microsoft.com/es-es/blog/inside-azure-search-chaos-engineering/)
-* [Azure Architecture Framework - Chaos engineering](https://docs.microsoft.com/en-us/azure/architecture/framework/resiliency/chaos-engineering)
-* [Azure Architecture Framework - Testing resilience](https://docs.microsoft.com/en-us/azure/architecture/framework/resiliency/testing)
-* [Landscape of Software Failure Cause Models](https://www.researchgate.net/publication/301839557_The_landscape_of_software_failure_cause_models)
+* [マーク・ルシノビッチのフォールトインジェクションとカオスエンジニアリングのブログ投稿](https://azure.microsoft.com/en-au/blog/advancing-resilience-through-chaos-engineering-and-fault-injection/)
+* [CindySridharanの本番ブログ投稿でのテスト](https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1)
+* [CindySridharanの本番ブログ投稿でのテスト続き。](https://medium.com/@copyconstruct/testing-in-production-the-hard-parts-3f06cefaf592)
+* [AzureSearchでのフォールトインジェクション](https://azure.microsoft.com/es-es/blog/inside-azure-search-chaos-engineering/)
+* [Azureアーキテクチャフレームワーク-カオスエンジニアリング](https://docs.microsoft.com/en-us/azure/architecture/framework/resiliency/chaos-engineering)
+* [Azureアーキテクチャフレームワーク-復元力のテスト](https://docs.microsoft.com/en-us/azure/architecture/framework/resiliency/testing)
+* [ソフトウェア障害原因モデルの状況](https://www.researchgate.net/publication/301839557_The_landscape_of_software_failure_cause_models)

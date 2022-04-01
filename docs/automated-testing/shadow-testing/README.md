@@ -1,61 +1,63 @@
-# Shadow Testing
+# シャドウテスト
 
-Shadow testing is one approach to reduce risks before going to production. Shadow testing is also known as "Shadow Deployment" or "Shadowing Traffic" and similarities with "Dark launching".
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/shadow-testing/
 
-## When to use
+シャドウテストは、本番環境に移行する前にリスクを軽減するための1つのアプローチです。シャドウテストは、「ShadowDeployment」または「ShadowingTraffic」とも呼ばれ、「Darklaunching」との類似点です。
 
-Shadow Testing reduces risks when you consider replacing the current environment (V-Current) with candidate environment with new feature (V-Next). This approach is monitoring and capturing differences between two environments then compare and reduces all risks before you introduce a new feature/release.
+## いつ使用するか
 
-In our test cases, code coverage is very important however sometimes providing code coverage can be tricky to replicate real-life combinations and possibilities. In this approach, to test V-Next environment we have side by side deployment, we're replicating the same traffic with V-Current environment and directing same traffic to V-Next environment, the only difference is we don't return any response from V-Next environment to users, but we collect those responses to compare with V-Current responses.
+シャドウテストは、現在の環境（V-Current）を新しい機能を備えた候補環境（V-Next）に置き換えることを検討する場合のリスクを軽減します。このアプローチは、2つの環境間の違いを監視およびキャプチャし、新しい機能/リリースを導入する前にすべてのリスクを比較して削減します。
+
+私たちのテストケースでは、コードカバレッジは非常に重要ですが、実際の組み合わせや可能性を再現するには、コードカバレッジを提供するのが難しい場合があります。このアプローチでは、並べて展開しているV-Next環境をテストするために、同じトラフィックをV-Current環境で複製し、同じトラフィックをV-Next環境に転送します。唯一の違いは、応答が返されないことです。 V-Next環境からユーザーへ。ただし、V-Currentの応答と比較するために、これらの応答を収集します。
 
 ![Shadow Testing Overview](images/shadow-testing.png)
 
- Referencing back to one of the [Principles of Chaos Engineering](https://principlesofchaos.org/), mentions importance of sampling real traffic like below:
+ [カオスエンジニアリング](https://principlesofchaos.org/)の原則の1つを参照して、以下のように実際のトラフィックをサンプリングすることの重要性について言及します。
 
-> Systems behave differently depending on environment and traffic patterns. Since the behavior of utilization can change at any time, sampling real traffic is the only way to reliably capture the request path. To guarantee both authenticity of the way in which the system is exercised and relevance to the current deployed system, Chaos strongly prefers to experiment directly on production traffic.
+> システムは、環境とトラフィックパターンに応じて異なる動作をします。使用率の動作はいつでも変更される可能性があるため、実際のトラフィックをサンプリングすることが、要求パスを確実にキャプチャする唯一の方法です。システムの実行方法の信頼性と現在展開されているシステムとの関連性の両方を保証するために、Chaosは本番トラフィックで直接実験することを強く望んでいます。
 
-With this Shadow Testing approach we're leveraging real customer behavior in V-Next environment with sampling real traffic and mitigating the risks which users may face on production. At the same time we're testing V-Next environment infrastructure for scaling with real sampled traffic. V-Next should scale with the same way V-Current does. We're testing actual behavior of the product and this cause zero impact to production to test new features since traffic is replicated to V-next environment.
+このシャドウテストのアプローチでは、V-Next環境での実際の顧客の行動を活用して、実際のトラフィックをサンプリングし、ユーザーが本番環境で直面する可能性のあるリスクを軽減します。同時に、実際にサンプリングされたトラフィックでスケーリングするために、V-Next環境インフラストラクチャをテストしています。V-Nextは、V-Currentと同じ方法でスケーリングする必要があります。製品の実際の動作をテストしていますが、トラフィックはV-next環境に複製されるため、これにより本番環境に影響を与えずに新機能をテストできます。
 
-There are some similarities with [Dark Launching](https://martinfowler.com/bliki/DarkLaunching.html), Dark Launching proposes to integrate new feature into production code, but users can't use the feature. On the backend you can test your feature and improve the performance until it's acceptable. It is also similar to [Feature Toggles](https://martinfowler.com/bliki/FeatureToggle.html) which provides you with an ability to enable/disable your new feature in production on a UI level. With this approach your new feature will be visible to users, and you can collect feedback. Using Dark Launching with Feature Toggles can be very useful for introducing a new feature.
+[Dark Launching](https://martinfowler.com/bliki/DarkLaunching.html)にはいくつかの類似点があり、Dark Launchingは新機能を製品コードに統合することを提案していますが、ユーザーはその機能を使用できません。バックエンドでは、機能をテストして、許容できるまでパフォーマンスを向上させることができます。[フィーチャートグル](https://martinfowler.com/bliki/FeatureToggle.html)にも似ています。このアプローチを使用すると、新しい機能がユーザーに表示され、フィードバックを収集できます。フィーチャートグルでダークローンチを使用すると、新しい機能を導入するのに非常に役立ちます。
 
-## Applicable to
+## 適用可能
 
-- **Production deployments**: V-Next in Shadow testing always working separately and not effecting production. Users are not effected with this test.
-- **Infrastructure**: Shadow testing replicating the same traffic, in test environment you can have the same traffic on the production. It helps to produce real life test scenarios
-- **Handling Scale**: All traffic is replicated, and you have a chance to see how your system scaling.
+- **本番環境への展開**: V-Next in Shadowテストは常に個別に機能し、本番環境には影響しません。ユーザーはこのテストの影響を受けません。
+- **インフラストラクチャ**: 同じトラフィックを複製するシャドウテスト。テスト環境では、本番環境で同じトラフィックを使用できます。実際のテストシナリオを作成するのに役立ちます
+- **スケールの処理**: すべてのトラフィックが複製され、システムのスケーリングを確認する機会があります。
 
-## Shadow Testing Frameworks and Tools
+## シャドウテストのフレームワークとツール
 
-There are some tools to implement shadow testing. The main purpose of these tools is to compare responses of V-Current and V-Next then find the differences.
+シャドウテストを実装するためのツールがいくつかあります。これらのツールの主な目的は、V-CurrentとV-Nextの応答を比較し、違いを見つけることです。
 
 - [Diffy](https://github.com/opendiffy/diffy)
 - [Envoy](https://www.envoyproxy.io)
 - [McRouter](https://github.com/facebook/mcrouter)
 - [Scientist](https://github.com/github/scientist)
 
-One of the most popular tools is [Diffy](https://github.com/opendiffy/diffy). It was created and used at Twitter. Now the original author and a former Twitter employee maintains their own version of this project, called [Opendiffy](https://github.com/opendiffy/diffy). Twitter announced this tool on their engineering blog as "[Testing services without writing tests](https://blog.twitter.com/engineering/en_us/a/2015/diffy-testing-services-without-writing-tests.html)".
+最も人気のあるツールの1つは[Diffy](https://github.com/opendiffy/diffy)です。Twitterで作成され、使用されました。現在、元の作者と元Twitterの従業員は、 [Opendiffy](https://github.com/opendiffy/diffy)と呼ばれるこのプロジェクトの独自のバージョンを維持しています。Twitterは、エンジニアリングブログで、このツールを「[テストを作成せずにサービスをテストする](https://blog.twitter.com/engineering/en_us/a/2015/diffy-testing-services-without-writing-tests.html)"」と発表しました。
 
-As of today Diffy is used in production by Twitter, Airbnb, Baidu and Bytedance companies. Diffy explains the shadow testing feature like this:
+現在、Diffyは、Twitter、Airbnb、Baidu、およびBytedanceの各企業による制作に使用されています。Diffyは、シャドウテスト機能を次のように説明しています。
 
-> Diffy finds potential bugs in your service using running instances of your new code, and your old code side by side. Diffy behaves as a proxy and multicasts whatever requests it receives to each of the running instances. It then compares the responses, and reports any regressions that may surface from those comparisons. The premise for Diffy is that if two implementations of the service return “similar” responses for a sufficiently large and diverse set of requests, then the two implementations can be treated as equivalent, and the newer implementation is regression-free.
+> Diffyは、新しいコードと古いコードの実行中のインスタンスを並べて使用して、サービスの潜在的なバグを見つけます。Diffyはプロキシとして動作し、受信したすべての要求を実行中の各インスタンスにマルチキャストします。次に、応答を比較し、それらの比較から表面化する可能性のある回帰を報告します。Diffyの前提は、サービスの2つの実装が、十分に大きく多様な要求のセットに対して「類似した」応答を返す場合、2つの実装は同等として扱うことができ、新しい実装はリグレッションフリーであるということです。
 
 ![Diffy Shadow Testing Architecture](images/diffy-shadow-testing.png)
 
-Diffy architecture
+上記はDiffyのアーキテクチャです。
 
-## Conclusion
+## 結論
 
-Shadow Testing is a useful approach to reduce risks when you consider replacing the current environment with candidate environment using new feature(s). Shadow testing replicates traffic of the production to candidate environment for testing, so you get same production use case scenarios in the test environment. You can compare differences on both environments and validate your candidate environment to be ready for releasing.
+シャドウテストは、現在の環境を新しい機能を使用して候補環境に置き換えることを検討する場合に、リスクを軽減するための便利なアプローチです。シャドウテストは、本番環境のトラフィックをテスト用の候補環境に複製するため、テスト環境で同じ本番環境のユースケースシナリオを取得できます。両方の環境の違いを比較し、候補環境を検証してリリースの準備を整えることができます。
 
-Some advantages of shadow testing are:
+シャドウテストのいくつかの利点は次のとおりです。
 
-- Zero impact to production environment
-- No need to generate test scenarios and test data
-- We can test real-life scenarios with real-life data.
-- We can simulate scale with replicated production traffic.
+- 実稼働環境への影響はゼロ
+- テストシナリオとテストデータを生成する必要はありません
+- 実際のデータを使用して、実際のシナリオをテストできます。
+- 複製された本番トラフィックでスケールをシミュレートできます。
 
-## References  
+## 参考文献  
 
-- [Martin Fowler - Dark Launching](https://martinfowler.com/bliki/DarkLaunching.html)
-- [Martin Fowler - Feature Toggle](https://martinfowler.com/bliki/FeatureToggle.html)
-- [Traffic Shadowing/Mirroring](https://istio.io/latest/docs/tasks/traffic-management/mirroring/#:~:text=Traffic%20mirroring%2C%20also%20called%20shadowing,path%20for%20the%20primary%20service.)
+- [マーティンファウラー-ダークローンチング](https://martinfowler.com/bliki/DarkLaunching.html)
+- [マーティンファウラー-フィーチャートグル](https://martinfowler.com/bliki/FeatureToggle.html)
+- [トラフィックシャドウイング/ミラーリング](https://istio.io/latest/docs/tasks/traffic-management/mirroring/#:~:text=Traffic%20mirroring%2C%20also%20called%20shadowing,path%20for%20the%20primary%20service.)

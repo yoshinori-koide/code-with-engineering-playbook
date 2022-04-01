@@ -1,72 +1,74 @@
-# Load Testing
+# 負荷テスト
 
-"*Load testing is performed to determine a system's behavior under both normal and anticipated peak load conditions.*" - [Load testing - Wikipedia](https://en.wikipedia.org/wiki/Load_testing)
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/performance-testing/load-testing/
 
-A load test is designed to determine how a system behaves under expected normal and peak workloads.  Specifically its main purpose is to confirm if a system can handle the expected load level. Depending on the target system this could be concurrent users, requests per second or data size.
+「*負荷テストは、通常のピーク負荷状態と予想されるピーク負荷状態の両方でシステムの動作を判断するために実行されます。*」 - [負荷テスト - Wikipedia](https://en.wikipedia.org/wiki/Load_testing)
 
-## Why Load Testing
+負荷テストは、予想される通常のワークロードとピーク時のワークロードの下でシステムがどのように動作するかを判断するように設計されています。具体的には、その主な目的は、システムが予想される負荷レベルを処理できるかどうかを確認することです。ターゲットシステムに応じて、これは同時ユーザー、1秒あたりのリクエスト数、またはデータサイズになります。
 
-The main objective is to prove the system can behave normally under the expected normal load before releasing it to production. The criteria which defines "behave normally" will depend on your target, this may be as simple as "the system remains available", but it could also include meeting a response time SLA or error rate.
+## 負荷テストを行う理由
 
-Additionally, the results of a load test can also be used as data to help with capacity planning and calculating scalability.
+主な目的は、システムを本番環境にリリースする前に、予想される通常の負荷の下でシステムが正常に動作できることを証明することです。「正常に動作する」を定義する基準は、ターゲットによって異なります。これは、「システムは引き続き使用可能」と同じくらい単純な場合がありますが、応答時間のSLAまたはエラー率を満たすことも含まれる場合があります。
 
-## Load Testing Design Blocks
+さらに、負荷テストの結果は、容量の計画とスケーラビリティの計算に役立つデータとしても使用できます。
 
-There are a number of basic component which are required to carry out a load test.  
+## 負荷テストの設計ブロック
 
-1. In order to have meaningful results the system needs to be tested in a production-like environment with a network and hardware which closely resembles the expected deployment environment.
+負荷テストを実行するために必要な基本的なコンポーネントがいくつかあります。
 
-2. The load test will consist of a module which simulates user activity. Of course what the composition of this "user activity" will be vary based on the type of application being tested. For example an e-commerce website might simulate user browsing and purchasing items, but an IoT data ingestion pipeline would simulate a stream of device readings. Please ensure the simulation is as close to real activity as possible taking into account not just volume but also patterns and variability. For example if the simulator data is too uniform or predictable then cache/hit ratios may impact your results.
+1. 意味のある結果を得るには、システムを、予想される展開環境に非常によく似たネットワークとハードウェアを備えた本番環境のような環境でテストする必要があります。
 
-3. The load test will be initiated from a component external to the target system which can control the amount of load applied. This can be a single agent, but may need to scaled to multiple agents in order to achieve higher levels of activity.
+2. 負荷テストは、ユーザーアクティビティをシミュレートするモジュールで構成されます。もちろん、この「ユーザーアクティビティ」の構成は、テストするアプリケーションの種類によって異なります。たとえば、eコマースWebサイトは、ユーザーによるアイテムの閲覧と購入をシミュレートしますが、IoTデータ取り込みパイプラインはデバイスの読み取りのストリームをシミュレートします。ボリュームだけでなく、パターンや変動性も考慮して、シミュレーションが実際のアクティビティにできるだけ近いことを確認してください。たとえば、シミュレータデータが均一すぎるか予測可能である場合、キャッシュ/ヒット率が結果に影響を与える可能性があります。
 
-4. Although not required to run a load test, it is advisable to have monitoring and/or logging in place to be able to measure the impact of the test and discover potential bottlenecks.
+3. 負荷テストは、適用される負荷の量を制御できるターゲットシステムの外部のコンポーネントから開始されます。これは単一のエージェントにすることができますが、より高いレベルのアクティビティを実現するために、複数のエージェントにスケーリングする必要がある場合があります。
 
-## Applying the Load Testing
+4. 負荷テストを実行する必要はありませんが、テストの影響を測定し、潜在的なボトルネックを発見できるように、監視やログ記録を行うことをお勧めします。
 
-### Planning
+## 負荷テストの適用
 
-1. **Identify key scenarios to measure**  - Gather these scenarios from Product Owner, they should provide a representative sample of real world traffic.
-2. **Determine expected normal and peak load for the scenarios** -  Determine a load level such as concurrent users or requests per second to find the size of the load test you will run.
-3. **Identify success criteria metrics** - These may be on testing side such as response time and error rate, or they may be on the system side such as CPU and memory usage.
-4. **Select the right tool** - Many frameworks exist for load testing so consider if features and limitations are suitable for your needs. (Some popular tools are listed below).
+### 計画
 
-### Execution
+1. **測定する主要なシナリオを特定する**  - プロダクトオーナーからこれらのシナリオを収集し、実際のトラフィックの代表的なサンプルを提供する必要があります。
+2. **シナリオの予想される通常の負荷とピーク負荷を決定する** - 実行する負荷テストのサイズを見つけるために、同時ユーザーや1秒あたりの要求などの負荷レベルを決定します。
+3. **成功基準のメトリックを特定する** - これらは、応答時間やエラー率などのテスト側にある場合もあれば、CPUやメモリ使用量などのシステム側にある場合もあります。
+4. **適切なツールを選択する** - 負荷テストには多くのフレームワークが存在するため、機能と制限がニーズに適しているかどうかを検討してください。（いくつかの人気のあるツールを以下に示します）。
 
-It is recommended to use an existing testing framework (see below). These tools will provide a method of both specifying the user activity scenarios and how to execute those at load. It is common to slowly ramp up to your desired load to better replicate real world behavior. Once you have reached your defined workload, maintain this level long enough to see if your system stabilizes. To finish up the test you should also ramp to see record how the system slows down as well.
+### 実行
 
-You should also consider the origin of your load test traffic. Depending on the scope of the target system you may want to initiate from a different location to better replicate real world traffic such as from a different region.
+既存のテストフレームワークを使用することをお勧めします（以下を参照）。これらのツールは、ユーザーアクティビティシナリオを指定する方法と、ロード時にそれらを実行する方法の両方を提供します。実際の動作をより適切に再現するために、目的の負荷までゆっくりとランプアップするのが一般的です。定義したワークロードに達したら、システムが安定するかどうかを確認するのに十分な時間、このレベルを維持します。テストを終了するには、システムの速度がどのように低下​​するかを記録するためにランプを設定する必要もあります。
 
-**Note:** Before starting please be aware of any restrictions on your network such as DDOS protection where you may need to notify a network administrator or apply for an exemption.
+また、負荷テストトラフィックの発信元も考慮する必要があります。ターゲットシステムのスコープによっては、別の場所から開始して、別の地域などからの実際のトラフィックをより適切に複製することができます。
 
-### Further Testing
+**注：** 開始する前に、ネットワーク管理者に通知したり、免除を申請したりする必要があるDDOS保護など、ネットワークの制限に注意してください。
 
-After completing your load test you should be set up to continue on to additional related testing such as;
+### さらなるテスト
 
-- **Soak Testing** - Also known as **Endurance Testing**. Performing a load test over an extended period of time to ensure long term stability.
-- **Stress Testing** - Gradually increasing the load to find the limits of the system and identify the maximum capacity.
-- **Spike Testing** - Introduce a sharp short-term increase into the load scenarios.
-- **Scalability Testing** - Re-testing of a system as your expand horizontally or vertically to measure how it scales.
+負荷テストを完了したら、次のような追加の関連テストに進むように設定する必要があります。
 
-## Load Testing Frameworks and Tools
+- **ソークテスト** - **耐久性テスト**とも呼ばれます。長期間の安定性を確保するために、長期間にわたって負荷テストを実行します。
+- **ストレステスト** - 負荷を徐々に増やして、システムの限界を見つけ、最大容量を特定します。
+- **スパイクテスト** - 負荷シナリオに短期間の急激な増加を導入します。
+- **スケーラビリティテスト** - システムがどのようにスケーリングするかを測定するために、水平方向または垂直方向に拡張するときにシステムを再テストします。
 
-Here are a few popular load testing frameworks you may consider, and the languages used to define your scenarios.
+## 負荷テストのフレームワークとツール
 
-- **JMeter** (<https://github.com/apache/jmeter>) - Has built in patterns to test without coding, but can be extended with Java.
-- **Artillery** (<https://artillery.io/>) - Write your scenarios in Javascript, executes a node application.
-- **Gatling** (<https://gatling.io/>) -  Write your scenarios in Scala with their DSL.
-- **Locust** (<https://locust.io/>) - Write your scenarios in Python using the concept of concurrent user activity.
-- **K6** (<https://k6.io/>) - Write your test scenarios in Javascript, available as open source or as SaaS.
-- **NBomber** (<https://nbomber.com/>) - Write your test scenarios in C# or F#, available integration with test runners (NUnit/xUnit).
+検討できる一般的な負荷テストフレームワークと、シナリオの定義に使用される言語を次に示します。
 
-## Conclusion
+- **JMeter** (<https://github.com/apache/jmeter>) - コーディングせずにテストするためのパターンが組み込まれていますが、Javaで拡張できます。
+- **Artillery** (<https://artillery.io/>) - シナリオをJavascriptで記述し、ノードアプリケーションを実行します。
+- **Gatling** (<https://gatling.io/>) - DSLを使用してScalaでシナリオを記述します。
+- **Locust** (<https://locust.io/>) - 同時ユーザーアクティビティの概念を使用して、Pythonでシナリオを記述します。
+- **K6** (<https://k6.io/>) - オープンソースまたはSaaSとして利用可能なJavascriptでテストシナリオを記述します。
+- **NBomber** (<https://nbomber.com/>) - テストシナリオをC＃またはF＃で記述し、テストランナー（NUnit / xUnit）と統合できます。
 
-A load test is critical step to understand if a target system will be reliable under the expected real world traffic.
+## 結論
 
-Of course, it's only as good as your ability to predict the expected load, so it's important to follow up with other further testing to truly understand how your system behaves in different situations.
+負荷テストは、ターゲットシステムが予想される実際のトラフィックの下で信頼できるかどうかを理解するための重要なステップです。
 
-## Resources
+もちろん、予想される負荷を予測する能力と同じくらい優れているため、さまざまな状況でシステムがどのように動作するかを真に理解するために、他のさらなるテストをフォローアップすることが重要です。
 
-List additional readings about this test type for those that would like to dive deeper.
+## 参考資料
 
-- [Microsoft Azure Well-Architected Framework > Load Testing](https://docs.microsoft.com/en-us/azure/architecture/framework/scalability/load-testing)
+さらに深く掘り下げたい人のために、このテストタイプに関する追加の読み物をリストしてください。
+
+- [MicrosoftAzure適切に設計されたフレームワーク>負荷テスト](https://docs.microsoft.com/en-us/azure/architecture/framework/scalability/load-testing)

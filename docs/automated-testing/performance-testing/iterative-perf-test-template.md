@@ -1,29 +1,31 @@
-# Performance Test Iteration Template
+# パフォーマンステストの反復テンプレート
 
-> This document provides template for capturing results of performance tests. Performance tests are done in iterations and each iteration should have a clear goal. The results of any iteration is immutable regardless whether the goal was achieved or not. If the iteration failed or the goal is not achieved then a new iteration of testing is carried out with appropriate fixes. It is recommended to keep track of the recorded iterations to maintain a timeline of how system evolved and which changes affected the performance in what way. Feel free to modify this template as needed.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/performance-testing/iterative-perf-test-template/
 
-## Iteration Template
+> このドキュメントは、パフォーマンステストの結果をキャプチャするためのテンプレートを提供します。パフォーマンステストは反復で行われ、各反復には明確な目標が必要です。目標が達成されたかどうかに関係なく、反復の結果は不変です。反復が失敗した場合、または目標が達成されなかった場合は、適切な修正を加えて、テストの新しい反復が実行されます。システムがどのように進化し、どの変更がパフォーマンスにどのように影響したかについてのタイムラインを維持するために、記録された反復を追跡することをお勧めします。必要に応じて、このテンプレートを自由に変更してください。
 
-### Goal
+## 反復テンプレート
 
-> Mention in bullet points the goal for this iteration of test. The goal should be small and measurable within this iteration.
+### ゴール
 
-### Test Details
+> 箇条書きで言及すると、このテストの反復の目標が示されます。目標は小さく、この反復内で測定可能である必要があります。
 
-- **Date**: *Date and time when this iteration started and ended*
-- **Duration**: *Time it took to complete this iteration.*
-- **Application Code**: *Commit id and link to the commit for the code(s) which are being tested in this iteration*
-- **Benchmarking Configuration:**
-  - **Application Configuration:** *In bullet points mention the configuration for application that should be recorded*
-  - **System Configuration:** *In bullet points mention the configuration of the infrastructure*
+### テストの詳細
 
-> Record different types of configurations. Usually application specific configuation changes between iterations where as system or infrastructure configurations rarely change
+- **日付**: *この反復が開始および終了した日時*
+- **期間**: *この反復を完了するのにかかった時間。*
+- **アプリケーションコード**: *コミットIDと、この反復でテストされているコードのコミットへのリンク*
+- **ベンチマーク構成:**
+  - **アプリケーションの構成:** *箇条書きで、記録する必要のあるアプリケーションの構成について説明します*
+  - **システム構成:** *箇条書きで、インフラストラクチャの構成について説明します*
 
-### Work Items
+> さまざまなタイプの構成を記録します。通常、アプリケーション固有の構成は反復間で変更されますが、システムまたはインフラストラクチャの構成はめったに変更されません
 
-> List of links to relevant work items (task, story, bug) being tested in this iteration.
+### 作業項目
 
-### Results
+> このイテレーションでテストされている関連する作業項目（タスク、ストーリー、バグ）へのリンクのリスト。
+
+### 結果
 
 ```md
 In bullet points document the results from the test.  
@@ -32,6 +34,6 @@ In bullet points document the results from the test.
 - Capture screenshots for metrics and include it in the results. Good candidate for this is CPU/Memory/Disk usage.
 ```
 
-### Observations
+### 観察
 
-> Observations are insights derived from test results. Keep the observations brief and as bullet points. Mention outcomes supporting the goal of the iteration. If any of the observation results in a work item (task, story, bug) then add the link to the work item together with the observation.  
+> 観察結果は、テスト結果から得られた洞察です。観察結果を簡潔に、箇条書きにしてください。反復の目標をサポートする結果に言及します。いずれかの観察結果が作業項目（タスク、ストーリー、バグ）になる場合は、観察結果とともに作業項目へのリンクを追加します。
