@@ -1,15 +1,10 @@
-# Test-Driven Development Example
+# テスト駆動開発の例
 
-With this method, rather than writing all your tests up front, you write one test at a time and then switch to write the
-system code that would make that test pass. It's important to write the bare minimum of code necessary even if it is not
-actually "correct". Once the test passes you can refactor the code to make it maybe make more sense, but again the logic
-should be simple. As you write more tests, the logic gets more and more complex, but you can continue to make the
-minimal changes to the system code with confidence because all code that was written is covered.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/unit-testing/tdd_example/
 
-As an example, let's assume we are trying to write a new function that validates a string is a valid password format.
-The password format should be a string larger than 8 characters containing at least one number. We start with the
-simplest possible test; one of the easiest ways to do this is to first write tests that validate inputs into the
-function:
+この方法では、すべてのテストを事前に作成するのではなく、一度に1つのテストを作成してから、そのテストに合格するシステムコードを作成するように切り替えます。実際には「正しくない」場合でも、必要最小限のコードを記述することが重要です。テストに合格したら、コードをリファクタリングして意味をなすようにすることができますが、ロジックは単純である必要があります。より多くのテストを作成すると、ロジックはますます複雑になりますが、作成されたすべてのコードがカバーされているため、システムコードに最小限の変更を自信を持って継続できます。
+
+例として、文字列が有効なパスワード形式であることを検証する新しい関数を作成しようとしていると仮定します。パスワードの形式は、少なくとも1つの数字を含む8文字を超える文字列である必要があります。可能な限り単純なテストから始めます。これを行う最も簡単な方法の1つは、関数への入力を検証するテストを最初に作成することです。
 
 ```csharp
 // Tests.cs
@@ -33,9 +28,7 @@ public class MyClass
 }
 ```
 
-If we run this code, the test will fail as no exception was thrown since our code in `ValidateString` is just a stub.
-This is ok! This is the "Red" part of Red-Green-Refactor. Now we want to move onto the "Green" part - making the minimal
-change required to make this test pass:
+このコードを実行すると、`ValidatePassword`のコードは単なるスタブであるため、例外はスローされずに、テストは失敗します。これで結構です！これは、Red-Green-Refactorの「赤」の部分です。次に、「グリーン」の部分に移ります。このテストに合格するために必要な最小限の変更を加えます。
 
 ```csharp
 // MyClass.cs
@@ -48,12 +41,9 @@ public class MyClass
 }
 ```
 
-Our tests pass, but this function doesn't really work, it will always throw the exception. That's ok! As we
-continue to write tests we will slowly add the logic for this function, and it will build on itself, all while
-guaranteeing our tests continue to pass.
+テストに合格しましたが、この関数は実際には機能しません。常に例外がスローされます。それで大丈夫です！テストを書き続けると、この関数のロジックがゆっくりと追加され、テストに合格し続けることを保証しながら、それ自体に基づいて構築されます。
 
-We will skip the "Refactor" stage at this point because there isn't anything to refactor. Next let's add a test that
-checks that the function returns false if the password is less than size 8:
+リファクタリングするものがないため、この時点では「リファクタリング」段階をスキップします。次に、パスワードがサイズ8未満の場合に関数がfalseを返すことを確認するテストを追加しましょう。
 
 ```csharp
 [Fact]
@@ -64,8 +54,7 @@ public void ValidatePassword_SmallSize_ReturnsFalse()
 }
 ```
 
-This test will pass as it still only throws an `ArgumentNullException`, but again, that is an expected failure. Fixing
-our function should see it pass:
+このテストは、`ArgumentNullException`をスローするだけなので合格しますが、これも予想される失敗です。関数を修正すると、次のようになります。
 
 ```csharp
 public bool ValidatePassword(string input)
@@ -79,16 +68,11 @@ public bool ValidatePassword(string input)
 }
 ```
 
-Finally, some code that looks real! Note how it wasn't the test that checked for null that had us add the `if` statement
-for the null-check, but rather the subsequent test which unlocked a whole new branch. By adding that if statement, we
-made the bare minimum change necessary in order to get **both** tests to pass, but we still have work to do.
+最後に、本物に見えるいくつかのコード！nullチェックの`if`ステートメントを追加したのは、nullをチェックしたテストではなく、まったく新しいブランチのロックを解除した後続のテストであったことに注意してください。そのifステートメントを追加することで、**両方**のテストに合格するために必要な最小限の変更を加えましたが、まだやるべきことがあります。
 
-In general, working in the order of adding a negative test first before adding a positive test will ensure that both
-cases get covered by the code in a way that can get tests. Red-Green-Refactor makes that process super easy by requiring
-the bare minimum change - since we only want to make the bare minimum changes, we just simply return false here, knowing
-full well that we will be adding logic later that will expand on this.
+一般に、ポジティブテストを追加する前に、最初にネガティブテストを追加する順序で作業することで、両方のケースがテストを取得できる方法でコードによってカバーされるようになります。赤-緑-リファクタリングは、最小限の変更を要求することで、そのプロセスを非常に簡単にします-最小限の変更のみを行いたいので、ここでは単にfalseを返します。これを拡張するロジックを後で追加することを十分に理解しています。 。
 
-Speaking of which, let's add the positive test now:
+そういえば、今すぐポジティブテストを追加しましょう：
 
 ```csharp
 [Fact]
@@ -99,14 +83,9 @@ public void ValidatePassword_RightSize_ReturnsTrue()
 }
 ```
 
-Again, this test will fail at the start. One thing to note here if that its important that we try and make our tests
-resilient to future changes. When we write the code under test, we act very naively, only trying to make the current
-tests we have pass; when you write tests though, you want to ensure that everything you are doing is a valid case in the
-future. In this case, we could have written the input string as `abcdefgh` and when we eventually write the function it
-would pass, but later when we add tests that validate the function has the rest of the proper inputs it would fail
-incorrectly.
+繰り返しますが、このテストは開始時に失敗します。ここで注意すべきことの1つは、テストを将来の変更に対して回復力のあるものにすることが重要である場合です。テスト対象のコードを作成するときは、非常に素朴に行動し、合格した現在のテストを作成しようとするだけです。ただし、テストを作成するときは、実行しているすべてが将来的に有効なケースであることを確認する必要があります。この場合、abcdefgh最終的に合格する関数を記述したときに入力文字列を記述できた可能性がありますが、後で関数に残りの適切な入力があることを検証するテストを追加すると、誤って失敗します。
 
-Anyways, the next code change is:
+とにかく、次のコード変更は次のとおりです。
 
 ```csharp
 public bool ValidatePassword(string input)
@@ -124,9 +103,7 @@ public bool ValidatePassword(string input)
 }
 ```
 
-Here we now have a passing test! However, the logic doesn't actually make much sense. We did the bare minimum
-change which was adding a new condition that passed for longer strings, but thinking forward we know this
-won't work as soon as we add additional validations. So let's use our first "Refactor" step in the Red-Green-Refactor flow!
+これで合格テストができました！ただし、ロジックは実際にはあまり意味がありません。より長い文字列に合格する新しい条件を追加するという最小限の変更を行いましたが、将来的には、検証を追加するとすぐには機能しないことがわかっています。それでは、赤-緑-リファクタリングフローの最初の「リファクタリング」ステップを使用しましょう！
 
 ```csharp
 public bool ValidatePassword(string input)
@@ -144,13 +121,10 @@ public bool ValidatePassword(string input)
 }
 ```
 
-That looks better. Note how from a functional perspective, inverting the if-statement does not change what the function returns.
-This is an important part of the refactor flow, maintaining the logic by doing provably safe refactors, usually through the use of tooling and automated refactors from
-your IDE.
+それは良く見えます。関数の観点から、ifステートメントを反転しても関数が返すものは変わらないことに注意してください。これはリファクタリングフローの重要な部分であり、通常はIDEのツールと自動リファクタリングを使用して、確実に安全なリファクタリングを実行することでロジックを維持します。
 
-Finally, we have one last requirement for our `ValidatePassword` method and that is that it needs to check that there is
-a number in the password. Let's again start with the negative test and validate that with a string with the valid length
-that the function returns `false` if we do not pass in a number:
+
+最後に、この`ValidatePassword`メソッドの最後の要件が1つあります。それは、パスワードに番号が含まれていることを確認する必要があるということです。再び否定的なテストから始めて、数値を渡さなかった場合に関数が`false`を返すかどうか有効な長さの文字列でそれを検証しましょう。
 
 ```csharp
 [Fact]
@@ -161,7 +135,7 @@ public void ValidatePassword_ValidLength_ReturnsFalse()
 }
 ```
 
-Of course the test fails as it is only checking length requirements. Let's fix the method to check for numbers:
+もちろん、テストは長さの要件をチェックしているだけなので失敗します。数字をチェックする方法を修正しましょう：
 
 ```csharp
 public bool ValidatePassword(string input)
@@ -184,8 +158,7 @@ public bool ValidatePassword(string input)
 }
 ```
 
-Here we use a handy LINQ method to check if any of the `char`s in the `string` are a digit, and if not, return false.
-Tests now pass, and we can refactor. For readability, why not combine the `if` statements:
+ここでは、便利なLINQメソッドを使用して、`string`のいずれかの`char`が数字であるかどうかを確認し、そうでない場合はfalseを返します。テストに合格し、リファクタリングできます。読みやすくするために、`if`ステートメントを組み合わせてみませんか。
 
 ```csharp
 public bool ValidatePassword(string input)
@@ -205,12 +178,8 @@ public bool ValidatePassword(string input)
 }
 ```
 
-As we refactor this code, we feel 100% confident in the changes we made as we have 100% test coverage which tests both
-positive and negative scenarios. In this case we actually already have a method that tests the positive case, so our function is done!
+このコードをリファクタリングすると、ポジティブシナリオとネガティブシナリオの両方をテストする100％のテストカバレッジがあるため、行った変更に100％自信があります。この場合、実際にはポジティブケースをテストするメソッドがすでにあるので、関数は完了です。
 
-Now that our code is completely tested we can make all sorts of changes and still have confidence that it works. For
-example, if we wanted to change the implementation of the method to use regex, all of our tests would still pass and
-still be valid.
+コードが完全にテストされたので、あらゆる種類の変更を加えても、それが機能することを確信できます。たとえば、正規表現を使用するようにメソッドの実装を変更したい場合でも、すべてのテストは合格し、引き続き有効です。
 
-That is it! We finished writing our function, we have 100% test coverage, and if we had done something a little more
-complex, we are guaranteed that whatever we designed is already testable since the tests were written first!
+それだ！関数の記述が完了し、100％のテストカバレッジがあります。もう少し複雑なことを行った場合、テストが最初に記述されて以来、設計したものはすべてテスト可能であることが保証されます。

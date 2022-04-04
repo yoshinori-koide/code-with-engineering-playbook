@@ -1,18 +1,20 @@
-# Custom Connector Testing
+# カスタムコネクタテスト
 
-When developing Custom Connectors to put data into the Power Platform there are some strategies you can follow:
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/unit-testing/custom-connector/
 
-## Unit Testing
+Power Platformにデータを配置するためのカスタムコネクタを開発する場合、従うことができるいくつかの戦略があります。
 
-There are several verifications one can do while developing custom connectors in order to be sure the code is working properly.
+## ユニットテスト
 
-There are two main ones:
+コードが正しく機能していることを確認するために、カスタムコネクタの開発中に実行できる検証がいくつかあります。
 
-- Validating the OpenAPI schema which the connector is defined.
-- Validating if the schema also have all the information necessary for the certified connector process.
+主なものは2つあります。
 
-(the later one is optional, but necessary in case you want to publish it as a certified connector).
+- コネクタが定義されているOpenAPIスキーマを検証します。
+- スキーマに、認定されたコネクタプロセスに必要なすべての情報も含まれているかどうかを検証します。
 
-There are several tool to help validate the OpenAPI schema, a list of them are available in this [link](https://openapi.tools/#description-validators). A suggested tool would be [swagger-cli](https://github.com/APIDevTools/swagger-cli).
+（後者はオプションですが、認定コネクタとして公開する場合に必要です）。
 
-On the other hand, to validate if the custom connector you are building is correct to become a certified connector, use the [paconn-cli](https://github.com/microsoft/PowerPlatformConnectors/tree/dev/tools/paconn-cli), since it has a validate command that shows missing information from the custom connector definition.
+OpenAPIスキーマの検証に役立つツールがいくつかあります。それらのリストは、この[リンク](https://openapi.tools/#description-validators)から入手できます。推奨されるツールは[swagger-cli](https://github.com/APIDevTools/swagger-cli)です。
+
+一方、作成しているカスタムコネクタが認定コネクタになるのに正しいかどうかを検証するには、[paconn-cli](https://github.com/microsoft/PowerPlatformConnectors/tree/dev/tools/paconn-cli)を使用します。これは、カスタムコネクタ定義から欠落している情報を表示するvalidateコマンドがあるためです。

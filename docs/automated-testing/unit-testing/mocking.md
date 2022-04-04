@@ -1,114 +1,71 @@
-# Mocking in Unit Tests
+# ユニットテストでのモック
 
-One of the key components of writing unit tests is to remove the dependencies your system has and replacing it with an
-implementation you control. The most common method people use as the replacement for the dependency is a mock, and
-mocking frameworks exist to help make this process easier.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/unit-testing/mocking/
 
-Many frameworks and articles use different meanings for the differences between test doubles. A test double is a generic
-term for any "pretend" object used in place of a real one. This term, as well as others used in this page are the
-[definitions provided by Martin Fowler](https://martinfowler.com/articles/mocksArentStubs.html#TheDifferenceBetweenMocksAndStubs).
-The most commonly used form of test double is Mocks, but there are many cases where Mocks perhaps are not the best
-choice and Fakes should be considered instead.
+単体テストを作成する際の重要な要素の1つは、システムの依存関係を削除し、それを制御する実装に置き換えることです。依存関係の代わりに人々が使用する最も一般的な方法はモックであり、このプロセスを容易にするためにモックフレームワークが存在します。
 
-## Stubs
+多くのフレームワークと記事は、テストダブルの違いに異なる意味を使用しています。テストダブルは、実際のオブジェクトの代わりに使用される「ふり」オブジェクトの総称です。この用語、およびこのページで使用されている他の用語は、 [MartinFowlerによって提供された定義](https://martinfowler.com/articles/mocksArentStubs.html#TheDifferenceBetweenMocksAndStubs)です。テストダブルの最も一般的に使用される形式はモックですが、モックがおそらく最良の選択ではなく、代わりに偽物を検討する必要がある場合が多くあります。
 
-Most of the time when "mocks" are being used, what is actually being used is a **stub**; a stub simply returns what the
-test expects and has no other logic to it. Stubs typically ignore inputs they do not expect or will always return the
-same thing. These are usually simple one lined methods that set up the state that the test expects.
+## スタブ
 
-Stubs can be useful especially during early development of a system, but since nearly every test requires its own stubs
-(to test the different states), this quickly becomes repetitive and involves a lot of boilerplate code. Rarely will you
-find a codebase that uses only stubs for mocking, they are usually paired with other test doubles.
+「モック」が使用されているほとんどの場合、実際に使用されているのは**スタブ**です。スタブは、テストが期待するものを返すだけで、他のロジックはありません。スタブは通常、予期しない入力を無視するか、常に同じものを返します。これらは通常、テストが期待する状態を設定する単純な1行のメソッドです。
 
-Stubs do not require any sort of framework to run, but are usually supported by mocking frameworks to quickly build the
-stubs.
+スタブは、特にシステムの初期開発時に役立ちますが、ほぼすべてのテストで（さまざまな状態をテストするために）独自のスタブが必要になるため、これはすぐに繰り返しになり、多くの定型コードが含まれます。モックにスタブのみを使用するコードベースを見つけることはめったにありません。通常、それらは他のテストダブルとペアになっています。
 
-### Upsides
+スタブは、実行するためにいかなる種類のフレームワークも必要としませんが、通常、スタブをすばやく構築するためのモックフレームワークによってサポートされます。
 
-- Do not require any framework, easy to set up.
+### 利点
 
-### Downsides
+- フレームワークを必要とせず、セットアップが簡単です。
 
-- Can involve rewriting the same code many times, lots of boilerplate.
+### 欠点
 
-## Mocks
+- 同じコードを何度も書き直す必要があり、多くの定型文が含まれます。
 
-Fowler describes **mocks** as pre-programmed objects with expectations which form a specification of the calls they are
-expected to receive. In other words, mocks are a replacement object for the dependency that has certain expectations
-that are placed on it; those expectations might be things like validating a sub-method has been called a certain number
-of times or that arguments are passed down in a certain way.
+## モック
 
-Mocking frameworks are abundant for every language, with some languages having mocks built into the unit test packages.
-They make writing unit tests easy and still encourage good unit testing practices.
+Fowlerは、**モック**を、受信することが期待される呼び出しの仕様を形成する期待を持つ事前にプログラムされたオブジェクトとして説明しています。言い換えると、モックは、特定の期待が置かれている依存関係の置換オブジェクトです。これらの期待は、サブメソッドが特定の回数呼び出されたことを検証したり、引数が特定の方法で渡されたりするようなものである可能性があります。
 
-The main difference between a mock and most of the other test doubles is that mocks do **behavioral verification**,
-whereas other test doubles do **state verification**. With behavioral verification, you end up testing that the
-implementation of the system under test is as you expect, whereas with state verification the implementation is not
-tested, rather the inputs and the outputs to the system are validated.
+モックフレームワークはすべての言語に豊富にあり、一部の言語には単体テストパッケージにモックが組み込まれています。それらはユニットテストの作成を容易にし、それでも優れたユニットテストの実践を奨励します。
 
-The major downside to behavioral verification is that it is tied to the implementation. One of the biggest advantages of
-writing unit tests is that when you make code changes you have confidence that if your unit tests continue to pass, that
-you are making a relatively safe change. If tests need to be updated every time because the behavior of the method has
-changed, then you lose that confidence because bugs could also be introduced into the test code. This also increases the
-development time and can be a source of frustration.
+モックと他のほとんどのテストダブルの主な違いは、モックが**動作検証**を行うのに対し、他のテストダブルは**状態検証**を行うことです。動作検証では、テスト対象のシステムの実装が期待どおりであることをテストすることになりますが、状態検証では、実装はテストされず、システムへの入力と出力が検証されます。
 
-For example, let's assume you have a method that you are testing that makes 5 web service calls. With mocks, one of your
-tests could be to check that those 5 web service calls were made. Sometime later the API is updated and only a single
-web service call needs to be made. Once the system code is changed, the unit test will fail because it expects 5 calls
-and not 1. The test needs to be updated, which results in lowered confidence in the change, as well as potentially
-introduces more areas for bugs to sneak in.
+動作検証の主な欠点は、実装に関連していることです。単体テストを作成する最大の利点の1つは、コードを変更するときに、単体テストに合格し続ければ、比較的安全な変更を行うことができるということです。メソッドの動作が変更されたためにテストを毎回更新する必要がある場合は、テストコードにバグが導入される可能性があるため、その信頼性が失われます。これはまた、開発時間を増加させ、フラストレーションの原因となる可能性があります。
 
-Some would argue that in the example above, the unit test is not a good test anyway because it depends on the
-implementation, and that may be true; but one of the biggest problems with using mocks (and specifically mocking
-frameworks that allow these verifications), is that it encourages these types of tests to be written. By not using a
-mock framework that allows this, you never run the risk of writing tests that are validating the implementation.
+たとえば、テストしているメソッドが5つのWebサービス呼び出しを行うと仮定します。モックを使用する場合、テストの1つは、これらの5つのWebサービス呼び出しが行われたことを確認することです。しばらくして、APIが更新され、1回のWebサービス呼び出しのみを行う必要があります。システムコードが変更されると、単体テストは1ではなく5つの呼び出しを想定しているため失敗します。テストを更新する必要があるため、変更の信頼性が低下し、バグが侵入する可能性のある領域が増える可能性があります。
 
-### Upsides
+上記の例では、単体テストは実装に依存するため、とにかく良いテストではないと主張する人もいますが、それは本当かもしれません。しかし、モック（特にこれらの検証を可能にするモックフレームワーク）を使用する際の最大の問題の1つは、これらのタイプのテストの作成を促進することです。これを可能にするモックフレームワークを使用しないことで、実装を検証するテストを作成するリスクを冒すことはありません。
 
-- Easy to write.
-- Encourages testable design.
+### 利点
 
-### Downsides to Mocking
+- 書きやすい。
+- テスト可能な設計を奨励します。
 
-- Behavioral testing can present problems with maintainability in unit test code.
-- Usually requires a framework to be installed (or if no framework, lots of boilerplate code)
+### モッキングの欠点
 
-## Fakes
+- 動作テストでは、単体テストコードの保守性に問題が生じる可能性があります。
+- 通常、フレームワークをインストールする必要があります（または、フレームワークがない場合は、多くの定型コード）
 
-**Fake** objects actually have working implementations, but usually take some shortcut which may make them not suitable
-for production. One of the common examples of using a Fake is an in-memory database - typically you want your database
-to be able to save data somewhere between application runs, but when writing unit tests if you have a fake implementation of
-your database APIs that are store all data in memory, you can use these for unit tests and not break abstraction as well
-as still keep your tests fast.
+## 偽物
 
-Writing a fake does take more time than other test doubles, because they are full implementations, and can have
-their own suite of unit tests. In this sense though, they increase confidence in your code even more because your test
-double has been thoroughly tested for bugs before you even use it as a downstream dependency.
+**偽**のオブジェクトには実際に機能する実装がありますが、通常はショートカットを使用するため、本番環境に適さない場合があります。偽物を使用する一般的な例の1つは、インメモリデータベースです。通常、データベースでアプリケーションの実行間のどこかにデータを保存できるようにしますが、ユニットテストを作成する場合は、保存されているデータベースAPIの偽の実装がある場合メモリ内のすべてのデータ。これらをユニットテストに使用でき、抽象化を中断せず、テストを高速に保つことができます。
 
-Similarly to mocks, fakes also promote testable design, but unlike mocks they do not require any frameworks to write.
-Writing a fake is as easy as writing any other implementation class. Fakes can be included in the test code only, but
-many times they end up being "promoted" to the product code, and in some cases can even start off in the product code
-since it is held to the same standard with full unit tests. Especially if writing a library or an API that other
-developers can use, providing a fake in the product code means those developers no longer need to write their own mock
-implementations, further increasing re-usability of code.
+偽物を書くことは、完全な実装であり、独自の単体テストのスイートを持つことができるため、他のテストダブルよりも時間がかかります。ただし、この意味では、ダウンストリームの依存関係として使用する前に、テストダブルのバグが徹底的にテストされているため、コードの信頼性がさらに高まります。
 
-### Upsides
+モックと同様に、偽物もテスト可能なデザインを促進しますが、モックとは異なり、作成するためのフレームワークは必要ありません。偽物を書くことは、他の実装クラスを書くことと同じくらい簡単です。偽物はテストコードにのみ含めることができますが、多くの場合、製品コードに「プロモート」され、場合によっては、完全な単体テストで同じ標準に保持されているため、製品コードから開始することもできます。特に、他の開発者が使用できるライブラリまたはAPIを作成する場合、製品コードに偽物を提供することは、それらの開発者が独自のモック実装を作成する必要がなくなることを意味し、コードの再利用性をさらに高めます。
 
-- No framework needed, is just like any other implementation.
-- Encourages testable design.
-- Code can be "promoted" to product code, so it is not wasted effort.
+### 利点
 
-### Downsides
+- フレームワークは必要ありません。他の実装と同じです。
+- テスト可能な設計を奨励します。
+- コードは製品コードに「プロモート」できるので、無駄な労力はありません。
 
-- Takes more time to implement.
+### 欠点
 
-## Conclusion
+- 実装に時間がかかります。
 
-Using test doubles in unit tests is an essential part of having a healthy test suite. When looking at mocking frameworks
-and using test doubles, it is important to consider the future implications of integrating with a mocking framework from
-the start. Sometimes certain features of mocking frameworks seem essential, but usually that is a sign that the code
-itself is not abstracted enough if it requires a framework.
+## 結論
 
-If possible, starting without a mocking framework and attempting to create fake implementations will lead to a more
-healthy code base, but when that is not possible the onus is on the technical leaders of the team to find cases where
-mocks may be overused, rely too much on implementation details, or end up not testing the right things.
+単体テストでテストダブルを使用することは、健全なテストスイートを作成するための重要な部分です。モックフレームワークを検討し、テストダブルを使用する場合、最初からモックフレームワークと統合することの将来の影響を考慮することが重要です。フレームワークをモックする特定の機能が不可欠であるように見える場合もありますが、通常、フレームワークが必要な場合、コード自体が十分に抽象化されていないことを示しています。
+
+可能であれば、モックフレームワークなしで開始し、偽の実装を作成しようとすると、より健全なコードベースにつながりますが、それが不可能な場合は、チームの技術リーダーがモックが乱用される可能性のあるケースを見つける責任があります。実装の詳細について多くのことを述べたり、正しいことをテストしなかったりします。

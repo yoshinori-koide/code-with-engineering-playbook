@@ -1,16 +1,14 @@
-# Example: Authoring a unit test
+# 例：単体テストの作成
 
-To illustrate some unit testing techniques for an object-oriented language, let's start with an example of some
-code we wish to add unit tests for. In this example, we have a configuration class that contains all the startup options
-for an app we are writing. Normally it reads from a `.config` file, but we are having three problems with the current
-implementation:
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/unit-testing/authoring_example/
 
-1. There is a bug in the Configuration class, and we have no unit tests since it relies on reading a config file
-2. We can't unit test any of the code that relies on the Configuration class reading a config file
-3. In the future, we want to allow for configuration to be saved in the cloud and accessed via REST api.
+オブジェクト指向言語のいくつかの単体テスト手法を説明するために、単体テストを追加したいコードの例から始めましょう。この例では、作成しているアプリのすべてのスタートアップオプションを含む構成クラスがあります。通常は.configファイルから読み取りますが、現在の実装には3つの問題があります。
 
-The bug we are trying to fix is that if there are multiple empty lines in the configuration file, an
-IndexOutOfRangeException is being thrown. Our class currently looks like this:
+1. Configurationクラスにバグがあり、構成ファイルの読み取りに依存しているため、単体テストはありません。
+2. 構成ファイルを読み取るConfigurationクラスに依存するコードを単体テストすることはできません。
+3. 将来的には、構成をクラウドに保存し、RESTAPIを介してアクセスできるようにする必要があります。
+
+修正しようとしているバグは、構成ファイルに複数の空の行がある場合、IndexOutOfRangeExceptionがスローされることです。現在、クラスは次のようになっています。:
 
 ```csharp
 using System.IO;
@@ -35,18 +33,11 @@ public class Configuration
 }
 ```
 
-## Abstraction
+## 抽象化
 
-In our example, we have a single dependency: the file system. Rather than just abstracting the file system entirely, let
-us think about why we need the file system and abstract the *concept* rather than the implementation. In this case, we
-are using the `File` class to read from the config file, and the config contents. The abstraction concept here is some
-form or configuration reader that returns each line of the configuration in a string array. We could call it
-`ConfigurationReader`, and it has a single method, `Read`, which returns the contents.
+この例では、ファイルシステムという1つの依存関係があります。ファイルシステムを完全に抽象化するのではなく、ファイルシステムが必要な理由を考えて、実装ではなく概念を抽象化してみましょう。この場合、`File`クラスを使用して構成ファイルと構成の内容を読み取ります。ここでの抽象化の概念は、文字列配列で構成の各行を返すフォームまたは構成リーダーです。これをと呼ぶことができ 、内容を返す`ConfigurationReader`単一のメソッド、`Read`があります。
 
-When creating abstractions, it can be good practice creating an interface for that abstraction, in languages that
-support it. In the example with C#, we can create an `IConfigurationReader` interface, and instead of just having a
-`ConfigurationReader` class we can be more specific and name if `FileConfigurationReader` to indicate that it reads from
-the file system:
+抽象化を作成するときは、それをサポートする言語で、その抽象化のインターフェースを作成することをお勧めします。C＃の例では、`IConfigurationReader`インターフェイスを作成できます。`ConfigurationReader`クラスを作成するだけでなく 、ファイルシステムから読み取ることを示す場合は、より具体的に`FileConfigurationReader`と名前を付けることができます。
 
 ```csharp
 // IConfigurationReader.cs
@@ -65,8 +56,7 @@ public class FileConfigurationReader : IConfigurationReader
 }
 ```
 
-Now that the file dependency has been abstracted away, we need to update our Configuration class's Initialize method to
-use the new abstraction instead of calling `File.ReadAllLines` directly:
+ファイルの依存関係が抽象化されたので、`File.ReadAllLines`メソッドを直接呼び出すのではなく、新しい抽象化を使用するようにConfigurationクラスのInitializeメソッドを更新する必要があります。
 
 ```csharp
 public void Initialize()
@@ -82,14 +72,11 @@ public void Initialize()
 }
 ```
 
-As you can see, we still have a dependency on the file system, but that dependency has been abstracted out. We will need
-to use other techniques to break the dependency completely.
+ご覧のとおり、ファイルシステムへの依存関係はまだありますが、その依存関係は抽象化されています。依存関係を完全に解消するには、他の手法を使用する必要があります。
 
-## Dependency Injection
+## 依存性注入
 
-In the previous section, we abstracted the file access into a `FileConfigurationReader` but we still had a dependency on
-the file system in our function. We can use dependency injection to inject the right reader into our `Configuration`
-class:
+前のセクションでは、ファイルアクセスをに抽象化しました`FileConfigurationReader`が、関数内のファイルシステムに依存していました。依存性注入を使用して、適切なリーダーを`Configuration` クラスに注入できます。
 
 ```csharp
 using System.IO;
@@ -121,29 +108,15 @@ public class Configuration
 }
 ```
 
-Above, a technique was used called [Constructor Injection](https://en.wikipedia.org/wiki/Dependency_injection#Constructor_injection).
-This uses the object's constructor to set what our dependencies will be, which means whichever object creates the
-`Configuration` object will control which reader needs to get passed in. This is an example of "inversion of control",
-previously the `Configuration` object controlled the dependency, but instead we pushed up the control to whatever
-component creates this object.
+上記では、[コンストラクタインジェクション](https://en.wikipedia.org/wiki/Dependency_injection#Constructor_injection)と呼ばれる手法が使用されました。これは、オブジェクトのコンストラクターを使用して依存関係を設定します。つまり、オブジェクトを作成する `Configuration`オブジェクトは、どのリーダーを渡す必要があるかを制御します。これは、以前は`Configuration`オブジェクトが依存関係を制御していた「制御の反転」の例です。このオブジェクトを作成するコンポーネントにコントロールをプッシュしました。
 
-Note that we injected the interface `IConfigurationReader` and not the concrete class. This is what allows us to break
-the dependency; whereas originally we had a hard-coded dependency on the `File` class, now we only depend on an object
-that implements `IConfigurationReader`.
+具象クラスではなく、`IConfigurationReader`インターフェースを挿入したことに注意してください。これにより、依存関係を解消できます。元々は`File`クラスがハードコードされた依存関係がありましたが、現在は`IConfigurationReader`を実装するオブジェクトのみに依存しています。
 
-## Writing our first unit tests
+## 最初の単体テストを書く
 
-We started down this venture because we have a bug in the `Configuration` class that was not caught because we do not
-have unit tests. Let us write some unit tests that gives us full coverage of the `Configuration` class, including a test
-that tests the scenario described by the bug (if there are multiple empty lines in the configuration file, an
-IndexOutOfRangeException is being thrown).
+Configurationユニットテストがないためにキャッチされなかった`Configuration`クラスのバグがあるため、このベンチャーを開始しました。バグによって記述されたシナリオをテストするテストを含む、`Configuration`クラスの完全なカバレッジを提供するいくつかの単体テストを作成しましょう（構成ファイルに複数の空の行がある場合、IndexOutOfRangeExceptionがスローされます）。
 
-However, we still have one problem, we only have a single implementation of `IConfigurationReader`, and it uses the file
-system, meaning any unit tests we write will still have a dependency on the file system! Luckily since we used
-dependency injection, all we need to do is create an implementation of `IConfigurationReader` that does not depend on
-the file system. We could create a mock here, but instead let's create a concrete implementation of the interface which
-simply returns the passed in string[] - we can call it `PassThroughConfigurationReader` (for more details on why this
-approach may be better than mocking, see the page on [mocking](mocking.md))
+ただし、まだ1つの問題があり、`IConfigurationReader`の実装は1つだけであり、ファイルシステムを使用します。つまり、作成する単体テストはファイルシステムに依存します。幸い、依存性注入を使用したので、ファイルシステムに依存しない実装を作成するだけです。ここでモックを作成することもできますが、代わりに、渡されたstring[] を返すだけの`IConfigurationReader`インターフェイスの具体的な実装を作成しましょう。そしてこれを`PassThroughConfigurationReader`と呼びましょう。（このアプローチがモックよりも優れている理由の詳細については、[モック](mocking.md)のページを参照してください）。）。
 
 ```csharp
 public class PassThroughConfigurationReader : IConfigurationReader
@@ -162,9 +135,7 @@ public class PassThroughConfigurationReader : IConfigurationReader
 }
 ```
 
-This simple class will be used in our unit tests, so we can create different states without requiring lots of file
-access. Now that we have this in place, we can go ahead and write our unit tests, starting with the tests that describe
-the current behavior:
+この単純なクラスは単体テストで使用されるため、多くのファイルアクセスを必要とせずにさまざまな状態を作成できます。これで、現在の動作を説明するテストから始めて、単体テストを作成できます。
 
 ```csharp
 public class ConfigurationTests
@@ -193,13 +164,9 @@ public class ConfigurationTests
 }
 ```
 
-## Fixing the bug
+## バグの修正
 
-All our current tests pass, and give us 100% coverage, however as evidenced by the bug, we must not be covering all
-possible inputs and outputs. In the case of the bug, multiple empty lines would cause an issue. Additionally,
-`KeyNotFoundException` is not a very friendly exception and is an implementation detail, not something that makes sense
-when designing the Configuration API. Let's add some more tests and align the tests with how we think the
-`Configuration` class should behave:
+現在のすべてのテストに合格し、100％のカバレッジが得られますが、バグから明らかなように、考えられるすべての入力と出力をカバーしてはなりません。バグの場合、複数の空の行が問題を引き起こします。さらに、 `KeyNotFoundException`は非常にわかりやすい例外ではなく、実装の詳細であり、構成APIを設計するときに意味のあるものではありません。さらにいくつかのテストを追加し、`Configuration`クラスがどのように動作するかをテストを調整してみましょう 。
 
 ```csharp
 public class ConfigurationTests
@@ -266,9 +233,7 @@ public class ConfigurationTests
 }
 ```
 
-Now we have 4 failing tests and 1 passing test, but we have firmly established through the use of these tests how we
-expect callers to user the Configuration class and what is and isn't allowed as inputs. Now we just need to fix the
-`Configuration` class so that our tests pass:
+これで、4つの失敗したテストと1つの合格したテストがありますが、これらのテストを使用して、呼び出し元がConfigurationクラスを使用する方法と、入力として許可されるものと許可されないものをしっかりと確立しました。次に、テストに合格するように`Configuration`クラスを修正する必要があります 。
 
 ```csharp
 public void Initialize()
@@ -298,30 +263,17 @@ public void Initialize()
 }
 ```
 
-Now all our tests pass! We have fixed our bug, added unit tests to the `Configuration` class, and have much higher
-confidence in future changes.
+これで、すべてのテストに合格しました。バグを修正し、`Configuration`クラスに単体テストを追加し、将来の変更に対する信頼度を大幅に高めました。
 
-## Untestable Code
+## テスト不可能なコード
 
-As described in the [abstraction section](README.md#abstraction), not all code can be properly unit tested. In our case
-we have a single class that has 0% test coverage: `FileConfigurationReader`. This is expected; in this case we kept
-`FileConfigurationReader` as light as possible with no additional logic other than calling into the third-party
-dependency. `FileConfigurationReader` is an example of the [facade design pattern](https://en.wikipedia.org/wiki/Facade_pattern).
+[抽象化](README.md#abstraction)のセクションで説明したように、すべてのコードを適切に単体テストできるわけではありません。この例では、テストカバレッジが0％の単一のクラスである `FileConfigurationReader` があります。
+これは予想されることです。今回の例では、`FileConfigurationReader`をサードパーティの依存関係を呼び出す以外の追加のロジックを使用せずに、可能な限り軽量に保ちました。`FileConfigurationReader`は[ファサードデザインパターン](https://en.wikipedia.org/wiki/Facade_pattern)の例です。
 
-## Testable Design and Future Improvements
+## テスト可能な設計と将来の改善
 
-One of our original problems described in this example is that in the future we expect to load the configuration from a
-web API. By doing all the work of abstracting the way we load the configuration text and breaking the dependency on the
-file system, we have already done all the hard work to enable this future scenario! All that needs to be done next is to
-create a `WebApiConfigurationReader` implementation and use that the construct the `Configuration` object, and it should
-just work.
+この例で説明されている元々の問題の1つは、将来、WebAPIから構成をロードすることを期待していることです。構成テキストをロードする方法を抽象化し、ファイルシステムへの依存関係を解消するすべての作業を行うことで、この将来のシナリオを可能にするためのすべてのハードワークをすでに実行しました。次に行う必要があるのは、`WebApiConfigurationReader`実装を作成し、それを使用して`Configuration`オブジェクトを構築することだけです。これで問題なく動作するはずです。
 
-That is one of the benefits of testable design, in the process of writing our tests in a safe way, a side effect of that
-is that we already have our dependencies that might change abstracted, and will require minimal changes to implement.
+これは、テスト可能な設計の利点の1つであり、テストを安全な方法で作成する過程で、その副作用として、抽象化されて変更される可能性のある依存関係がすでに存在し、実装に最小限の変更が必要になることがあります。
 
-Another added benefit is we have multiple possibilities opened by this testable design. For example, we can have a
-cascading configuration set up now using all 3 `IConfigurationReader` implementations, including the one we wrote only
-for our tests! We can first check if internet access is available and if so use `WebApiConfigurationReader`. If no
-internet is available, we can fall back to the local config file on the current system using `FileConfigurationReader`.
-If for some reason the config file does not exist, we can use the `PassThroughConfigurationReader` as a hard-coded
-default configuration somewhere in the code. We have full flexibility to do whatever we may need to do in the future!
+もう1つの追加の利点は、このテスト可能な設計によって開かれる複数の可能性があることです。たとえば、テスト専用に作成したものを含め、3つの`IConfigurationReader`実装すべてを使用してカスケード構成をセットアップできます。まず、インターネットアクセスが利用可能かどうかを確認し、利用できる場合は`WebApiConfigurationReader`を使用します。インターネットが利用できない場合は、`FileConfigurationReader`を使用して現在のシステムのローカル構成ファイルにフォールバックできます。何らかの理由で構成ファイルが存在しない場合は、コードのどこかにハードコードされたデフォルト構成として`PassThroughConfigurationReader`を使用できます。私たちは将来必要になるかもしれないことを何でもするための完全な柔軟性を持っています！

@@ -1,42 +1,25 @@
-# Why Unit Tests
+# ユニットテストを行う理由
 
-It is no secret that writing unit tests is hard, and even harder to write well. Writing unit tests also increases the
-development time for every feature. So why should we bother writing them?
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/unit-testing/why-unit-tests/
 
-## Reduce costs
+単体テストを書くのが難しく、うまく書くのがさらに難しいことは周知の事実です。単体テストを作成すると、すべての機能の開発時間も長くなります。では、なぜわざわざそれらを書く必要があるのでしょうか。
 
-There is no question that the later a bug is found, the more expensive it is to fix; especially so if the bug makes it
-into production. A [2008 research study by IBM](ftp://ftp.software.ibm.com/software/rational/info/do-more/RAW14109USEN.pdf)
-estimates that a bug caught in production could cost 6 times as much as if it was caught during implementation.
+## コストを削減
 
-## Increase Developer Confidence
+後でバグが見つかったほど、修正に費用がかかることは間違いありません。特に、バグが本番環境に移行した場合はそうです。[IBMによる2008年の調査研究](ftp://ftp.software.ibm.com/software/rational/info/do-more/RAW14109USEN.pdf)による と、本番環境で検出されたバグは、実装中に検出された場合の6倍のコストがかかる可能性があります。
 
-Many changes that developers make are not big features or something that requires an entire testing suite. A strong unit
-test suite helps increase the confidence of the developer that their change is not going to cause any downstream bugs.
-Having unit tests also helps with making safe, mechanical refactors that are provably safe; using things like
-refactoring tools to do mechanical refactoring and running unit tests that cover the refactored code should be enough to
-increase confidence in the commit.
+## 開発者の信頼を高める
 
-## Speed up development
+開発者が行う多くの変更は、大きな機能ではなく、テストスイート全体を必要とするものでもありません。強力なユニットテストスイートは、開発者の変更によってダウンストリームのバグが発生しないという開発者の信頼を高めるのに役立ちます。ユニットテストを行うことは、安全であることが証明できる機械的なリファクターを作成するのにも役立ちます。リファクタリングツールなどを使用して機械的なリファクタリングを実行し、リファクタリングされたコードをカバーする単体テストを実行することで、コミットの信頼性を高めることができます。
 
-Unit tests take time to write, but they also speed up development? While this may seem like an oxymoron, it is one of
-the strengths of a unit testing suite - over time it continues to grow and evolve until the tests become an essential
-part of the developer workflow.
+## 開発をスピードアップ
 
-If the only testing available to a developer is a long-running system test, integration tests that require a deployment,
-or manual testing, it will increase the amount of time taken to write a feature. These types of tests should be a part of
-the "Outer loop"; tests that may take some time to run and validate more than just the code you are writing. Usually
-these types of outer loop tests get run at the PR stage or even later during merges into branches.
+単体テストは書くのに時間がかかりますが、開発もスピードアップしますか？これは撞着語のように見えるかもしれませんが、単体テストスイートの強みの1つです。時間の経過とともに、テス​​トが開発者のワークフローの重要な部分になるまで、成長と進化を続けます。
 
-The Developer Inner Loop is the process that developers go through as they are authoring code. This varies from
-developer to developer and language to language but typically is something like code -> build -> run -> repeat. When
-unit tests are inserted into the inner loop, developers can get early feedback and results from the code they are
-writing. Since unit tests execute really quickly, running tests shouldn't be seen as a barrier to entry for this loop.
-Tooling such as [Visual Studio Live Unit Testing](https://docs.microsoft.com/en-us/visualstudio/test/live-unit-testing-start?view=vs-2019)
-also help to shorten the inner loop even more.
+開発者が利用できる唯一のテストが、長時間実行されるシステムテスト、展開を必要とする統合テスト、または手動テストである場合、機能の作成にかかる時間が長くなります。これらのタイプのテストは、「外部ループ」の一部である必要があります。作成しているコードだけでなく、実行と検証に時間がかかる可能性のあるテスト。通常、これらのタイプの外部ループテストは、PRステージで実行されるか、ブランチへのマージ中に実行されます。
 
-## Documentation as code
+Developer Inner Loopは、開発者がコードを作成するときに実行するプロセスです。これは開発者ごと、言語ごとに異なりますが、通常はコード->ビルド->実行->繰り返しのようなものです。単体テストが内部ループに挿入されると、開発者は作成しているコードから早期のフィードバックと結果を得ることができます。単体テストは非常に高速に実行されるため、テストの実行がこのループへの参入障壁と見なされるべきではありません。[Visual Studio Live Unit Testing](https://docs.microsoft.com/en-us/visualstudio/test/live-unit-testing-start?view=vs-2019)などのツール も、内部ループをさらに短縮するのに役立ちます。
 
-Writing unit tests is a great way to show how the units of code you are writing are supposed to be used. In some ways,
-unit tests are better than any documentation or samples because they are (or at least should be) executed with every
-build so there is confidence that they are not out of date. Unit tests also should be so simple that they are easy to follow.
+## コードとしてのドキュメント
+
+単体テストを書くことは、あなたが書いているコードの単位がどのように使われるべきかを示すための素晴らしい方法です。いくつかの点で、単体テストは、ビルドごとに実行される（または少なくとも実行される必要がある）ため、ドキュメントやサンプルよりも優れているため、古くなっていないという確信があります。単体テストも、簡単に実行できるように単純にする必要があります。

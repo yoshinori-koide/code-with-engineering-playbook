@@ -1,125 +1,89 @@
-# Unit Testing
+# ユニットテスト
 
-Unit testing is a fundamental tool in every developer's toolbox. Unit tests not only help us test our code, they
-encourage good design practices, reduce the chances of bugs reaching production, and can even serve as examples or
-documentation on how code functions. Properly written unit tests can also improve developer efficiency.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/unit-testing/
 
-Unit testing also is one of the most commonly misunderstood forms of testing. Unit testing refers to a very specific
-type of testing; a unit test should be:
+単体テストは、すべての開発者のツールボックスの基本的なツールです。単体テストは、コードのテストに役立つだけでなく、優れた設計手法を促進し、バグが本番環境に到達する可能性を減らし、コードがどのように機能するかについての例やドキュメントとしても役立ちます。適切に記述された単体テストは、開発者の効率を向上させることもできます。
 
-- **Provably reliable** - should be 100% reliable so failures indicate a bug in the code
-- **Fast** - should run in milliseconds, a whole unit testing suite shouldn't take longer than a couple seconds
-- **Isolated** - removing all external dependencies ensures reliability and speed
+単体テストも、最も一般的に誤解されている形式のテストの1つです。単体テストとは、非常に特殊なタイプのテストを指します。単体テストは次のようになります。
 
-## Why Unit Testing
+- **おそらく信頼できる** - 100％信頼できるはずなので、失敗はコードのバグを示します
+- **高速** - ミリ秒単位で実行する必要があり、単体テストスイート全体が数秒以上かかることはありません
+- **分離** - すべての外部依存関係を削除すると、信頼性と速度が保証されます
 
-It is no secret that writing unit tests is hard, and even harder to write well. Writing unit tests also increases the
-development time for every feature. So why should we write them?
+## ユニットテストを行う理由
 
-Unit tests
+単体テストを書くのが難しく、うまく書くのがさらに難しいことは周知の事実です。単体テストを作成すると、すべての機能の開発時間も長くなります。では、なぜそれらを書く必要があるのでしょうか？
 
-- reduce costs by catching bugs earlier and preventing regressions
-- increase developer confidence in changes
-- speed up the developer inner loop
-- act as documentation as code
+ユニットテスト
 
-For more details, see all the [detailed descriptions of the points above](./why-unit-tests.md).
+- バグを早期に発見し、リグレッションを防ぐことでコストを削減します
+- 変更に対する開発者の信頼を高める
+- 開発者の内部ループをスピードアップ
+- コードとしてのドキュメントとして機能する
 
-## Unit Testing Design Blocks
+詳細については、[上記ポイントのすべての詳細な説明](./why-unit-tests.md)を参照してください。
 
-Unit testing is the lowest level of testing and as such generally has few components and dependencies.
+## ユニットテストデザインブロック
 
-The **system under test** (abbreviated SUT) is the "unit" we are testing. Generally these are methods or functions, but
-depending on the language these could be different. In general, you want the unit to be as small as possible though.
+単体テストは最低レベルのテストであるため、通常、コンポーネントと依存関係はほとんどありません。
 
-Most languages also have a wide suite of **unit testing frameworks** and test runners. These test frameworks have
-a wide range of functionality, but the base functionality should be a way to organize your tests and run them quickly.
+**テスト対象のシステム** (略して SUT) は、テスト対象の「ユニット」です。通常、これらはメソッドまたは関数ですが、言語によっては異なる場合があります。ただし、一般的には、ユニットをできるだけ小さくする必要があります。
 
-Finally, there is your **unit test code**; unit test code is generally short and simple, preferring repetition to adding
-layers and complexity to the code.
+ほとんどの言語には、**単体テストフレームワーク**とテストランナーの幅広いスイートもあります。これらのテストフレームワークにはさまざまな機能がありますが、基本機能は、テストを整理してすばやく実行するための方法である必要があります。
 
-## Applying the Unit Testing
+最後に、**ユニットテストコード**があります; 単体テストコードは一般に短く単純であり、コードにレイヤーと複雑さを追加するよりも繰り返しを優先します。
 
-Getting started with writing a unit test is much easier than some other test types since it should require next to no
-setup and is just code. Each [test framework](#test-frameworks) is different in how you organize and write your tests,
-but the general techniques and best practices of writing a unit test are universal.
+## ユニットテストの適用
 
-### Techniques
+単体テストの作成を開始するのは、セットアップがほとんど必要なく、コードだけであるため、他のいくつかのテストタイプよりもはるかに簡単です。各[テストフレームワーク](#test-frameworks)は、テストの編成方法と作成方法が異なりますが、単体テストを作成するための一般的な手法とベストプラクティスは普遍的です。
 
-These are some commonly used techniques that will help when authoring unit tests. For some examples, see the pages on
-using [abstraction and dependency injection to author a unit test](authoring_example.md), or how to do [test-driven development](tdd_example.md).
+### テクニック
 
-Note that some of these techniques are more specific to strongly typed, object-oriented languages. Functional languages
-and scripting languages have similar techniques that may look different, but these terms are commonly used in all unit
-testing examples.
+これらは、単体テストを作成するときに役立つ、一般的に使用されるいくつかの手法です。いくつかの例については、[抽象化と依存性注入を使用した単体テスト](authoring_example.md)ことや、[テスト駆動開発](tdd_example.md)に関するページを参照してください。
 
-#### Abstraction
+これらの手法のいくつかは、強く型付けされたオブジェクト指向言語に固有のものであることに注意してください。関数型言語とスクリプト言語には似たような手法があり、見た目が異なる場合がありますが、これらの用語はすべての単体テストの例で一般的に使用されています。
 
-Abstraction is when we take an exact implementation detail, and we generalize it into a concept instead. This technique
-can be used in creating testable design and is used often especially in object-oriented languages. For unit tests,
-abstraction is commonly used to break a hard dependency and replace it with an abstraction. That abstraction then allows
-for greater flexibility in the code and allows for the a [mock or simulator](mocking.md) to be used in its place.
+#### 抽象化
 
-One of the side effects of abstracting dependencies is that you may have an abstraction that has no test coverage. This
-is case where unit testing is not well-suited, you can not expect to unit test everything, things like dependencies will
-always be an uncovered case. This is why even if you have a robust unit testing suite, [integration or functional testing](../integration-testing/README.md)
-should still be used - without that, a change in the way the dependency functions would never be caught.
+抽象化とは、正確な実装の詳細を取得し、代わりにそれを概念に一般化することです。この手法は、テスト可能な設計の作成に使用でき、特にオブジェクト指向言語でよく使用されます。単体テストの場合、抽象化は通常、ハードな依存関係を解消し、それを抽象化に置き換えるために使用されます。その抽象化により、コードの柔軟性が高まり、代わりに[モックまたはシミュレーター](mocking.md)を使用できるようになります。
 
-When building wrappers around third-party dependencies, it is best to keep the implementations with as little logic as
-possible, using a very simple [facade](https://en.wikipedia.org/wiki/Facade_pattern) that calls the dependency.
+依存関係を抽象化することの副作用の1つは、テストカバレッジのない抽象化がある可能性があることです。これは、単体テストが適切でない場合であり、すべてを単体テストすることは期待できません。依存関係などは、常にカバーされていないケースです。これが、堅牢な単体テストスイートがある場合でも、[統合テストまたは機能テスト](../integration-testing/README.md)を使用する必要がある理由です。これがないと、依存関係関数がキャッチされない方法が変更されます。
 
-An example of using abstraction can be found [here](authoring_example.md#abstraction).
+サードパーティの依存関係のラッパーを構築するときは、依存関係を呼び出す非常に単純な[ファサード](https://en.wikipedia.org/wiki/Facade_pattern)を使用して、実装をできるだけ少ないロジックで維持するのが最善です。
 
-#### Dependency Injection
+抽象化の使用例は[ここ](authoring_example.md#abstraction)にあります。
 
-[Dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) is a technique which allows us to extract
-dependencies from our code. In a normal use-case of a dependant class, the dependency is constructed and used within the
-system under test. This creates a hard dependency between the two classes, which can make it particularly hard to test
-in isolation. Dependencies could be things like classes wrapping a REST API, or even something as simple as file access.
-By injecting the dependencies into our system rather than constructing them, we have "inverted control" of the
-dependency. You may see "Inversion of Control" and "Dependency Injection" used as separate terms, but it is very hard to
-have one and not the other, with some arguing that [Dependency Injection is a more specific way of saying inversion of
-control](https://martinfowler.com/articles/injection.html#InversionOfControl).
+#### 依存性注入
 
-One of the [downsides of dependency injection](https://en.wikipedia.org/wiki/Dependency_injection#Disadvantages) is that
-it can easily go overboard. While there are no longer hard dependencies, there is still coupling between the interfaces,
-and passing around every interface implementation into every class presents just as many downsides as not using
-Dependency Injection. Being intentional with what dependencies get injected to what classes, is key to developing a maintainable
-system.
+[依存性注入](https://en.wikipedia.org/wiki/Dependency_injection)は、コードから依存性を抽出できるようにする手法です。依存クラスの通常のユースケースでは、依存関係はテスト対象のシステム内で構築および使用されます。これにより、2つのクラス間に強い依存関係が作成され、単独でのテストが特に困難になる可能性があります。依存関係は、REST APIをラップするクラスのようなものでも、ファイルアクセスのような単純なものでもかまいません。依存関係を構築するのではなく、システムに注入することで、依存関係の「逆制御」が可能になります「制御の反転」と「依存性注入」は別々の用語として使用されているように見えるかもしれませんが、[依存性注入は制御の反転をより具体的に言う方法である](https://martinfowler.com/articles/injection.html#InversionOfControl)と主張する人もいます。
 
-Many languages include special Dependency Injection frameworks that take care of the boilerplate code and construction
-of the objects. Examples of this are [Spring](https://spring.io/) in Java or built into [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1)
+[依存性注入の欠点](https://en.wikipedia.org/wiki/Dependency_injection#Disadvantages)の一つは、簡単に行き過ぎてしまう可能性があることです。もはやハードな依存関係はありませんが、インターフェース間の結合は依然として存在し、すべてのインターフェース実装をすべてのクラスに渡すことは、依存性注入を使用しない場合と同じくらい多くの欠点をもたらします。どの依存関係がどのクラスに注入されるかを意図的に考慮することは、保守可能なシステムを開発するための鍵です。
 
-An example of using dependency injection can be found [here](authoring_example.md#dependency-injection).
+多くの言語には、ボイラープレートコードとオブジェクトの構築を処理する特別な依存性注入フレームワークが含まれています。この例としては、Java の[Spring](https://spring.io/)や[ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1)に組み込まれているものがあります。
 
-#### Test-Driven Development
+依存性注入の使用例は[ここ](authoring_example.md#dependency-injection)にあります。
 
-Test-Driven Development (TDD) is less a technique in how your code is designed, but a technique for writing your
-code that will lead you to a testable design from the start. The basic premise of test-driven development is that you
-write your test code first and then write the system under test to match the test you just wrote. This way all the test
-design is done up front and by the time you finish writing your system code, you are already at 100% test pass rate and
-test coverage. It also guarantees testable design is built into the system since the test was written first!
+#### テスト駆動開発
 
-For more information on TDD and an example, see the page on [Test-Driven Development](./tdd_example.md)
+テスト駆動開発（TDD）は、コードの設計方法の手法ではありませんが、最初からテスト可能な設計に導くコードを作成するための手法です。テスト駆動開発の基本的な前提は、最初にテストコードを記述し、次に、作成したばかりのテストと一致するようにテスト対象のシステムを記述することです。このようにして、すべてのテスト設計が事前に行われ、システムコードの記述が完了するまでに、すでに100％のテスト合格率とテストカバレッジになっています。また、テストが最初に作成されたため、テスト可能な設計がシステムに組み込まれていることも保証されます。
 
-### Best Practices
+TDDと例の詳細については、[テスト駆動開発](./tdd_example.md)のページを参照してください。
 
-#### Arrange/Act/Assert
+### ベストプラクティス
 
-One common form of organizing your unit test code is called Arrange/Act/Assert. This divides up your unit test into 3
-different discrete sections:
+#### アレンジ/アクト/アサート
 
-1. Arrange - Set up all the variables, mocks, interfaces, and state you will need to run the test
-2. Act - Run the system under test, passing in any of the above objects that were created
-3. Assert - Check that with the given state that the system acted appropriately.
+ユニットテストコードを整理する一般的な形式の1つは、Arrange / Act/Assertと呼ばれます。これにより、単体テストが3つの異なる個別のセクションに分割されます。
 
-Using this pattern to write tests makes them very readable and also familiar to future developers who would need to read
-your unit tests.
+1. 配置 - テストを実行するために必要なすべての変数、モック、インターフェース、および状態を設定します
+2. 動作 - テスト対象のシステムを実行し、作成された上記のオブジェクトのいずれかを渡します
+3. アサート - システムが適切に動作したことを特定の状態で確認します。
 
-##### Example
+このパターンを使用してテストを作成すると、テストが非常に読みやすくなり、単体テストを読み取る必要がある将来の開発者にも馴染みがあります。
 
-Let's assume we have a class `MyObject` with a method `TrySomething` that interacts with an array of strings, but if the
-array has no elements, it will return false. We want to write a test that checks the case where array has no elements:
+##### 例
+
+ `MyObject` というクラスがあり文字列の配列と相互作用する`TrySomething` というメソッドがあったとして、このメソッドは配列に要素がない場合はfalseを返します。以下に配列に要素がない場合をチェックするテストを作成します。
 
 ```csharp
 [Fact]
@@ -137,91 +101,59 @@ public void TrySomething_NoElements_ReturnsFalse()
 }
 ```
 
-#### Keep tests small and test only one thing
+#### テストを小さく保ち、1つだけテストします
 
-Unit tests should be short and test only one thing. This makes it easy to diagnose when there was a failure without
-needing something like which line number the test failed at. When using [Arrange/Act/Assert](#arrangeactassert), think
-of it like testing just one thing in the "Act" phase.
+単体テストは短く、1つだけテストする必要があります。これにより、テストが失敗した行番号などを必要とせずに、失敗があったかどうかを簡単に診断できます。[Arrange/Act/Assert](#arrangeactassert)を使用するときは、「Act」フェーズで1つだけテストするようなものと考えてください。
 
-There is some disagreement on whether testing one thing means "assert one thing" or "test one state, with
-multiple asserts if needed". Both have their advantages and disadvantages, but as with most technical disagreements
-there is no "right" answer. Consistency when writing your tests one way or the other is more important!
+1つのことをテストすることが「1つのことをアサートする」ことを意味するのか、「必要に応じて複数のアサートを使用して1つの状態をテストする」ことを意味するのかについては意見の相違があります。どちらにも長所と短所がありますが、ほとんどの技術的な意見の不一致と同様に、「正しい」答えはありません。いずれかの方法でテストを作成するときの一貫性がより重要です。
 
-#### Using a standard naming convention for all unit tests
+#### すべての単体テストに標準の命名規則を使用する
 
-Without having a set standard convention for unit test names, unit test names end up being either not descriptive
-enough, or duplicated across multiple different test classes. Establishing a standard is not only important for keeping
-your code consistent, but a good standard also improves the readability and debug-ability of a test. In this article,
-the convention used for all unit tests has been `UnitName_StateUnderTest_ExpectedResult`, but there are lots of other
-possible conventions as well, the important thing is to be consistent and descriptive. Having descriptive names such as
-the one above makes it trivial to find the test when there is a failure, and also already explains what the expectation
-of the test was and what state caused it to fail. This can be especially helpful when looking at failures in a CI/CD
-system where all you know is the name of the test that failed - instead now you know the name of the test and exactly
-why it failed (especially coupled with a test framework that logs helpful output on failures).
+単体テスト名の標準規則が設定されていないと、単体テスト名は十分に説明的でないか、複数の異なるテストクラス間で重複することになります。標準を確立することは、コードの一貫性を維持するために重要であるだけでなく、優れた標準は、テストの可読性とデバッグ性も向上させます。この記事では、すべての単体テストに使用される規則は`UnitName_StateUnderTest_ExpectedResult`、しかし、他にも多くの可能な規則があります。重要なことは、一貫性があり、説明的であることです。上記のようなわかりやすい名前を付けると、失敗したときにテストを見つけるのが簡単になります。また、テストの期待と失敗の原因についてもすでに説明されています。これは、失敗したテストの名前だけがわかっているCI / CDシステムの失敗を調べるときに特に役立ちます。代わりに、テストの名前と失敗した理由を正確に把握できます（特に、テストフレームワークと組み合わせて失敗時に役立つ出力をログに記録します）。
 
-### Things to Avoid
+### 避けるべきこと
 
-Some common pitfalls when writing a unit test that are important to avoid:
+回避することが重要な単体テストを作成する際のいくつかの一般的な落とし穴：
 
-- Sleeps - A sleep can be an indicator that perhaps something is making a request to a dependency that it should not be.
-  In general, if your code is flaky without the sleep, consider why it is failing and if you can remove the flakiness by
-  introducing a more reliable way to communicate potential state changes. Adding sleeps to your unit tests also breaks
-  one of our original tenets of unit testing: tests should be fast, as in order of milliseconds. If tests are taking on
-  the order of seconds, they become more cumbersome to run.
-- Reading from disk - It can be really tempting to the expected value of a function return in a file and read that file
-  to compare the results. This creates a dependency with the system drive, and it breaks our tenet of keeping our unit
-  tests isolated and 100% reliable. Any outside dependency such as file system access could potentially cause
-  intermittent failures. Additionally, this could be a sign that perhaps the test or unit under test is too complex and
-  should be simplified.
-- Calling third-party APIs - When you do not control a third-party library that you are calling into, it's impossible to
-  know for sure what that is doing, and it is best to abstract it out. Otherwise, you may be making REST calls or other
-  potential areas of failure without directly writing the code for it. This is also generally a sign that the design of
-  the system is not entirely testable. It is best to wrap third party API calls in interfaces or other structures so
-  that they do not get invoked in unit tests.
+- スリープ - スリープは、依存関係に対して、あるべきではない要求を行っている可能性があることを示している可能性があります。一般に、コードがスリープなしで不安定な場合は、失敗する理由と、潜在的な状態変化を伝達するためのより信頼性の高い方法を導入することで不安定さを取り除くことができるかどうかを検討してください。ユニットテストにスリープを追加すると、ユニットテストの本来の信条の1つが破られます。テストは、ミリ秒単位のように高速である必要があります。テストに数秒かかる場合は、実行がより面倒になります。
+- ディスクからの読み取り - ファイルで返される関数の期待値を実際に取得し、そのファイルを読み取って結果を比較するのは非常に魅力的です。これにより、システムドライブとの依存関係が作成され、単体テストを分離して100％信頼できる状態に保つという私たちの信条が破られます。ファイルシステムアクセスなどの外部依存関係は、断続的な障害を引き起こす可能性があります。さらに、これは、おそらくテストまたはテスト対象のユニットが複雑すぎるため、単純化する必要があることを示している可能性があります。
+- サードパーティのAPIの呼び出し - 呼び出しているサードパーティのライブラリを制御していない場合、それが何をしているのかを確実に知ることは不可能であり、それを抽象化するのが最善です。そうしないと、コードを直接記述せずに、REST呼び出しやその他の潜在的な障害領域を作成している可能性があります。これは一般に、システムの設計が完全にテスト可能ではないことを示しています。単体テストで呼び出されないように、サードパーティのAPI呼び出しをインターフェイスまたはその他の構造でラップすることをお勧めします。
 
-## Unit Testing Frameworks and Tools
+## ユニットテストのフレームワークとツール
 
-### Test Frameworks
+### テストフレームワーク
 
-Unit test frameworks are constantly changing. For a full list of every unit testing framework [see the page on
-Wikipedia](https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks). Frameworks have many features and
-should be picked based on which feature-set fits best for the particular project.
+ユニットテストのフレームワークは常に変化しています。すべてのユニットテストフレームワークの完全なリストについては、[ウィキペディアのページ](https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks)を参照してください。フレームワークには多くの機能があり、特定のプロジェクトに最適な機能セットに基づいて選択する必要があります。
 
-### Mock Frameworks
+### モックフレームワーク
 
-Many projects start with both a unit test framework, and also add a mock framework. While mocking frameworks have their
-uses and sometimes can be a requirement, it should not be something that is added without considering the broader
-implications and risks associated with heavy usage of mocks.
+多くのプロジェクトは、単体テストフレームワークから始まり、模擬フ​​レームワークも追加します。モックフレームワークには用途があり、場合によっては要件になることもありますが、モックの多用に関連するより広範な影響とリスクを考慮せずに追加するものであってはなりません。
 
-To see if mocking is right for your project, or if a mock-free approach is more appropriate, see the page on [mocking](mocking.md).
+モックがプロジェクトに適しているかどうか、またはモックフリーのアプローチがより適切かどうかを確認するには、[モック](mocking.md)のページを参照してください。
 
-### Tools
+### ツール
 
-These tools allow for constant running of your unit tests with in-line code coverage, making the dev inner loop
-extremely fast and allows for easy TDD:
+これらのツールを使用すると、インラインコードカバレッジを使用して単体テストを継続的に実行できるため、開発内部ループが非常に高速になり、TDDが簡単になります。
 
 - [Visual Studio Live Unit Testing](https://docs.microsoft.com/en-us/visualstudio/test/live-unit-testing-intro?view=vs-2019)
 - [Wallaby.js](https://wallabyjs.com/)
 - [Infinitest](http://infinitest.github.io/) for Java
 - [PyCrunch](https://plugins.jetbrains.com/plugin/13264-pycrunch--live-testing) for Python
 
-## Things to consider
+## 考慮事項
 
-### Transferring responsibility to integration tests
+### 統合テストへの責任の移転
 
-In some situations it is worth considering to include the integration tests in the inner development loop to provide a sufficient code coverage to ensure the system is working properly. The prerequisite for this approach to be successful is to have integration tests being able to execute at a speed comparable to that of unit tests both locally and in a CI environment. Modern application frameworks like .NET or Spring Boot combined with the right mocking or stubbing approach for external dependencies offer excellent capabilities to enable such scenarios for testing.
+状況によっては、システムが正しく機能していることを確認するために十分なコードカバレッジを提供するために、内部開発ループに統合テストを含めることを検討する価値があります。このアプローチを成功させるための前提条件は、ローカルとCI環境の両方で単体テストの速度に匹敵する速度で統合テストを実行できるようにすることです。.NETやSpringBootなどの最新のアプリケーションフレームワークを、外部依存関係に対する適切なモックまたはスタブアプローチと組み合わせることで、このようなシナリオをテストできるようにする優れた機能が提供されます。
 
-Usually, integration tests only prove that independently developed modules connect together as designed. The test coverage of integration tests can be extended to verify the correct behaviour of the system as well. The responsibility of providing a sufficient branch and line code coverage can be transferred from unit tests to integration tests.
-Instead of several unit tests needed to test a specific case of functionality of the system, one integration scenario is created that covers the entire flow. For example in case of an API, the received HTTP responses and their content are verified for each request in test. This covers both the integration between components of the API and the correctness of its business logic.
+通常、統合テストは、独立して開発されたモジュールが設計どおりに接続されていることを証明するだけです。統合テストのテストカバレッジを拡張して、システムの正しい動作を検証することもできます。十分なブランチおよびラインコードカバレッジを提供する責任は、単体テストから統合テストに移すことができます。システムの機能の特定のケースをテストするために必要ないくつかの単体テストの代わりに、フロー全体をカバーする1つの統合シナリオが作成されます。たとえば、APIの場合、受信したHTTP応答とそのコンテンツは、テスト中のリクエストごとに検証されます。これには、APIのコンポーネント間の統合とそのビジネスロジックの正確さの両方が含まれます。
 
-With this approach efficient integration tests can be treated as an extension of unit testing, taking over the responsibility of validating happy/failure path scenarios. It has the advantage of testing the system as a black box without any knowledge of its internals. Code refactoring has no impact on tests. Common testing techniques as TDD can be applied at a higher level which results in a development process that is driven by acceptance tests. Depending on the project specifics unit tests still play an important role. They can be used to help dictate a testable design at a lower level or to test complex business logic and corner cases if necessary.
+このアプローチでは、効率的な統合テストを単体テストの拡張として扱うことができ、ハッピー/障害パスシナリオの検証の責任を引き継ぎます。内部の知識がなくても、システムをブラックボックスとしてテストできるという利点があります。コードのリファクタリングはテストに影響を与えません。TDDとしての一般的なテスト手法は、より高いレベルで適用できるため、受け入れテストによって推進される開発プロセスが実現します。プロジェクトの詳細にもよりますが、単体テストは依然として重要な役割を果たします。これらを使用して、下位レベルでテスト可能な設計を決定したり、必要に応じて複雑なビジネスロジックやコーナーケースをテストしたりできます。
 
-## Conclusion
+## 結論
 
-Unit testing is extremely important, but it is also not the silver bullet; having proper unit tests is just a part of a
-well-tested system. However, writing proper unit tests will help with the design of your system as well as help catch
-regressions, bugs, and increase developer velocity.
+ユニットテストは非常に重要ですが、特効薬でもありません。適切な単体テストを行うことは、十分にテストされたシステムの一部にすぎません。ただし、適切な単体テストを作成すると、システムの設計に役立つだけでなく、リグレッションやバグをキャッチし、開発者の速度を上げるのに役立ちます。
 
-## Resources
+## 参考資料
 
-- [Unit Testing Best Practices](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices)
+- [ユニットテストのベストプラクティス](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices)
