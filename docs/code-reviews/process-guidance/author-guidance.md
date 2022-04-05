@@ -1,35 +1,37 @@
-# Author Guidance
+# 著者ガイダンス
 
-## Properly describe your pull request (PR)
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/process-guidance/author-guidance/
 
-- Give the PR a descriptive title, so that other members can easily (in one short sentence) understand what a PR is about.
-- Every PR should have a proper description, that shows the reviewer what has been changed and why.
+## プルリクエスト（PR）を適切に説明してください
 
-## Add relevant reviewers
+- PRにわかりやすいタイトルを付けて、他のメンバーがPRの内容を簡単に（1つの短い文で）理解できるようにします。
+- すべてのPRには、レビュー担当者に変更された内容とその理由を示す適切な説明が必要です。
 
-- Add one or more reviewers (depending on your project's guidelines) to the PR. Ideally, you would add at least someone who has expertise and is familiar with the project, or the language used
-- Adding someone less familiar with the project or the language can aid in verifying the changes are understandable, easy to read, and increases the expertise within the team
-- In CSE code-with projects with a customer team, it is important to include reviewers from both organizations for knowledge transfer - [Customize Reviewers Policy](../tools.md#reviewer-policies)
+## 関連するレビューアを追加する
 
-## Be open to receive feedback
+- 1人以上のレビューア（プロジェクトのガイドラインに応じて）をPRに追加します。理想的には、少なくとも専門知識があり、プロジェクトに精通している人、または使用されている言語を追加します
+- プロジェクトや言語にあまり詳しくない人を追加すると、変更が理解可能で読みやすいことを確認し、チーム内の専門知識を高めるのに役立ちます。
+- CSEコード-顧客チームとのプロジェクトでは、知識の伝達のために両方の組織からのレビュー担当者を含めることが重要です - [レビュー担当者ポリシーをカスタマイズします](../tools.md#reviewer-policies)
 
-Discuss design/code logic and address all comments as follows:
+## フィードバックを受け取るためにオープンになります
 
-- Resolve a comment, if the requested change has been made.
-- Mark the comment as "won't fix", if you are not going to make the requested changes and provide a clear reasoning
-  - If the requested change is within the scope of the task, "I'll do it later" is not an acceptable reason!
-  - If the requested change is out of scope, create a new work item (task or bug) for it
-- If you don't understand a comment, ask questions in the review itself as opposed to a private chat
-- If a thread gets bloated without a conclusion, have a meeting with the reviewer (call them or knock on door)
+設計/コードロジックについて話し合い、すべてのコメントに次のように対処します。
 
-## Use checklists
+- 要求された変更が行われた場合は、コメントを解決します。
+- 要求された変更を行わず、明確な理由を提供する予定がない場合は、コメントを「修正しない」としてマークします
+  - 要求された変更がタスクの範囲内にある場合、「後で実行します」は許容できる理由ではありません。
+  - 要求された変更が範囲外の場合は、その変更用の新しい作業項目（タスクまたはバグ）を作成します
+- コメントがわからない場合は、プライベートチャットではなく、レビュー自体で質問してください。
+- 結論なしにスレッドが肥大化した場合は、レビュー担当者とミーティングを行います（電話するか、ドアをノックします）
 
-When creating a PR, it is a good idea to add a checklist of objectives of the PR in the description. This helps the reviewers to focus on the key areas of the code changes.
+## チェックリストを使用する
 
-## Link a task to your PR
+PRを作成するときは、説明にPRの目的のチェックリストを追加することをお勧めします。これは、レビュー担当者がコード変更の重要な領域に集中するのに役立ちます。
 
-Link the corresponding work items/tasks to the PR. There is no need to duplicate information between the work item and the PR, but if some details are missing in either one, together they provide more context to the reviewer.
+## タスクをPRにリンクする
 
-## Code should have annotations before the review
+対応する作業項目/タスクをPRにリンクします。作業項目とPRの間で情報を複製する必要はありませんが、どちらか一方に詳細が欠落している場合は、それらが一緒になってレビュー担当者により多くのコンテキストを提供します。
 
-If you can't avoid large PRs, include explanations of the changes in order to make it easier for the reviewer to review the code, with clear comments the reviewer can identify the goal of every code block.
+## レビューの前にコードに注釈を付ける必要があります
+
+大規模なPRを回避できない場合は、レビュー担当者がコードをレビューしやすくするために変更の説明を含め、レビュー担当者がすべてのコードブロックの目標を特定できる明確なコメントを付けます。

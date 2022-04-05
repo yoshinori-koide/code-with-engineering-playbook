@@ -1,36 +1,38 @@
-# Process Guidance
+# プロセスガイダンス
 
-## General Guidance
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/process-guidance/
 
-Code reviews should be part of the software engineering team process regardless of the development model. Furthermore, the team should learn to execute reviews in a timely manner. [Pull requests (PRs)](../pull-requests.md) left hanging can cause additional merge problems and go stale resulting in lost work. Qualified PRs are expected to reflect well-defined, concise tasks, and thus be compact in content. Reviewing a single task should then take relatively little time to complete.
+## 一般的なガイダンス
 
-To ensure that the code review process is healthy, inclusive and meets the goals stated above, consider following these guidelines:
+コードレビューは、開発モデルに関係なく、ソフトウェアエンジニアリングチームのプロセスの一部である必要があります。さらに、チームはタイムリーにレビューを実行することを学ぶ必要があります。[プルリクエスト（PR）](../pull-requests.md)がハングしたままになっていると、追加のマージの問題が発生し、古くなり、作業が失われる可能性があります。適格なPRは、明確に定義された簡潔なタスクを反映しているため、内容がコンパクトであることが期待されます。単一のタスクのレビューは、完了するのに比較的短い時間で済みます。
 
-- Establish a [service-level agreement (SLA)](https://en.wikipedia.org/wiki/Service-level_agreement) for code reviews and add it to your teams working agreement.
-- Although modern DevOps environments incorporate tools for managing PRs, it can be useful to label tasks pending for review or to have a dedicated place for them on the task board - [Customize AzDO task boards](../tools.md#task-boards)
-- In the daily standup meeting check tasks pending for review and make sure they have reviewers assigned.
-- Junior teams and teams new to the process can consider creating separate tasks for reviews together with the tasks themselves.
-- Utilize tools to streamline the review process - [Code review tools](../tools.md)
-- Foster inclusive code reviews - [Inclusion in Code Review](../inclusion-in-code-review.md)
+コードレビュープロセスが健全で包括的であり、上記の目標を満たしていることを確認するには、次のガイドラインに従うことを検討してください。
 
-## Measuring code review process
+- コードレビュー用の[サービスレベルアグリーメント（SLA）](https://en.wikipedia.org/wiki/Service-level_agreement)を確立し、それをチームの作業アグリーメントに追加します。
+- 最新のDevOps環境には、PRを管理するためのツールが組み込まれていますが、レビュー待ちのタスクにラベルを付けたり、タスクボード上にタスク専用の場所を設定したりすると便利です - [AzDOタスクボードをカスタマイズする](../tools.md#task-boards)
+- 毎日のスタンドアップミーティングで、レビュー待ちのタスクをチェックし、レビュー担当者が割り当てられていることを確認します。
+- ジュニアチームとプロセスに不慣れなチームは、タスク自体と一緒にレビュー用に個別のタスクを作成することを検討できます。
+- ツールを利用してレビュープロセスを合理化する - [コードレビューツール](../tools.md)
+- 包括的コードレビューの促進 - [コードレビューへの包含](../inclusion-in-code-review.md)
 
-If the team is finding that code reviews are taking a significant time to merge, and it is becoming a blocker, consider the following additional recommendations:
+## コードレビュープロセスの測定
 
-1. Measure the average time it takes to merge a PR per sprint cycle.
-1. Review during retrospective how the time to merge can be improved and prioritized.
-1. Assess the time to merge across sprints to see if the process is improving.
-1. Ping required approvers directly as a reminder.
+チームがコードレビューのマージにかなりの時間がかかり、それがブロッカーになりつつあることに気付いた場合は、次の追加の推奨事項を検討してください。
 
-## Code reviews shouldn't include too many lines of code
+1. スプリントサイクルごとにPRをマージするのにかかる平均時間を測定します。
+1. 遡及的に、マージする時間を改善して優先順位を付ける方法を確認します。
+1. スプリント間でマージする時間を評価して、プロセスが改善されているかどうかを確認します。
+1. リマインダーとして必要な承認者に直接pingを実行します。
 
-It's easy to say a developer can review few hundred lines of code, but when the code surpasses certain amount of lines, the effectiveness of defects discovery will decrease and there is a lesser chance of doing a good review. It's not a matter of setting a code line limit, but rather using common sense. More code there is to review, the higher chances there are letting a bug sneak through. See [PR size guidance](../pull-requests.md#size-guidance).
+## コードレビューには、あまりにも多くのコード行を含めるべきではありません
 
-## Automate whenever reasonable
+開発者は数百行のコードをレビューできると言うのは簡単ですが、コードが特定の行数を超えると、欠陥発見の効果が低下し、適切なレビューを行う可能性が低くなります。コード行の制限を設定するのではなく、常識を使用することです。レビューするコードが多いほど、バグが潜入する可能性が高くなります。[PRサイズガイダンス](../pull-requests.md#size-guidance)を参照してください。
 
-Use automation (linting, code analysis etc.) to avoid the need for "[nits](https://en.wikipedia.org/wiki/Nitpicking)" and allow the reviewer to focus more on the functional aspects of the PR. By configuring automated builds, tests and checks (something achievable in the [CI process](../../continuous-integration/README.md)), teams can save human reviewers some time and let them focus in areas like design and functionality for proper evaluation. This will ensure higher chances of success as the team is focusing on the things that matter.
+## 合理的な場合はいつでも自動化
 
-## Role specific guidance
+自動化（リンティング、コード分析など）を使用して、「[nits](https://en.wikipedia.org/wiki/Nitpicking)」の必要性を回避し、レビュー担当者がPRの機能的側面により集中できるようにします。自動化されたビルド、テスト、およびチェック（[CIプロセス](../../continuous-integration/README.md)で達成可能なもの）を構成することにより、チームは人間のレビュー担当者を時間を節約し、適切な評価のために設計や機能などの領域に集中させることができます。これにより、チームは重要なことに集中するため、成功の可能性が高くなります。
 
-- [Author Guidance](author-guidance.md)
-- [Reviewer Guidance](reviewer-guidance.md)
+## 役割固有のガイダンス
+
+- [著者ガイダンス](author-guidance.md)
+- [レビューアガイダンス](reviewer-guidance.md)

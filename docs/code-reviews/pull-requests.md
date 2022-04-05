@@ -1,31 +1,33 @@
-# Pull Requests
+# プルリクエスト
 
-Changes to any main codebase - main branch in Git repository, for example - must be done using pull requests (PR).
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/inclusion-in-code-review/
 
-Pull requests enable:
+メインコードベース（Gitリポジトリのメインブランチなど）への変更は、プルリクエスト（PR）を使用して行う必要があります。
 
-* Code inspection - see [Code Reviews](./README.md)
-* Running automated qualification of the code
-  * Linters
-  * Compilation
-  * Unit tests
-  * Integration tests etc.
+プルリクエストの有効化:
 
-The requirements of pull requests can and should be enforced by policies, which can be set in the most modern version control and work item tracking systems. See [Evidence and Measures section](./evidence-and-measures/README.md) for more information.
+* コード検査 -[コードレビュー](./README.md)を参照
+* コードの自動認定の実行
+  * リンター
+  * コンパイル
+  * ユニットテスト
+  * 統合テストなど。
 
-## General Process
+プルリクエストの要件は、最新のバージョン管理および作業項目追跡システムで設定できるポリシーによって実施でき、実施する必要があります。詳細については、[証拠と対策](./evidence-and-measures/README.md)セクションを参照してください。
 
-1. Implement changes based on the well-defined description and acceptance criteria of the task at hand
-1. Then, before creating a new pull request:
-    * Make sure the code conforms with the agreed coding conventions
-        * This can be partially automated using linters
-    * Ensure the code compiles and runs without errors or warnings
-    * Write and/or update tests to cover the changes and make sure all new and existing tests pass
-    * Write and/or update the documentation to match the changes
-1. Once convinced the criteria above are met, create and submit a new pull request adhering to the [pull request template](pull-request-template/pull-request-template.md)
-1. Follow the [code review](./process-guidance/README.md) process to merge the changes to the main codebase
+## 一般的なプロセス
 
-The following diagram illustrates this approach.
+1. 手元のタスクの明確に定義された説明と受け入れ基準に基づいて変更を実装します
+1. 次に、新しいプルリクエストを作成する前に :
+    * コードが合意されたコーディング規約に準拠していることを確認します
+        * れはlintersを使用して部分的に自動化できます
+    * コードがエラーや警告なしにコンパイルおよび実行されることを確認します
+    * 変更をカバーするテストを作成および/または更新しますそして、すべての新規および既存のテストに合格することを確認します
+    * 変更に一致するようにドキュメントを作成および/または更新します
+1. 上記の基準が満たされていることを確認したら、[プルリクエストテンプレート](pull-request-template/pull-request-template.md)に準拠した新しいプルリクエストを作成して送信します。
+2. [コードレビュー](./process-guidance/README.md)プロセスに従って、変更をメインコードベースにマージします
+
+次の図は、このアプローチを示しています。
 
 ```mermaid
 sequenceDiagram
@@ -38,35 +40,35 @@ Pull request ->>+ Main branch: Merge after completion
 New branch->>+Main branch: Goal of the Pull request
 ```
 
-## Size Guidance
+## サイズガイダンス
 
-We should always aim to keep pull requests small. Small PRs have multiple advantages:
+プルリクエストを常に小さく保つことを目指す必要があります。小さなPRには複数の利点があります。
 
-* They are easier to review; a clear benefit for the reviewers.
-* They are easier to deploy; this is aligned with the strategy of release fast and release often.
-* Minimizes possible conflicts and stale PRs.
+* レビューが簡単です。レビューアにとって明らかなメリット。
+* 展開が簡単です。これは、迅速にリリースし、頻繁にリリースするという戦略と一致しています。
+* 発生する可能性のある競合と古いPRを最小限に抑えます。
 
-However, we should keep PRs focused - for example around a functional feature, optimization or code readability and avoid having PRs that include code that is without context or loosely coupled. There is no right size, but keep in mind that a code review is a collaborative process, a big PRs could be difficult and therefore slower to review. We should always strive to have as small PRs as possible that still add value.
+ただし、PRを集中させておく必要があります。たとえば、機能機能、最適化、コードの可読性などに焦点を当て、コンテキストのないコードや疎結合のコードを含むPRは避けてください。適切なサイズはありませんが、コードレビューは共同プロセスであることに注意してください。大きなPRは困難であるため、レビューに時間がかかる可能性があります。私たちは常に、付加価値を残したまま、可能な限り小さなPRを持つよう努めるべきです。
 
-## Best Practices
+## ベストプラクティス
 
-Beyond the size, remember that every PR should:
+サイズを超えて、すべてのPRは次のことを行う必要があることに注意してください。
 
-* be consistent,
-* not break the build, and
-* include related tests as part of the PR.
+* 一貫性を保つ、
+* ビルドを壊さないでください、そして
+* PRの一部として関連するテストを含めます。
 
-Be consistent means that all the changes included on the PR should aim to solve one goal (ex. one user story) and be intrinsically related. Think of this as the Single-responsibility principle in terms of the whole project, the PR should have only one *reason to change* the project.
+一貫性があるということは、PRに含まれるすべての変更が、1つの目標（たとえば、1つのユーザーストーリー）を解決することを目的とし、本質的に関連している必要があることを意味します。これをプロジェクト全体の単一責任の原則と考えると、PRにはプロジェクトを*変更する理由*が1つだけあるはずです。
 
-Start small, it is easier to create a small PR from the start than to break up a bigger one.
+小さく始めてください。大きなPRを分割するよりも、最初から小さなPRを作成する方が簡単です。
 
-These are some strategies to keep PRs small depending on the "cause" of the inevitability, you could break the PR into self-container changes which still add value, release features that are hidden (see feature flag, feature toggling or canary releases) or break the PR into different layers (for example using design patterns like MVC or Observer/Subject). No matter the strategy.
+これらは、必然性の「原因」に応じてPRを小さく保つためのいくつかの戦略です。PRを自己コンテナの変更に分割して、付加価値を付けたり、非表示の機能をリリースしたりできます（機能フラグ、機能の切り替え、カナリアのリリースを参照）。 PRをさまざまなレイヤーに分割します（たとえば、MVCやオブザーバー/サブジェクトなどのデザインパターンを使用します）。戦略に関係なく。
 
-## Pull Request Description
+## プルリクエストの説明
 
-Well written PR descriptions helps maintain a clean, well-structured change history. While every team need not conform to the same specification, it is important that the convention is agreed upon at the start of the project.
+よく書かれたPRの説明は、クリーンで構造化された変更履歴を維持するのに役立ちます。すべてのチームが同じ仕様に準拠する必要はありませんが、プロジェクトの開始時に規則に同意することが重要です。
 
-One popular specification for open-source projects and others is the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0-beta.2/), which is structured as:
+オープンソースプロジェクトやその他の一般的な仕様の1つは、次のように構成された[従来のコミット仕様](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)です。
 
 ```txt
 <type>[optional scope]: <description>
@@ -76,18 +78,18 @@ One popular specification for open-source projects and others is the [Convention
 [optional footer]
 ```
 
-The `<type>` in this message can be selected from a list of types defined by the team, but many projects use the [list of commit types from the Angular open-source project](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type). It should be clear that `scope`, `body` and `footer` elements are **optional**, but having a required `type` and short description enables the features mentioned above.
+この`<type>`メッセージのは、チームによって定義されたタイプのリストから選択できますが、多くのプロジェクトでは、[Angularオープンソースプロジェクトのコミットタイプのリスト](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type)を使用しています。`scope`、`body`および`footer`要素は**オプションである**ことは明らかですが、必須`type`で短い説明があると、上記の機能が有効になります。
 
-See also [Pull Request Template](pull-request-template/pull-request-template.md)
+[プルリクエストテンプレート](pull-request-template/pull-request-template.md)も参照してください。
 
-## Resources
+## 参考資料
 
-* [Writing a great pull request description](https://www.pullrequest.com/blog/writing-a-great-pull-request-description)
-* [Review code with pull requests (Azure DevOps)](https://docs.microsoft.com/en-us/azure/devops/repos/git/pull-requests?view=azure-devops)
-* [Collaborating with issues and pull requests (GitHub)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests)
-* [Google approach to PR size](https://google.github.io/eng-practices/review/developer/small-cls.html)
-* [Feature Flags](https://www.martinfowler.com/articles/feature-toggles.html)
-* [Facebook approach to hidden features](https://launchdarkly.com/blog/secret-to-facebooks-hacker-engineering-culture/)
-* [Azure approach to canary releases](https://docs.microsoft.com/azure/architecture/framework/devops/release-engineering-cd#stage-your-workloads)
-* [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)
-* [Angular Commit types](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type)
+* [優れたプルリクエストの説明を書く](https://www.pullrequest.com/blog/writing-a-great-pull-request-description)
+* [プルリクエストを含むコードを確認する（Azure DevOps）](https://docs.microsoft.com/en-us/azure/devops/repos/git/pull-requests?view=azure-devops)
+* [問題とプルリクエストのコラボレーション（GitHub）](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests)
+* [PRサイズへのGoogleのアプローチ](https://google.github.io/eng-practices/review/developer/small-cls.html)
+* [機能フラグ](https://www.martinfowler.com/articles/feature-toggles.html)
+* [隠された機能へのFacebookのアプローチ](https://launchdarkly.com/blog/secret-to-facebooks-hacker-engineering-culture/)
+* [カナリアリリースへのAzureアプローチ](https://docs.microsoft.com/azure/architecture/framework/devops/release-engineering-cd#stage-your-workloads)
+* [従来のコミット仕様](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)
+* [AngularCommitタイプ](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type)

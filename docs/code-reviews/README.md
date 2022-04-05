@@ -1,17 +1,19 @@
-# Code Reviews
+# コードレビュー
 
-Developers working on [CSE](../CSE.md) projects should conduct peer code reviews on every pull request (or check-in to a shared branch).
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/
 
-## Goals
+[CSE](../CSE.md)プロジェクトに取り組んでいる開発者は、プルリクエスト（または共有ブランチへのチェックイン）ごとにピアコードレビューを実施する必要があります。
 
-Code review is a way to have a conversation about the code where participants will:
+## 目標
 
-- **Improve code quality** by identifying and removing defects before they can be introduced into shared code branches.
-- **Learn and grow** by having others review the code, we get exposed to unfamiliar design patterns or languages among other topics, and even break some bad habits.
-- **Shared understanding** between the developers over the project's code.
+コードレビューは、参加者が次のことを行うコードについて会話する方法です。
 
-## Resources
+- 欠陥を共有コードブランチに導入する前に、欠陥を特定して削除することにより、**コードの品質を向上**させます。
+- 他の人にコードをレビューしてもらうことで**学び、成長**します。他のトピックの中でもなじみのないデザインパターンや言語にさらされ、悪い習慣を打ち破ることさえあります。
+- プロジェクトのコードに関する開発者間の**理解の共有**。
 
-- [Code review tools](tools.md)
-- [Google's Engineering Practices documentation: How to do a code review](https://google.github.io/eng-practices/review/reviewer/)
-- [Best Kept Secrets of Peer Code Review](https://static1.smartbear.co/smartbear/media/pdfs/best-kept-secrets-of-peer-code-review_redirected.pdf)
+## 参考資料
+
+- [コードレビューツール](tools.md)
+- [Googleのエンジニアリングプラクティスのドキュメント：コードレビューを行う方法](https://google.github.io/eng-practices/review/reviewer/)
+- [ピアコードレビューの最高の秘密](https://static1.smartbear.co/smartbear/media/pdfs/best-kept-secrets-of-peer-code-review_redirected.pdf)

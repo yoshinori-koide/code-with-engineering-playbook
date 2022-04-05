@@ -1,48 +1,49 @@
-# FAQ
+# よくある質問
 
-This is a list of questions / frequently occurring issues when working with code reviews and answers how you can possibly tackle them.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/faq/
 
-## What makes a code review different from a PR?
+これは、コードレビューを処理するときに発生する質問/問題のリストであり、それらに対処する方法を示しています。
 
-A pull request (PR) is a way to notify a task is finished and ready to be merged into the main working branch (source of truth). A code review is having someone go over the code in a PR and validate it before it is merged, but, in general, code reviews can take place outside PRs too.
+## コードレビューとPRの違いは何ですか？
 
-| Code Review | Pull Request |
+プルリクエスト（PR）は、タスクが終了し、メインの作業ブランチ（信頼できる情報源）にマージする準備ができていることを通知する方法です。コードレビューとは、誰かがPR内のコードを調べて、マージする前に検証することですが、一般に、コードレビューはPRの外部でも行うことができます。
+
+| コードレビュー | プルリクエスト |
 --- | ---
-| Source code focused | Intended to enhance and enable code reviews. Includes both source code but can have a broader scope (e.g., docs, integration tests, compiles) |
-| Intended for **early feedback** before submitting a PR | Not intended for **early feedback**. Created when author is ready to merge |
-| Usually a synchronous review with faster feedback cycles (draft PRs as an exception). Examples: scheduled meetings, over-the-shoulder review, pair programming | Usually a tool assisted asynchronous review but can be elevated to a synchronous meeting when needed |
+| ソースコードに焦点を当てる | コードレビューを強化して有効にすることを目的としています。両方のソースコードが含まれていますが、より広い範囲（ドキュメント、統合テスト、コンパイルなど）を持つことができます |
+| PRを提出する前の**早期フィードバック**を目的としています | **早期のフィードバック**を目的としていません。作成者がマージする準備ができたときに作成されます |
+| 通常、フィードバックサイクルが速い同期レビュー（例外としてドラフトPR）。例：スケジュールされた会議、肩越しのレビュー、ペアプログラミング | 通常、ツールは非同期レビューを支援しますが、必要に応じて同期会議に昇格させることもできます |
 
-## Why do we need code reviews?
+## なぜコードレビューが必要なのですか？
 
-Our peer code reviews are structured around best practices, to find specific kinds of errors. Much like you would still run a linter over mobbed code, you would still ask someone to make the last pass to make sure the code conforms to expected standards and avoids common pitfalls.
+ピアコードレビューは、特定の種類のエラーを見つけるためのベストプラクティスに基づいて構成されています。モブされたコードに対してリンターを実行するのと同じように、コードが期待される標準に準拠し、一般的な落とし穴を回避するために、最後のパスを作成するように誰かに依頼します。
 
-## PRs are too large, how can we fix this?
+## PRが大きすぎるのですが、どうすれば修正できますか？
 
-Make sure you size the work items into small clear chunks, so the reviewer will be able to understand the code on their own. The team is instructed to commit early, before the full product backlog item / user story is complete, but rather when an individual item is done. If the work would result in an incomplete feature, make sure it can be turned off, until the full feature is delivered.
-More information can be found in [Pull Requests - Size Guidance](./pull-requests.md#size-guidance).
+レビュー担当者が自分でコードを理解できるように、作業項目のサイズを小さな明確なチャンクに設定してください。チームは、完全な製品バックログアイテム/ユーザーストーリーが完了する前に、むしろ個々のアイテムが完了したときに、早期にコミットするように指示されます。作業の結果、機能が不完全になる場合は、完全な機能が提供されるまで、機能をオフにできることを確認してください。詳細については、[プルリクエスト-サイズガイダンス](./pull-requests.md#size-guidance)を参照してください。
 
-## How can we expedite code reviews?
+## コードレビューを迅速に行うにはどうすればよいですか？
 
-Slow code reviews might cause delays in delivering features and cause frustration amongst team members.
+コードレビューが遅いと、機能の提供が遅れたり、チームメンバーにフラストレーションが生じたりする可能性があります。
 
-### Possible actions you can take
+### あなたが取ることができる可能な行動
 
-- Add a rule for PR turnaround time to your work agreement.
-- Set up a slot after the standup to go through pending PRs and assign the ones that are inactive.
-- Dedicate a PR review manager who will be responsible to keep things flowing by assigning or notifying people when PR got stale.
-- Use tools to better indicate stale reviews - [Customize ADO - Task Boards](tools.md#task-boards).
+- 労働契約にPRターンアラウンドタイムの​​ルールを追加します。
+- スタンドアップ後にスロットを設定して、保留中のPRを通過し、非アクティブなPRを割り当てます。
+- PRが古くなったときに人を割り当てたり通知したりすることで、物事の流れを維持する責任を負うPRレビューマネージャーを専任にします。
+- ツールを使用して、古いレビューをより適切に示します- [ADOのカスタマイズ- タスクボード](tools.md#task-boards)。
 
-## Which tools can I use to review a complex PR?
+## 複雑なPRを確認するためにどのツールを使用できますか？
 
-Checkout the [Tools](./tools.md) for help on how to perform reviews out of Visual Studio or Visual Studio Code.
+VisualStudioまたはVisualStudioCodeからレビューを実行する方法については、[Tools](./tools.md)を確認してください。
 
-## How can we enforce code review policies?
+## コードレビューポリシーをどのように実施できますか？
 
-[By configuring Branch Policies](tools.md#Configuring Branch Policies), you can easily enforce code reviews rules.
+[ブランチポリシーを構成する](tools.md#Configuring Branch Policies)ことにより、コードレビュールールを簡単に適用できます。
 
-## We pair or mob. How should this reflect in our code reviews?
+## ペアかモブか。これはコードレビューにどのように反映されるべきですか？
 
-There are two ways to perform a code review:
+ードレビューを実行するには、次の2つの方法があります。
 
-1. Pair - Someone outside the pair should perform the code review. One of the other major benefits of code reviews is spreading knowledge about the code base to other members of the team that don't usually work in the part of the codebase under review.
-2. Mob - A member of the mob who spent less (or no) time at the keyboard should perform the code review.
+1. ペア - ペアの外部の誰かがコードレビューを実行する必要があります。コードレビューのその他の主な利点の1つは、コードベースに関する知識を、レビュー中のコードベースの一部では通常は機能しないチームの他のメンバーに広めることです。
+2. モブ - キーボードで費やした時間が少ない（またはまったくない）Mobのメンバーは、コードレビューを実行する必要があります。

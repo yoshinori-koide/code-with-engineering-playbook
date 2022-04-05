@@ -1,26 +1,28 @@
-# Java Code Reviews
+# Javaコードレビュー
 
-## Java Style Guide
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/recipes/java/
 
-[CSE](../../CSE.md) developers generally follow the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html).
+## Javaスタイルガイド
 
-## Code Analysis / Linting
+[CSE](../../CSE.md)開発者は通常、 [Google Javaスタイルガイド](https://google.github.io/styleguide/javaguide.html)に従います。
 
-We strongly believe that consistent style increases readability and maintainability of a code base. Hence, we are recommending analyzers to enforce consistency and style rules.
+## コード分​​析/リンティング
 
-We make use of [Checkstyle](https://github.com/checkstyle/checkstyle) using the [same configuration used in the Azure Java SDK](https://github.com/Azure/azure-sdk-for-java/blob/master/eng/code-quality-reports/src/main/resources/checkstyle/checkstyle.xml).
+一貫したスタイルにより、コードベースの可読性と保守性が向上すると確信しています。したがって、一貫性とスタイルのルールを適用するためにアナライザーをお勧めします。
 
-[FindBugs](http://findbugs.sourceforge.net/) and [PMD](https://pmd.github.io/) are also commonly used.
+[Azure Java SDKで使用されているのと同じ構成](https://github.com/Azure/azure-sdk-for-java/blob/master/eng/code-quality-reports/src/main/resources/checkstyle/checkstyle.xml)を使用して[Checkstyle](https://github.com/checkstyle/checkstyle)を使用します。
 
-## Automatic Code Formatting
+[FindBugs](http://findbugs.sourceforge.net/)と[PMD](https://pmd.github.io/)も一般的に使用されています。
 
-Eclipse, and other Java IDEs, support automatic code formatting.  If using Maven, some developers also make use of the [formatter-maven-plugin](https://github.com/revelc/formatter-maven-plugin).
+## 自動コードフォーマット
 
-## Build Validation
+Eclipseおよびその他のJavaIDEは、自動コードフォーマットをサポートしています。Mavenを使用している場合、一部の開発者は[formatter-maven-plugin](https://github.com/revelc/formatter-maven-plugin)も使用します。
 
-It's important to enforce your code style and rules in the CI to avoid any team members merging code that does not comply with standards into your git repo.  If building using Azure DevOps, Azure DevOps support [Maven](https://docs.microsoft.com/azure/devops/pipelines/tasks/build/maven?view=azure-devops) and [Gradle](https://docs.microsoft.com/azure/devops/pipelines/tasks/build/gradle?view=azure-devops) build tasks using [PMD](https://pmd.github.io/), [Checkstyle](https://checkstyle.sourceforge.io/), and [FindBugs](http://findbugs.sourceforge.net/) code analysis tools as part of every build.
+## ビルド検証
 
-Here is an example yaml for a Maven build task with all three analysis tools enabled:
+チームメンバーが標準に準拠していないコードをgitリポジトリにマージしないように、CIでコードスタイルとルールを適用することが重要です。Azure DevOpsを使用してビルドする場合、Azure DevOpsは、すべてのビルドの一部として[PMD](https://pmd.github.io/)、[Checkstyle](https://checkstyle.sourceforge.io/)、および[FindBugs](http://findbugs.sourceforge.net/)コード分析ツールを使用する[Maven](https://docs.microsoft.com/azure/devops/pipelines/tasks/build/maven?view=azure-devops)および[Gradle](https://docs.microsoft.com/azure/devops/pipelines/tasks/build/gradle?view=azure-devops)ビルドタスクをサポートします。
+
+3つの分析ツールすべてを有効にしたMavenビルドタスクのyamlの例を次に示します。
 
 ```yaml
     - task: Maven@3
@@ -32,7 +34,7 @@ Here is an example yaml for a Maven build task with all three analysis tools ena
         findBugsRunAnalysis: true
 ```
 
-Here is an example yaml for a Gradle build task with all three analysis tools enabled:
+3つの分析ツールすべてを有効にしたGradleビルドタスクのyamlの例を次に示します。
 
 ```yaml
     - task: Gradle@2
@@ -43,13 +45,13 @@ Here is an example yaml for a Gradle build task with all three analysis tools en
         pmdRunAnalysis: true
 ```
 
-## Code Review Checklist
+## コードレビューチェックリスト
 
-In addition to the [Code Review Checklist](../process-guidance/reviewer-guidance.md) you should also look for these Java specific code review items
+[コードレビューチェックリスト](../process-guidance/reviewer-guidance.md)に加えて、これらのJava固有のコードレビュー項目も探す必要があります
 
-* [ ] Does the project use Lambda to make code cleaner?
-* [ ] Is dependency injection (DI) used?  Is it setup correctly?
-* [ ] If the code uses Spring Boot, are you using @Inject instead of @Autowire?
-* [ ] Does the code handle exceptions correctly?
-* [ ] Is the [Azul Zulu OpenJDK](https://docs.microsoft.com/en-us/java/azure/jdk/java-jdk-install?view=azure-java-stable) being used?
-* [ ] Is a build automation and package management tool (Gradle or Maven) being used?
+* [ ] プロジェクトはLambdaを使用してコードをクリーンにしますか？
+* [ ] 依存性注入（DI）は使用されていますか？正しく設定されていますか？
+* [ ] コードでSpringBootを使用している場合、`@Autowire` の代わりに`@Inject`を使用していますか？
+* [ ] コードは例外を正しく処理しますか？
+* [ ] [Azul Zulu OpenJDK](https://docs.microsoft.com/en-us/java/azure/jdk/java-jdk-install?view=azure-java-stable) が使用されていますか？
+* [ ] ビルド自動化およびパッケージ管理ツール（GradleまたはMaven）が使用されていますか？

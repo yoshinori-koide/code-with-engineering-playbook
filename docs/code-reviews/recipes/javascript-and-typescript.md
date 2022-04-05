@@ -1,28 +1,28 @@
-# JavaScript/TypeScript Code Reviews
+# JavaScript/TypeScriptコードレビュー
 
-## Style Guide
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/recipes/javascript-and-typescript/
 
-[CSE](../../CSE.md) developers use [prettier](https://prettier.io/) to do code formatting for JavaScript.
+## スタイルガイド
 
-Using an automated code formatting tool like Prettier enforces a well accepted style guide that was collaboratively built by a wide range of companies including Microsoft, Facebook, and AirBnB.
+[CSE](../../CSE.md)開発者は、JavaScriptのコードフォーマットを行うために[prettier](https://prettier.io/)を使用します。
 
-For higher level style guidance not covered by prettier, we follow the [AirBnB Style Guide](https://github.com/airbnb/javascript).
+Prettierのような自動化されたコードフォーマットツールを使用すると、Microsoft、Facebook、AirBnBなどの幅広い企業が共同で作成した広く受け入れられているスタイルガイドが適用されます。
 
-## Code Analysis / Linting
+prettierにカバーされていないより高いレベルのスタイルガイダンスについては、[AirBnBスタイルガイド](https://github.com/airbnb/javascript)に従ってください。
+
+## コード分​​析/リンティング
 
 ### eslint
 
-Per guidance outlined in [Palantir's 2019 TSLint road map](https://medium.com/palantir/tslint-in-2019-1a144c2317a9),
-TypeScript code should be linted with [ESLint](https://github.com/eslint/eslint). See the [typescript-eslint](https://typescript-eslint.io/) documentation for more information around linting TypeScript code with ESLint.
+[Palantirの2019TSLintロードマップ](https://medium.com/palantir/tslint-in-2019-1a144c2317a9)で概説されているガイダンスに従って、TypeScriptコードはESLintでリントする必要があります。[ESLint](https://github.com/eslint/eslint)を使用したTypeScriptコードのリンティングの詳細については、[typescript-eslint](https://typescript-eslint.io/)のドキュメントを参照してください。
 
-To [install and configure linting with ESLint](https://typescript-eslint.io/),
-install the following packages as dev-dependencies:
+[ESLintを使用してリンティングをインストールおよび構成する](https://typescript-eslint.io/)には、次のパッケージをdev-dependenciesとしてインストールします。
 
 ```bash
 npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
 
-Add a `.eslintrc.js` to the root of your project:
+プロジェクトのルートに`.eslintrc.js`を追加します。
 
 ```javascript
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
 };
 ```
 
-Add the following to the `scripts` of your `package.json`:
+`package.json`の`scripts`に以下を追加してください：
 
 ```json
 "scripts": {
@@ -47,28 +47,27 @@ Add the following to the `scripts` of your `package.json`:
 }
 ```
 
-This will lint all `.js`, `.jsx`, `.ts`, `.tsx` files in your project and omit any files or
-directories specified in your `.gitignore`.
+これにより、プロジェクト内のすべての`.js`、`.jsx`、`.ts`、`.tsx`ファイルがリントされ、`.gitignore`で指定されたファイルまたはディレクトリが省略されます。
 
-You can run linting with:
+次のコマンドでリンティングを実行できます。
 
 ```bash
 npm run lint
 ```
 
-## Setting up Prettier
+## Prettierのセットアップ
 
-[Prettier](https://prettier.io/docs/en/) is an opinionated code formatter.
+[Prettier](https://prettier.io/docs/en/)は、代表的なコードフォーマッターです。
 
-[Getting started guide](https://prettier.io/docs/en/integrating-with-linters.html).
+[スタートガイド](https://prettier.io/docs/en/integrating-with-linters.html)。
 
-Install with `npm` as a dev-dependency:
+dev-dependencyとして`npm`インストールします。
 
 ```bash
 npm install -D prettier eslint-config-prettier eslint-plugin-prettier
 ```
 
-Add `prettier` to your `.eslintrc.js`:
+`.eslintrc.js`に `prettier` を追記します。
 
 ```javascript
 module.exports = {
@@ -87,14 +86,13 @@ module.exports = {
 };
 ```
 
-This will apply the `prettier` rule set when linting with ESLint.
+これにより、ESLintでリントするときに`prettier`ルールセットが適用されます。
 
-## Auto formatting with VS Code
+## VSCodeによる自動フォーマット
 
-VS Code can be configured to automatically perform `eslint --fix` on save.
+VS Codeは、保存時に自動的に`eslint --fix`が実行されるように構成できます。
 
-Create a `.vscode` folder in the root of your project and add the following to your
-`.vscode/settings.json`:
+`.vscode`プロジェクトのルートにフォルダーを作成し、以下を`.vscode/settings.json`に追加します。
 
 ```json
 {
@@ -104,7 +102,7 @@ Create a `.vscode` folder in the root of your project and add the following to y
 }
 ```
 
-By default, we use the following overrides should be added to the VS Code configuration to standardize on single quotes, a four space drop, and to do ESLinting:
+デフォルトでは、VS Code構成に次のオーバーライドを追加して、一重引用符、4つのスペースの削除を標準化し、ESLintingを実行する必要があります。
 
 ```json
 {
@@ -114,9 +112,9 @@ By default, we use the following overrides should be added to the VS Code config
 }
 ```
 
-## Build Validation
+## ビルド検証
 
-To automate this process in Azure Devops you can add the following snippet to your pipeline definition yaml file. This will lint any scripts in the `./scripts/` folder.
+Azure Devopsでこのプロセスを自動化するには、パイプライン定義のyamlファイルに次のスニペットを追加します。これにより、`./scripts`フォルダ内のすべてのスクリプトが削除され/ます。
 
 ```yaml
 - task: Npm@1
@@ -127,49 +125,49 @@ To automate this process in Azure Devops you can add the following snippet to yo
     workingDir: './scripts/'
 ```
 
-## Pre-commit hooks
+## フックの事前コミット
 
-All developers should run `eslint` in a pre-commit hook to ensure standard formatting. We highly recommend using an editor integration like [vscode-eslint](https://github.com/Microsoft/vscode-eslint) to provide realtime feedback.
+すべての開発者は`eslint`を、標準のフォーマットを確保するためにpre-commitフックで実行する必要があります。リアルタイムのフィードバックを提供するには、[vscode-eslint](https://github.com/Microsoft/vscode-eslint)などのエディター統合を使用することを強くお勧めします。
 
-1. Under `.git/hooks` rename `pre-commit.sample` to `pre-commit`
-1. Remove the existing sample code in that file
-1. There are many examples of scripts for this on gist, like [pre-commit-eslint](https://gist.github.com/linhmtran168/2286aeafe747e78f53bf)
-1. Modify accordingly to include TypeScript files (include ts extension and make sure typescript-eslint is set up)
-1. Make the file executable: `chmod +x .git/hooks/pre-commit`
+1. `.git/hooks`以下の`pre-commit.sample`を`pre-commit`に名前を変更します。
+2. そのファイル内の既存のサンプルコードを削除します
+3. [pre-commit-eslint](https://gist.github.com/linhmtran168/2286aeafe747e78f53bf)のように、要点についてはこのためのスクリプトの例がたくさんあります。
+4. TypeScriptファイルを含めるように適宜変更します（ts拡張子を含め、typescript-eslintが設定されていることを確認してください）
+5. ファイルを実行可能にします。: `chmod +x .git/hooks/pre-commit`
 
-As an alternative [husky](https://github.com/typicode/husky) can be considered to simplify pre-commit hooks.
+別の方法として、[husky](https://github.com/typicode/husky) は事前コミットフックを単純化することを検討できます。
 
-## Code Review Checklist
+## コードレビューチェックリスト
 
-In addition to the [Code Review Checklist](../process-guidance/reviewer-guidance.md) you should also look for these JavaScript and TypeScript specific code review items.
+[コードレビューチェックリスト](../process-guidance/reviewer-guidance.md)に加えて、これらのJavaScriptおよびTypeScript固有のコードレビュー項目も探す必要があります。
 
 ### Javascript
 
-* [ ] Does the code stick to our formatting and code standards? Does running prettier and ESLint over the code should yield no warnings or errors respectively?
-* [ ] Does the change re-implement code that would be better served by pulling in a well known module from the ecosystem?
-* [ ] Is `"use strict";` used to reduce errors with undeclared variables?
-* [ ] Are unit tests used where possible, also for APIs? [Ponicode](https://www.ponicode.com/) can help with test generation. Ponicode creates test files using Jest syntax.
-* [ ] Are tests arranged correctly with the **Arrange/Act/Assert** pattern and properly documented in this way?
-* [ ] Are best practices for error handling followed, as well as `try catch finally` statements?
-* [ ] Are the `doWork().then(doSomething).then(checkSomething)` properly followed for async calls, including `expect`, `done`?
-* [ ] Instead of using raw strings, are constants used in the main class? Or if these strings are used across files/classes, is there a static class for the constants?
-* [ ] Are magic numbers explained? There should be no number in the code without at least a comment of why it is there. If the number is repetitive, is there a constant/enum or equivalent?
-* [ ] If there is an asynchronous method, does the name of the method end with the `Async` suffix?
-* [ ] Is a minimum level of logging in place? Are the logging levels used sensible?
-* [ ] Is document fragment manipulation limited to when you need to manipulate multiple sub elements?
+* [ ] コードはフォーマットとコード標準に準拠していますか？コード上でprettierとESLintを実行しても、それぞれ警告やエラーは発生しませんか？
+* [ ] エコシステムからよく知られたモジュールを取り込むことで、より適切に機能するコードを再実装する変更はありますか？
+* [ ] 宣言されていない変数のエラーを減らすために`"use strict";`が使用されていますか？
+* [ ] APIについても、可能な場合は単体テストを使用していますか？[Ponicode](https://www.ponicode.com/)は、テストの生成に役立ちます。Ponicodeは、Jest構文を使用してテストファイルを作成します。
+* [ ] テストは**Arrange/Act/Assert**パターンで正しく配置され、このように適切に文書化されていますか？
+* [ ] `try catch finally`ステートメントだけでなく、エラー処理のベストプラクティスに従っていますか？
+* [ ] `expect`、`done`を含む、非同期呼び出しは適切に`doWork().then(doSomething).then(checkSomething)`で実行されていますか？
+* [ ] 生の文字列を使用する代わりに、定数はメインクラスで使用されますか？または、これらの文字列がファイル/クラス全体で使用されている場合、定数の静的クラスはありますか？
+* [ ] マジックナンバーは説明されていますか？少なくともなぜそこにあるのかについてのコメントがなければ、コードに数字があってはなりません。数が繰り返される場合、定数/列挙型または同等のものはありますか？
+* [ ] 非同期メソッドがある場合、メソッドの名前は`Async`サフィックスで終わりますか？
+* [ ] 最小レベルのロギングが実施されていますか？使用されるロギングレベルは賢明ですか？
+* [ ] ドキュメントフラグメントの操作は、複数のサブ要素を操作する必要がある場合に限定されていますか？
 
 ### TypeScript
 
-* [ ] Does the code stick to our formatting and code standards? Does running prettier and ESLint over the code should yield no warnings or errors respectively?
-* [ ] Does the change re-implement code that would be better served by pulling in a well known module from the ecosystem?
-* [ ] Does TypeScript code compile without raising linting errors?
-* [ ] Instead of using raw strings, are constants used in the main class? Or if these strings are used across files/classes, is there a static class for the constants?
-* [ ] Are magic numbers explained? There should be no number in the code without at least a comment of why it is there. If the number is repetitive, is there a constant/enum or equivalent?
-* [ ] Is there a proper `/* */` in the various classes and methods?
-* [ ] Are unit tests used where possible? In most cases, tests should be present for APIs, interfaces with data access, transformation, backend elements and models. [Ponicode](https://www.ponicode.com/) can help with test generation. Ponicode creates test files using Jest syntax.
-* [ ] Are tests arranged correctly with the **Arrange/Act/Assert** pattern and properly documented in this way?
-* [ ] If there is an asynchronous method, does the name of the method end with the `Async` suffix?
-* [ ] Is a minimum level of logging in place? Is the logging level is the right one?
-* [ ] Is document fragment manipulation limited to when you need to manipulate multiple sub elements?
-* [ ] Are heavy operations implemented in the backend, leaving the controller as thin as possible?
-* [ ] Is event handling on the html efficiently done?
+* [ ] コードはフォーマットとコード標準に準拠していますか？コード上でprettierとESLintを実行しても、それぞれ警告やエラーは発生しませんか？
+* [ ] エコシステムからよく知られたモジュールを取り込むことで、より適切に機能するコードを再実装する変更はありますか？
+* [ ] TypeScriptコードはリンティングエラーを発生させずにコンパイルされますか？
+* [ ] 生の文字列を使用する代わりに、定数はメインクラスで使用されますか？または、これらの文字列がファイル/クラス全体で使用されている場合、定数の静的クラスはありますか？
+* [ ] マジックナンバーは説明されていますか？少なくともなぜそこにあるのかについてのコメントがなければ、コードに数字があってはなりません。数が繰り返される場合、定数/列挙型または同等のものはありますか？
+* [ ] さまざまなクラスやメソッドに適切な`/* */`コメントはありますか？
+* [ ] 可能な場合、単体テストが使用されますか？ほとんどの場合、テストはAPI、データアクセスとのインターフェース、変換、バックエンド要素およびモデルに対して存在する必要があります。[Ponicode](https://www.ponicode.com/)は、テストの生成に役立ちます。
+* [ ] テストは**Arrange/Act/Assert**パターンで正しく配置され、このように適切に文書化されていますか？A
+* [ ] 非同期メソッドがある場合、メソッドの名前は`Async`サフィックスで終わりますか？
+* [ ] 最小レベルのロギングが実施されていますか？ロギングレベルは正しいですか？
+* [ ]ドキュメントフラグメントの操作は、複数のサブ要素を操作する必要がある場合に限定されていますか？
+* [ ] 重い操作がバックエンドに実装され、コントローラーが可能な限り薄くなっていますか？
+* [ ] HTMLでのイベント処理は効率的に行われますか？

@@ -1,4 +1,6 @@
-# Language Specific Guidance
+# 言語固有のガイダンス
+
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/recipes/
 
 - [Bash](bash.md)
 - [C#](csharp.md)

@@ -1,98 +1,100 @@
-# Reviewer Guidance
+# レビューアガイダンス
 
-Since parts of reviews can be automated via linters and such, human reviewers can focus on architectural and functional correctness. Human reviewers should focus on:
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/process-guidance/reviewer-guidance/
 
-- The correctness of the business logic embodied in the code.
-- The correctness of any new or changed tests.
-- The "readability" and maintainability of the overall design decisions reflected in the code.
-- The checklist of common errors that the team maintains for each programming language.
+レビューの一部はリンターなどを介して自動化できるため、人間のレビュー担当者はアーキテクチャと機能の正確さに集中できます。人間のレビュー担当者は以下に焦点を当てる必要があります。
 
-Code reviews should use the below guidance and checklists to ensure positive and effective code reviews.
+- コードで具体化されたビジネスロジックの正確さ。
+- 新規または変更されたテストの正確さ。
+- 全体的な設計決定の「読みやすさ」と保守性は、コードに反映されています。
+- チームがプログラミング言語ごとに維持する一般的なエラーのチェックリスト。
 
-## General guidance
+コードレビューでは、以下のガイダンスとチェックリストを使用して、積極的かつ効果的なコードレビューを確保する必要があります。
 
-### Understand the code you are reviewing
+## 一般的なガイダンス
 
-- Read every line changed.
-- If we have a stakeholder review, it’s not necessary to run the PR unless it aids your understanding of the code.
-- AzDO orders the files for you, but you should read the code in some logical sequence to aid understanding.
-- If you don’t fully understand a change in a file because you don’t have context, click to view the whole file and read through the surrounding code or checkout the changes and view them in IDE.
-- Ask the author to clarify.
+### レビューしているコードを理解する
 
-### Take your time and keep focus on scope
+- 変更されたすべての行を読み取ります。
+- 利害関係者のレビューがある場合は、コードの理解に役立つ場合を除いて、PRを実行する必要はありません。
+- AzDOはファイルを注文しますが、理解しやすいように、論理的な順序でコードを読む必要があります。
+- コンテキストがないためにファイルの変更を完全に理解していない場合は、クリックしてファイル全体を表示し、周囲のコードを読み通すか、変更をチェックアウトしてIDEで表示してください。
+- 著者に明確にするように依頼します。
 
-You shouldn't review code hastily but neither take too long in one sitting. If you have many pull requests (PRs) to review or if the complexity of code is demanding, the recommendation is to take a break between the reviews to recover and focus on the ones you are most experienced with.
+### 時間をかけてスコープに集中してください
 
-Always remember that a goal of a code review is to verify that the goals of the corresponding task have been achieved. If you have concerns about the related, adjacent code that isn't in the scope of the PR, address those as separate tasks (e.g., bugs, technical debt). Don't block the current PR due to issues that are out of scope.
+コードを急いでレビューするべきではありませんが、一度に時間がかかりすぎることもありません。レビューするプルリクエスト（PR）が多数ある場合、またはコードの複雑さが要求される場合は、レビューの合間に休憩を取って回復し、最も経験のあるものに焦点を当てることをお勧めします。
 
-## Foster a positive code review culture
+コードレビューの目標は、対応するタスクの目標が達成されたことを確認することであることを常に忘れないでください。PRの範囲外の関連する隣接するコードについて懸念がある場合は、それらを個別のタスク（バグ、技術的負債など）として対処してください。範囲外の問題のために現在のPRをブロックしないでください。
 
-Code reviews play a critical role in product quality and it should not represent an arena for long discussions or even worse a battle of egos. What matters is a bug caught, not who made it, not who found it, not who fixed it. The only thing that matters is having the best possible product.
+## ポジティブなコードレビュー文化を育む
 
-## Be considerate
+コードレビューは製品の品​​質に重要な役割を果たしており、長い議論やさらに悪いことにエゴの戦いの場を表すものであってはなりません。重要なのは、バグを見つけたということであり、誰がそれを作ったのか、誰がそれを見つけたのか、誰がそれを修正したのかではありません。重要なのは、可能な限り最高の製品を手に入れることだけです。
 
-- Be positive – encouraging, appreciation for good practices.
-- Prefix a “point of polish” with “Nit:”.
-- Avoid language that points fingers like “you” but rather use “we” or “this line” -- code reviews are not personal and language matters.
-- Prefer asking questions above making statements. There might be a good reason for the author to do something.
-- If you make a direct comment, explain why the code needs to be changed, preferably with an example.
-- Talking about changes, you can suggest changes to a PR by using the suggestion feature (available in [GitHub](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request) and Azure DevOps) or by creating a PR to the author branch.
-- If a few back-and-forth comments don't resolve a disagreement, have a quick talk with each other (in-person or call) or create a group discussion this can lead to an array of improvements for upcoming PRs. Don't forget to update the PR with what you agreed on and why.
+## 思いやりがある
 
-## First Design Pass
+- ポジティブになりましょう – 励まし、グッドプラクティスへの感謝
+- 「磨きのポイント」の前に「Nit：」を付けます。
+- 「あなた」のように指を指す言葉は避け、「私たち」または「この行」を使用してください。コードレビューは個人的なものではなく、言語の問題です。
+- 発言するよりも質問をすることをお勧めします。著者が何かをするのには十分な理由があるかもしれません。
+- 直接コメントする場合は、コードを変更する必要がある理由を、できれば例を挙げて説明してください。
+- 変更について言えば、提案機能（[GitHub](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)およびAzure DevOpsで利用可能）を使用するか、作成者ブランチにPRを作成することで、PRへの変更を提案できます。
+- いくつかの前後のコメントで意見の不一致が解決されない場合は、お互いに（直接または電話で）簡単に話し合うか、グループディスカッションを作成してください。これにより、今後のPRのさまざまな改善につながる可能性があります。同意した内容とその理由でPRを更新することを忘れないでください。
 
-### Pull Request Overview
+## 最初のデザインパス
 
-- Does the PR description make sense?
-- Do all the changes logically fit in this PR, or are there unrelated changes?
-- If necessary, are the changes made reflected in updates to the README or other docs? Especially if the changes affect how the user builds code.
+### プルリクエストの概要
 
-### User Facing Changes
+- PRの説明は意味がありますか？
+- すべての変更はこのPRに論理的に適合していますか、それとも無関係な変更がありますか？
+- 必要に応じて、加えられた変更はREADMEまたは他のドキュメントの更新に反映されますか？特に、変更がユーザーのコード作成方法に影響を与える場合。
 
-- If the code involves a user-facing change, is there a GIF/photo that explains the functionality? If not, it might be key to validate the PR to ensure the change does what is expected.
-- Ensure UI changes look good without unexpected behavior.
+### ユーザー向けの変更
 
-### Design
+- コードにユーザー向けの変更が含まれている場合、機能を説明するGIF /写真はありますか？そうでない場合は、PRを検証して、変更が期待どおりに行われることを確認することが重要になる場合があります。
+- 期しない動作が発生することなく、UIの変更が適切に表示されることを確認します。
 
-- Do the interactions of the various pieces of code in the PR make sense?
-- Does the code recognize and incorporate architectures and coding patterns?
+### デザイン
 
-## Code Quality Pass
+- PR内のさまざまなコードの相互作用は意味がありますか？
+- コードはアーキテクチャとコーディングパターンを認識して組み込んでいますか？
 
-### Complexity
+## コード品質パス
 
-- Are functions too complex?
-- Is the single responsibility principle followed? Function or class should do one ‘thing’.
-- Should a function be broken into multiple functions?
-- If a method has greater than 3 arguments, it is potentially overly complex.
-- Does the code add functionality that isn’t needed?
-- Can the code be understood easily by code readers?
+### 複雑
 
-### Naming/readability
+- 機能が複雑すぎませんか？
+- 単一責任の原則が守られていますか？関数またはクラスは1つの「こと」を実行する必要があります。
+- 関数を複数の関数に分割する必要がありますか？
+- メソッドに3つを超える引数がある場合、それは潜在的に過度に複雑です。
+- コードは必要のない機能を追加しますか？
+- コードリーダーはコードを簡単に理解できますか？
 
-- Did the developer pick good names for functions, variables, etc?
+### 命名/読みやすさ
 
-### Error Handling
+- 開発者は関数や変数などに適切な名前を付けましたか？
 
-- Are errors handled gracefully and explicitly where necessary?
+### エラー処理
 
-### Functionality
+- エラーは必要に応じて適切かつ明示的に処理されますか？
 
-- Is there parallel programming in this PR that could cause race conditions? Carefully read through this logic.
-- Could the code be optimized? For example: are there more calls to the database than need be?
-- How does the functionality fit in the bigger picture? Can it have negative effects to the overall system?
-- Are there security flaws?
-- Does a variable name reveal any customer specific information?
-- Is PII and EUII treated correctly? Are we logging any PII information?
+### 機能性
 
-### Style
+- このPRには、競合状態を引き起こす可能性のある並列プログラミングがありますか？このロジックを注意深く読んでください。
+- コードを最適化できますか？例：データベースへの呼び出しが必要以上に多いですか？
+- 機能は全体像にどのように適合しますか？システム全体に悪影響を与える可能性はありますか？
+- セキュリティ上の欠陥はありますか？
+- 変数名は顧客固有の情報を明らかにしますか？
+- PIIとEUIIは正しく扱われていますか？PII情報をログに記録していますか？
 
-- Are there extraneous comments? If the code isn’t clear enough to explain itself, then the code should be made simpler. Comments may be there to explain why some code exists.
-- Does the code adhere to the style guide/conventions that we have agreed upon? We use automated styling like black and prettier.
+### スタイル
 
-### Tests
+- 無関係なコメントはありますか？コードがそれ自体を説明するのに十分明確でない場合は、コードをより単純にする必要があります。いくつかのコードが存在する理由を説明するコメントがあるかもしれません。
+- コードは、私たちが合意したスタイルガイド/規則に準拠していますか？黒やきれいな自動スタイリングを使用しています。
 
-- Tests should always be committed in the same PR as the code itself (‘I’ll add tests next’ is not acceptable).
-- Make sure tests are sensible and valid assumptions are made.
-- Make sure edge cases are handled as well.
-- Tests can be a great source to understand the changes. It can be a strategy to look at tests first to help you understand the changes better.
+### テスト
+
+- テストは常にコード自体と同じPRでコミットする必要があります（「次にテストを追加します」は受け入れられません）。
+- テストが賢明であり、有効な仮定が行われていることを確認してください。
+- エッジケースも処理されることを確認してください。
+- テストは、変更を理解するための優れた情報源になります。変更をよりよく理解するために、最初にテストを確認することをお勧めします。

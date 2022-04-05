@@ -1,33 +1,35 @@
-# Evidence and Measures
+# 証拠と対策
 
-## Evidence
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/inclusion-in-code-review/
 
-Many of the code quality assurance items can be automated or enforced by policies in modern version control and work item tracking systems. Verification of the policies on the main branch in [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/) (AzDO) or [GitHub](https://github.com/), for example, may be sufficient evidence that a project team is conducting code reviews.
+## 証拠
 
-* [ ] The main branches in all repositories have branch policies. - [Configure branch policies](../tools.md#Configuring Branch Policies)
-* [ ] All builds produced out of project repositories include appropriate linters, run unit tests.
-* [ ] Every bug work item should include a link to the pull request that introduced it, once the error has been diagnosed. This helps with learning.
-* [ ] Each bug work item should include a note on how the bug might (or might not have) been caught in a code review.
-* [ ] The project team regularly updates their code review checklists to reflect common issues they have encountered.
-* [ ] Dev Leads should review a sample of pull requests and/or be co-reviewers with other developers to help everyone improve their skills as code reviewers.
+コード品質保証項目の多くは、最新のバージョン管理および作業項目追跡システムのポリシーによって自動化または実施できます。たとえば、[Azure DevOps](https://azure.microsoft.com/en-us/services/devops/)（AzDO）または[GitHub](https://github.com/)のメインブランチのポリシーを検証することで、プロジェクトチームがコードレビューを実施していることを示す十分な証拠となる可能性があります。
 
-## Measures
+* [ ] すべてのリポジトリのメインブランチにはブランチポリシーがあります。 - [ブランチポリシーを構成します](../tools.md#Configuring Branch Policies)
+* [ ] プロジェクトリポジトリから生成されたすべてのビルドには、適切なリンター、単体テストの実行が含まれます。
+* [ ] エラーが診断されたら、すべてのバグ作業項目に、それを導入したプル要求へのリンクを含める必要があります。これは学習に役立ちます。
+* [ ] 各バグ作業項目には、コードレビューでバグがどのように検出されたか（または検出されなかったか）に関するメモを含める必要があります。
+* [ ] プロジェクトチームは、発生した一般的な問題を反映するために、コードレビューチェックリストを定期的に更新します。
+* [ ] 開発リーダーは、プルリクエストのサンプルをレビューするか、他の開発者と共同レビューを行って、コードレビュー担当者としてのスキルを向上させる必要があります。
 
-The team can collect metrics of code reviews to measure their efficiency. Some useful metrics include:
+## 対策
 
-* Defect Removal Efficiency (DRE) - a measure of the development team's ability to remove defects prior to release
-* Time metrics:
-  * Time used preparing for code inspection sessions
-  * Time used in review sessions
-* Lines of code (LOC) inspected per time unit/meeting
+チームは、コードレビューのメトリックを収集して、その効率を測定できます。いくつかの有用なメトリックは次のとおりです。
 
-It is a perfectly reasonable solution to track these metrics manually e.g. in an Excel sheet. It is also possible to utilize the features of project management platforms - for example, AzDO enables dashboards for metrics including [tracking bugs](https://docs.microsoft.com/en-us/azure/devops/boards/backlogs/manage-bugs?view=azure-devops&tabs=new-web-form). You may find ready-made plugins for various platforms - see [GitHub Marketplace](https://github.com/marketplace) for instance - or you can choose to implement these features yourself.
+* 欠陥除去効率 (DRE) - リリース前に欠陥を除去する開発チームの能力の尺度
+* 時間メトリック:
+  * コード検査セッションの準備に使用された時間
+  * レビューセッションで使用された時間
+* 時間単位/会議ごとに検査されるコード行（LOC）
 
-Remember that since defects removed thanks to reviews is far less costly compared to finding them in production, the cost of doing code reviews is actually negative!
+これらのメトリックを手動で追跡することは、Excelシートなどで完全に合理的なソリューションです。プロジェクト管理プラットフォームの機能を利用することも可能です。たとえば、AzDOは、[バグの追跡](https://docs.microsoft.com/en-us/azure/devops/boards/backlogs/manage-bugs?view=azure-devops&tabs=new-web-form)を含むメトリックのダッシュボードを有効にします。さまざまなプラットフォーム用の既製のプラグインを見つけることができます（たとえば、 [GitHub Marketplace](https://github.com/marketplace)を参照してください）。または、これらの機能を自分で実装することを選択できます。
 
-For more information, see links under [resources](#resources).
+レビューのおかげで削除された欠陥は、本番環境で見つけるよりもはるかに低コストであるため、コードレビューを実行するコストは実際にはマイナスであることを忘れないでください。
 
-## Resources
+詳細については、「[参考資料](#参考資料)」の下のリンクを参照してください。
 
-* [A Guide to Code Inspections](http://www.ganssle.com/inspections.pdf)
-* [Defect Removal Effectiveness](https://www.westfallteam.com/sites/default/files/papers/defect_removal_effectiveness.pdf)
+## 参考資料
+
+* [コード検査のガイド](http://www.ganssle.com/inspections.pdf)
+* [欠陥除去効果](https://www.westfallteam.com/sites/default/files/papers/defect_removal_effectiveness.pdf)

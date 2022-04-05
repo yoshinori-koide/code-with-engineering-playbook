@@ -1,76 +1,77 @@
-# Inclusion in Code Review
+# コードレビューに含める
 
-Below are some points which emphasize why inclusivity in code reviews is important:
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/inclusion-in-code-review/
 
-* Code reviews are an important part of our job as software professionals.
-* As CSE we work with cross cultural teams from across the globe.
-* How we communicate affects team morale.
-* Inclusive code reviews welcome new developers and make them comfortable with the team.
-* Rude or personal attacks doing code reviews alienate - people can unknowingly make rude comments when reviewing pull requests (PRs).
+以下は、コードレビューの包括性が重要である理由を強調するいくつかのポイントです。
 
-## Types and Examples of Non-Inclusive Code Review Behavior
+* コードレビューは、ソフトウェアの専門家としての私たちの仕事の重要な部分です。
+* CSEとして、私たちは世界中の異文化チームと協力しています。
+* コミュニケーションの方法は、チームの士気に影響します。
+* 包括的なコードレビューは、新しい開発者を歓迎し、チームに慣れさせます。
+* コードレビューを行う無礼または個人的な攻撃は疎外されます-プルリクエスト（PR）をレビューするときに、人々は無意識のうちに無礼なコメントをする可能性があります。
 
-* Inequitable review assignments.
-  * Example: Assigning most reviews to few people and dismissing some members of the team altogether.
-* Negative interpersonal interactions.
-  * Example: Long arguments over subjective topics such as code style.
-* Biased decision making.
-  * Example: Comments about the developer and not the code. Assuming code from developer X will always be good and hence not reviewing it properly and vice versa.
+## 非包括的コードレビュー動作のタイプと例
 
-## Examples of Inclusive Code Reviews
+* 不公平なレビューの割り当て。
+  * 例: ほとんどのレビューを少数の人に割り当て、チームの一部のメンバーを完全に解任します
+* 否定的な対人関係。
+  * 例: コードスタイルなどの主観的なトピックに関する長い議論。
+* 偏った意思決定。
+  * 例: コードではなく、開発者に関するコメント。開発者Xからのコードは常に適切であると想定しているため、適切にレビューされておらず、その逆も同様です。
 
-* Anyone and everyone in the team should be assigned PRs to review.
-* Reviewer should be clear about what is an opinion, their personal preference, best practice or a fact. Arguments over personal preferences and opinions are mostly avoidable.
-* Using inclusive language and tone in the code review comments. For example, being suggestive rather being prescriptive in the review comments is a good way to get the point across the table.
-* It's a good practice for the author of a PR to thank the reviewer for the review, when they have contributed in improving the code or you have learnt something new.
-* Using the sandwich method for recommending a code change to a new developer or a new customer: Sandwich the suggestion between 2 compliments. For example: "Great work so far, but I would recommend a few changes here. Btw, I loved the use of XYZ here, nice job!"
+## 包括的コードレビューの例
 
-## Guidelines for the Author
+* チームの全員にもれなく、レビューするPRを割り当てる必要があります。
+* レビューアは、意見、個人的な好み、ベストプラクティス、または事実について明確にする必要があります。個人的な好みや意見をめぐる議論はほとんど避けられます。
+* コードレビューのコメントに包括的な言葉とトーンを使用する。たとえば、レビューコメントで規範的ではなく示唆的であることは、テーブル全体でポイントを取得するための良い方法です。
+* PRの作成者は、レビュー担当者がコードの改善に貢献した場合、または新しいことを学んだ場合に、レビュー担当者に感謝することをお勧めします。
+* 新しい開発者または新しい顧客にコード変更を推奨するためのサンドイッチ法の使用：2つの賛辞の間に提案をサンドイッチします。例：「これまでのところすばらしい作業ですが、ここでいくつかの変更をお勧めします。ところで、ここでXYZを使用するのが好きでした、いい仕事です！」
 
-* Aim to write a code that is easy to read, review and maintain.
-* It’s important to ensure that whoever is looking at the code, whether that be the reviewer or a future engineer, can understand the motivations and how your code achieves its goals.
-* Proactively asking for targeted help or feedback.
-* Respond clearly to questions asked by the reviewers.
-* Avoid huge commits by submitting incremental changes. Commits which are large and contain changes to multiple files will lead to unfair review of the code. Biased behavior of reviewers may kick in while reviewing such PRs. For e.g. a huge commit from a senior developer may get approved without thorough review whereas a huge commit from a junior developer may never get reviewed and approved.
+## 著者のためのガイドライン
 
-## Guidelines for the Reviewer
+* 読みやすく、確認しやすく、保守しやすいコードを書くことを目指してください。
+* レビュー担当者であろうと将来のエンジニアであろうと、コードを見ている人は誰でも、その動機とコードがその目標をどのように達成するかを理解できるようにすることが重要です。
+* 的を絞ったヘルプやフィードバックを積極的に求めます。
+* レビューアからの質問に明確に回答します。
+* 増分変更を送信して、大規模なコミットを回避します。大きく、複数のファイルへの変更を含むコミットは、コードの不当なレビューにつながります。レビューアの偏った行動は、そのようなPRをレビューしているときに始まる可能性があります。たとえば、上級開発者からの大規模なコミットは徹底的なレビューなしに承認される可能性がありますが、後輩開発者からの大規模なコミットは決してレビューおよび承認されない可能性があります。
 
-* Assume positive intent from the author.
-* Write clear and elaborate comments.
-* Identify subjectivity, choice of coding and best practice. It is good to discuss coding style and subjective coding choices in some other forum and not in the PR. A PR should not become a ground to discuss subjective coding choices and having long arguments over it.
-* If you do not understand the code properly, refrain from commenting e.g., "This code is incomprehensible". It is better to have a call with the author and get a basic understanding of their work.
-* Be suggestive and not prescriptive. A reviewer should suggest changes and not prescribe changes, let the author decide if they really want to accept the changes proposed.
+## レビューアのためのガイドライン
 
-## Culture and Code Reviews
+* 著者からの前向きな意図を想定します。
+* 明確で精巧なコメントを書いてください。
+* 主観性、コーディングの選択、およびベストプラクティスを特定します。PRではなく他のフォーラムでコーディングスタイルと主観的なコーディングの選択について話し合うのは良いことです。PRは、主観的なコーディングの選択について議論し、それについて長い議論をする根拠になるべきではありません。
+* コードを正しく理解していない場合は、「このコードは理解できません」などのコメントは控えてください。著者と電話をして、彼らの仕事の基本を理解することをお勧めします。
+* 示唆的であるべきで、指令を与えるべきではありません。レビューアは変更を提案する必要があり、変更を規定するのではなく、提案された変更を本当に受け入れるかどうかを作成者に決定させます。
 
-We as CSE, may come across situations in which code reviews are not ideal and often we are observing non inclusive code review behaviors. Its important to be aware of the fact that culture and communication style of a particular geography also influences how people interact over pull requests.
-In such cases, assuming positive intent of the author and reviewer is a good start to start analyzing quality of code reviews.
+## 文化とコードレビュー
 
-## Dealing with the Impostor Phenomenon
+私たちCSEは、コードレビューが理想的ではなく、包括的でないコードレビューの動作を観察している状況に遭遇する可能性があります。特定の地域の文化とコミュニケーションスタイルも、プルリクエストを介した人々のやり取りに影響を与えるという事実を認識することが重要です。このような場合、作成者とレビュー担当者の前向きな意図を前提として、コードレビューの品質の分析を開始することをお勧めします。
 
-Impostor phenomenon is a psychological pattern in which an individual doubts their skills, talents, or accomplishments and has a persistent internalized fear of being exposed as a "fraud" - [Wikipedia](https://en.wikipedia.org/wiki/Impostor_phenomenon).
+## インポスター現象への対処
 
-Someone experiencing impostor phenomenon may find submitting code for a review particularly stressful. It is important to realize that everybody can have meaningful contributions and not to let the perceived weaknesses prevent contributions.
+インポスター現象は、個人が自分のスキル、才能、または成果を疑う心理的パターンであり、「詐欺」としてさらされることへの永続的な内面化された恐怖を持っています - [ウィキペディア](https://en.wikipedia.org/wiki/Impostor_phenomenon)。
 
-Some tips for overcoming the impostor phenomenon for authors:
+インポスター現象を経験している人は、レビューのためにコードを提出することに特にストレスを感じるかもしれません。誰もが有意義な貢献をすることができ、知覚された弱点が貢献を妨げないようにすることができることを認識することが重要です。
 
-* Review the guidelines highlighted above and make sure your code change adhere to them.
-* Ask for help from a colleague - pair program with an experienced colleague that you can learn from.
+著者の詐欺師現象を克服するためのいくつかのヒント：
 
-Some tips for overcoming the impostor phenomenon for reviewers:
+* 上で強調表示されているガイドラインを確認し、コードの変更がそれらに準拠していることを確認してください。
+* 同僚に助けを求めましょう-あなたが学ぶことができる経験豊富な同僚とのペアプログラム。
 
-* Anyone can have valuable insights.
-* A fresh new pair of eyes are always welcome.
-* Study the review until you have clearly understood it, check the corner cases and look for ways to improve it.
-* If something is not clear, a simple specific question should be asked.
-* If you have learnt something, you can always compliment the author.
-* If possible, pair with someone to review the code so that you can establish a personal connection and have a more profound discussion about the code.
+レビューアの詐欺師現象を克服するためのいくつかのヒント：
 
-## Tools
+* 誰もが貴重な洞察を得ることができます。
+* 新鮮な新しい目はいつでも大歓迎です。
+* あなたがそれを明確に理解するまでレビューを研究し、コーナーケースをチェックし、それを改善する方法を探してください。
+* 不明な点がある場合は、簡単な具体的な質問をする必要があります。
+* あなたが何かを学んだならば、あなたはいつでも作者を褒めることができます。
+* 可能であれば、誰かとペアを組んでコードを確認し、個人的なつながりを確立して、コードについてより深く話し合うことができるようにします。
 
-Below are some tools which may help in establishing inclusive code review culture within our teams.
+## ツール
 
-* [Anonymous Github](https://github.com/tdurieux/anonymous_github)
-* [Blind Code Reviews](https://github.com/zombie/blind-reviews)
+以下は、チーム内で包括的なコードレビュー文化を確​​立するのに役立つ可能性のあるいくつかのツールです。
+
+* [匿名のGithub](https://github.com/tdurieux/anonymous_github)
+* [ブラインドコードレビュー](https://github.com/zombie/blind-reviews)
 * [Gitmask](https://www.gitmask.com)
-* [inclusivelint](https://github.com/inclusivelint)
+* [インクルーシブリント](https://github.com/inclusivelint)

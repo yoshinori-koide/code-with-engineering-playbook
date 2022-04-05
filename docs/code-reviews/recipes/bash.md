@@ -1,58 +1,59 @@
-# Bash Code Reviews
+# Bashコードレビュー
 
-## Style Guide
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/code-reviews/recipes/bash/
 
-[CSE](../../CSE.md) developers follow [Google's Bash Style Guide](https://google.github.io/styleguide/shell.xml).
+## スタイルガイド
 
-## Code Analysis / Linting
+[CSE](../../CSE.md)開発者は、[GoogleのBashスタイルガイド](https://google.github.io/styleguide/shell.xml)に従います。
 
-[CSE](../../CSE.md) projects must check bash code with [shellcheck](https://github.com/koalaman/shellcheck) as part of the [CI process](../../continuous-integration/README.md).
-Apart from linting, [shfmt](https://github.com/mvdan/sh) can be used to automatically format shell scripts. There are few vscode code extensions which are based on shfmt like shell-format which can be used to automatically format shell scripts.
+## コード分​​析/リンティング
 
-## Project Setup
+[CSE](../../CSE.md) プロジェクトは、 [CIプロセス](../../continuous-integration/README.md)の一部として[shellcheck](https://github.com/koalaman/shellcheck) を使用してbashコードをチェックする必要があります。リンティングとは別に、[shfmt](https://github.com/mvdan/sh)を使用してシェルスクリプトを自動的にフォーマットできます。シェルスクリプトを自動的にフォーマットするために使用できるshell-formatのようなshfmtに基づくvscodeコード拡張はほとんどありません。
+
+## プロジェクトの設定
 
 ### vscode-shellcheck
 
-Shellcheck extension should be used in VS Code, it provides static code analysis capabilities and auto fixing linting issues. To use vscode-shellcheck in vscode do the following:
+Shellcheck拡張機能はVSCodeで使用する必要があり、静的コード分析機能とリンティングの問題の自動修正を提供します。vscodeでvscode-shellcheckを使用するには、次のようにします。
 
-#### Install shellcheck on your machine
+#### マシンにshellcheckをインストールします
 
-For macOS
+macOSの場合
 
 ```bash
 brew install shellcheck
 ```
 
-For Ubuntu:
+Ubuntuの場合：
 
 ```bash
 apt-get install shellcheck
 ```
 
-#### Install shellcheck on vscode
+#### vscodeにshellcheckをインストールします
 
-Find the vscode-shellcheck extension in vscode and install it.
+vscodeでvscode-shellcheck拡張機能を見つけてインストールします。
 
-## Automatic Code Formatting
+## 自動コードフォーマット
 
-### shell-format
+### シェル形式
 
-shell-format extension does automatic formatting of your bash scripts, docker files and several configuration files. It is dependent on shfmt which can enforce google style guide checks for bash.
-To use shell-format in vscode do the following:
+shell-format拡張機能は、bashスクリプト、dockerファイル、およびいくつかの構成ファイルの自動フォーマットを行います。これは、bashのグーグルスタイルガイドチェックを実施できるshfmtに依存しています。
+vscodeでshell-formatを使用するには、次のようにします。
 
-#### Install shfmt(Requires Go 1.13 or later) on your machine
+#### マシンにshfmt（Go 1.13以降が必要）をインストールします
 
 ```bash
 GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
 ```
 
-#### Install shell-format on vscode
+#### vscodeにshell-formatをインストールする
 
-Find the shell-format extension in vscode and install it.
+vscodeでシェル形式の拡張機能を見つけてインストールします。
 
-## Build Validation
+## ビルド検証
 
-To automate this process in Azure DevOps you can add the following snippet to you `azure-pipelines.yaml` file. This will lint any scripts in the `./scripts/` folder.
+Azure DevOpsでこのプロセスを自動化するには、次のスニペットを`azure-pipelines.yaml`ファイルに追加します。これにより、`./scripts/`フォルダ内のすべてのスクリプトが削除されます。
 
 ```yaml
 - bash: |
@@ -65,7 +66,7 @@ To automate this process in Azure DevOps you can add the following snippet to yo
   displayName: "Validate Scripts: Shellcheck"
 ```
 
-Also, your shell scripts can be formatted in your build pipeline by using the `shfmt` tool. To integrate `shfmt` in your build pipeline do the following:
+また、`shfmt`ツールを使用して、ビルドパイプラインでシェルスクリプトをフォーマットできます。`shfmt`ビルドパイプラインに統合するには、次の手順を実行します。
 
 ```yaml
 - bash: |
@@ -74,7 +75,7 @@ Also, your shell scripts can be formatted in your build pipeline by using the `s
   displayName: "Format Scripts: shfmt"
 ```
 
-Unit testing using [shunit2](https://github.com/kward/shunit2) can also be added to the build pipeline, using the following block:
+次のブロックを使用して、[shunit2](https://github.com/kward/shunit2)を使用した単体テストをビルドパイプラインに追加することもできます。
 
 ```yaml
 - bash: |
@@ -83,19 +84,18 @@ Unit testing using [shunit2](https://github.com/kward/shunit2) can also be added
   displayName: "Format Scripts: shfmt"
 ```
 
-## Pre-Commit Hooks
+## 事前コミットフック
 
-All developers should run shellcheck and shfmt as pre-commit hooks.
+すべての開発者は、事前コミットフックとしてshellcheckとshfmtを実行する必要があります。
 
-### Step 1- Install pre-commit
+### Step 1- pre-commitをインストールする
 
-Run `pip install pre-commit` to install pre-commit.
-Alternatively you can run `brew install pre-commit` if you are using homebrew.
+pre-commitをインストールするために`pip install pre-commit`を実行します。
+または、homebrewを使用している場合は`brew install pre-commit`を実行できます。
 
-### Step 2- Add shellcheck and shfmt
+### Step 2- shellcheckとshfmtを追加する
 
-Add .pre-commit-config.yaml file to root of the go project. Run shfmt on pre-commit by adding it to .pre-commit-config.yaml file like below.
-
+pre-commit-config.yamlファイルをgoプロジェクトのルートに追加します。以下のように.pre-commit-config.yamlファイルにshfmtを追加して、pre-commitでshfmtを実行します。
 ```yaml
 -   repo: git://github.com/pecigonzalo/pre-commit-fmt
     sha: master
@@ -114,11 +114,11 @@ Add .pre-commit-config.yaml file to root of the go project. Run shfmt on pre-com
 
 ### Step 3
 
-Run `$ pre-commit install` to set up the git hook scripts
+`$ pre-commit install`を実行してgitフックスクリプトを設定します
 
-## Dependencies
+## 依存関係
 
-Bash scripts are often used to 'glue together' other systems and tools. As such, Bash scripts can often have numerous and/or complicated dependencies. Consider using Docker containers to ensure that scripts are executed in a portable and reproducible environment that is guaranteed to contain all the correct dependencies. To ensure that dockerized scripts are nevertheless easy to execute, consider making the use of Docker transparent to the script's caller by wrapping the script in a 'bootstrap' which checks whether the script is running in Docker and re-executes itself in Docker if it's not the case. This provides the best of both worlds: easy script execution and consistent environments.
+Bashスクリプトは、他のシステムやツールを「接着」するためによく使用されます。そのため、Bashスクリプトには、多くの場合、多数の依存関係や複雑な依存関係があります。Dockerコンテナーを使用して、すべての正しい依存関係が含まれることが保証されている、移植可能で再現可能な環境でスクリプトが実行されるようにすることを検討してください。それでもDocker化されたスクリプトを簡単に実行できるようにするには、スクリプトがDockerで実行されているかどうかを確認し、実行されていない場合はDockerで再実行する「ブートストラップ」でスクリプトをラップすることにより、Dockerの使用をスクリプトの呼び出し元に対して透過的にすることを検討してください。ケース。これにより、スクリプトの実行が簡単で、環境が一貫しているという、両方の長所が得られます。
 
 ```bash
 if [[ "${DOCKER}" != "true" ]]; then
@@ -130,13 +130,13 @@ fi
 # ... implementation of my_script here can assume that all of its dependencies exist since it's always running in Docker ...
 ```
 
-## Code Review Checklist
+## コードレビューチェックリスト
 
-In addition to the [Code Review Checklist](../process-guidance/reviewer-guidance.md) you should also look for these bash specific code review items
+[コードレビューチェックリスト](../process-guidance/reviewer-guidance.md)に加えて、これらのbash固有のコードレビュー項目も探す必要があります
 
-* [ ] Does this code use [Built-in Shell](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html) Options like set -o, set -e, set -u for execution control of shell scripts ?
-* [ ] Is the code modularized? Shell scripts can be modularized like python modules. Portions of bash scripts should be sourced in complex bash projects.
-* [ ] Are all exceptions handled correctly? Exceptions should be handled correctly using exit codes or trapping signals.
-* [ ] Does the code pass all linting checks as per shellcheck and unit tests as per shunit2 ?
-* [ ] Does the code uses relative paths or absolute paths? Relative paths should be avoided as they are prone to environment attacks. If relative path is needed, check that the ```PATH``` variable is set.
-* [ ] Does the code take credentials as user input? Are the credentials masked or encrypted in the script?
+* [ ] このコードは、シェルスクリプトの実行制御にset -o、set -e、set -uなどの[組み込みシェル](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html)オプションを使用していますか？
+* [ ] コードはモジュール化されていますか？シェルスクリプトは、Pythonモジュールのようにモジュール化できます。bashスクリプトの一部は、複雑なbashプロジェクトで調達する必要があります。
+* [ ] すべての例外は正しく処理されていますか？例外は、終了コードまたはトラップ信号を使用して正しく処理する必要があります。
+* [ ] コードは、shellcheckに従ってすべてのリンティングチェックに合格し、shunit2に従ってユニットテストに合格しますか？
+* [ ] コードは相対パスまたは絶対パスを使用していますか？相対パスは環境攻撃を受けやすいため、避ける必要があります。相対パスが必要な場合は、```PATH```変数が設定されていることを確認してください。コードは相対パスまたは絶対パスを使用していますか？相対パスは環境攻撃を受けやすいため、避ける必要があります。相対パスが必要な場合は、PATH変数が設定されていることを確認してください。
+* [ ] コードはユーザー入力としてクレデンシャルを取りますか？スクリプトでクレデンシャルがマスクまたは暗号化されていますか？
