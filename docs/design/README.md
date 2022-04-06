@@ -1,23 +1,24 @@
-# Design
+# デザイン
 
-Designing software well is hard.
+※ オリジナル: https://microsoft.github.io/code-with-engineering-playbook/design/
 
-CSE has collected a number of practices which we find help in the design process.
-This covers not only technical design of software, but also architecture design and non-functional requirements gathering for new projects.
+ソフトウェアをうまく​​設計するのは難しいです。
 
-## Goals
+CSEは、設計プロセスで役立つと思われる多くのプラクティスを収集しました。これには、ソフトウェアの技術設計だけでなく、アーキテクチャ設計や新しいプロジェクトの非機能要件の収集も含まれます。
 
-- Provide recommendations for how to design software for maintainability, ease of extension, adherence to best practices, and sustainability.
-- Reference or define process or checklists to help ensure well-designed software.
-- Collate and point to reference sources (guides, repos, articles) that can help shortcut the learning process.
+## 目標
 
-## Sections
+- 保守性、拡張の容易さ、ベストプラクティスの順守、および持続可能性のためにソフトウェアを設計する方法に関する推奨事項を提供します。
+- 適切に設計されたソフトウェアを確保するために、プロセスまたはチェックリストを参照または定義します。
+- 学習プロセスを短縮するのに役立つ参照ソース（ガイド、リポジトリ、記事）を照合して指し示します。
 
-- [Design Patterns](design-patterns/README.md)
-- [Design Reviews](design-reviews/README.md)
-- [Non-Functional Requirements Guidance](design-patterns/non-functional-requirements-capture-guide.md)
-- [Sustainable Software Engineering](sustainability/README.md)
+## セクション
 
-## Recipes
+- [デザインパターン](design-patterns/README.md)
+- [デザインレビュー](design-reviews/README.md)
+- [非機能要件ガイダンス](design-patterns/non-functional-requirements-capture-guide.md)
+- [持続可能なソフトウェア工学](sustainability/README.md)
 
-- [Design Recipes](design-reviews/recipes/README.md)
+## レシピ
+
+- [デザインレシピ](design-reviews/recipes/README.md)

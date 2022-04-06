@@ -1,92 +1,92 @@
-# REST API Design Guidance
+# REST API 設計ガイダンス
 
-## Goals
+## 目標
 
-* Elevate Microsoft's published [REST API design guidelines](https://github.com/microsoft/api-guidelines).
-* Highlight common design decisions and factors to consider when designing.
-* Provide additional resources to inform API design in areas not directly addressed by the Microsoft guidelines.
+* Microsoftが公開している[REST API 設計ガイドライン](https://github.com/microsoft/api-guidelines)を引き上げます。
+* 設計時に考慮すべき一般的な設計上の決定と要因を強調します。
+* Microsoftガイドラインで直接扱われていない領域で、API設計に情報を提供するための追加のリソースを提供します。
 
-## Common API Design Decisions
+## 一般的なAPI設計の決定
 
-The [Microsoft REST API guidelines](https://github.com/microsoft/api-guidelines) provide design guidance covering a multitude of use-cases.
-The following sections are a good place to start as they are likely required considerations by any REST API design:
+[Microsoft REST APIガイドライン](https://github.com/microsoft/api-guidelines)は、多数のユースケースをカバーする設計ガイダンスを提供します。
+次のセクションは、REST API設計で考慮が必要になる可能性があるため、開始するのに適しています。
 
-* [URL Structure](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#71-url-structure)
-* [HTTP Methods](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
-* [HTTP Status Codes](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#711-http-status-codes)
-* [Collections](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#9-collections)
-* [JSON Standardizations](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#11-json-standardizations)
-* [Versioning](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#12-versioning)
-* [Naming](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#17-naming-guidelines)
+* [URL構造](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#71-url-structure)
+* [HTTPメソッド](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
+* [HTTPステータスコード](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#711-http-status-codes)
+* [コレクション](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#9-collections)
+* [JSON標準化](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#11-json-standardizations)
+* [バージョニング](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#12-versioning)
+* [ネーミング](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#17-naming-guidelines)
 
-## Creating API Contracts
+## APIコントラクトの作成
 
-As different development teams expose APIs to access various REST based services, it's important to have an API contract to share between the producer and consumers of APIs. [Open API](https://www.openapis.org/) format is one of the most popular API description format. This Open API document can be produced in two ways:
+さまざまな開発チームがさまざまなRESTベースのサービスにアクセスするためにAPIを公開しているため、APIのプロデューサーとコンシューマーの間で共有するAPI契約を結ぶことが重要です。[Open API](https://www.openapis.org/)形式は、最も一般的なAPI記述形式の1つです。
+このOpenAPIドキュメントは、次の2つの方法で作成できます。
 
-* Design-First - Team starts developing APIs by first describing API designs as an Open API document and later generates server side boilerplate code with the help of this document.
-* Code-First - Team starts writing the server side API interface code e.g. controllers, DTOs etc. and later generates and Open API document from it.
+* デザインファースト - チームは、最初にAPIデザインをOpen APIドキュメントとして記述し、後でこのドキュメントを使用してサーバー側のボイラープレートコードを生成することでAPIの開発を開始します。
+* コードファースト - チームはサーバー側のAPIインターフェースコード（コントローラー、DTOなど）の記述を開始し、後でそれからAPIドキュメントを生成して開きます。
 
-### Design-First Approach
+### デザインファーストアプローチ
 
-A Design-First approach means that APIs are treated as "first-class citizens" and everything about a project revolves around the idea that at the end these APIs will be consumed by clients. So based on the business requirements API development team first start describing API designs as an Open API document and collaborate with the stakeholders to gather feedback.
+デザインファーストのアプローチとは、APIが「第一級市民」として扱われ、プロジェクトに関するすべてが、最終的にこれらのAPIがクライアントによって消費されるという考えを中心に展開することを意味します。そのため、ビジネス要件に基づいて、API開発チームは最初にAPI設計をオープンAPIドキュメントとして記述し始め、利害関係者と協力してフィードバックを収集します。
 
-This approach is quite useful if a project is about developing externally exposed set of APIs which will be consumed by partners. In this approach, we first agree upon an API contract (Open API document) creating clear expectations on both API producer and consumer sides so both teams can begin work in parallel as per the pre-agreed API design.
+このアプローチは、プロジェクトが、パートナーによって使用される外部に公開されたAPIのセットを開発することに関するものである場合に非常に役立ちます。このアプローチでは、最初にAPI契約（Open APIドキュメント）に同意して、APIのプロデューサー側とコンシューマー側の両方に明確な期待を作成し、事前に合意されたAPI設計に従って両方のチームが並行して作業を開始できるようにします。
 
-Key Benefits of this approach:
+このアプローチの主な利点：
 
-* Early API design feedback.
-* Clearly established expectations for both consumer & producer as both have agreed upon an API contract.
-* Development teams can work in parallel.
-* Testing team can use API contracts to write early tests even before business logic is in place. By looking at different models, paths, attributes and other aspects of the API testing can provide their input which can be very valuable.
-* During an agile development cycle API definitions are not impacted by incremental dev changes.
-* API design is not influenced by actual implementation limitations & code structure.
-* Server side boilerplate code e.g. controllers, DTOs etc. can be auto generated from API contracts.
-* May improve collaboration between API producer & consumer teams.
+* 初期のAPI設計フィードバック。
+* 両方がAPI契約に合意しているため、消費者と生産者の両方に対する明確に確立された期待。
+* 開発チームは並行して作業できます。
+* テストチームは、APIコントラクトを使用して、ビジネスロジックが導入される前でも初期のテストを作成できます。さまざまなモデル、パス、属性、およびAPIテストの他の側面を確認することで、非常に価値のある入力を提供できます。
+* アジャイル開発サイクル中、API定義は段階的な開発変更の影響を受けません。
+* APIの設計は、実際の実装の制限やコード構造の影響を受けません。
+* サーバー側のボイラープレートコード（コントローラー、DTOなど）は、APIコントラクトから自動生成できます。
+* APIプロデューサーチームとコンシューマーチーム間のコラボレーションを改善する可能性があります。
 
-Planning a Design-First Development:
+デザインファースト開発の計画：
 
-1. Identify use cases & key services which API should offer.
-2. Identify key stakeholders of API and try to include them during API design phase to get continuous feedback.
-3. Write API contract definitions.
-4. Maintain consistent style for API status codes, versioning, error responses etc.
-5. Encourage peer reviews via pull requests.
-6. Generate server side boilerplate code & client SDKs from API contract definitions.
+1. APIが提供する必要のあるユースケースと主要なサービスを特定します。
+2. APIの主要な利害関係者を特定し、APIの設計段階でそれらを含めて、継続的なフィードバックを得るようにしてください。
+3. APIコントラクト定義を記述します。
+4. APIステータスコード、バージョン管理、エラー応答などの一貫したスタイルを維持します。
+5. プルリクエストを介してピアレビューを奨励します。
+6. APIコントラクト定義からサーバー側のボイラープレートコードとクライアントSDKを生成します。
 
-Important Points to consider:
+考慮すべき重要なポイント：
 
-* If API requirements changes often during initial development phase, than a Design-First approach may not be a good fit as this will introduce additional overhead, requiring repeated updates & maintenance to the API contract definitions.
-* It might be worthwhile to first try out your platform specific code generator and evaluate how much more additional work will be required in order to meet your project requirements and coding guidelines because it is possible that a particular platform specific code generator might not be able to generate a flexible & maintainable implementation of actual code. For instance If your web framework requires annotations to be present on your controller classes (e.g. for API versioning or authentication), make sure that the code generation tool you use fully supports them.
+* API要件が初期開発フェーズで頻繁に変更される場合、設計優先のアプローチは適切ではない可能性があります。これにより、追加のオーバーヘッドが発生し、APIコントラクト定義の更新とメンテナンスを繰り返す必要があります。
+* 特定のプラットフォーム固有のコードジェネレーターが生成できない可能性があるため、最初にプラットフォーム固有のコードジェネレーターを試して、プロジェクトの要件とコーディングガイドラインを満たすためにさらに多くの作業が必要になるかどうかを評価することは価値があります。実際のコードの柔軟で保守可能な実装。たとえば、Webフレームワークでコントローラークラスにアノテーションを含める必要がある場合（APIのバージョン管理や認証など）、使用するコード生成ツールがアノテーションを完全にサポートしていることを確認してください。
 
-### Code-First Approach
+### コードファーストアプローチ
 
-A Code-First approach means that development teams first implements server side API interface code e.g. controllers, DTOs etc. and than generates API contract definitions out of it. In current times this approach is more widely popular within developer community than Design-First Approach.
+コードファーストアプローチとは、開発チームが最初にサーバー側のAPIインターフェースコード（コントローラー、DTOなど）を実装し、それからAPIコントラクト定義を生成することを意味します。現在、このアプローチは、デザインファーストアプローチよりも開発者コミュニティ内で広く普及しています。
 
-This approach has the advantages of allowing the team to quickly implement APIs and also providing the flexibility to react very quickly to any unexpected API requirement changes.
+このアプローチには、チームがAPIを迅速に実装できるようにするだけでなく、予期しないAPI要件の変更に非常に迅速に対応できる柔軟性を提供するという利点があります。
 
-Key Benefits of this approach:
+このアプローチの主な利点：
 
-* Rapid development of APIs as development team can start implementing APIs much faster directly after understanding key requirements & use cases.
-* Development team has better control & flexibility to implement server side API interfaces in a way which best suited for project structure.
-* More popular among development teams so its easier to get consensus on a related topic and also has more ready to use code examples available on various blogs or developer forums regarding how to generate Open API definitions out of actual code.
-* During initial phase of development where both API producer & consumers requirements might change often this approach is better as it provides flexibility to quickly react on such changes.
+* 開発チームとしてのAPIの迅速な開発は、主要な要件とユースケースを理解した直後に、はるかに迅速にAPIの実装を開始できます。
+* 開発チームは、プロジェクト構造に最適な方法でサーバー側APIインターフェイスを実装するための、より優れた制御と柔軟性を備えています。
+* 開発チームの間で人気が高いため、関連するトピックについてコンセンサスを得るのが簡単で、実際のコードからOpenAPI定義を生成する方法に関するさまざまなブログや開発者フォーラムで利用できるコード例をすぐに使用できます。
+* APIプロデューサーとコンシューマーの両方の要件が頻繁に変更される可能性がある開発の初期段階では、このアプローチは、そのような変更に迅速に対応する柔軟性を提供するため、より優れています。
 
-Important Points to consider:
+考慮すべき重要なポイント：
 
-* A generated Open API definition can become outdated, so its important to have automated checks to avoid this otherwise generated client SDKs will be out of sync and may cause issues for API consumers.
-* With Agile development, it is hard to ensure that definitions embedded in runtime code remain stable, especially across rounds of refactoring and when serving multiple concurrent API versions.
-* It might be useful to regularly generate Open API definition and store it in version control system otherwise generating the OpenAPI definition at runtime might makes it more complex in scenarios where that definition is required at development/CI time.
+* 生成されたOpenAPI定義は古くなる可能性があるため、自動チェックを行って、生成されたクライアントSDKが同期しなくなり、APIコンシューマーに問題が発生する可能性を回避することが重要です。
+* アジャイル開発では、ランタイムコードに埋め込まれた定義が安定していることを保証するのは困難です。特に、リファクタリングのラウンド全体で、複数の同時APIバージョンを提供する場合はそうです。
+* Open API定義を定期的に生成してバージョン管理システムに保存すると便利な場合があります。そうしないと、実行時にOpenAPI定義を生成すると、開発/CI時にその定義が必要なシナリオで複雑になる可能性があります。
 
-## How to Interpret and Apply The Guidelines
+## ガイドラインを解釈して適用する方法
 
-The API guidelines document includes a section on [how to apply the guidelines](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#4-interpreting-the-guidelines) depending on whether the API is new or existing.
-In particular, when working in an existing API ecosystem, be sure to align with stakeholders on a definition of what constitutes a [breaking change](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#123-definition-of-a-breaking-change) to understand the impact of implementing certain best practices.
+APIガイドラインドキュメントには、APIが新規か既存かに応じて[ガイドラインを適用する方法](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#4-interpreting-the-guidelines)に関するセクションが含まれています。特に、既存のAPIエコシステムで作業する場合は、特定のベストプラクティスを実装することの影響を理解するために、[重大な変更](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#123-definition-of-a-breaking-change)を構成するものの定義について利害関係者と調整するようにしてください。
 
-> We do not recommend making a breaking change to a service that predates these guidelines simply for the sake of compliance.
+> コンプライアンスのためだけに、これらのガイドラインより前のサービスに重大な変更を加えることはお勧めしません。
 
-## Additional Resources
+## 追加リソース
 
-* [Microsoft's Recommended Reading List for REST APIs](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#31-recommended-reading)
-* [Detailed HTTP status code definitions](https://www.restapitutorial.com/httpstatuscodes.html)
-* [Semantic Versioning](https://semver.org/)
-* [Other Public API Guidelines](http://apistylebook.com/design/guidelines/)
-* [OpenAPI Design Practices](https://oai.github.io/Documentation/best-practices.html)
+* [REST APIに関するMicrosoftの推奨読書リスト](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#31-recommended-reading)
+* [詳細なHTTPステータスコード定義](https://www.restapitutorial.com/httpstatuscodes.html)
+* [セマンティックバージョニング](https://semver.org/)
+* [その他のパブリックAPIガイドライン](http://apistylebook.com/design/guidelines/)
+* [OpenAPI設計プラクティス](https://oai.github.io/Documentation/best-practices.html)

@@ -1,12 +1,10 @@
-# Design Patterns
+# デザインパターン
 
-The design patterns section recommends patterns of software and architecture design.
-This section provides a curated list of commonly used patterns from trusted sources.
-Rather than duplicate or replace the cited sources, this section aims to compliment them with suggestions, guidance, and learnings based on firsthand experiences.
+デザインパターンセクションでは、ソフトウェアとアーキテクチャの設計パターンを推奨しています。このセクションでは、信頼できるソースから一般的に使用されるパターンの厳選されたリストを提供します。このセクションでは、引用された情報源を複製または置換するのではなく、直接の経験に基づいた提案、ガイダンス、および学習でそれらを補完することを目的としています。
 
-## Subsections
+## サブセクション
 
-* [Data Heavy Design Guidance](data-heavy-design-guidance/README.md)
-* [Object Oriented Design Reference](object-oriented-design-reference/README.md)
-* [Distributed System Design Reference](distributed-system-design-reference/README.md)
-* [REST API Design Guidance](rest-api-design-guidance/README.md)
+* [データヘビーデザインガイダンス](data-heavy-design-guidance/README.md)
+* [オブジェクト指向デザインリファレンス](object-oriented-design-reference/README.md)
+* [分散システム設計リファレンス](distributed-system-design-reference/README.md)
+* [REST API 設計ガイダンス](rest-api-design-guidance/README.md)

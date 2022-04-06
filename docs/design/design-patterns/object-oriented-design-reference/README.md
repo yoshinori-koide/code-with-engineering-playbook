@@ -1,11 +1,9 @@
-# Object-Oriented Design Reference
+# オブジェクト指向設計リファレンス
 
-When writing software for large projects, the hardest part is often communication and maintenance.
-Following proven design patterns can optimize for maintenance, readability, and ease of extension.
-In particular, object-oriented design patterns are well-established in the industry.
+大規模なプロジェクト用のソフトウェアを作成する場合、最も難しい部分は多くの場合、通信と保守です。実証済みのデザインパターンに従うことで、メンテナンス、読みやすさ、拡張のしやすさを最適化できます。特に、オブジェクト指向のデザインパターンは業界で確立されています。
 
-Please refer to the following resources to create strong object-oriented designs:
+強力なオブジェクト指向デザインを作成するには、次のリソースを参照してください。
 
-* [Class Diagram Overview](http://www.agilemodeling.com/artifacts/classDiagram.htm)
-* [Design Patterns Wikipedia](https://en.wikipedia.org/wiki/Design_Patterns)
-* [Object Oriented Design Website](https://www.oodesign.com/)
+* [クラス図の概要](http://www.agilemodeling.com/artifacts/classDiagram.htm)
+* [デザインパターンウィキペディア](https://en.wikipedia.org/wiki/Design_Patterns)
+* [オブジェクト指向デザインのウェブサイト](https://www.oodesign.com/)

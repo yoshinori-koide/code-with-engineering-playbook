@@ -1,147 +1,146 @@
-# Non-Functional Requirements Capture
+# 非機能要件のキャプチャ
 
-## Goals
+## 目標
 
-In software engineering projects, important characteristics of the system providing for necessary e.g., testability, reliability, scalability, observability, securability, manageability are best considered as first-class citizens in the requirements gathering process.
-By defining these non-functional requirements in detail early in the engagement, they can be properly evaluated when the cost of their impact on subsequent design decisions is comparatively low.
+ソフトウェアエンジニアリングプロジェクトでは、必要なものを提供するシステムの重要な特性、たとえば、テスト容易性、信頼性、スケーラビリティ、可観測性、セキュリティ性、管理性は、要件収集プロセスの第一級市民として最もよく考慮されます。エンゲージメントの早い段階でこれらの非機能要件を詳細に定義することにより、その後の設計決定への影響のコストが比較的低い場合に、それらを適切に評価できます。
 
-To support the process of capturing a project's _comprehensive_ non-functional requirements, this document offers a taxonomy for non-functional requirements and provides a framework for their identification, exploration, assignment of customer stakeholders, and eventual codification into formal engineering requirements as input to subsequent solution design.
+プロジェクトの包括的な非機能要件をキャプチャするプロセスをサポートするために、このドキュメントは非機能要件の分類を提供し、それらの識別、調査、顧客の利害関係者の割り当て、およびその後の入力としての正式なエンジニアリング要件への最終的なコード化のフレームワークを提供しますソリューション設計。
 
 ---
 
-## Areas of Investigation
+## 調査分野
 
-### [Enterprise Security](../../security/README.md)
+### [エンタープライズセキュリティ](../../security/README.md)
 
-- Privacy
+- プライバシー
   - PII
   - HIPAA
-- Encryption
-- Data mobility
-  - at rest
-  - in motion
-  - in process/memory
-- Key Management
-  - responsibility
-    - platform
+- 暗号化
+- データモビリティ
+  - 安静時に
+  - 動いている
+  - プロセス/メモリ内
+- キー管理
+  - 責任
+    - プラットホーム
     - BYOK
     - CMK
-- INFOSEC regulations/standards
+- INFOSEC 規制/基準
   - e.g., FIPS-140-2
     - Level 2
     - Level 3
-  - ISO 27000 series
+  - ISO 27000 シリーズ
   - NIST
   - Other
-- Network security
-  - Physical/Logical traffic boundaries/flow topology
-    - Azure <-- --> On-prem
-    - Public <-- --> Azure
+- ネットワークセキュリティー
+  - 物理的/論理的なトラフィック境界/フロートポロジ
+    - クラウド <-- --> オンプレミス
+    - パブリック <-- --> クラウド
     - VNET
     - PIP
-    - Firewalls
+    - ファイアウォール
     - VPN
     - ExpressRoute
-      - Topology
-      - Security
-  - Certificates
-    - Issuer
+      - トポロジー
+      - セキュリティ
+  - 証明書
+    - 発行者
       - CA
-      - Self-signed
-      - Rotation/expiry
-- INFOSEC Incident Response
-  - Process
-  - People
-  - Responsibilities
-  - Systems
-  - Legal/Regulatory/Compliance
+      - 自己署名
+      - ローテーション/有効期限
+- INFOSECインシデント対応
+  - プロセス
+  - 人々
+  - 責任
+  - システム
+  - 法務/規制/コンプライアンス
 
-### Enterprise AuthN/AuthZ
+### エンタープライズ AuthN/AuthZ
 
-- Users
-- Services
-- Authorities/directories
-- Mechanisms/handshakes
+- ユーザー
+- サービス
+- 当局/ディレクトリ
+- メカニズム/ハンドシェイク
   - Active Directory
   - SAML
   - OAuth
-  - Other
+  - その他
 - RBAC
-  - Perms inheritance model
+  - パーマ継承モデル
 
-### [Enterprise Monitoring/Operations](../../observability/README.md)
+### [エンタープライズモニタリング/運用](../../observability/README.md)
 
-- Logging
-  - Operations
-  - Reporting
-  - Audit
-- Monitoring
-  - Diagnostics/Alerts
-  - Operations
+- ロギング
+  - 操作
+  - 報告
+  - 監査
+- モニタリング
+  - 診断/アラート
+  - 操作
 - HA/DR
-  - Redundancy
-  - Recovery/Mitigation
-- Practices
-  - Principle of least-privilege
-  - Principle of separation-of-responsibilities
+  - 冗長性
+  - 回復/軽減
+- 練習
+  - 最小特権の原則
+  - 責任の分離の原則
 
-### Other standard Enterprise technologies/practices
+### その他の標準的なエンタープライズテクノロジー/プラクティス
 
-- Developer ecosystem
-  - Platform/OS
-    - Hardened
-    - Approved base images
-    - Image repository
-  - Tools, languages
-    - Approval process
-  - Code repositories
-    - Secrets management patterns
-      - Env var
-      - Config file(s)
-      - Secrets retrieval API
-  - Package manager source(s)
-    - Private
-    - Public
-    - Approved/Trusted
+- 開発者エコシステム
+  - プラットフォーム/OS
+    - 硬化
+    - 承認されたベースイメージ
+    - イメージリポジトリ
+  - ツール、言語
+    - 承認プロセス
+  - コードリポジトリ
+    - シークレット管理パターン
+      - 環境変数
+      - 構成ファイル
+      - シークレット検索API
+  - パッケージマネージャーのソース
+    - プライベート
+    - パブリック
+    - 承認済み/信頼済み
   - CI/CD
-  - Artifact repositories
+  - アーティファクトリポジトリ
 
-### Production ecosystem
+### 生産エコシステム
 
-- Platform/OS
-  - Hardened
-  - Approved base images
-  - Image repository
-- Deployment longevity/volatility
-  - Automation
-  - Reproducibility
+- プラットフォーム/OS
+  - 硬化
+  - 承認されたベースイメージ
+  - イメージリポジトリ
+- 展開の寿命/変動性
+  - オートメーション
+  - 再現性
     - IaC
-    - Scripting
-    - Other
+    - スクリプティング
+    - その他
 
-### Other areas/topics not addressed above (requires customer input to comprehensively enumerate)
-
----
-
-## Investigation Process
-
-1. Identify/brainstorm likely areas/topics requiring further investigation/definition
-1. Identify customer stakeholder(s) responsible for each identified area/topic
-1. Schedule debrief/requirements definition session(s) with each stakeholder
-   - as necessary to achieve sufficient understanding of the probable impact of each requirement to the project
-   - both current/initial milestone and long-term/road map
-1. Document requirements/dependencies identified and related design constraints
-1. Evaluate current/near-term planned milestone(s) through the lens of the identified requirements/constraints
-   - Categorize each requirement as affecting immediate/near-term milestone(s) or as applicable instead to the longer-term road map/subsequent milestones
-1. Adapt plans for current/near-term milestone(s) to accommodate immediate/near-term-categorized requirements
+### 上記で取り上げられていないその他の領域/トピック（包括的に列挙するには、顧客の入力が必要です）
 
 ---
 
-## Structure of Outline/Assignment of Responsible Stakeholder
+## 調査プロセス
 
-In the following outline, assign name/email of 'responsible stakeholder' for each element after the appropriate level in the outline hierarchy. Assume inheritance model of responsibility assignment: stakeholder at any ancestor (parent) level is also responsible for descendent (child) elements unless overridden at the descendent level).
+1. さらなる調査/定義が必要な可能性のある領域/トピックを特定/ブレインストーミング
+1. 特定された各領域/トピックに責任を持つ顧客の利害関係者を特定します
+1. 各利害関係者との報告/要件定義セッションをスケジュールします
+   - プロジェクトに対する各要件の予想される影響を十分に理解するために、必要に応じて
+   - 現在/初期のマイルストーンと長期/ロードマップの両方
+2. 識別された要件/依存関係および関連する設計上の制約を文書化する
+3. 特定された要件/制約のレンズを通して、現在/短期的に計画されたマイルストーンを評価します
+   - 各要件を、即時/短期のマイルストーンに影響を与えるものとして、または代わりに長期のロードマップ/後続のマイルストーンに該当するものとして分類します。
+4. 現在/短期のマイルストーンの計画を調整して、即時/短期に分類された要件に対応します
 
-e.g.,
+---
+
+## アウトラインの構造/責任ある利害関係者の割り当て
+
+次のアウトラインでは、アウトライン階層の適切なレベルの後に、各要素に「責任のある利害関係者」の名前/電子メールを割り当てます。責任割り当ての継承モデルを想定します。任意の祖先（親）レベルの利害関係者は、子孫レベルでオーバーライドされない限り、子孫（子）要素にも責任があります。
+
+例えば、
 
 - Parent1 _[Susan/susan@domain.com]_
   - child1
@@ -152,6 +151,6 @@ e.g.,
   - child1
   - child2
 
-In the preceding example, 'Susan' is responsible for `Parent1` and all of its descendants _except_ for `Parent1/child2` and `Parent1/child2/grandchild1` (for which 'John' is the stakeholder). 'Sam' is responsible for the entirety of `Parent2` and all of its descendants.
+前の例では、「スーザン」は、`Parent1`および、（「ジョン」が利害関係者である）`Parent1/child2`と`Parent1/child2/grandchild1`を除くすべての子孫に責任があります。「サム」は、`Parent2`の子孫、全体に責任があります。
 
-This approach permits the retention of the logical hierarchy of elements themselves while also flexibly interleaving the 'stakeholder' identifications within the hierarchy of topics if/when they may need to diverge due to e.g., customer organizational nuances.
+このアプローチにより、要素自体の論理階層を保持しながら、たとえば顧客の組織的なニュアンスのために分岐する必要がある場合に、トピックの階層内に「利害関係者」のIDを柔軟にインターリーブできます。

@@ -1,9 +1,8 @@
-# Distributed System Design Reference
+# 分散システム設計リファレンス
 
-Distributed systems introduce new and interesting problems that need addressing.
-Software engineering as a field has dealt with these problems for years, and there are phenomenal resources available for reference when creating a new distributed system.
-Some that we recommend are as follows:
+分散システムは、対処する必要のある新しく興味深い問題をもたらします。分野としてのソフトウェア工学は何年にもわたってこれらの問題に取り組んできました、そして新しい分散システムを作成するときに参照できる驚異的なリソースがあります。
+私たちがお勧めするものは次のとおりです。
 
-* [Martin Fowler's Patterns of Distributed Systems](https://martinfowler.com/articles/patterns-of-distributed-systems/)
+* [マーティンファウラーの分散システムのパターン](https://martinfowler.com/articles/patterns-of-distributed-systems/)
 * [microservices.io](https://microservices.io/index.html)
-* [Azure's Cloud Design Patterns](https://docs.microsoft.com/en-us/azure/architecture/patterns/)
+* [Azureのクラウドデザインパターン](https://docs.microsoft.com/en-us/azure/architecture/patterns/)

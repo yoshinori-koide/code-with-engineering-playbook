@@ -1,28 +1,28 @@
-# Data and DataOps Fundamentals
+# データとDataOpsの基礎
 
-Most projects involve some type of data storage, data processing and data ops. For these projects, as with all projects, we follow the general guidelines laid out in other sections around security, testing, observability, CI/CD etc.
+ほとんどのプロジェクトには、ある種のデータストレージ、データ処理、およびデータ操作が含まれます。これらのプロジェクトでは、すべてのプロジェクトと同様に、セキュリティ、テスト、可観測性、CI/CDなどに関する他のセクションに記載されている一般的なガイドラインに従います。
 
-## Goal
+## ゴール
 
-The goal of this section is to briefly describe how to apply the fundamentals to data heavy projects or portions of the project.
+このセクションの目的は、データ量の多いプロジェクトまたはプロジェクトの一部に基本を適用する方法を簡単に説明することです。
 
-## Isolation
+## 隔離
 
-Please be cautious of which [isolation levels](https://en.wikipedia.org/wiki/Isolation_(database_systems)) you are using. Even with a database that offers serializability, it is possible that within a transaction or connection you are leveraging a lower isolation level than the database offers. In particular, read uncommitted (or eventual consistency), can have a lot of unpredictable side effects and introduce bugs that are difficult to reason about. Eventually consistent systems should be treated as a last resort for achieving your scalability requirements; batching, sharding, and caching are all recommended solutions to increase your scalability. If none of these options are tenable, consider evaluating the "New SQL" databases like CockroachDB or TiDB, before leveraging an option that relies on eventual consistency.
+使用している[分離レベル](https://en.wikipedia.org/wiki/Isolation_(database_systems))に注意してください。直列化可能性を提供するデータベースを使用している場合でも、トランザクションまたは接続内で、データベースが提供するよりも低い分離レベルを利用している可能性があります。特に、コミットされていない（または結果整合性）を読み取ると、予測できない多くの副作用が発生し、推論が難しいバグが発生する可能性があります。結果整合性のあるシステムは、スケーラビリティ要件を達成するための最後の手段として扱う必要があります。バッチ処理、シャーディング、およびキャッシングはすべて、スケーラビリティを向上させるために推奨されるソリューションです。これらのオプションのいずれも維持できない場合は、結果整合性に依存するオプションを利用する前に、CockroachDBやTiDBなどの「新しいSQL」データベースを評価することを検討してください。
 
-There are other levels of isolation, outside the isolation levels mentioned in the link above. Some of these have nuances different from the 4 main levels, and can be difficult to compare. Snapshot Isolation, strict serializability, "read your own writes", monotonic reads, bounded staleness, causal consistency, and linearizability are all other terms you can look into to learn more on the subject.
+上記のリンクに記載されている分離レベル以外にも、他のレベルの分離があります。これらのいくつかは、4つの主要なレベルとは異なるニュアンスを持っており、比較するのが難しい場合があります。スナップショットアイソレーション、厳密な直列化可能性、「独自の書き込みを読み取る」、単調な読み取り、制限された古さ、因果整合性、および線形化可能性は、この主題についてさらに学ぶために調べることができる他のすべての用語です。
 
-## Concurrency Control
+## 同時実行制御
 
-Your systems should (almost) always leverage some form of concurrency control, to ensure correctness amongst competing requests and to prevent data races. The 2 forms of concurrency control are **pessimistic** and **optimistic**.
+システムは、競合する要求間の正確性を確保し、データの競合を防ぐために、（ほぼ）常に何らかの形式の同時実行制御を活用する必要があります。並行性制御の2つの形式は、**悲観的**と**楽観的**です。
 
-A **pessimistic** transaction involves a first request to "lock the data", and a second request to write the data. In between these requests, no other requests touching that data will succeed. See [2 Phase Locking](https://en.wikipedia.org/wiki/Two-phase_locking) (also often known as 2 Phase Commit) for more info.
+**悲観的な**トランザクションには、「データをロックする」ための最初の要求と、データを書き込むための2番目の要求が含まれます。これらのリクエストの間に、そのデータにアクセスする他のリクエストは成功しません。詳細については、 [2フェーズロック](https://en.wikipedia.org/wiki/Two-phase_lockin)（2フェーズコミットとも呼ばれます）を参照してください。
 
-The (more) recommended approach is **optimistic** concurrency, where a user can read the object at a specific version, and update the object if and only if it hasn't changed. This is typically done via the [Etag Header](https://en.wikipedia.org/wiki/HTTP_ETag).
+（より）推奨されるアプローチは、**楽観的**並行性です。この場合、ユーザーは特定のバージョンでオブジェクトを読み取り、変更されていない場合にのみオブジェクトを更新できます。これは通常、[Etagヘッダー](https://en.wikipedia.org/wiki/HTTP_ETag)を介して行われます。
 
-A simple way to accomplish this on the database side is to increment a version number on each update. This can be done in a single executed statement as:
+データベース側でこれを実現する簡単な方法は、更新ごとにバージョン番号をインクリメントすることです。これは、次のように1つの実行されたステートメントで実行できます。
 
-> WARNING: the below will not work when using an isolation level at or lower than read uncommitted (eventual consistency).
+> 警告: 以下は、読み取りがコミットされていない（結果整合性）以下の分離レベルを使用している場合は機能しません。
 
 ```SQL
 -- Please treat this as pseudo code, and adjust as necessary.
@@ -32,62 +32,62 @@ SET field1 = value1, ..., fieldN = valueN, version = $new_version
 WHERE ID = $id AND version = $version
 ```
 
-## Data Tiering (Data Quality)
+## データ階層化（データ品質）
 
-Develop a common understanding of the quality of your datasets so that everyone understands the quality of the data, and expected use cases and limitations.
+データセットの品質についての共通の理解を深め、すべての人がデータの品質、および予想されるユースケースと制限を理解できるようにします。
 
-A common data quality model is `Bronze`, `Silver`, `Gold`
+一般的なデータ品質モデルは `ブロンズ`, `シルバー`, `ゴールド`
 
-- **Bronze:** This is a landing area for your raw datasets with none or minimal data transformations applied, and therefore are optimized for writes / ingestion. Treat these datasets as an immutable, append only store.
-- **Silver:** These are cleansed, semi-processed datasets. These conform to a known schema and predefined data invariants and might have further data augmentation applied. These are typically used by data scientists.
-- **Gold:** These are highly processed, highly read-optimized datasets primarily for consumption of business users. Typically, these are structured in your standard fact and dimension tables.
+- **ブロンズ:** れは、データ変換が適用されていないか最小限の生データセットのランディングエリアであるため、書き込み/取り込み用に最適化されています。これらのデータセットを不変として扱い、ストアのみを追加します。
+- **シルバー:** これらは、クレンジングされた、半処理されたデータセットです。これらは、既知のスキーマと事前定義されたデータ不変条件に準拠しており、さらにデータ拡張が適用される場合があります。これらは通常、データサイエンティストによって使用されます。
+- **ゴールド:** これらは、主にビジネスユーザーの消費のために、高度に処理され、読み取りが最適化されたデータセットです。通常、これらは標準のファクトテーブルとディメンションテーブルで構造化されています。
 
-Divide your data lake into three major areas containing your Bronze, Silver and Gold datasets.
+データレイクを、ブロンズ、シルバー、ゴールドのデータセットを含む3つの主要な領域に分割します。
 
-> Note: Additional storage areas for malformed data, intermediate (sandbox) data, and libraries/packages/binaries are also useful when designing your storage organization.
+> 注：ストレージ組織を設計する場合は、不正な形式のデータ、中間（サンドボックス）データ、およびライブラリ/パッケージ/バイナリ用の追加のストレージ領域も役立ちます。
 
-## Data Validation
+## データ検証
 
-Validate data early in your pipeline
+パイプラインの早い段階でデータを検証する
 
-- Add data validation between the Bronze and Silver datasets. By validating early in your pipeline, you can ensure all datasets conform to a specific schema and known data invariants. This can also potentially prevent data pipeline failures in case of unexpected changes to the input data.
-- Data that does not pass this validation stage can be rerouted to a record store dedicated for malformed data for diagnostic purposes.
-- It may be tempting to add validation prior to landing in the Bronze area of your data lake. This is generally not recommended. Bronze datasets are there to ensure you have as close of a copy of the source system data. This can be used to replay the data pipeline for both testing (i.e. testing data validation logic) and data recovery purposes (i.e. data corruption is introduced due to a bug in the data transformation code and thus the pipeline needs to be replayed).
+- BronzeデータセットとSilverデータセットの間にデータ検証を追加します。パイプラインの早い段階で検証することにより、すべてのデータセットが特定のスキーマと既知のデータ不変条件に準拠していることを確認できます。これにより、入力データに予期しない変更が加えられた場合に、データパイプラインの障害を防ぐことができる可能性もあります。
+- この検証段階に合格しなかったデータは、診断目的で不正な形式のデータ専用のレコードストアに再ルーティングできます。
+- データレイクのブロンズエリアに着陸する前に、検証を追加したくなるかもしれません。通常、これはお勧めしません。ブロンズデータセットは、ソースシステムデータのコピーをできるだけ近くに配置するためにあります。これは、テスト（つまり、データ検証ロジックのテスト）とデータ回復の両方の目的でデータパイプラインを再生するために使用できます（つまり、データ変換コードのバグが原因でデータが破損するため、パイプラインを再生する必要があります）。
 
-## Idempotent Data Pipelines
+## べき等データパイプライン
 
-Make your data pipelines re-playable and idempotent
+データパイプラインを再生可能でべき等にする
 
-- Silver and Gold datasets can get corrupted due to a number of reasons such as unintended bugs, unexpected input data changes, and more. By making data pipelines re-playable and idempotent, you can recover from this state through deployment of code fixes, and re-playing the data pipelines.
-- Idempotency also ensures data-duplication is mitigated when replaying your data pipelines.
+- シルバーとゴールドのデータセットは、意図しないバグ、予期しない入力データの変更など、さまざまな理由で破損する可能性があります。データパイプラインを再生可能でべき等にすることにより、コード修正の展開とデータパイプラインの再再生を通じて、この状態から回復できます。
+- べき等性により、データパイプラインを再生するときにデータの重複が軽減されます。
 
-## Testing
+## テスト
 
-Ensure data transformation code is testable
+データ変換コードがテスト可能であることを確認します
 
-- Abstracting away data transformation code from data access code is key to ensuring unit tests can be written against data transformation logic. An example of this is moving transformation code from notebooks into packages.
-- While it is possible to run tests against notebooks, by extracting the code into packages, you increase the developer productivity by increasing the speed of the feedback cycle.
+- データアクセスコードからデータ変換コードを抽象化することは、データ変換ロジックに対して単体テストを記述できるようにするための鍵です。この例は、変換コードをノートブックからパッケージに移動することです。
+- ノートブックに対してテストを実行することは可能ですが、コードをパッケージに抽出することで、フィードバックサイクルの速度を上げることで、開発者の生産性を向上させることができます。
 
-## CI/CD, Source Control and Code Reviews
+## CI / CD、ソース管理およびコードレビュー
 
-- All artifacts needed to build the data pipeline from scratch should be in source control. This included infrastructure-as-code artifacts, database objects (schema definitions, functions, stored procedures etc.), reference/application data, data pipeline definitions and data validation and transformation logic.
-- Any new artifacts (code) introduced to the repository should be code reviewed, both automatically (linting, credential scanning etc.) and peer reviewed.
-- There should be a safe, repeatable process (CI/CD) to move the changes through dev, test and finally production.
+- データパイプラインを最初から構築するために必要なすべてのアーティファクトは、ソース管理にある必要があります。これには、Infrastructure-as-Codeアーティファクト、データベースオブジェクト（スキーマ定義、関数、ストアドプロシージャなど）、参照/アプリケーションデータ、データパイプライン定義、データ検証および変換ロジックが含まれます。
+- リポジトリに導入された新しいアーティファクト（コード）は、自動的に（リンティング、クレデンシャルスキャンなど）、ピアレビューの両方でコードレビューする必要があります。
+- 変更を開発、テスト、そして最終的に本番環境に移行するための安全で反復可能なプロセス（CI / CD）が必要です。
 
-## Security and Configuration
+## セキュリティと構成
 
-- Maintain a central, secure location for sensitive configuration such as database connection strings that can be accessed by the appropriate services within the specific environment.
-- On Azure this is typically solved through securing secrets in a Key Vault per environment, then having the relevant services query KeyVault for the configuration
+- 特定の環境内の適切なサービスからアクセスできるデータベース接続文字列などの機密性の高い構成のために、中央の安全な場所を維持します。
+- Azureでは、これは通常、環境ごとにKey Vaultでシークレットを保護し、関連するサービスにKeyVaultに構成を照会させることで解決されます。
 
-## Observability
+## 可観測性
 
-Monitor infrastructure, pipelines and data
+インフラストラクチャ、パイプライン、データを監視する
 
-- A proper monitoring solution should be in-place to ensure failures are identified, diagnosed and addressed in a timely manner. Aside from the base infrastructure and pipeline runs, data should also be monitored. A common area that should have data monitoring is the malformed record store.
+- 障害がタイムリーに識別、診断、対処されるように、適切な監視ソリューションを導入する必要があります。基本インフラストラクチャとパイプラインの実行に加えて、データも監視する必要があります。データ監視が必要な一般的な領域は、不正な形式のレコードストアです。
 
-## End to End and Azure Technology Samples
+## エンドツーエンドおよびAzureテクノロジーのサンプル
 
-The [DataOps for the Modern Data Warehouse repo](https://github.com/Azure-Samples/modern-data-warehouse-dataops) contains both end-to-end and technology specific samples on how to implement DataOps on Azure.
+[モダンなデータウェアハウスリポジトリのDataOps](https://github.com/Azure-Samples/modern-data-warehouse-dataops)には、AzureにDataOpsを実装する方法に関するエンドツーエンドのサンプルとテクノロジー固有のサンプルの両方が含まれています。
 
 ![CI/CD](images/CI_CD_process.png?raw=true "CI/CD")
-Image: CI/CD for Data pipelines on Azure - from DataOps for the Modern Data Warehouse repo
+画像：Azure上のデータパイプラインのCI/CD-最新のデータウェアハウスリポジトリのDataOpsから
