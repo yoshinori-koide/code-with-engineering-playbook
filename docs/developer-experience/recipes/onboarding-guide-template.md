@@ -1,34 +1,34 @@
-# Onboarding Guide Template
+# オンボーディングガイドテンプレート
 
-When developing an onboarding document for a team, it should contain details of engagement scope, team processes, codebase, coding standards, team agreements, software requirements and setup details. The onboarding guide can be used as an index to project specific content if it already exists elsewhere. Allowing this guide to be utilized as a foundation with the links will help keep the guide concise and effective.
+チームのオンボーディングドキュメントを作成するときは、エンゲージメントスコープ、チームプロセス、コードベース、コーディング標準、チーム契約、ソフトウェア要件、およびセットアップの詳細を含める必要があります。オンボーディングガイドは、特定のコンテンツがすでに他の場所に存在する場合、それを投影するためのインデックスとして使用できます。このガイドをリンク付きの基盤として利用できるようにすることで、ガイドを簡潔かつ効果的に保つことができます。
 
-## Overview and Goals
+## 概要と目標
 
-* List a few sentences explaining the high-level summary and the scope of the engagement.
-* Consider adding any additional background and context as needed.
-* Include the value proposition of the project, goals, what success looks like, and what the team is trying to achieve and why.
+* エンゲージメントの概要と範囲を説明する文章をいくつか挙げてください。
+* 必要に応じて、背景やコンテキストを追加することを検討してください。
+* プロジェクトの価値提案、目標、成功の様子、チームが達成しようとしていることとその理由を含めます。
 
-## Contacts
+## 連絡先
 
-* List a few of the main contacts for the team and project overall such as the Dev Lead and Product Owner.
-* Consider including the roles of these main contacts so that the team knows who to reach out to depending on the situation.
+* 開発リーダーやプロダクトオーナーなど、チームとプロジェクト全体の主な連絡先をいくつか挙げてください。
+* チームが状況に応じて誰に連絡するかを知ることができるように、これらの主要な連絡先の役割を含めることを検討してください。
 
-## Team Agreement and Code of Conduct
+## チーム契約と行動規範
 
-* Include the team's code of conduct or agreement that defines a set of expectation from each team member and how the team has agreed to operate.
-* Working Agreement Template - [working agreement](../../agile-development/team-agreements/working-agreements.md)
+* 各チームメンバーからの一連の期待と、チームがどのように運営に同意したかを定義する、チームの行動規範または合意を含めます。
+* 作業契約テンプレート - [作業契約](../../agile-development/team-agreements/working-agreements.md)
 
-## Dev Environment Setup
+## 開発環境のセットアップ
 
-* Consider adding steps to run the project end-to-end. This could be in form of a separate wiki page or document that can be linked here.
-* Include any software that needs to be downloaded and specify if a specific version of the software is needed.
+* プロジェクトをエンドツーエンドで実行するための手順を追加することを検討してください。これは、ここにリンクできる別のwikiページまたはドキュメントの形式である可能性があります。
+* ダウンロードする必要のあるソフトウェアをすべて含め、ソフトウェアの特定のバージョンが必要かどうかを指定します。
 
-## Project Building Blocks
+## プロジェクトビルディングブロック
 
-* This can include a more in depth description with different areas of the project to help increase the project understanding.
-* It can include different sections on the various components of the project including deployment, e2e testing, repositories.
+* これには、プロジェクトの理解を深めるために、プロジェクトのさまざまな領域に関するより詳細な説明を含めることができます。
+* デプロイメント、e2eテスト、リポジトリなど、プロジェクトのさまざまなコンポーネントに関するさまざまなセクションを含めることができます。
 
-## Helpful Resources and Links
+## 役立つリソースとリンク
 
-* This can include any additional links to documents related to the project
-* It may include links to backlog items, work items, wiki pages or project history.
+* これには、プロジェクトに関連するドキュメントへの追加リンクを含めることができます
+* バックログアイテム、作業アイテム、Wikiページ、またはプロジェクト履歴へのリンクが含まれる場合があります。

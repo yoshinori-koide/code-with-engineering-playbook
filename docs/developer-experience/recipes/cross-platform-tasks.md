@@ -1,27 +1,26 @@
-# Cross Platform Tasks
+# クロスプラットフォームタスク
 
-There are several options to alleviate cross-platform compatibility issues.
+クロスプラットフォームの互換性の問題を軽減するためのいくつかのオプションがあります。
 
-- Running tasks in a container
-- Using the tasks-system in VS Code which provides options to allow commands to be executed specific to an operating system.
+- コンテナでのタスクの実行
+- オペレーティングシステムに固有のコマンドを実行できるようにするオプションを提供するVSCodeのtasks-systemを使用します。
 
-## Docker or Container based
+## Dockerまたはコンテナベース
 
-Using containers as development machines allows developers to get started with minimal setup and abstracts the development environment from the host OS by having it run in a container.
-DevContainers can also help in standardizing the local developer experience across the team.
+コンテナーを開発マシンとして使用すると、開発者は最小限のセットアップで開始でき、コンテナーで実行することにより、ホストOSから開発環境を抽象化できます。DevContainersは、チーム全体でローカル開発者のエクスペリエンスを標準化するのにも役立ちます。
 
-The following are some good resources to get started with running tasks in DevContainers
+以下は、DevContainersでのタスクの実行を開始するための優れたリソースです。
 
-- [Developing inside a container](https://code.visualstudio.com/docs/remote/containers).
-- [Tutorial on Development in Containers](https://code.visualstudio.com/docs/remote/containers-tutorial)
-- For samples projects and dev container templates see [VS Code Dev Containers Recipe](https://github.com/microsoft/vscode-dev-containers)
-- [Dev Containers Library](../devcontainers.md)
+- [コンテナ内での開発](https://code.visualstudio.com/docs/remote/containers)。
+- [コンテナでの開発に関するチュートリアル](https://code.visualstudio.com/docs/remote/containers-tutorial)
+- サンプルプロジェクトと開発コンテナテンプレートについては、[VS Code開発コンテナ レシピ](https://github.com/microsoft/vscode-dev-containers)を参照してください。
+- [開発コンテナライブラリ](../devcontainers.md)
 
-## Tasks in VS Code
+## VSCodeのタスク
 
-### Running Node.js
+### Node.jsを起動する
 
-The example below offers insight into running Node.js executable as a command with tasks.json and how it can be treated differently on Windows and Linux.
+以下の例は、tasks.jsonを使用してコマンドとしてNode.js実行可能ファイルを実行する方法と、WindowsとLinuxで異なる方法で処理する方法についての洞察を提供します。
 
 ```json
 {
@@ -36,11 +35,11 @@ The example below offers insight into running Node.js executable as a command wi
 }
 ```
 
-In this example, to run Node.js, there is a specific windows command, and a specific linux command. This allows for platform specific properties. When these are defined, they will be used instead of the default properties when the command is executed on the Windows operating system or on Linux.
+この例では、Node.jsを実行するために、特定のWindowsコマンドと特定のLinuxコマンドがあります。これにより、プラットフォーム固有のプロパティが可能になります。これらが定義されている場合、コマンドがWindowsオペレーティングシステムまたはLinuxで実行されるときに、デフォルトのプロパティの代わりに使用されます。
 
-### Custom Tasks
+### カスタムタスク
 
-Not all scripts or tasks can be auto-detected in the workspace. It may be necessary at times to defined your own custom tasks. In this example, we have a script to run in order to set up some environment correctly. The script is stored in a folder inside your workspace and named test.sh for Linux & macOS and test.cmd for Windows. With the tasks.json file, the execution of this script can be made possible with a custom task that defines what to do on different operating systems.
+すべてのスクリプトまたはタスクをワークスペースで自動検出できるわけではありません。独自のカスタムタスクを定義する必要がある場合があります。この例では、いくつかの環境を正しくセットアップするために実行するスクリプトがあります。スクリプトはワークスペース内のフォルダーに保存され、LinuxおよびmacOSの場合はtest.sh、Windowsの場合はtest.cmdという名前が付けられます。tasks.jsonファイルを使用すると、さまざまなオペレーティングシステムで何を実行するかを定義するカスタムタスクを使用して、このスクリプトの実行を可能にすることができます。
 
 ```json
 {
@@ -64,8 +63,8 @@ Not all scripts or tasks can be auto-detected in the workspace. It may be necess
 
 ```
 
-The command here is a shell command and tells the system to run either the test.sh or test.cmd. By default, it will run test.sh with that given path. This example here also defines Windows specific properties and tells it execute test.cmd instead of the default.
+ここでのコマンドはシェルコマンドであり、test.shまたはtest.cmdのいずれかを実行するようにシステムに指示します。デフォルトでは、指定されたパスでtest.shを実行します。この例では、Windows固有のプロパティも定義し、デフォルトの代わりにtest.cmdを実行するように指示しています。
 
-### References
+### 参考文献
 
-VS Code Docs - [operating system specific properties](https://vscode-docs.readthedocs.io/en/stable/editor/tasks/#operating-system-specific-properties)
+VS Code ドキュメント - [オペレーティングシステム固有のプロパティ](https://vscode-docs.readthedocs.io/en/stable/editor/tasks/#operating-system-specific-properties)

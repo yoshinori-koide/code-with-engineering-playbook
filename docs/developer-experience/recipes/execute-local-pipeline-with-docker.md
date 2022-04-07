@@ -1,40 +1,39 @@
-# Execute Local Pipeline
+# ローカルパイプラインを実行する
 
-## Abstract
+## 概要
 
-Having the ability to execute pipeline activities locally has been identified as an opportunity to promote positive developer experience.
-In this document we will explore a solution which will allow us to have the local CI experience to be as similar as possible to the remote process in the CI server.
+パイプラインアクティビティをローカルで実行する機能を持つことは、開発者の前向きな経験を促進する機会として認識されています。このドキュメントでは、ローカルCIエクスペリエンスをCIサーバーのリモートプロセスと可能な限り類似させることができるソリューションについて説明します。
 
-Using the suggested method will allow us to:
+提案された方法を使用すると、次のことが可能になります。
 
 - Build
 - Lint
-- Unit test
-- E2E test
-- Run Solution
-- Be OS and environment agnostic.
+- Unit テスト
+- E2E テスト
+- ソリューションの実行
+- OSや環境への非依存。
 
-## Enter Docker Compose
+## Docker Compose の導入
 
-[Docker Compose](https://docs.docker.com/compose/) allows you to build push or run multi-container Docker applications.
+[Docker Compose](https://docs.docker.com/compose/)を使用すると、プッシュを構築したり、マルチコンテナーDockerアプリケーションを実行したりできます。
 
-### Method of work
+### 作業方法
 
-1. Dockerize your application(s), including a build step if possible.
-2. Add a step in your docker file to execute unit tests.
-3. Add a step in the docker file for linting.
-4. Create a new dockerfile, possibly in a different folder, which executes end-to-end tests against the cluster. Make sure the default endpoints are configurable (This will become handy in your remote CI server, where you will be able to test against a live environment, if you choose to).
-5. Create a docker-compose file which allows you to choose which of the services to run. The default will run all applications and tests, and an optional parameter can run specific services, for example only the application without the tests.
+1. 可能であればビルドステップを含め、アプリケーションをDocker化してください。
+2. Dockerファイルにステップを追加して、単体テストを実行します。
+3. リンティング用のステップをDockerファイルに追加します。
+4. おそらく別のフォルダーに新しいdockerfileを作成します。これにより、クラスターに対してエンドツーエンドのテストが実行されます。デフォルトのエンドポイントが構成可能であることを確認します（これは、リモートCIサーバーで便利になり、必要に応じて、ライブ環境に対してテストできます）。
+5. 実行するサービスを選択できるdocker-composeファイルを作成します。デフォルトでは、すべてのアプリケーションとテストが実行され、オプションのパラメーターで特定のサービスを実行できます。たとえば、テストのないアプリケーションのみを実行できます。
 
-### Prerequisites
+### 前提条件
 
 1. [Docker](https://www.docker.com/products/docker-desktop)
-2. Optional: if you clone the sample app, you need to have [dotnet core](https://dotnet.microsoft.com/download) installed.
+2. オプション：サンプルアプリのクローンを作成する場合は、[dotnet core](https://dotnet.microsoft.com/download) をインストールする必要があります。
 
-### Step by step with examples
+### 例を使って段階的に
 
-For this tutorial we are going to use a [sample dotnet core api application](https://github.com/itye-msft/cse-engagement-template).
-Here is the docker file for the sample app:
+このチュートリアルでは、[sample dotnet core api application](https://github.com/itye-msft/cse-engagement-template)を使用します。
+サンプルアプリのDockerファイルは次のとおりです。
 
 ```sh
 # https://hub.docker.com/_/microsoft-dotnet
@@ -58,10 +57,9 @@ COPY --from=build /app/out .
 ENTRYPOINT ["dotnet", "SampleNetApi.dll"]
 ```
 
-This script restores all dependencies, builds and runs tests. The dotnet app includes `stylecop` which fails the build in case of linting issues.
+このスクリプトは、すべての依存関係を復元し、テストをビルドして実行します。`stylecop`を含むdotnetアプリには、リンティングの問題が発生した場合にビルドに失敗するものが含まれています。
 
-Next we will also create a dockerfile to perform an end-to-end test. Usually this will look like a set of scripts, or a dedicated app which performs actual HTTP calls to a running application.
-For the sake of simplicity the dockerfile itself will run a simple curl command:
+次に、エンドツーエンドのテストを実行するためのdockerfileも作成します。通常、これは一連のスクリプト、または実行中のアプリケーションへの実際のHTTP呼び出しを実行する専用アプリのように見えます。簡単にするために、dockerfile自体は単純なcurlコマンドを実行します。
 
 ```sh
 FROM alpine:3.7
@@ -69,7 +67,7 @@ RUN apk --no-cache add curl
 ENTRYPOINT ["curl","0.0.0.0:8080/weatherforecast"]
 ```
 
-Now we are ready to combine both of the dockerfiles in a docker-compose script:
+これで、両方のdockerfileをdocker-composeスクリプトに結合する準備が整いました。
 
 ```sh
 version: '3'
@@ -86,24 +84,21 @@ services:
       context: ./E2E
 ```
 
-The docker-compose script will launch the 2 dockerfiles, and it will build them if they were not built before.
-The following command will run docker compose:
+docker-composeスクリプトは2つのdockerfileを起動し、以前にビルドされていない場合はそれらをビルドします。次のコマンドは、dockercomposeを実行します。
 
 ```sh
 docker-compose up --build -d
 ```
 
-Once the images are up, you can make calls to the service. The e2e image will perform the set of e2e tests.
-If you want to skip the tests, you can simply tell compose to run a specific service by appending the name of the service, as follows:
+画像が表示されたら、サービスに電話をかけることができます。e2eイメージは、一連のe2eテストを実行します。テストをスキップしたい場合は、次のように、サービスの名前を追加することで、composeに特定のサービスを実行するように指示できます。
 
 ```sh
 docker-compose up --build -d app
 ```
 
-Now you have a local script which builds and tests you application.
-The next step would be make your CI run the docker-compose script.
+これで、アプリケーションをビルドしてテストするローカルスクリプトができました。次のステップは、CIにdocker-composeスクリプトを実行させることです。
 
-Here is an example of a yaml file used by Azure DevOps pipelines:
+AzureDevOpsパイプラインで使用されるyamlファイルの例を次に示します。
 
 ```sh
 trigger:
@@ -128,6 +123,4 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 ```
 
-In this script the first step is docker-compose, which uses the same file we created the previous steps.
-The next steps, do the same using scripts, and are here for comparison.
-By the end of this step, your CI effectively runs the same build and test commands you run locally.
+このスクリプトでは、最初のステップはdocker-composeです。これは、前のステップで作成したものと同じファイルを使用します。次のステップは、スクリプトを使用して同じことを行い、比較のためにここにあります。このステップの終わりまでに、CIはローカルで実行するのと同じビルドおよびテストコマンドを効果的に実行します。

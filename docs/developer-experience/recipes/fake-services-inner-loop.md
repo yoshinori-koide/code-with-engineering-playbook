@@ -1,14 +1,14 @@
-# Fake Services Inner Dev Loop
+# 偽のサービスの内部開発ループ
 
-## Introduction
+## 序章
 
-Consumers of remote services often find that their development cycle is not in sync with development of remote services, leaving developers of these consumers waiting for the remote services to "catch up". One approach to mitigate this issue and improve the inner dev loop is by decoupling and using Mock Services. Various Mock Service options are detailed [here](../client-app-inner-loop.md).
+リモートサービスの消費者は、開発サイクルがリモートサービスの開発と同期していないことに気付くことが多く、これらの消費者の開発者はリモートサービスが「追いつく」のを待っています。この問題を軽減し、内部開発ループを改善するための1つのアプローチは、モックサービスを分離して使用することです。さまざまなモックサービスオプションの詳細については、[こちら](../client-app-inner-loop.md)をご覧ください。
 
-This document will focus on providing an example using the Fake Services approach.
+このドキュメントでは、偽のサービスアプローチを使用した例を提供することに焦点を当てます。
 
 ## API
 
-For our example API, we will work against a `/User` endpoint and the properties for `User` will be:
+サンプルAPIの場合、`/User`エンドポイントに対して作業し、そのプロパティは次の`User`ようになります。
 
 1. id - int
 2. username - string
@@ -19,19 +19,19 @@ For our example API, we will work against a `/User` endpoint and the properties 
 7. phone - string
 8. userStatus - int
 
-## Tooling
+## ツーリング
 
-For the Fake Service approach, we will be using [Json-Server](https://github.com/typicode/json-server). Json-Server is a tool that provides the ability to fully fake REST APIs and run the server locally. It is designed to spin up REST APIs with CRUD functionality with minimal setup. Json-Server requires NodeJS and is installed via NPM.
+偽のサービスアプローチでは、[Json-Server](https://github.com/typicode/json-server)を使用します。Json-Serverは、REST APIを完全に偽造し、サーバーをローカルで実行する機能を提供するツールです。最小限のセットアップでCRUD機能を備えたRESTAPIを起動するように設計されています。Json-ServerにはNodeJSが必要であり、NPMを介してインストールされます。
 
 ```bash
 npm install -g json-server
 ```
 
-## Setup
+## 設定
 
-In order to run Json-Server, it simply requires a source for data and will infer routes, etc. based on the data file. Note that additional customization can be performed for more advanced scenarios (e.g. custom routes). Details can be found [here](https://github.com/typicode/json-server#add-custom-routes).
+Json-Serverを実行するには、データのソースが必要であり、データファイルに基づいてルートなどを推測します。より高度なシナリオ（カスタムルートなど）では、追加のカスタマイズを実行できることに注意してください。詳細は[こちら](https://github.com/typicode/json-server#add-custom-routes)をご覧ください。
 
-For our example, we will use the following data file, `db.json`:
+この例では、次のデータファイルを使用します`db.json`。
 
 ```text
 {
@@ -60,31 +60,31 @@ For our example, we will use the following data file, `db.json`:
 }
 ```
 
-## Run
+## 起動
 
-Running Json-Server can be performed by simply running:
+Json-Serverの実行は、次のコマンドを実行するだけで起動できます。
 
 ```bash
 json-server --watch src/db.json
 ```
 
-Once running, the User endpoint can be hit on the default localhost port: `http:/localhost:3000/user`
+実行すると、ユーザーエンドポイントはデフォルトのローカルホストポートで叩くことができます。 `http:/localhost:3000/user`
 
-Note that Json-Server can be configured to use other ports using the following syntax:
+Json-Serverは、次の構文を使用して他のポートを使用するように構成できることに注意してください。
 
 ```bash
 json-server --watch db.json --port 3004
 ```
 
-## Endpoint
+## エンドポイント
 
-The endpoint can be tested by running curl against it and we can narrow down which user object to get back with the following command:
+エンドポイントは、それに対してcurlを実行することでテストでき、次のコマンドを使用して、取得するユーザーオブジェクトを絞り込むことができます。
 
 ```bash
 curl http://localhost:3000/user/1
 ```
 
-which, as expected, returns:
+これは、予想どおり、次を返します。
 
 ```text
 {

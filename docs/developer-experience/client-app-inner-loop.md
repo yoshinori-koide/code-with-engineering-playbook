@@ -1,35 +1,18 @@
-# Problem Statement
+# 問題文
 
-Client Apps typically rely on remote services to power their apps.
-However, development schedules between the client app and the services
-don't always fully align. For a high velocity inner dev loop, client app
-development must be decoupled from the backend services while still
-allowing the app to "invoke" the services for local testing.
+クライアントアプリは通常、リモートサービスに依存してアプリを強化します。ただし、クライアントアプリとサービス間の開発スケジュールは必ずしも完全に一致しているわけではありません。高速内部開発ループの場合、クライアントアプリの開発をバックエンドサービスから切り離し、アプリがローカルテスト用のサービスを「呼び出す」ことを許可する必要があります。
 
-## Options
+## オプション
 
-Several options exist to decouple client app development from the
-backend services. The options range from embedding mock implementation
-of the services into the application, others rely on simplified versions
-of the services.
+クライアントアプリの開発をバックエンドサービスから切り離すためのいくつかのオプションがあります。オプションは、サービスのモック実装をアプリケーションに埋め込むことから、サービスの簡略化されたバージョンに依存するものまでさまざまです。
 
-This document lists several options and discusses trade-offs.
+このドキュメントでは、いくつかのオプションをリストし、トレードオフについて説明します。
 
-## Embedded Mocks
+## 埋め込まれたモック
 
-An embedded mock solution includes classes that implement the service
-interfaces locally. Interfaces and data classes, also called models or
-data transfer objects or DTOs, are often generated from the services'
-API specs using tools like nswag ([RicoSuter/NSwag: The Swagger/OpenAPI
-toolchain for .NET, ASP.NET Core and TypeScript.
-(github.com)](https://github.com/RicoSuter/NSwag)) or autorest
-([Azure/autorest: OpenAPI (f.k.a Swagger) Specification code generator.
-Supports C#, PowerShell, Go, Java, Node.js, TypeScript, Python, Ruby
-(github.com)](https://github.com/Azure/AutoRest)).
+組み込みの模擬ソリューションには、サービスインターフェイスをローカルに実装するクラスが含まれています。モデルまたはデータ転送オブジェクトまたはDTOとも呼ばれるインターフェイスとデータクラスは、nswag（[RicoSuter / NSwag：.NET、ASP.NET Core、TypeScript用のSwagger / OpenAPIツールチェーン（github.com）](https://github.com/RicoSuter/NSwag)）またはautorest（[Azure / autorest：OpenAPI（または Swagger）仕様コードジェネレーター。C＃、PowerShell、Go、Java、Node.js、TypeScript、Python、Ruby（github.com）をサポート](https://github.com/Azure/AutoRest)）などのツールを使用して、サービスのAPI仕様から生成されることがよくあります。 
 
-A simple service implementation can return a static response. For
-RESTful services, the JSON responses for the stubs can be stored as
-application resources or simply as static strings.
+単純なサービス実装は静的応答を返すことができます。RESTfulサービスの場合、スタブのJSON応答は、アプリケーションリソースとして、または単に静的文字列として保存できます。
 
 ```C#
 public Task\<UserProfile> GetUserAsync(long userId, CancellationToken
@@ -46,23 +29,13 @@ Newtonsoft.Json.JsonConvert.DeserializeObject\<UserProfile>(
 }
 ```
 
-More sophisticated can randomly return errors to test the app's
-resiliency code paths.
+より洗練されたものは、ランダムにエラーを返し、アプリの復元力コードパスをテストできます。
 
-Mocks can be activated via conditional compilation or dynamically via
-app configuration. In either case, it is recommended to ensure that
-mocks, service responses and externalized configurations are not
-included in the final release to avoid confusing behavior and inclusion
-of potential vulnerabilities.
+モックは、条件付きコンパイルを介して、またはアプリ構成を介して動的にアクティブ化できます。いずれの場合も、混乱を招き、潜在的な脆弱性が含まれることを避けるために、モック、サービスレスポンス、および外部化された構成が最終リリースに含まれないようにすることをお勧めします。
 
-### Sample: Registering Mocks via Dependency Injection
+### サンプル：依存性注入によるモックの登録
 
-Dependency Injection Containers like Unity ([Unity Container
-Introduction \| Unity
-Container](http://unitycontainer.org/articles/introduction.html)) make
-it easy to switch between mock services and real service client
-implementations. Since both implement the same interface,
-implementations can be registered with the Unity container.
+Unity（[UnityContainerの紹介|Unity Container](http://unitycontainer.org/articles/introduction.html) ）のような依存性注入コンテナーを使用すると、モックサービスと実際のサービスクライアントの実装を簡単に切り替えることができます。どちらも同じインターフェースを実装しているため、Unityコンテナーに実装を登録できます。
 
 ```C#
 public static void Bootstrap(IUnityContainer container)
@@ -77,7 +50,7 @@ public static void Bootstrap(IUnityContainer container)
 }
 ```
 
-The code consuming the interfaces will not notice the difference.
+インターフェイスを消費するコードは、違いに気付かないでしょう。
 
 ```C#
 public class UserPageModel
@@ -96,71 +69,44 @@ public class UserPageModel
 }
 ```
 
-## Local Services
+## インターフェイスを消費するコードは、違いに気付かないでしょう。
 
-The approach with Locally Running Services is to replace the call in the
-client from pointing to the actual endpoint (whether dev, QA, prod,
-etc.) to a local endpoint.
+ローカルで実行されるサービスを使用するアプローチは、クライアントでの呼び出しを、実際のエンドポイント（dev、QA、prodなど）を指すことからローカルエンドポイントに置き換えることです。
 
-This approach also enables injecting traffic capture and shaping proxies
-like Postman ([Postman API Platform \| Sign Up for
-Free](https://www.postman.com/)) or Fiddler ([Fiddler \| Web Debugging
-Proxy and Troubleshooting Solutions
-(telerik.com)](https://www.telerik.com/fiddler)).
+このアプローチでは、Postman（ [Postman APIプラットフォーム|無料でサインアップ](https://www.postman.com/)）やFiddler（[Fiddler | Webデバッグプロキシおよびトラブルシューティングソリューション（telerik.com）](https://www.telerik.com/fiddler) ）などのトラフィックキャプチャおよびシェーピングプロキシを挿入することもできます。
 
-The advantage of this approach is that the APIs are decoupled from the
-client and can be independently updated/modified (e.g. changing response
-codes, changing data) without requiring changes to the client. This
-helps to unlock new development scenarios and provides flexibility
-during the development phase.
+このアプローチの利点は、APIがクライアントから切り離されており、クライアントに変更を加えることなく、独立して更新/変更（応答コードの変更、データの変更など）できることです。これは、新しい開発シナリオのロックを解除するのに役立ち、開発フェーズ中に柔軟性を提供します。
 
-The challenge with this approach is that it does require setup,
-configuration, and running of the services locally. There are tools that
-help to simplify that process (e.g.
-[JsonServer](https://www.npmjs.com/package/json-server), [Postman Mock
-Server](https://learning.postman.com/docs/designing-and-developing-your-api/mocking-data/setting-up-mock/)).
+このアプローチの課題は、サービスのセットアップ、構成、およびローカルでの実行が必要になることです。そのプロセスを簡素化するのに役立つツールがあります（例： [JsonServer](https://www.npmjs.com/package/json-server)、[Postman Mock Server](https://learning.postman.com/docs/designing-and-developing-your-api/mocking-data/setting-up-mock/)）。
 
-### High-Fidelity Local Services
+### 忠実度の高いローカルサービス
 
-A local service stub implements the expected APIs. Just like the
-embedded mock, it can be generated based on existing API contracts (e.g.
-OpenAPI).
+ローカルサービススタブは、期待されるAPIを実装します。埋め込みモックと同様に、既存のAPIコントラクト（OpenAPIなど）に基づいて生成できます。
 
-A high-fidelity approach packages the real services together with
-simplified data in docker containers that can be run locally using
-docker-compose before the client app is started for local debugging and
-testing. To enable running services fully local the "local version"
-substitutes dependent cloud services with local alternatives, e.g. file
-storage instead of blobs, locally running SQL Server instead of SQL
-AzureDB.
+忠実度の高いアプローチでは、クライアントアプリがローカルのデバッグとテストのために開始される前に、docker-composeを使用してローカルで実行できるdockerコンテナーに、実際のサービスと簡略化されたデータをパッケージ化します。サービスを完全にローカルで実行できるようにするには、「ローカルバージョン」は、依存するクラウドサービスをローカルの代替手段に置き換えます。たとえば、blobの代わりにファイルストレージを使用し、SQLAzureDBの代わりにSQLServerをローカルで実行します。
 
-This approach also enables full fidelity integration testing without
-spinning up distributed deployments.
+このアプローチにより、分散展開をスピンアップすることなく、完全な忠実度の統合テストも可能になります。
 
-## Stub / Fake Services
+## スタブ/フェイクサービス
 
-Lower fidelity approaches run stub services, that could be generated
-from API specs, or run fake servers like JsonServer ([JsonServer.io: A
-fake json server API Service for prototyping and
-testing.](https://www.jsonserver.io/)) or Postman. All these services
-would respond with predetermined and configured JSON messages.
+忠実度の低いアプローチでは、API仕様から生成できるスタブサービスを実行するか、JsonServer（[JsonServer.io：プロトタイピングとテスト用の偽のjsonサーバーAPIサービス]((https://www.jsonserver.io/)）やPostmanなどの偽のサーバーを実行します。これらのサービスはすべて、事前に決定され構成されたJSONメッセージで応答します。
 
-An example of how to implement using Fake Services can be found [here](./recipes/fake-services-inner-loop.md).
+偽のサービスを使用して実装する方法の例は、[ここにあり](./recipes/fake-services-inner-loop.md)ます。
 
-## How to decide
+## 決定方法
 
-|| Pros| Cons| Example when developing for: | Example When not to Use  |
+|| 長所| 短所| 開発時の例： | 使用しない場合の例  |
 |------------|-------------|-------------|---------------|------------|
-| Embedded Mocks | Simplifies the F5 developer experience |Tightly coupled with Client | More static type data scenarios      | Testing  (e.g. unit tests, integration tests )  |
-|| No external dependencies to manage | Hard coded data | Initial integration with services |
-||| Mocking via Dependency Injection can be a non-trivial effort ||
-| High-Fidelity Local Services | Loosely Coupled from Client | Extra tooling required  i.e. local infrastructure overhead | URL Routes  | When API contract are not available   |
-||Easier to independently modify response| Extra setup and configuration of services |
-||Independent updates to services||
-||Can utilize HTTP traffic|||
-||Easier to replace with real services at a later time |||
-|Stub/Fake Services|Loosely coupled from client|Extra tooling required  i.e. local infrastructure overhead| Response Codes | When API Contracts available |
-||Easier to independently modify reponse|Extra setup and configuration of services|Complex/variable data scenarios| When API Contracts are note available |
-||Independent updates to services|Might not provide full fidelity of expected API ||
-||Can utilize HTTP traffic|||
-||Easier to reapce with real services at a later time |||
+| 埋め込まれたモック | F5開発者エクスペリエンスを簡素化します |クライアントと緊密に結合| より静的なタイプのデータシナリオ  | テスト（単体テスト、統合テストなど）  |
+|| 管理する外部依存関係はありません | ハードコードされたデータ | サービスとの最初の統合 |
+||| 依存性注入によるモックは、些細なことではありません。 ||
+| 忠実度の高いローカルサービス | クライアントから緩く結合 | 追加のツールが必要、つまりローカルインフラストラクチャのオーバーヘッド | URLルート  | API契約が利用できない場合   |
+||応答を個別に変更するのが簡単| サービスの追加のセットアップと構成 |
+||	サービスの独立した更新||
+||HTTPトラフィックを利用できます|||
+||後で実際のサービスに簡単に置き換えることができます |||
+|スタブ/フェイクサービス|クライアントから緩く結合|追加のツールが必要、つまりローカルインフラストラクチャのオーバーヘッド| 応答コード | API契約が利用可能な場合 |
+||応答を個別に変更するのが簡単|サービスの追加のセットアップと構成|複雑/可変データシナリオ| API契約が利用可能な場合 |
+||	サービスの独立した更新|期待されるAPIの完全な忠実度を提供しない可能性があります ||
+||HTTPトラフィックを利用できます|||
+||	後で実際のサービスを利用するのが簡単 |||

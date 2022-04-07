@@ -1,31 +1,31 @@
-# Going further with Dev Containers
+# 開発コンテナをさらに活用する
 
-Dev Containers allow developers to share a common working environment, ensuring that the runtime and all dependencies versions are consistent for all developers.
+開発コンテナを使用すると、開発者は共通の作業環境を共有でき、ランタイムとすべての依存関係のバージョンがすべての開発者に対して一貫していることが保証されます。
 
-Dev containers also allow us to:
+開発コンテナでは、次のことも可能です。
 
-1. Leverage existing tools to enhance the Dev Containers with more features,
-2. Provide custom tools (such as scripts) for other developers.
+1. 既存のツールを活用して、より多くの機能を備えた開発コンテナを強化します。
+2. 他の開発者にカスタムツール（スクリプトなど）を提供します。
 
-## Existing tools
+## 既存のツール
 
-In the development phase, you will most probably need to use tools not installed by default in your Dev Container. For instance, if your project's target is to be deployed on Azure, you will need [Azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) and maybe [Terraform](https://www.terraform.io/) for resources and application deployment. You can find such Dev Containers in the [VS Code dev container gallery repo](https://github.com/microsoft/vscode-dev-containers/tree/master/containers).
+開発フェーズでは、おそらく、開発コンテナにデフォルトでインストールされていないツールを使用する必要があります。たとえば、プロジェクトのターゲットをAzureにデプロイする場合は、リソースとアプリケーションのデプロイに[Azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)と[Terraform](https://www.terraform.io/)が必要になります。このような開発コンテナは、[VSCode devコンテナギャラリーリポジトリ](https://github.com/microsoft/vscode-dev-containers/tree/master/containers)にあります。
 
-Some other tools may be:
+他のいくつかのツールは次のとおりです。
 
-* Linters for [markdown](https://github.com/DavidAnson/markdownlint) files,
-* Linters for [bash](https://www.shellcheck.net/) scripts,
-* Etc...
+* [Markdown](https://github.com/DavidAnson/markdownlint)ファイルのリンター、
+* [bash](https://www.shellcheck.net/)スクリプトのリンター、
+* など...
 
-Linting files that are not *the source code* can ensure a common format with common rules for each developer. These checks should be also run in a [Continuous Integration Pipeline](https://docs.microsoft.com/en-us/azure/architecture/example-scenario/apps/devops-dotnet-webapp), but it is a good practice to run them prior opening a [Pull Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
+*ソースコードではない*ファイルをリンティングすることで、各開発者に共通のルールを持つ共通のフォーマットを確保できます。これらのチェックは[継続的インテグレーションパイプライン](https://docs.microsoft.com/en-us/azure/architecture/example-scenario/apps/devops-dotnet-webapp)でも実行する必要がありますが、[プルリクエスト](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)を開く前に実行することをお勧めします。
 
-## Limitation of custom tools
+## カスタムツールの制限
 
-If you decide to include [Azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) in your Dev Container, developers will be able to run commands against their tenant. However, to make the developers' lives easier, we could go further by letting them prefill their connection information, such as the `tenant ID` and the `subscription ID` in a secure and persistent way (do not forget that your Dev Container, being a [Docker](https://www.docker.com/) container, might get deleted, or the image could be rebuilt, hence, all customization *inside* will be lost).
+開発コンテナーに[Azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)を含めることにした場合、開発者はテナントに対してコマンドを実行できます。ただし、開発者の生活を楽にするために、`tenant ID`や`subscription ID`などの接続情報を安全かつ永続的な方法で事前入力できるようにすることで、さらに先に進むことができます（ [Docker](https://www.docker.com/)コンテナであるDevコンテナが削除される可能性があることを忘れないでください）、またはイメージが再構築される可能性があるため、*内部*のすべてのカスタマイズが失われます）。
 
-One way to achieve this is to leverage environment variables, with untracked `.env` file part of the solution being injected in the Dev Container.
+これを実現する1つの方法は、環境変数を活用して、ソリューションの追跡されていない`.env`ファイル部分をDevContainerに注入することです。
 
-Consider the following files structure:
+次のファイル構造を検討してください。
 
 ```bash
 My Application  # main repo directory
@@ -37,16 +37,16 @@ My Application  # main repo directory
 |       ├───.env-sample
 ```
 
-The file `config/.env-sample` is a tracked file where anyone can find environment variables to set (with no values, obviously):
+このファイル`config/.env-sample`は追跡されたファイルであり、誰でも設定する環境変数を見つけることができます（明らかに値はありません）。
 
 ```bash
 TENANT_ID=
 SUBSCRIPTION_ID=
 ```
 
-Then, each developer who clones the repository can create the file `config/.env` and fills it in with the appropriate values.
+次に、リポジトリのクローンを作成する各開発者は、`config/.env`ファイルを作成し、適切な値を入力できます。
 
-In order now to inject the `.env` file into the container, you can update the file `devcontainer.json` with the following:
+`.env`ファイルをコンテナに挿入するために、次のように`devcontainer.json`ファイルを更新できます。
 
 ```json
 {
@@ -56,11 +56,11 @@ In order now to inject the `.env` file into the container, you can update the fi
 }
 ```
 
-As soon as the Dev Container is started, these environment variables are sent to the container.
+Dev Containerが開始されるとすぐに、これらの環境変数がコンテナーに送信されます。
 
-Another approach would be to use Docker Compose, a little bit more complex, and probably *too much* for just environment variables. Using Docker Compose can unlock other settings such as custom dns, ports forwarding or multiple containers.
+もう1つのアプローチは、Docker Composeを使用することです。これは、もう少し複雑で、おそらく環境変数だけでは**多すぎ**ます。Docker Composeを使用すると、カスタムDNS、ポート転送、複数のコンテナーなどの他の設定のロックを解除できます。
 
-To achieve this, you need to add a file `.devcontainer/docker-compose.yml` with the following:
+これを実現するには、次の`.devcontainer/docker-compose.yml`ファイルを追加する必要があります。
 
 ```yaml
 version: '3'
@@ -73,7 +73,7 @@ services:
     command: sleep infinity
 ```
 
-Too use the `docker-compose.yml` file instead of `Dockerfile`, we need to adjust `devcontainer.json` with:
+`Dockerfile`の代わりに`docker-compose.yml`ファイルを使用するために、次のように`devcontainer.json`を調整する必要があります。
 
 ```json
 {
@@ -84,15 +84,15 @@ Too use the `docker-compose.yml` file instead of `Dockerfile`, we need to adjust
 }
 ```
 
-This approach can be applied for many other tools by preparing what would be required. The idea is to simplify developers' lives and new developers joining the project.
+このアプローチは、必要なものを準備することにより、他の多くのツールに適用できます。アイデアは、開発者の生活とプロジェクトに参加する新しい開発者を簡素化することです。
 
-## Custom tools
+## カスタムツール
 
-While working on a project, any developer might end up writing a script to automate a task. This script can be in `bash`, `python` or whatever scripting language they are comfortable with.
+プロジェクトに取り組んでいる間、開発者はタスクを自動化するためのスクリプトを書くことになりかねません。このスクリプトは`bash`、`python`、または使い慣れたスクリプト言語であれば何でもかまいません。
 
-Let's say you want to ensure that all markdown files written are validated against specific rules you have set up. As we have seen above, you can include the tool [markdownlint](https://github.com/DavidAnson/markdownlint) in your Dev Container . Having the tool installed does not mean developer will know how to use it!
+書き込まれたすべてのマークダウンファイルが、設定した特定のルールに対して検証されていることを確認するとします。上で見たように、[markdownlint](https://github.com/DavidAnson/markdownlint)ツールを開発コンテナに含めることができます。ツールがインストールされているからといって、開発者がその使用方法を知っているわけではありません。
 
-Consider the following solution structure:
+次のソリューション構造を検討してください。
 
 ```bash
 My Application  # main repo directory
@@ -105,7 +105,7 @@ My Application  # main repo directory
 └───.markdownlint.json
 ```
 
-The file `.devcontainer/Dockerfile` installs [markdownlint](https://github.com/DavidAnson/markdownlint)
+`.devcontainer/Dockerfile`ファイルは[markdownlint](https://github.com/DavidAnson/markdownlint)をインストールします
 
 ```dockerfile
 ...
@@ -118,9 +118,9 @@ RUN npm install -g markdownlint-cli
 ...
 ```
 
-The file `.markdownlint.json` contains the rules you want to validate in your markdown files (please refer to the [markdownlint site](https://github.com/DavidAnson/markdownlint) for details).
+このファイル`.markdownlint.json`には、マークダウンファイルで検証するルールが含まれています（詳細については、[markdownlintサイト](https://github.com/DavidAnson/markdownlint)を参照してください）。
 
-And finally, the script `scripts/check-markdown.sh` contains the following code to execute `markdownlint`:
+そして最後に、スクリプト`scripts/check-markdown.sh`には`markdownlint`を実行する次のコードが含まれています。
 
 ```bash
 # Get the repository root
@@ -130,26 +130,25 @@ repoRoot="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 markdownlint -c "${repoRoot}"/.markdownlint.json
 ```
 
-When the Dev Container is loaded, any developer can now run this script in their terminal:
+開発コンテナが読み込まれると、開発者はターミナルで次のスクリプトを実行できるようになります。
 
 ```bash
 /> ./scripts/check-markdown.sh
 ```
 
-This is a small use case, there are unlimited other possibilities to capitalize on work done by developers to save time.
+これは小さなユースケースであり、時間を節約するために開発者が行った作業を利用する他の無限の可能性があります。
 
-## Other considerations
+## その他の考慮事項
 
-### Platform architecture
+### プラットフォームアーキテクチャ
 
-When installing tooling, you also need to ensure that you know what host computers developers are using. All Intel based computers, whether they are running Windows, Linux or MacOs will have the same behavior.
-However, the latest Mac architecture (Apple M1/Silicon) being ARM64, means that the behavior is not the same when building Dev Containers.
+ツールをインストールするときは、開発者が使用しているホストコンピューターを確実に把握する必要もあります。Windows、Linux、MacOのいずれを実行していても、すべてのIntelベースのコンピューターは同じ動作をします。ただし、最新のMacアーキテクチャ（Apple M1 / Silicon）はARM64であるため、開発コンテナを構築するときの動作は同じではありません。
 
-For instance, if you want to install [Azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) in your Dev Container, you won't be able to do it the same way you do it for Intel based machines. On Intel based computers you can install the `deb` package. However, this package is not available on ARM architecture. The only way to install [Azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) on Linux ARM is via the Python installer `pip`.
+たとえば、開発コンテナーに[Azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)をインストールする場合、Intelベースのマシンの場合と同じようにインストールすることはできません。Intelベースのコンピューターでは、debパッケージをインストールできます。ただし、このパッケージはARMアーキテクチャでは使用できません。Linux ARMに[Azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)をインストールする唯一の方法は、Pythonインストーラーの`pip`を使用することです。
 
-To achieve this you need to check the architecture of the host building the Dev Container, either in the Dockerfile, or by calling an external bash script to install remaining tools not having a universal version.
+これを実現するには、Dockerfileで、または外部bashスクリプトを呼び出して、ユニバーサルバージョンを持たない残りのツールをインストールすることにより、Devコンテナを構築するホストのアーキテクチャを確認する必要があります。
 
-Here is a snippet to call from the Dockerfile:
+Dockerfileから呼び出すスニペットは次のとおりです。
 
 ```bash
 # If Intel based, then use the deb file
@@ -163,13 +162,13 @@ else
 fi
 ```
 
-### Reuse of credentials for Github
+### Githubのクレデンシャルの再利用
 
-If you develop inside a Dev Container, you will also want to share your Github credentials between your host and the Dev Container. Doing so, you would avoid copying your ssh keys back and forth (if you are using ssh to access your repositories).
+開発コンテナ内で開発する場合は、ホストと開発コンテナの間でGithubクレデンシャルを共有することもできます。そうすることで、sshキーを前後にコピーすることを回避できます（sshを使用してリポジトリにアクセスしている場合）。
 
-One approach would be to mount your local `~/.ssh` folder into your Dev Container. You can either use the `mounts` option of the `devcontainer.json`, or use Docker Compose
+1つのアプローチは、ローカルの`~/.ssh`フォルダーを開発コンテナーにマウントすることです。`devcontainer.json`の`mounts`のオプションを使用するか、DockerComposeを使用できます
 
-* Using `mounts`:
+* `mounts`を使う場合:
 
 ```json
 {
@@ -179,9 +178,9 @@ One approach would be to mount your local `~/.ssh` folder into your Dev Containe
 }
 ```
 
-As you can see, `${localEnv:HOME}` returns the host `home` folder, and it maps it to the container `home` folder.
+ご覧のとおり、`${localEnv:HOME}`はホストの`home`フォルダーを返し、コンテナの`home`フォルダーにマップします。
 
-* Using Docker Compose:
+* Docker Compose を使う場合:
 
 ```yaml
 version: '3'
@@ -195,17 +194,17 @@ services:
     command: sleep infinity
 ```
 
-Please note that using Docker Compose requires to edit the `devcontainer.json` file as we have seen above.
+上記のように、DockerComposeを使用するには`devcontainer.json`ファイルを編集する必要があることに注意してください。
 
-You can now access Github using the same credentials as your host machine, without worrying of persistence.
+これで、永続性を気にすることなく、ホストマシンと同じクレデンシャルを使用してGithubにアクセスできます。
 
-### Allow some customization
+### カスタマイズを許可する
 
-As a final note, it is also interesting to leave developers some flexibility in their environment for customization.
+最後に、開発者がカスタマイズできるように環境にある程度の柔軟性を持たせることも興味深いことです。
 
-For instance, one might want to add aliases to their environment. However, changing the `~/.bashrc` file in the Dev Container is not a good approach as the container might be destroyed. There are numerous ways to set persistence, here is one approach.
+たとえば、環境にエイリアスを追加したい場合があります。ただし、コンテナが破壊される可能性があるため、開発コンテナ内の`~/.bashrc`ファイルを変更することは適切なアプローチではありません。永続性を設定する方法は多数ありますが、ここに1つのアプローチがあります。
 
-Consider the following solution structure:
+次のソリューション構造を検討してください。
 
 ```bash
 My Application  # main repo directory
@@ -217,14 +216,15 @@ My Application  # main repo directory
 |       ├───bashrc_extension
 ```
 
-The folder `me` is untracked in the repository, leaving developers the flexibility to add personal resources. One of these resources can be a `.bashrc` extension containing customization. For instance:
+フォルダ`me`はリポジトリで追跡されないため、開発者は個人的なリソースを柔軟に追加できます。これらのリソースの1つは、カスタマイズを含む`.bashrc`に拡張することができます。
+例えば：
 
 ```bash
 # Sample alias
 alias gaa="git add --all"
 ```
 
-We can now adapt our `Dockerfile` to load these changes when the Docker image is built (and of course, do nothing if there is no file):
+これで、Dockerイメージのビルド時に`Dockerfile`の変更をロードするように調整できます（もちろん、ファイルがない場合は何もしません）。
 
 ```dockerfile
 ...

@@ -1,36 +1,36 @@
-# Getting Started with Dev Containers
+# 開発コンテナ入門
 
-If you are a developer and have experience with Visual Studio Code (VS Code) or Docker, then it's probably time you look at [development containers](https://code.visualstudio.com/docs/remote/containers) (dev containers). This readme is intended to assist developers in the decision-making process needed to build dev containers. The guidance provided should be especially helpful if you are experiencing VS Code dev containers for the first time.
+開発者であり、Visual Studio Code（VS Code）またはDockerの経験がある場合は、おそらく[開発コンテナ](https://code.visualstudio.com/docs/remote/containers)（dev containers）を検討する必要があります。このreadmeは、開発者が開発コンテナを構築するために必要な意思決定プロセスを支援することを目的としています。提供されるガイダンスは、VSCodedevコンテナーを初めて使用する場合に特に役立ちます。
 
-> **Note:** This guide is not about setting up a Docker file for deploying a running Python program for CI/CD.
+> **注：** このガイドは、CI/CD用に実行中のPythonプログラムをデプロイするためのDockerファイルの設定に関するものではありません。
 
-## Prerequisites
+## 前提条件
 
-- Experience with VS Code
-- Experience with Docker
+- VSCodeの経験
+- Dockerの経験
 
-## What are dev containers?
+## 開発コンテナとは何ですか？
 
-Development containers are a VS Code feature that allows developers to package a local development tool stack into the internals of a Docker container while also bringing the VS Code UI experience with them. Have you ever set a breakpoint inside a Docker container? Maybe not. Dev containers make that possible. This is all made possible through a VS Code extension called the [Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) that works together with Docker to spin-up a VS Code Server within a Docker container. The VS Code UI component remains local, but your working files are volume mounted into the container. The diagram below, taken directly from the [official VS Code docs](https://code.visualstudio.com/docs/remote/containers), illustrates this:
+開発コンテナーはVSCodeの機能であり、開発者はローカル開発ツールスタックをDockerコンテナーの内部にパッケージ化すると同時に、VSCodeUIエクスペリエンスを提供できます。Dockerコンテナ内にブレークポイントを設定したことがありますか？そうでないかもしれない。開発コンテナはそれを可能にします。これはすべて、Dockerと連携してDockerコンテナ内でVSCode Serverを起動する[Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)と呼ばれるVSCode拡張機能によって可能になります。VS Code UIコンポーネントはローカルのままですが、作業ファイルはコンテナーにボリュームマウントされます。以下の図は、[公式のVS Codeドキュメント](https://code.visualstudio.com/docs/remote/containers)から直接引用したもので、以下にこれを示します。
 
 ![image](https://user-images.githubusercontent.com/10041279/93239062-e1b9a480-f747-11ea-94fb-3d50b14fd9b1.png)
 
-If the above diagram is not clear, a basic analogy that might help you intuitively understand dev containers is to think of them as a union between Docker's interactive mode (`docker exec -it 987654e0ff32`), and the VS Code UI experience that you are used to.
+上記の図が明確でない場合、開発コンテナを直感的に理解するのに役立つ基本的な例えは、Dockerのインタラクティブモード（`docker exec -it 987654e0ff32`）と、慣れ親しんだVSCodeUIエクスペリエンスとの結合と考えることです。
 
-To set yourself up for the dev container experience described above, use your VS Code's Extension Marketplace to install the [Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack).
+上記の開発コンテナエクスペリエンスを設定するには、VSCodeのExtension Marketplaceを使用して[Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)をインストールします。
 
-## How can dev containers improve project collaboration?
+## 開発コンテナはどのようにプロジェクトのコラボレーションを改善できますか？
 
-VS Code dev containers have improved project collaboration between developers on recent team projects by addressing two very specific problems:
+VS Code開発コンテナーは、2つの非常に具体的な問題に対処することにより、最近のチームプロジェクトでの開発者間のプロジェクトコラボレーションを改善しました。
 
-- Inconsistent local developer experiences within a team.
-- Slow onboarding of developers joining a project.
+- チーム内での一貫性のないローカル開発者の経験。
+- プロジェクトに参加する開発者のオンボーディングが遅い。
 
-The problems listed above were addressed by configuring and then sharing a dev container definition. Dev containers are defined by their base image, and the artifacts that support that base image. The base image and the artifacts that come with it live in the .devcontainer directory. This directory is where configuration begins. A central artifact to the dev container definition is a configuration file called `devcontainer.json`. This file orchestrates the artifacts needed to support the base image and the dev container lifecycle. Installation of the [Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) is required to enable this orchestration within a project repo.
+上記の問題は、開発コンテナー定義を構成して共有することで解決されました。開発コンテナは、ベースイメージと、そのベースイメージをサポートするアーティファクトによって定義されます。ベースイメージとそれに付随するアーティファクトは、.devcontainerディレクトリにあります。このディレクトリは、構成が開始される場所です。開発コンテナ定義の中心的な成果物は、`devcontainer.json`と呼ばれる構成ファイルです。このファイルは、ベースイメージと開発コンテナのライフサイクルをサポートするために必要なアーティファクトを調整します。プロジェクトリポジトリ内でこのオーケストレーションを有効にするには、 [Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)をインストールする必要があります。
 
-All developers on the team are expected to share and use the dev container definition (.devcontainer directory) in order to spin-up a container. This definition provides consistent tooling for locally developing an application across a team.
+チームのすべての開発者は、コンテナーをスピンアップするために、devコンテナー定義（.devcontainerディレクトリー）を共有して使用することが期待されています。この定義は、チーム全体でアプリケーションをローカルで開発するための一貫したツールを提供します
 
-The code snippets below demonstrate the common location of a .devcontainer directory and devcontainer.json file within a project repository. They also highlight the correct way to reference a Docker file.
+以下のコードスニペットは、プロジェクトリポジトリ内の.devcontainerディレクトリとdevcontainer.jsonファイルの一般的な場所を示しています。また、Dockerファイルを参照する正しい方法も強調しています。
 
 ```bash
 $ tree vs-code-remote-try-python  # main repo directory
@@ -52,11 +52,11 @@ $ tree vs-code-remote-try-python  # main repo directory
 }
 ```
 
-For a list of devcontainer.json configuration properties, visit VS Code documentation on [dev container properties](https://code.visualstudio.com/docs/remote/devcontainerjson-reference).
+devcontainer.json構成プロパティのリストについては、[開発コンテナのプロパティ](https://code.visualstudio.com/docs/remote/devcontainerjson-reference)に関するVSCodeのドキュメントを参照してください。
 
-## How do I decide which dev container is right for my use case?
+## どの開発コンテナが私のユースケースに適しているかをどのように判断しますか？
 
-Fortunately, VS Code has a repo gallery of platform specific folders that host dev container definitions (.devcontainer directories) to make getting started with dev containers easier. The code snippet below shows a list of gallery folders that come directly from the [VS Code dev container gallery repo](https://github.com/microsoft/vscode-dev-containers/tree/master/containers):
+幸い、VS Codeには、開発コンテナー定義（.devcontainerディレクトリー）をホストするプラットフォーム固有のフォルダーのリポジトリギャラリーがあり、開発コンテナーの使用を簡単に開始できます。以下のコードスニペットは、[VSCode devコンテナーギャラリーリポジトリ](https://github.com/microsoft/vscode-dev-containers/tree/master/containers)から直接取得されたギャラリーフォルダーのリストを示しています。
 
 ```bash
 $ tree vs-code-dev-containers  # main repo directory
@@ -70,13 +70,13 @@ $ tree vs-code-dev-containers  # main repo directory
         └───....
 ```
 
-Here are the final high-level steps it takes to build a dev container:
+開発コンテナを構築するために必要な最後の高レベルの手順は次のとおりです。
 
-1. Decide which platform you'd like to build a local development tool stack around.
-2. Browse the VS Code provided dev container gallery of project folders that target your platform and choose the most appropriate one.
-3. Inspect the dev container definitions (.devcontainer directory) of a project for the base image, and the artifacts that support that base image.
-4. Use what you've discovered to begin setting up the dev container as it is, extending it or building your own from scratch.
+1. ローカル開発ツールスタックを構築するプラットフォームを決定します。
+2. プラットフォームを対象とするプロジェクトフォルダーのVSCodeが提供する開発コンテナーギャラリーを参照し、最も適切なものを選択します。
+3. プロジェクトの開発コンテナ定義（.devcontainerディレクトリ）でベースイメージと、そのベースイメージをサポートするアーティファクトを調べます。
+4. 発見したものを使用して、開発コンテナーをそのままセットアップしたり、拡張したり、独自のコンテナーを最初から構築したりします。
 
-## Going further
+## もっと遠く行く
 
-There are use cases where you would want to go further in configuring your Dev Container. [More details here](./going-further.md)
+DevContainerの構成をさらに進めたい場合があります。[詳細はこちら](./going-further.md)
