@@ -1,7 +1,5 @@
-# Memory
+# メモリー
 
-These examples were taken from the Memory project, an internal tool for tracking an individual's accomplishments.
+これらの例は、個人の業績を追跡するための内部ツールであるメモリプロジェクトから抜粋したものです。
 
-The main example here is the [Decision Log](Decision-Log.md).
-Since this log was used from the start, the decisions are mostly based on technology choices made in the start of the project.
-All line items have a link out to the trade studies done for each technology choice.
+ここでの主な例は、[決定ログ](Decision-Log.md)です。このログは最初から使用されていたため、決定は主にプロジェクトの開始時に行われたテクノロジの選択に基づいています。すべての広告申込情報には、テクノロジーの選択ごとに行われたトレードス​​タディへのリンクがあります。

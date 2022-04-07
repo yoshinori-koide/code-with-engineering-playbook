@@ -1,89 +1,89 @@
-# Design Reviews
+# デザインレビュー
 
-## Table of Contents
+## 目次
 
-- [Goals](#goals)
-- [Measures](#measures)
-- [Impact](#impact)
-- [Participation](#participation)
-- [Facilitation Guidance](#facilitation-guidance)
-- [Technical Spike](#technical-spike)
+- [目標](#目標)
+- [対策](#対策)
+- [影響](#影響)
+- [参加](#参加)
+- [ファシリテーションガイダンス](#ファシリテーションガイダンス)
+- [テクニカルスパイク](#テクニカルスパイク)
 
-## Goals
+## 目標
 
-- Reduce technical debt for our customers
-- Continue to iterate on design after Game Plan review
-- Generate useful technical artifacts that can be referenced by Microsoft and customers
+- お客様の技術的負債を削減します
+- ゲームプランのレビュー後も設計を繰り返します
+- マイクロソフトとお客様が参照できる有用な技術成果物を生成する
 
-## Measures
+## 対策
 
-### Cost of Change
+### 変更のコスト
 
-When incorporating design reviews as part of the engineering process, decisions are front-loaded before implementation begins. Making a decision of using Azure Kubernetes Service instead of App Services at the design phase likely only requires updating documentation. However, making this pivot after implementation has started or after a solution is in use is much more costly.
+エンジニアリングプロセスの一部として設計レビューを組み込む場合、実装を開始する前に決定が前倒しされます。設計段階でAppServicesの代わりにAzureKubernetesServiceを使用することを決定するには、ドキュメントを更新するだけで済みます。ただし、実装の開始後またはソリューションの使用後にこのピボットを作成すると、はるかにコストがかかります。
 
-Are these changes occurring before or after implementation? How large of effort are they typically?
+これらの変更は、実装の前または後に発生していますか？彼らは通常どれくらいの努力をしますか？
 
-### Reviewer Participation
+### レビューアの参加
 
-How many individuals participate across the designs created? Cumulatively if this is a larger number this would indicate a wider contribution of ideas and perspectives. A lower number (i.e. same 2 individuals only on every review) might indicate a limited set of perspectives. Is anyone participating from outside the core development team?
+作成されたデザイン全体で何人の個人が参加しますか？累積的に、これがより大きな数である場合、これはアイデアと視点のより広い貢献を示します。数が少ない（つまり、すべてのレビューで同じ2人の個人）場合は、視点のセットが限られていることを示している可能性があります。コア開発チームの外部から参加している人はいますか？
 
-### Time To Potential Solutions
+### 潜在的な解決策への時間
 
-How long does it typically take to go from requirements to solution options (multiple)?
+要件からソリューションオプション（複数）に移行するのに通常どのくらい時間がかかりますか？
 
-There is a healthy balancing act between spending too much or too little time evaluating different potential solutions. Too little time puts higher risk of costly changes required after implementation. Too much time delays target value from being delivered; as well as subsequent features in queue. However, the faster the team can *identify the most critical information necessary to make an informed decision*, the faster value can be provided with lower risk of costly changes down the road.
+さまざまな潜在的なソリューションの評価に費やす時間が多すぎるか少なすぎるかの間には、健全なバランスを取る行為があります。時間が少なすぎると、実装後にコストのかかる変更が必要になるリスクが高くなります。時間が長すぎると、ターゲット値の配信が遅れます。キュー内の後続の機能と同様に。ただし、チームが十分な情報に基づいた意思決定を行うために必要な最も重要な情報を迅速に特定できるほど、コストのかかる変更のリスクを抑えながら、より迅速な価値を提供できます。
 
-### Time to Decisions
+### 決定までの時間
 
-How long does it take to make a decision on which solution to implement?
+どのソリューションを実装するかを決定するのにどのくらい時間がかかりますか？
 
-There is also a healthy balancing act in supporting a healthy debate while not hindering the team's delivery. The ideal case is for a team to quickly digest the solution options presented, ask questions, and debate before finally reaching quorum on a particular approach. In cases where no quorum can be reached, the person with the most context on the problem (typically story owner) should make the final decision. Prioritize delivering value and learning. Disagree and commit!
+チームの配信を妨げずに、健全な討論をサポートするための健全なバランスを取る行為もあります。理想的なケースは、チームが提示されたソリューションオプションをすばやく消化し、質問をして、特定のアプローチで最終的に定足数に達する前に議論することです。クォーラムに到達できない場合は、問題について最もコンテキストのある人（通常はストーリーの所有者）が最終決定を下す必要があります。価値の提供と学習を優先します。同意しないでコミットしてください！
 
-## Impact
+## 影響
 
-- Solutions can be quickly operationalized into customer's production environment
-- Easier for other dev crews to leverage your teams work
-- Easier for engineers to ramp up on projects
-- Increase team velocity by front-loading changes and decisions when they cost the least
-- Increased team engagement and transparency by soliciting wide reviewer participation
+- ソリューションは、お客様の本番環境に迅速に運用できます
+- 他の開発クルーがチームの作業を活用しやすく
+- エンジニアがプロジェクトを立ち上げるのが簡単
+- コストが最も低いときに変更と決定をフロントローディングすることにより、チームの速度を上げます
+- 幅広いレビューアの参加を求めることにより、チームの関与と透明性が向上します
 
-## Participation
+## 参加
 
-### Dev Crew
+### 開発クルー
 
-The dev crew should always participate in all design review sessions
+開発クルーは常にすべての設計レビューセッションに参加する必要があります
 
-- [CSE](../../CSE.md) Engineering
-- Customer Engineering
+- [CSE](../../CSE.md) エンジニアリング
+- カスタマーエンジニアリング
 
-### Domain Experts
+### ドメインエキスパート
 
-Domain experts should participate in design review sessions as needed
+ドメインの専門家は、必要に応じて設計レビューセッションに参加する必要があります
 
-- CSE Tech Domain
-- Customer subject-matter experts (SME)
-- Senior Leadership
+- CSE 技術ドメイン
+- 顧客の対象分野の専門家（SME）
+- シニアリーダーシップ
 
-## Facilitation Guidance
+## ファシリテーションガイダンス
 
-### Recipes
+### レシピ
 
-Please see our [Design Review Recipes](./recipes/README.md) for guidance on design process.
+設計プロセスのガイダンスについては、[設計レビューのレシピ](./recipes/README.md)を参照してください。
 
-### Sync Design Reviews via in-person / virtual meetings
+### 対面/仮想会議を介して設計レビューを同期する
 
-Joint meetings with dev crew, subject-matter experts (SMEs) and customer engineers
+開発クルー、対象分野の専門家（SME）、カスタマーエンジニアとの合同会議
 
-### Async Design Reviews via Pull-Requests
+### プルリクエストによる非同期設計レビュー
 
-See the [async design review recipe](./recipes/async-design-reviews.md) for guidance on facilitating async design reviews. This can be useful for teams that are geographically distributed across different time-zones.
+非同期設計レビューを容易にするためのガイダンスについては、[非同期設計レビューのレシピ](./recipes/async-design-reviews.md)を参照してください。これは、異なるタイムゾーンに地理的に分散しているチームに役立ちます。
 
-## Technical Spike
+## テクニカルスパイク
 
-A technical spike is most often used for evaluating the impact new technology has on the current implementation. Please read more [here](./recipes/technical-spike.md).
+技術的なスパイクは、新しいテクノロジーが現在の実装に与える影響を評価するために最もよく使用されます。詳しくは[こちら](./recipes/technical-spike.md)をご覧ください。
 
-## Design Documentation
+## 設計ドキュメント
 
-- Document and update the architecture design in the project design documentation
-- Track and document design decisions in a [decision log](decision-log/README.md)
-- Document decision process in [trade studies](trade-studies/README.md) when multiple solutions exist for the given problem
+- プロジェクト設計ドキュメントでアーキテクチャ設計を文書化して更新します
+- 設計決定を追跡し、[決定ログ](decision-log/README.md)に記録します。
+- 与えられた問題に対して複数の解決策が存在する場合の[貿易研究](trade-studies/README.md)における決定プロセスを文書化する

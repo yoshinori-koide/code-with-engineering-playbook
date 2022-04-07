@@ -1,87 +1,87 @@
-# Design Decision Log
+# 設計決定ログ
 
-Not all requirements can be captured in the beginning of an agile project during one or more design sessions. The initial architecture design can evolve or change during the project, especially if there are multiple possible technology choices that can be made. Tracking these changes within a large document is in most cases not ideal, as one can lose oversight over the design changes made at which point in time. Having to scan through a large document to find a specific content takes time, and in many cases the consequences of a decision is not documented.
+1つ以上の設計セッション中に、アジャイルプロジェクトの開始時にすべての要件を把握できるわけではありません。初期のアーキテクチャ設計は、プロジェクト中に進化または変更される可能性があります。特に、可能なテクノロジの選択肢が複数ある場合はそうです。大きなドキュメント内でこれらの変更を追跡することは、ほとんどの場合理想的ではありません。その時点で行われた設計変更を見落とす可能性があるためです。特定のコンテンツを見つけるために大きなドキュメントをスキャンする必要があるのは時間がかかり、多くの場合、決定の結果はドキュメント化されていません。
 
-## Why is it important to track design decisions
+## 設計上の決定を追跡することが重要なのはなぜですか
 
-Tracking an architecture design decision can have many advantages:
+アーキテクチャ設計の決定を追跡することには、多くの利点があります。
 
-- Developers and project stakeholders can see the decision log and track the changes, even as the team composition changes over time.
-- The log is kept up-to-date.
-- The context of a decision including the consequences for the team are documented with the decision.
-- It is easier to find the design decision in a log than having to read a large document.
+- 開発者とプロジェクトの利害関係者は、チームの構成が時間の経過とともに変化しても、意思決定ログを確認して変更を追跡できます。
+- ログは最新の状態に保たれます。
+- チームへの影響を含む決定のコンテキストは、決定とともに文書化されます。
+- 大きなドキュメントを読むよりも、ログで設計上の決定を見つける方が簡単です。
 
-## What is a recommended format for tracking decisions
+## 決定を追跡するための推奨フォーマットは何ですか
 
-In addition to incorporating a design decision as an update of the overall design documentation of the project, the decisions could be tracked as [Architecture Decision Records](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) as Michael Nygard proposed in his blog.
+プロジェクトの全体的な設計ドキュメントの更新として設計決定を組み込むことに加えて、Michael Nygardがブログで提案したように、決定は[アーキテクチャ決定レコード](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)として追跡できます。
 
-The effort invested in design reviews and discussions can be different throughout the course of a project. Sometimes decisions are made quickly without having to go into a detailed comparison of competing technologies. In some cases, it is necessary to have a more elaborate study of advantages and disadvantages, as is described in the documentation of [Trade Studies](../trade-studies/README.md). In other cases, it can be helpful to conduct [Engineering Feasibility Spikes](../recipes/engineering-feasibility-spikes.md). An ADR can incorporate each of these different approaches.
+設計レビューとディスカッションに投資される労力は、プロジェクトの過程全体で異なる可能性があります。競合するテクノロジーの詳細な比較を行わなくても、意思決定が迅速に行われる場合があります。場合によっては、[Trade Studies](../trade-studies/README.md)のドキュメントに記載されているように、長所と短所についてより詳細な調査を行う必要があります。その他の場合は、[エンジニアリング実現可能性スパイク](../recipes/engineering-feasibility-spikes.md)を実施すると役立つ場合があります。ADRは、これらのさまざまなアプローチのそれぞれを組み込むことができます。
 
-### Architecture Decision Record (ADR)
+### アーキテクチャ決定記録（ADR）
 
-An architecture decision record has the structure
+アーキテクチャ決定レコードには構造があります
 
-- **[Ascending number]. [Title of decision]**
+- **[昇順の番号]. [決定のタイトル]**
 
-    *The title should give the reader the information on what was decided upon.*
+    *タイトルは、何が決定されたかについての情報を読者に与える必要があります。*
 
-    Example:
+    例：
 
-    > *001. App level logging with Serilog and Application Insights*
+    > *001.SerilogおよびApplicationInsightsを使用したアプリレベルのロギング*
 
-- **Date:**
+- **日付:**
 
-    *The date the decision was made.*
+    *決定がなされた日付。*
 
-- **Status:**
-    Proposed/Accepted/Deprecated/Superseded
+- **ステータス：**
+     提案/承認/非推奨/置き換え
 
-    *A proposed design can be reviewed by the development team prior to accepting it. A previous decision can be superseded by a new one, or the ADR record marked as deprecated in case it is not valid anymore.*
+    *提案された設計は、承認する前に開発チームがレビューできます。以前の決定は、新しい決定に取って代わられるか、またはそれがもはや有効でない場合に非推奨としてマークされたADRレコードに取って代わられる可能性があります。*
 
-- **Context:**
+- **環境：**
 
-    *The text should provide the reader an understanding of the problem, or as Michael Nygard puts it, a value-neutral [an objective] description of the forces at play.*
+    *このテキストは、読者に問題の理解を提供するか、Michael Nygardが言うように、戦力の価値に中立な[客観的]説明を提供する必要があります。*
 
-    Example:
+    例：
 
-    > *Due to the microservices design of the platform, we need to ensure consistency of logging throughout each service so tracking of usage, performance, errors etc. can be performed end-to-end. A single logging/monitoring framework should be used where possible to achieve this, whilst allowing the flexibility for integration/export into other tools at a later stage. The developers should be equipped with a simple interface to log messages and metrics.*
+    > *プラットフォームのマイクロサービス設計により、使用状況、パフォーマンス、エラーなどの追跡をエンドツーエンドで実行できるように、各サービス全体でログの一貫性を確保する必要があります。これを実現するために、可能な場合は単一のロギング/モニタリングフレームワークを使用する必要がありますが、後の段階で他のツールに統合/エクスポートするための柔軟性を確保します。開発者は、メッセージとメトリックをログに記録するためのシンプルなインターフェイスを備えている必要があります。*
 
-    *If the development team had a data-driven approach to back the decision, i.e. a study that evaluates the potential choices against a set of objective criteria by following the guidance in [Trade Studies](../trade-studies/README.md), the study should be referred to in this section.*  
+    *開発チームが意思決定を裏付けるデータ主導のアプローチを持っていた場合、つまり、[貿易研究](../trade-studies/README.md)のガイダンスに従って一連の客観的基準に対して潜在的な選択肢を評価する研究の場合、このセクションで研究を参照する必要があります。*  
 
-- **Decision:**
+- **決断：**
 
-    *The decision made, it should begin with 'We will...' or 'We have agreed to ...*.
+    *決定は、「私たちは...」または「私たちは同意しました...」で始まる必要があります*。
 
-    Example:
+    例：
 
-    > *We have agreed to utilise Serilog as the Dotnet Logging framework of choice at the application level, with integration into Log Analytics and Application Insights for analysis.*
+    > *Serilogをアプリケーションレベルで選択するDotnetLoggingフレームワークとして利用し、分析のためにLogAnalyticsおよびApplicationInsightsに統合することに同意しました。*
 
-- **Consequences:**
+- **結果：**
 
-    *The resulting context, after having applied the decision.*
+    *決定を適用した後の結果のコンテキスト。*
 
-    Example:
+    例：
 
-    > *Sampling will need to be configured in Application Insights so that it does not become overly-expensive when ingesting millions of messages, but also does not prevent capture of essential information. The team will need to only log what is agreed to be essential for monitoring as part of design reviews, to reduce noise and unnecessary levels of sampling.*
+    > *サンプリングは、数百万のメッセージを取り込むときに過度に高価にならないように、また重要な情報のキャプチャを妨げないように、ApplicationInsightsで構成する必要があります。チームは、ノイズと不要なレベルのサンプリングを減らすために、設計レビューの一部として監視に不可欠であると合意されたものだけをログに記録する必要があります。*
 
-### Where to store ADRs
+### ADRを保管する場所
 
-ADRs can be stored and tracked in any version control system such as git. As a recommended practice, ADRs can be added as pull request in the *proposed* status to be discussed by the team until it is updated to *accepted* to be merged with the main branch. They are usually stored in a folder structure *doc/adr* or *doc/arch*. Additionally, it can be useful to track ADRs in a `decision-log.md` to provide useful metadata in an obvious format.
+ADRは、gitなどの任意のバージョン管理システムに保存および追跡できます。推奨される方法として、ADRは、メインブランチとのマージが承認されるように更新されるまで、チームによって議論される *提案された* ステータスのプルリクエストとして追加できます。これらは通常、フォルダー構造 *doc/adr* または *doc/arch* に保存されます。さらに、ADRを`decision-log.md`に書き込み、追跡して、わかりやすい形式で有用なメタデータを提供すると便利な場合があります。
 
-#### Decision Logs
+#### 決定ログ
 
-A decision log is a Markdown file containing a table which provides executive summaries of the decisions contained in ADRs, as well as some other metadata. You can see a template table at [`doc/decision-log.md`](doc/decision-log.md).
+決定ログは、ADRに含まれる決定のエグゼクティブサマリーとその他のメタデータを提供するテーブルを含むマークダウンファイルです。テンプレートテーブルは[`doc/decision-log.md`](doc/decision-log.md)で確認できます。
 
-### When to track ADRs
+### ADRを追跡するタイミング
 
-Architecture design decisions are usually tracked whenever significant decisions are made that affect the structure and characteristics of the solution or framework we are building. ADRs can also be used to document results of spikes when evaluating different technology choices.
+アーキテクチャ設計の決定は、通常、構築しているソリューションまたはフレームワークの構造と特性に影響を与える重要な決定が行われるたびに追跡されます。ADRは、さまざまなテクノロジーの選択を評価する際のスパイクの結果を文書化するためにも使用できます。
 
-## Examples of ADRs
+## ADRの例
 
-The first ADR could be the decision to use ADRs to track design decisions,
+最初のADRは、設計上の決定を追跡するためにADRを使用するという決定である可能性があります。
 
 - [0001-record-architecture-decisions.md](doc/adr/0001-record-architecture-decisions.md),
 
-followed by actual decisions in the engagement as in the example used above,
+上記の例のように、エンゲージメントの実際の決定が続きます。
 
 - [0002-app-level-logging.md](doc/adr/0002-app-level-logging.md).

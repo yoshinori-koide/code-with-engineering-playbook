@@ -1,8 +1,7 @@
-# Decision Log
+# 決定ログ
 
-This document is used to track key decisions that are made during the course of the project.
-This can be used at a later stage to understand why decisions were made and by whom.
+このドキュメントは、プロジェクトの過程で行われた重要な決定を追跡するために使用されます。これは、後の段階で、決定が行われた理由と誰によって行われたかを理解するために使用できます。
 
-| **Decision** | **Date** | **Alternatives Considered** | **Reasoning** | **Detailed doc** | **Made By** | **Work Required** |
+| **決断** | **日付** | **検討された代替案** | **推論** | **詳細なドキュメント** | **作成者** | **必要な作業** |
 | --- | --- |  --- | --- | --- | --- | --- |
-| A one-sentence summary of the decision made. | Date the decision was made. | A list of the other approaches considered. | A two to three sentence summary of why the decision was made. | A link to the ADR with the format [Title] DR. | Who made this decision? | A link to the work item for the linked ADR. |
+| 行われた決定の1文の要約 | 決定がなされた日付 | 検討された他のアプローチのリスト | 決定が下された理由の2〜3文の要約 | [タイトル]DR形式のADRへのリンク。 | 誰がこの決定をしましたか？ | リンクされたADRの作業項目へのリンク。 |

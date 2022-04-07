@@ -1,19 +1,19 @@
-# 1. Record architecture decisions
+# 1. アーキテクチャの決定を記録する
 
-Date: 2020-03-20
+日付: 2020-03-20
 
-## Status
+## スターテス
 
-Accepted
+承認済み
 
-## Context
+## 環境
 
-We need to record the architectural decisions made on this project.
+このプロジェクトで行われたアーキテクチャ上の決定を記録する必要があります。
 
 ## Decision
 
-We will use Architecture Decision Records, as [described by Michael Nygard](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions).
+[Michael Nygardの説明](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)のように、Architecture Decision Recordsを使用します
 
-## Consequences
+## 結果
 
-See Michael Nygard's article, linked above. For a lightweight ADR toolset, see Nat Pryce's [adr-tools](https://github.com/npryce/adr-tools).
+上にリンクされているMichaelNygardの記事を参照してください。軽量のADRツールセットについては、NatPryceの[adr-tools](https://github.com/npryce/adr-tools)を参照してください。

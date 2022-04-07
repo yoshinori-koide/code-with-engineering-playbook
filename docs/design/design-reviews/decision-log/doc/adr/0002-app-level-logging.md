@@ -1,20 +1,19 @@
-# 2. App-level Logging with Serilog and Application Insights
+# 2. SerilogおよびApplicationInsightsを使用したアプリレベルのロギング
 
-Date: 2020-04-08
+日付: 2020-04-08
 
-## Status
+## スターテス
 
-Accepted
+承認済み
 
-## Context
+## 環境
 
-Due to the microservices design of the platform, we need to ensure consistency of logging throughout each service so tracking of usage, performance, errors etc. can be performed end-to-end. A single logging/monitoring framework should be used where possible to achieve this, whilst allowing the flexibility for integration/export into other tools at a later stage. The developers should be equipped with a simple interface to log messages and metrics.
+プラットフォームのマイクロサービス設計により、使用状況、パフォーマンス、エラーなどの追跡をエンドツーエンドで実行できるように、各サービス全体でログの一貫性を確保する必要があります。これを実現するために、可能な場合は単一のロギング/モニタリングフレームワークを使用する必要がありますが、後の段階で他のツールに統合/エクスポートするための柔軟性を確保します。開発者は、メッセージとメトリックをログに記録するためのシンプルなインターフェイスを備えている必要があります。
 
-## Decision
+## 決断
 
-We have agreed to utilise Serilog as the Dotnet Logging framework of choice at the application level, with integration into Log Analytics and Application Insights for analysis.
+Serilogをアプリケーションレベルで選択するDotnetLoggingフレームワークとして利用し、分析のためにLogAnalyticsおよびApplicationInsightsに統合することに同意しました。
 
-## Consequences
+## 結果
 
-Sampling will need to be configured in Application Insights so that it does not become overly-expensive when ingesting millions of messages, but also does not prevent capture of essential information.
-The team will need to only log what is agreed to be essential for monitoring as part of design reviews, to reduce noise and unnecessary levels of sampling.
+サンプリングは、数百万のメッセージを取り込むときに過度に高価にならないように、また重要な情報のキャプチャを妨げないように、ApplicationInsightsで構成する必要があります。チームは、ノイズと不要なレベルのサンプリングを減らすために、設計レビューの一部として監視に不可欠であると合意されたものだけをログに記録する必要があります。

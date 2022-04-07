@@ -1,75 +1,65 @@
-# Sustainable Software Engineering
+# 持続可能なソフトウェア工学
 
-The choices made throughout the engineering process regarding cloud services, software architecture
-design and automation can have a big impact on the carbon footprint of a solution. We can opt for the use of a shared service, which has less Carbon footprint compared to deployed and dedicated VMs in the same region which - depending on the projected load - could potentially could run well below capacity for longer periods of time.  
+クラウドサービス、ソフトウェアアーキテクチャの設計、自動化に関するエンジニアリングプロセス全体で行われた選択は、ソリューションの二酸化炭素排出量に大きな影響を与える可能性があります。共有サービスの使用を選択できます。これは、同じ地域に展開された専用のVMと比較して、カーボンフットプリントが少なく、予測される負荷によっては、長期間にわたって容量を大幅に下回る可能性があります。
 
-## Sustainability in the Engineering process
+## エンジニアリングプロセスにおける持続可能性
 
-### Business Strategy
+### 事業戦略
 
-Several companies have a strategy and goals to reduce their carbon footprint. During the Envisioning phase of a Software
-Engineering project, aligning with the sustainability strategy of the company and gathering information on the guidelines and implications could prove beneficial for the environment and useful for the project.
+いくつかの企業は、二酸化炭素排出量を削減するための戦略と目標を持っています。ソフトウェアエンジニアリングプロジェクトの構想段階では、会社の持続可能性戦略に沿って調整し、ガイドラインと影響に関する情報を収集することで、環境に有益であり、プロジェクトに役立つ可能性があります。
 
-### Architecture Design
+### 建築デザイン
 
-During the [design](../) phase, choices on the type of infrastructure and services can have a big impact on the
-carbon footprint of the solution.
+[設計](../)段階では、インフラストラクチャとサービスの種類の選択が、ソリューションの二酸化炭素排出量に大きな影響を与える可能性があります。
 
-#### Platform  vs. Infratructure services
+#### プラットフォームとインフラストラクチャサービス
 
-Opting for platform or shared services does not only reduce the overall and maintenance cost, it also pushes capacity
-planning to the responsibilities of the provider and has benefits regarding optimal use of resources.
+プラットフォームまたは共有サービスを選択すると、全体的なコストとメンテナンスコストが削減されるだけでなく、キャパシティプランニングがプロバイダーの責任になり、リソースの最適な使用に関するメリットが得られます。
 
-#### Use of Virtual Machines
+#### 仮想マシンの使用
 
-If VMs within a protected network is a requirement, consider the ability to automate scaling up or down with the current
-or anticipated load.
+保護されたネットワーク内のVMが要件である場合は、現在または予想される負荷に応じてスケールアップまたはスケールダウンを自動化する機能を検討してください。
 
-In some scenarios, Spot VMs could augment regular VMs to process production workloads. They utilize unused capacity in
-existing data center infrastructure and usually cost just a fraction of on-demand virtual machines. By taking advantage of existing infrastructure, leveraging Spot VMs reduces the the need for more hardware to run in data centers and ultimately reduces future energy consumption.
+一部のシナリオでは、スポットVMが通常のVMを拡張して、本番ワークロードを処理する場合があります。これらは既存のデータセンターインフラストラクチャの未使用の容量を利用し、通常はオンデマンド仮想マシンのほんの一部しかかかりません。既存のインフラストラクチャを活用することで、スポットVMを活用することで、データセンターで実行するハードウェアを増やす必要性が減り、最終的には将来のエネルギー消費量が削減されます。
 
-#### Data Storage
+#### データストレージ
 
-Consider what performance for data access is required, i.e. having different storage layers for fast and slower access.
+データアクセスに必要なパフォーマンスを検討します。つまり、高速アクセスと低速アクセス用に異なるストレージレイヤーを使用します。
 
-Avoid duplication of data if possible and feasible.
+可能かつ実行可能な場合は、データの重複を避けてください。
 
-#### Payload
+#### ペイロード
 
-Compression of payload data can reduce the load on network layers.
+ペイロードデータの圧縮により、ネットワークレイヤーの負荷を軽減できます。
 
-### Observability
+### 可観測性
 
-[Observability](../../observability) can surface information on load and capacity of the system. If not already supported by
-the chosen services, consider to automate scaling down when resources are idle.
+[可観測性](../../observability)は、システムの負荷と容量に関する情報を明らかにすることができます。選択したサービスでまだサポートされていない場合は、リソースがアイドル状態のときにスケールダウンを自動化することを検討してください。
 
-### CI/CD Pipelines
+### CI/CD パイプライン
 
-[CI/CD pipelines](../../continuous-integration) offer the capability to re-create an environment from scratch, and to
-deprovision the whole infrastructure if it is not in-use. Load test or staging environments are often not in use during
-the development cycle and could be deprovisioned after testing.
+[CI/CD パイプライン](../../continuous-integration)は、環境を最初から再作成し、使用されていない場合はインフラストラクチャ全体のプロビジョニングを解除する機能を提供します。多くの場合、負荷テストまたはステージング環境は開発サイクル中に使用されておらず、テスト後にプロビジョニングが解除される可能性があります。
 
-### Developer environment
+### 開発者環境
 
-Turn off idle developer VMs and consider leveraging Spot VMs for non-production workloads.
+アイドル状態の開発者VMをオフにし、非実稼働ワークロードにスポットVMを活用することを検討してください。
 
-## Guidelines
+## ガイドライン
 
-- [Principles of Green Software Engineering](https://principles.green/)
-- [Microsoft Cloud for Sustainability](https://www.microsoft.com/en-us/sustainability)
-- [Learning Module: Sustainable Software
-Engineering](https://docs.microsoft.com/en-us/learn/modules/sustainable-software-engineering-overview/)
+- [グリーンソフトウェア工学の原則](https://principles.green/)
+- [持続可能性のためのMicrosoftクラウド](https://www.microsoft.com/en-us/sustainability)
+- [学習モジュール：持続可能なソフトウェアエンジニアリング](https://docs.microsoft.com/en-us/learn/modules/sustainable-software-engineering-overview/)
 
-## Tools
+## ツール
 
-- [Emissions Impact](https://appsource.microsoft.com/en-us/product/power-bi/coi-sustainability.emissions_impact_dashboard)
+- [排出量への影響](https://appsource.microsoft.com/en-us/product/power-bi/coi-sustainability.emissions_impact_dashboard)
 - [Azure GreenAI Carbon-Intensity API](http://azure-uw-cli-2021.azurewebsites.net/home)
 
-## Projects
+## プロジェクト
 
-- [Green Energy Hub (Energinet)](https://github.com/Energinet-DataHub/green-energy-hub)
-- [Sustainability through SpotVMs](https://github.com/hybridflux/SparkOnSpot)
+- [グリーンエネルギーハブ（Energinet）](https://github.com/Energinet-DataHub/green-energy-hub)
+- [SpotVMによる持続可能性](https://github.com/hybridflux/SparkOnSpot)
 
-## Other resources
+## その他のリソース
 
-- [Green Software](https://github.com/Green-Software-Foundation/awesome-green-software)
+- [グリーンソフトウェア](https://github.com/Green-Software-Foundation/awesome-green-software)
