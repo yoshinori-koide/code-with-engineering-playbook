@@ -1,27 +1,27 @@
-# How to Automate Simple Checks
+# 簡単なチェックを自動化する方法
 
-If you want to automate some checks on your Markdown documents, there are several tools that you could leverage. For example:
+Markdownドキュメントのチェックを自動化したい場合は、活用できるツールがいくつかあります。例えば：
 
-- [Code Analysis / Linting](../../code-reviews/recipes/markdown.md#code-analysis-linting)
-  - [markdownlint](../../code-reviews/recipes/markdown.md#markdownlint) to verify Markdown syntax and enforce rules that make the text more readable.
-  - [markdown-link-check](https://github.com/tcort/markdown-link-check) to extract links from markdown texts and check whether each link is alive (200 OK) or dead.
-  - [proselint](../../code-reviews/recipes/markdown.md#proselint) to check for jargon, spelling errors, redundancy, corporate speak and other language related issues.
-  - [write-good](../../code-reviews/recipes/markdown.md#write-good) to check English prose.
-  - [Docker image for node-markdown-spellcheck](https://github.com/tmaier/docker-markdown-spellcheck), a lightweight docker image to spellcheck markdown files.
+- [コード分​​析/リンティング](../../code-reviews/recipes/markdown.md#code-analysis-linting)
+  - [markdownlint](../../code-reviews/recipes/markdown.md#markdownlint)は、Markdown構文を検証し、テキストを読みやすくするルールを適用します。
+  - [markdown-link-check](https://github.com/tcort/markdown-link-check)は、マークダウンテキストからリンクを抽出し、各リンクが有効（200 OK）か無効かを確認します。
+  - [proselint](../../code-reviews/recipes/markdown.md#proselint)は、専門用語、スペルミス、冗長性、企業の話し方、その他の言語関連の問題をチェックします。
+  - [write-good](../../code-reviews/recipes/markdown.md#write-good)は、英語の文法をチェックします。
+  - [node-markdown-spellcheck 用のDockerイメージ](https://github.com/tmaier/docker-markdown-spellcheck)はマークダウンファイルをスペルチェックするための軽量のDockerイメージです。
 
-- [VS Code Extensions](../../code-reviews/recipes/markdown.md#vs-code-extensions)
-  - [Write Good Linter](../../code-reviews/recipes/markdown.md#write-good-linter) to get grammar and language advice while editing a document.
-  - [markdownlint](../../code-reviews/recipes/markdown.md#markdownlint-extension) to examine Markdown documents and get warnings for rule violations while editing.
+- [VS Code 拡張機能](../../code-reviews/recipes/markdown.md#vs-code-extensions)
+  - [Write Good Linter](../../code-reviews/recipes/markdown.md#write-good-linter)はドキュメントの編集中に文法や言語のアドバイスを得られます。
+  - [markdownlint](../../code-reviews/recipes/markdown.md#markdownlint-extension)は、Markdownドキュメントを調べ、編集中にルール違反の警告を受け取ります。
 
-- Automation
-  - [pre-commit](https://pre-commit.com/) to use Git hook scripts to identify simple issues before submitting our code or documentation for review.
-  - Check [Build validation](../../code-reviews/recipes/markdown.md#build-validation) to automate linting for PRs.
-  - Check [CI Pipeline for better documentation](../../continuous-integration/markdown-linting/README.md) for a sample pipeline with `markdownlint`, `markdown-link-check` and `write-good`.
+- オートメーション
+  - [pre-commit](https://pre-commit.com/)はレビューのためにコードまたはドキュメントを送信する前に、Gitフックスクリプトを使用して簡単な問題を特定できます。
+  - [Build validation](../../code-reviews/recipes/markdown.md#build-validation)をオンにしてPRのリンティングを自動化できます。
+  - `markdownlint`、`markdown-link-check`および、`write-good`を使用するサンプルのパイプラインについては、「[より良いドキュメントのためのCIパイプライン](../../continuous-integration/markdown-linting/README.md)」を参照してください。 
 
-Sample output:
+サンプル出力：
 
 ![docs-checks](./images/docs-checks.png)
 
-## On linting rules
+## リンティングルールについて
 
-The team needs to be clear what linting rules are required and shouldn't be overridden with tooling or comments. The team should have consensus on when to override tooling rules.
+チームは、必要なリンティングルールを明確にする必要があり、ツールやコメントで上書きしないでください。チームは、ツールルールをいつオーバーライドするかについてコンセンサスを得る必要があります。

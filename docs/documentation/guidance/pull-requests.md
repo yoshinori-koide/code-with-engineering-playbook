@@ -1,11 +1,11 @@
-# Pull Requests
+# プルリクエスト
 
-When we create [Pull Requests](../../code-reviews/pull-requests.md), we must ensure they are properly documented:
+[プルリクエスト](../../code-reviews/pull-requests.md)を作成するときは、それらが適切に文書化されていることを確認する必要があります。
 
-- Title and Description
-  - [Pull Request Description](../../code-reviews/pull-requests.md#pull-request-description)
-  - [Pull Request Template](../../code-reviews/pull-request-template/pull-request-template.md)
-- Linked worked items
-- Comments
-  - As an author, [address all comments](../../code-reviews/process-guidance/author-guidance.md#be-open-to-receive-feedback)
-  - As a reviewer, [make comments clear](../../code-reviews/process-guidance/reviewer-guidance.md#make-comments-clear)
+- タイトルと説明
+  - [プルリクエストの説明](../../code-reviews/pull-requests.md#pull-request-description)
+  - [プルリクエストテンプレート](../../code-reviews/pull-request-template/pull-request-template.md)
+- リンクされた作業項目
+- コメントコメント
+  - 著者として、[すべてのコメントに対処](../../code-reviews/process-guidance/author-guidance.md#be-open-to-receive-feedback)する
+  - レビューアとして、[コメントを明確](../../code-reviews/process-guidance/reviewer-guidance.md#make-comments-clear)にする

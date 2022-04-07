@@ -1,17 +1,17 @@
-# Replacing Documentation with Automation
+# ドキュメントを自動化に置き換える
 
-You can document how to set up your dev machine with the right version of the framework required to run the code, which extensions are useful to develop the application with your editor, or how to configure your editor to launch and debug the application. If it is possible, a better solution is to provide the means to automate tool installs, application startup, etc., instead.
+コードの実行に必要なフレームワークの適切なバージョンを使用して開発マシンをセットアップする方法、エディターを使用してアプリケーションを開発するのに役立つ拡張機能、またはアプリケーションを起動およびデバッグするようにエディターを構成する方法を文書化できます。可能であれば、代わりにツールのインストールやアプリケーションの起動などを自動化する手段を提供することをお勧めします。
 
-Some examples are provided below:
+いくつかの例を以下に示します。
 
-## Dev containers in Visual Studio Code
+## Visual Studio Code の開発コンテナ
 
-The [Visual Studio Code Remote - Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) lets you use a Docker container as a full-featured development environment. It allows you to open any folder inside (or mounted into) a container and take advantage of Visual Studio Code's full feature set.
+[Visual Studio Code Remote - Containers 拡張機能](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)を使用すると、Dockerコンテナーをフル機能の開発環境として使用できます。コンテナー内の（またはコンテナーにマウントされた）任意のフォルダーを開いて、Visual Studio Codeの全機能セットを利用できます。
 
-Additional information: [Developing inside a Container](https://code.visualstudio.com/docs/remote/containers).
+追加情報：[コンテナ内での開発](https://code.visualstudio.com/docs/remote/containers)。
 
-## Launch configurations and Tasks in Visual Studio Code
+## Visual Studio Code で構成とタスクを起動する
 
-[Launch configurations](https://code.visualstudio.com/Docs/editor/debugging#_launch-configurations) allows you to configure and save debugging setup details.
+[起動構成](https://code.visualstudio.com/Docs/editor/debugging#_launch-configurations)を使用すると、デバッグセットアップの詳細を構成して保存できます。
 
-[Tasks](https://code.visualstudio.com/Docs/editor/tasks) can be configured to run scripts and start processes so that many of these existing tools can be used from within VS Code without having to enter a command line or write new code.
+スクリプトを実行してプロセスを開始するように[タスク](https://code.visualstudio.com/Docs/editor/tasks)を構成できるため、コマンドラインを入力したり新しいコードを記述したりすることなく、これらの既存のツールの多くをVSCode内から使用できます。

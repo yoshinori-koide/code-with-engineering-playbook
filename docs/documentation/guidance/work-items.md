@@ -1,105 +1,109 @@
-# Work Items
+# 作業項目
 
-While many teams can work with a flat list of items, sometimes it helps to group related items into a hierarchical structure. You can use portfolio backlogs to bring more order to your backlog.
+多くのチームはアイテムのフラットリストを操作できますが、関連するアイテムを階層構造にグループ化すると役立つ場合があります。ポートフォリオのバックログを使用して、バックログにより多くの注文をもたらすことができます。
 
-**Agile** process backlog work item hierarchy:
+**アジャイル** プロセスバックログ作業項目階層：
 
 ![agile-artifacts](./images/agile-artifacts.png)
 
-**Scrum** process backlog work item hierarchy:
+**スクラム** プロセスのバックログ作業項目の階層：
 
 ![scrum-artifacts](./images/scrum-artifacts.png)
 
-Bugs can be set at the same level as User Stories / Product Backlog Items or Tasks.
+バグは、ユーザーストーリー/製品バックログアイテムまたはタスクと同じレベルで設定できます。
 
-## Epics and Features
+## 叙事詩と特徴
 
-User stories / Product Backlog Items roll up into **Features**, which typically represent a shippable deliverable that addresses a customer need e.g., "Add shopping cart". And Features roll up into **Epics**, which represent a business initiative to be accomplished e.g., "Increase customer engagement". Take that into account when naming them.
+ユーザーストーリー/製品バックログアイテムは**機能**にロールアップされます。機能は通常、「ショッピングカートの追加」などの顧客のニーズに対応する出荷可能な成果物を表します。また、機能は**エピック**にロールアップされます。これは、「顧客エンゲージメントの向上」など、達成すべきビジネスイニシアチブを表しています。それらに名前を付けるときは、それを考慮に入れてください。
 
-Each Feature or Epic should include as much detail as the team needs to:
+各機能またはエピックには、チームが必要とする詳細を含める必要があります。
 
-- Understand the scope.
-- Estimate the work required.
-- Develop tests.
-- Ensure the end product meets acceptance criteria.
+- スコープを理解します。
+- 必要な作業を見積もります。
+- テストを開発します。
+- 最終製品が受け入れ基準を満たしていることを確認します。
 
-Details that should be added:
+追加する必要のある詳細：
 
-- *Value Area*: Business (directly deliver customer value) vs. Architectural (technical services to implement business features).
+- *価値領域*：ビジネス（顧客価値を直接提供する）とアーキテクチャ（ビジネス機能を実装するための技術サービス）。
 - *Effort / Story Points / Size*: Relative estimate of the amount of work required to complete the item.
-- *Business Value*: Priority of an item compared to other items of the same type.
-- *Time Criticality*: Higher values indicate an item is more time critical than items with lower values.
+- *作業量/ストーリーポイント/サイズ*：アイテムを完了するために必要な作業量の相対的な見積もり。
+- *ビジネス価値*：同じタイプの他のアイテムと比較したアイテムの優先度。
+- *タイムクリティカル*：値が高いほど、値が低いアイテムよりもタイムクリティカルであることを示します。
 - *Target Date* by which the feature should be implemented.
+- 機能を実装する必要のある*目標日*。
 
-You may use work item tags to support queries and filtering.
+作業項目タグを使用して、クエリとフィルタリングをサポートできます。
 
-## User Stories / Product Backlog Items
+## ユーザーストーリー/製品バックログアイテム
 
-Each User Story / Product Backlog Item should be sized so that they can be completed within a sprint.
+各ユーザーストーリー/製品バックログアイテムは、スプリント内で完了できるようなサイズにする必要があります。
 
-You should add the following details to the items:
+アイテムに次の詳細を追加する必要があります。
 
 - *Title*: Usually expressed as "As a [persona], I want [to perform an action], so that [I can achieve an end result].".
-- *Description*: Provide enough detail to create shared understanding of scope and support estimation efforts. Focus on the user, what they want to accomplish, and why. Don't describe how to develop the product. Provide enough details so the team can write tasks and test cases to implement the item.
-  - Include Design Reviews.
-- *Acceptance Criteria*: Define what "Done" means.
-- *Activity*: Deployment, Design, Development, Documentation, Requirements, Testing.
-- *Effort / Story Points / Size*: Relative estimate of the amount of work required to complete the item.
-- *Business Value*: Priority of an item compared to other items of the same type.
-- *Original Estimate*: The amount of estimated work required to complete a task.
+- *タイトル*：通常、「"ペルソナ"として、"アクションを実行"して、"最終結果を達成できる"ようにしたい」と表現されます。
+- *説明*：範囲についての共通の理解を作成し、見積もりの​​取り組みをサポートするために十分な詳細を提供します。ユーザー、ユーザーが達成したいこと、およびその理由に焦点を当てます。製品の開発方法を説明しないでください。チームがアイテムを実装するためのタスクとテストケースを作成できるように、十分な詳細を提供します。
+  - デザインレビューを含める。
+- *受け入れ基準*：「完了」の意味を定義します。
+- *アクティビティ*：展開、設計、開発、文書化、要件、テスト。
+- *作業量/ストーリーポイント/サイズ*：アイテムを完了するために必要な作業量の相対的な見積もり。
+- *ビジネス価値*：同じタイプの他のアイテムと比較したアイテムの優先度。
+- *元の見積もり*：タスクを完了するために必要な見積もり作業の量。
 
-Remember to use the *Discussion* section of the items to keep track of related comments, and mention individuals, groups, work items or pull requests when required.
+アイテムの *ディスカッション* セクションを使用して、関連するコメントを追跡し、必要に応じて個人、グループ、作業アイテム、またはプルリクエストに言及することを忘れないでください。
 
-## Tasks
+## タスク
 
-Each Task should be sized so that they can be completed within a day.
+各タスクは、1日以内に完了することができるサイズにする必要があります。
 
-You should at least add the following details to the items:
-
-- *Title*.
-- *Description*: Provide enough detail to create shared understanding of scope. Any developer should be able to take the item and know what needs to be implemented.
-  - Include Design Reviews.
-- Reference to the working *branch* in related code repository.
-
-Remember to use the Discussion section of the tasks to keep track of related comments.
-
-## Bugs
-
-You should use bugs to capture both the initial issue and ongoing discoveries.
-
-You should at least add the following details to the bug items:
+少なくとも次の詳細をアイテムに追加する必要があります。
 
 - *Title*.
-- *Description*.
-- *Steps to Reproduce*.
-- *System Info* / *Found in Build*: Software and system configuration that is relevant to the bug and tests to appply.
-- *Acceptance Criteria*: Criteria to meet so the bug can be closed.
-- *Integrated in Build*: Name of the build that incorporates the code that fixes the bug.
-- *Priority*:
-  - 1: Product should not ship without the successful resolution of the work item. The bug should be addressed as soon as possible.
-  - 2: Product should not ship without the successful resolution of the work item, but it does not need to be addressed immediately.
-  - 3: Resolution of the work item is optional based on resources, time, and risk.
-- *Severity*:
-  - 1 - Critical: Must fix. No acceptable alternative methods.
-  - 2 - High: Consider fix. An acceptable alternative method exists.
-  - 3 - Medium: (Default).
-  - 4 - Low.
+- *タイトル*。
+- *説明*: 範囲についての共通の理解を生み出すのに十分な詳細を提供します。すべての開発者は、アイテムを取得して、何を実装する必要があるかを知ることができるはずです。
+  - デザインレビューを含める。
+- 関連するコードリポジトリの作業 *ブランチ* への参照。
 
-## Issues / Impediments
+関連するコメントを追跡するために、タスクのディスカッションセクションを使用することを忘れないでください。
 
-Don't confuse with bugs. They represent unplanned activities that may block work from getting done. For example: feature ambiguity, personnel or resource issues, problems with environments, or other risks that impact scope, quality, or schedule.
+## バグ
 
-In general, you link these items to user stories or other work items.
+バグを使用して、最初の問題と進行中の発見の両方をキャプチャする必要があります。
 
-## Actions from Retrospectives
+少なくとも次の詳細をバグアイテムに追加する必要があります。
 
-After a retrospective, every action that requires work should be tracked with its own Task or Issue / Impediment. These items might be unparented (without link to parent backlog item or user story).
+- *タイトル*。
+- *説明*。
+- *再現する手順*。
+- *システム情報* / *ビルドで見つかりました*: バグと適用するテストに関連するソフトウェアとシステム構成。
+- *受け入れ基準*: バグを閉じることができるようにするための基準。
+- *ビルドに統合*: バグを修正するコードを組み込んだビルドの名前。
+- *優先順位*:
+  - 1: 製品は、作業項目の解決に成功せずに出荷されるべきではありません。バグはできるだけ早く対処する必要があります。
+  - 2: 製品は、作業項目が正常に解決されない限り出荷されるべきではありませんが、すぐに対処する必要はありません。
+  - 3: 作業項目の解決は、リソース、時間、およびリスクに基づいてオプションです。
+- *重大度*:
+  - 1 - 重大：修正する必要があります。受け入れ可能な代替方法はありません。
+  - 2 - 高：修正を検討してください。許容できる代替方法が存在します。
+  - 3 - 中:(デフォルト）。
+  - 4 - 低。
 
-## Related information
+## 問題 / 障害
 
-- [Best practices for Agile project management - Azure Boards | Microsoft Docs](https://docs.microsoft.com/azure/devops/boards/best-practices-agile-project-management?view=azure-devops&tabs=agile-process).
-- [Define features and epics, organize backlog items - Azure Boards | Microsoft Docs](https://docs.microsoft.com/azure/devops/boards/backlogs/define-features-epics?view=azure-devops&tabs=scrum-process).
-- [Create your product backlog - Azure Boards | Microsoft Docs](https://docs.microsoft.com/azure/devops/boards/backlogs/create-your-backlog?view=azure-devops&tabs=agile-process).
-- [Add tasks to support sprint planning - Azure Boards | Microsoft Docs](https://docs.microsoft.com/azure/devops/boards/sprints/add-tasks?view=azure-devops).
-- [Define, capture, triage, and manage bugs or code defects - Azure Boards | Microsoft Docs](https://docs.microsoft.com/azure/devops/boards/backlogs/manage-bugs?view=azure-devops).
-- [Add and manage issues or impediments - Azure Boards | Microsoft Docs](https://docs.microsoft.com/azure/devops/boards/backlogs/manage-issues-impediments?view=azure-devops).
+バグと混同しないでください。それらは、作業の実行を妨げる可能性のある計画外の活動を表しています。例：機能のあいまいさ、人員またはリソースの問題、環境の問題、または範囲、品質、またはスケジュールに影響を与えるその他のリスク。
+
+一般に、これらのアイテムをユーザーストーリーまたは他の作業アイテムにリンクします。
+
+## ふりかえりからの行動
+
+ふりかえりの後、作業を​​必要とするすべてのアクションは、独自のタスクまたは問題/障害で追跡する必要があります。これらのアイテムは親がない場合があります（親のバックログアイテムまたはユーザーストーリーへのリンクがない場合）。
+
+## 関連情報
+
+- [アジャイルプロジェクト管理のベストプラクティス-AzureBoards| MicrosoftDocs](https://docs.microsoft.com/azure/devops/boards/best-practices-agile-project-management?view=azure-devops&tabs=agile-process)。
+- [機能とエピックを定義し、バックログアイテムを整理します-Azure Boards | MicrosoftDocs](https://docs.microsoft.com/azure/devops/boards/backlogs/define-features-epics?view=azure-devops&tabs=scrum-process)。
+- [製品のバックログを作成する-AzureBoards| MicrosoftDocs](https://docs.microsoft.com/azure/devops/boards/backlogs/create-your-backlog?view=azure-devops&tabs=agile-process)。
+- [スプリント計画をサポートするタスクを追加する-AzureBoards| MicrosoftDocs](https://docs.microsoft.com/azure/devops/boards/sprints/add-tasks?view=azure-devops)。
+- [バグまたはコードの欠陥を定義、キャプチャ、トリアージ、および管理する-Azure Boards | MicrosoftDocs](https://docs.microsoft.com/azure/devops/boards/backlogs/manage-bugs?view=azure-devops)。
+- [問題や障害を追加して管理する-AzureBoards| MicrosoftDocs](https://docs.microsoft.com/azure/devops/boards/backlogs/manage-issues-impediments?view=azure-devops)。

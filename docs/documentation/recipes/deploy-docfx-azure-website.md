@@ -1,38 +1,40 @@
-# Deploy the DocFx Documentation website to an Azure Website automatically
+# DocFxドキュメントWebサイトをAzure Webサイトに自動的にデプロイする
 
-In the article [Using DocFx and Companion Tools to generate a Documentation website](using-docfx-and-tools.md) the process is described to generate content of a documentation website using DocFx. This document describes how to setup an Azure Website to host the content and automate the deployment to it using a pipeline in Azure DevOps.
+記事 「[DocFxとコンパニオンツールを使用してドキュメントWebサイトを生成する](using-docfx-and-tools.md)」では、DocFxを使用してドキュメントWebサイトのコンテンツを生成するプロセスについて説明しています。このドキュメントでは、Azure Webサイトをセットアップしてコンテンツをホストし、AzureDevOpsのパイプラインを使用してコンテンツへのデプロイを自動化する方法について説明します。
 
-The [QuickStart sample](https://github.com/mtirionMSFT/DocFxQuickStart) that is provided for a quick setup of DocFx generation also contains the files explained in this document. Especially the **.pipelines** and **infrastructure** folders.
+DocFx生成のクイックセットアップ用に提供されている[QuickStartサンプル](https://github.com/mtirionMSFT/DocFxQuickStart)には、このドキュメントで説明されているファイルも含まれています。特に **.pipelines**と**インフラストラクチャ**フォルダ。
 
+クイックスタートフォルダを使用する場合は、次の手順に従うことができます。**インフラストラクチャ** フォルダーには、Azure環境でWebサイトを作成するためのTerraformファイルがあります。箱から出して、スクリプトはドキュメントコンテンツを展開できるWebサイトを作成します。
 The following steps can be followed when using the Quick Start folder. In the **infrastructure** folder you can find the Terraform files to create the website in an Azure environment. Out of the box, the script will create a website where the documentation content can be deployed to.
 
-## 1. Install Terraform
+## 1. Terraformをインストールします
 
-You can use tools like [Chocolatey](https://chocolatey.org/) to install Terraform:
+[Chocolatey](https://chocolatey.org/)などのツールを使用してTerraformをインストールできます。
 
 ```shell
 choco install terraform
 ```
 
-## 2. Set the proper variables
+## 2. 適切な変数を設定します
 
-> **IMPORTANT:** Make sure you modify the value of the **app_name**, **rg_name** and **rg_location** variables. The *app_name* value is appended by **azurewebsites.net** and must be unique. Otherwise the script will fail that it cannot create the website.
+> **重要：** **app_name**、**rg_name**、および**rg_location**変数の値を必ず変更してください。app_name値はazurewebsites.netによって追加され、一意である必要があります。そうしないと、スクリプトが失敗し、Webサイトを作成できなくなります。
 
-In the Quick Start, authentication is disabled. If you want that enabled, make sure you have create an *Application* in the Azure AD and have the *client ID*. This client id must be set as the value of the **client_id** variable in *variables.tf*. In the *main.tf* make sure you uncomment the authentication settings in the *app-service*. For more information see [Configure Azure AD authentication - Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad).
+クイックスタートでは、認証は無効になっています。これを有効にする場合は、Azure ADで *Application* を作成し、*client ID* を持っていることを確認してください。このクライアントIDは、 *variables.tf* の **client_id**変数の値として設定する必要があります。*main.tf* で、 *app-service* の認証設定のコメントを解除してください。詳細については、「[AzureAD認証の構成-AzureAppService](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad)」を参照してください。
 
-If you want to set a custom domain for your documentation website with an SSL certificate you have to do some extra steps. You have to create a *Key Vault* and store the certificate there. Next step is to uncomment and set the values in *variables.tf*. You also have to uncomment the necessary steps in *main.tf*. All is indicated by comment-boxes. For more information see [Add a TLS/SSL certificate in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate).
+ドキュメントWebサイトにSSL証明書を使用してカスタムドメインを設定する場合は、いくつかの追加手順を実行する必要があります。*Key Vault*を作成し、そこに証明書を保存する必要があります。次のステップは、コメントを外して、*variables.tf*の値を設定することです。また、*main.tf*で必要な手順のコメントを解除する必要があります。すべてコメントボックスで示されます。詳細については、「[AzureAppServiceにTLS/SSL証明書を追加する](https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate)」を参照してください。
 
-Some extra information on SSL certificate, custom domain and Azure App Service can be found in the following paragraphs. If you are familiar with that or don't need it, go ahead and continue with [Step 3](#3-deploy-azure-resources-from-your-local-machine).
+SSL証明書、カスタムドメイン、およびAzure App Serviceに関する追加情報は、次の段落に記載されています。これに精通している場合、または必要ない場合は、[ステップ3](#3-deploy-azure-resources-from-your-local-machine)に進んでください。
 
-### SSL Certificate
+### SSL証明書
 
-To secure a website with a custom domain name and a certificate, you can find the steps to take in the article [Add a TLS/SSL certificate in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate). That article also contains a description of ways to obtain a certificate and the requirements for a certificate. Usually you'll get a certificate from the customers IT department. If you want to start with a development certificate to test the process, you can create one yourself. You can do that in PowerShell with the script below. Replace:
+カスタムドメイン名と証明書を使用してWebサイトを保護するには、記事「[AzureAppServiceでのTLS/SSL証明書の追加](https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate)」を参照してください。この記事には、証明書を取得する方法と証明書の要件についての説明も含まれています。通常、顧客のIT部門から証明書を取得します。プロセスをテストするために開発証明書から始めたい場合は、自分で作成することができます。以下のスクリプトを使用して、PowerShellでこれを行うことができます。
+置換するのは：
 
-* **[YOUR DOMAIN]** with the domain you would like to register, e.g. `docs.somewhere.com`
-* **[PASSWORD]** with a password of the certificate. It's required for uploading a certificate in the Key Vault to have a password. You'll need this password in that step.
-* **[FILENAME]** for the output file name of the certificate. You can even insert the path here where it should be store on your machine.
+* **[YOUR DOMAIN]** をあなたが登録したいドメインとする。例えば `docs.somewhere.com`
+* **[PASSWORD]** を証明書のパスワードとする。Key Vaultに証明書をアップロードするには、パスワードが必要です。そのステップでこのパスワードが必要になります。
+* **[FILENAME]** は証明書の出力ファイル名とする。ここに、マシンの保存場所にパスを挿入することもできます。
 
-You can store this script in a PowerShell script file (ps1 extension).
+このスクリプトは、PowerShellスクリプトファイル（.ps1）に保存できます。
 
 ```powershell
 $cert = New-SelfSignedCertificate -CertStoreLocation cert:\currentuser\my -Subject "cn=[YOUR DOMAIN]" -DnsName "[YOUR DOMAIN]"
@@ -41,80 +43,79 @@ $path = 'cert:\currentuser\my\' + $cert.thumbprint
 Export-PfxCertificate -cert $path -FilePath [FILENAME].pfx -Password $pwd
 ```
 
-The certificate needs to be stored in the common Key Vault. Go to `Settings > Certificates` in the left menu of the Key Vault and click `Generate/Import`. Provide these details:
+証明書は、共通のKeyVaultに保存する必要があります。Key Vaultの左側の`Settings > Certificates`メニューに移動し、`Generate/Import`をクリックします。これらの詳細を提供します。
 
-* Method of Certificate Creation: `Import`
+* 証明書の作成方法：`Import`
 
-* Certificate name: e.g. `ssl-certificate`
+* 証明書名：例 `ssl-certificate`
 
-* Upload Certificate File: select the file on disc for this.
+* 証明書ファイルのアップロード：このためにディスク上のファイルを選択します。
 
-* Password: this is the [PASSWORD] we reference earlier.
+* パスワード：これは、前に参照した [PASSWORD] です。
 
-### Custom domain registration
+### カスタムドメイン登録
 
-To use a custom domain a few things need to be done. The process in the Azure portal is described in the article [Tutorial: Map an existing custom DNS name to Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain). An important part is described under the header [Get a domain verification ID](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain#get-a-domain-verification-id). This ID needs to be registered with the DNS description as a TXT record.
+カスタムドメインを使用するには、いくつかのことを行う必要があります。Azureポータルでのプロセスについては、[チュートリアル：既存のカスタムDNS名をAzure App Service](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain)にマップするの記事で説明されています。重要な部分は、「[ドメイン検証IDの取得](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain#get-a-domain-verification-id)」というヘッダーの下に説明されています。このIDは、DNS記述にTXTレコードとして登録する必要があります。
 
-Important to know is that this `Custom Domain Verification ID` is the same for all web resources in the same Azure subscription. See [this StackOverflow issue](https://stackoverflow.com/questions/64309200/is-the-custom-domain-verification-shared-across-an-azure-subscription). This means that this ID needs to be registered only once for one Azure Subscription. And this enables (re)creation of an App Service with the custom domain though script.
+知っておくべき重要なことは、この`Custom Domain Verification ID`は同じAzureサブスクリプション内のすべてのWebリソースで同じであるということです。[このStackOverflowの問題](https://stackoverflow.com/questions/64309200/is-the-custom-domain-verification-shared-across-an-azure-subscription)を参照してください。つまり、このIDは、1つのAzureサブスクリプションに対して1回だけ登録する必要があります。これにより、スクリプトを介してカスタムドメインを使用してApp Serviceを（再）作成できます。
 
-### Add Get-permissions for Microsoft Azure App Service
+### Microsoft Azure App ServiceのGet-permissionsを追加する
 
-The Azure App Service needs to access the Key Vault to get the certificate. This is needed for the first run, but also when the certificate is renewed in the Key Vault. For this purpose the Azure App Service accesses the Key Vault with the App Service resource provided identity. This identity can be found with the service principal name **abfa0a7c-a6b6-4736-8310-5855508787cd** or **Microsoft Azure App Service** and is of type **Application**. This ID is the same for all Azure subscriptions. It needs to have Get-permissions on secrets and certificates. For more information see this article [Import a certificate from Key Vault](https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate#import-a-certificate-from-key-vault).
+Azure App Serviceは、証明書を取得するためにKeyVaultにアクセスする必要があります。これは、最初の実行だけでなく、証明書がKeyVaultで更新されるときにも必要です。この目的のために、Azure App Serviceは、AppServiceリソースが提供するIDを使用してKeyVaultにアクセスします。このIDは、サービスプリンシパル名 **abfa0a7c-a6b6-4736-8310-5855508787cd** または **Microsoft Azure App Service** で見つけることができ、タイプは **Application** です。このIDは、すべてのAzureサブスクリプションで同じです。シークレットと証明書の取得許可が必要です。詳細については、この記事「[KeyVaultから証明書をインポートする](https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate#import-a-certificate-from-key-vault)」を参照してください。
 
-### Add the custom domain and SSL certificate to the App Service
+### カスタムドメインとSSL証明書をApp Serviceに追加します
 
-Once we have the SSL certificate and there is a complete DNS registration as described, we can uncomment the code in the Terraform script from the Quick Start folder to attach this to the App Service. In this script you need to reference the certificate in the common Key Vault and use it in the custom hostname binding. The custom hostname is assigned in the script as well. The settings `ssl_state` needs to be `SniEnabled` if you're using an SSL certificate. Now the creation of the authenticated website with a custom domain is automated.
+SSL証明書を取得し、説明したように完全なDNS登録が完了したら、クイックスタートフォルダーからTerraformスクリプトのコードのコメントを解除して、これをAppServiceに添付できます。このスクリプトでは、共通のKey Vaultで証明書を参照し、それをカスタムホスト名バインディングで使用する必要があります。カスタムホスト名は、スクリプトでも割り当てられます。SSL証明書を使用している場合は、`ssl_state`の設定を`SniEnabled`とすることが必要です。これで、カスタムドメインを使用した認証済みWebサイトの作成が自動化されました。
 
-## 3. Deploy Azure resources from your local machine
+## 3. ローカルマシンからAzureリソースをデプロイします
 
-Open up a command prompt. For the commands to be executed, you need to have a connection to your Azure subscription. This can be done using [Azure Cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli). Type this command:
-
+コマンドプロンプトを開きます。コマンドを実行するには、Azureサブスクリプションに接続する必要があります。これは、 [Azure Cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli)を使用して実行できます。
 ```shell
 az login
 ```
 
-This will use the web browser to login to your account. You can check the connected subscription with this command:
+これにより、Webブラウザを使用してアカウントにログインします。次のコマンドを使用して、接続されているサブスクリプションを確認できます。
 
 ```shell
 az account show
 ```
 
-If you have to change to another subscription, use this command where you replace *[id]* with the id of the subscription to select:
+別のサブスクリプションに変更する必要がある場合は、次のコマンドを使用して[id]をサブスクリプションのIDに置き換え、以下を選択します。
 
 ```shell
 az account set --subscription [id]
 ```
 
-Once this is done run this command to initialize:
+これが完了したら、次のコマンドを実行して初期化します。
 
 ```shell
 terraform init
 ```
 
-Now you can run the command to plan what the script will do. You run this command every time changes are made to the terraform scripts:
+これで、コマンドを実行して、スクリプトの実行内容を計画できます。terraformスクリプトに変更が加えられるたびに、このコマンドを実行します。
 
 ```shell
 terraform plan
 ```
 
-Inspect the result shown. If that is what you expect, apply these changes with this command:
+表示された結果を調べます。それが期待どおりの場合は、次のコマンドを使用して次の変更を適用します。
 
 ```shell
 terraform apply
 ```
 
-When asked for approval, type "yes" and ENTER. You can also add the *-auto-approve* flag to the apply command.
+承認を求められたら、「はい」と入力してEnterキーを押します。applyコマンドに *-auto-approve* フラグを追加することもできます。
 
-The deployment using Terraform is not included in the pipeline from the Quick Start folder as described in the next step, as that asks for more configuration. But of course that can always be added.
+次の手順で説明するように、Terraformを使用した展開は、クイックスタートフォルダーからのパイプラインに含まれていません。これは、追加の構成が必要になるためです。しかしもちろん、それはいつでも追加できます。
 
-## 4. Deploy the website from a pipeline
+## 4. パイプラインからWebサイトを展開します
 
-The best way to create the resources and deploy to it, is to do this automatically in a pipeline. For this purpose the **.pipelines/documentation.yml** pipeline is provided. This pipeline is built for an Azure DevOps environment. Create a pipeline and reference this YAML file.
+リソースを作成してデプロイする最良の方法は、パイプラインでこれを自動的に行うことです。この目的のために、**.pipelines/documentation.yml** パイプラインが提供されています。このパイプラインは、AzureDevOps環境用に構築されています。パイプラインを作成し、このYAMLファイルを参照します。
 
-> **IMPORTANT:** the Quick Start folder contains a web.config that is needed for deployment to IIS or Azure App Service. This enables the use of the json file for search requests. If you don't have this in place, the search of text will never return anything and result in 404's under the hood.
+> **重要：** クイックスタートフォルダーには、IISまたはAzureAppServiceへの展開に必要なweb.configが含まれています。これにより、検索リクエストにjsonファイルを使用できるようになります。これが適切に行われていない場合、テキストを検索しても何も返されず、結果として404が内部に表示されます。
 
-You have to create a Service Connection in your DevOps environment to connect to the Azure Subscription you want to deploy to.
+デプロイ先のAzureサブスクリプションに接続するには、DevOps環境でサービス接続を作成する必要があります。
 
-> **IMPORTANT:** set the variables **AzureConnectionName** to the name of the Service Connection and the **AzureAppServiceName** to the name you determined in the *infrastructure/variables.tf*.
+> **重要：** 変数 **AzureConnectionName** をサービス接続の名前に設定し、**AzureAppServiceName** を *infrastructure/variables.tf* で決定した名前に設定します。
 
-In the Quick Start folder the pipeline uses `master` as trigger, which means that any push being done to master triggers the pipeline. You will probably change this to another branch.
+クイックスタートフォルダーでは、パイプラインが `master`トリガーとして使用します。これは、マスターに対してプッシュが実行されるとパイプラインがトリガーされることを意味します。おそらくこれを別のブランチに変更します。

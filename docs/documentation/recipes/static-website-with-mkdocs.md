@@ -1,33 +1,32 @@
-# How to create a static website for your documentation based on mkdocs and mkdocs-material
+# mkdocsとmkdocs-materialに基づいてドキュメント用の静的Webサイトを作成する方法
 
-[MkDocs](https://www.mkdocs.org/) is a tool built to create static websites from raw markdown files. Other alternatives include [Sphinx](https://www.sphinx-doc.org/en/master/), and [Jekyll](https://jekyllrb.com/).
+[MkDocs](https://www.mkdocs.org/)は、生のマークダウンファイルから静的Webサイトを作成するために構築されたツールです。他の選択肢には、[Sphinx](https://www.sphinx-doc.org/en/master/)、および[Jekyll](https://jekyllrb.com/)が含まれます。
 
-We used MkDocs to create [CSE Code-With Engineering Playbook](https://microsoft.github.io/code-with-engineering-playbook/) static website from the contents in [the GitHub repository](https://github.com/microsoft/code-with-engineering-playbook). Then we deployed it to [GitHub Pages](https://pages.github.com/).
+MkDocsを使用して、[GitHubリポジトリ](https://github.com/microsoft/code-with-engineering-playbook)のコンテンツから[CSEコード-WithEngineeringPlaybook](https://microsoft.github.io/code-with-engineering-playbook/)静的Webサイトを作成しました。次に、それを[GitHub Pages](https://pages.github.com/)にデプロイしました。
 
-We found MkDocs to be a good choice since:
+以下の理由から、MkDocsが適切な選択であることがわかりました。
 
-1. It's easy to set up and looks great even with the vanilla version.
-2. It works well with markdown, which is what we already have in the Playbook.
-3. It uses a Python stack which is friendly to many contributors of this Playbook.
+1. セットアップは簡単で、バニラバージョンでも見栄えがします。
+2. これは、Playbookにすでにあるマークダウンでうまく機能します。
+3. このPlaybookの多くの寄稿者に優しいPythonスタックを使用しています。
 
-For comparison, Sphinx mainly generates docs from restructured-text (rst) format, and Jekyll is written in Ruby.
+比較のために、Sphinxは主にrestructured-text（rst）形式からドキュメントを生成し、JekyllはRubyで記述されています。
 
-To setup an MkDocs website, the main assets needed are:
+MkDocs Webサイトをセットアップするために必要な主な資産は、次のとおりです。
 
-1. An ```mkdocs.yaml``` file, similar to the one we have [in the Playbook](https://github.com/microsoft/code-with-engineering-playbook/blob/main/mkdocs.yml). This is the configuration file that defines the appearance of the website, the navigation, the plugins used and more.
-2. A folder named ```docs``` (the default value for the directory) that contains the documentation source files.
-3. A [Github Action](https://docs.github.com/actions/learn-github-actions/understanding-github-actions) for automatically generating the website (e.g. on every commit to main), similar to [this one from the Playbook](https://github.com/microsoft/code-with-engineering-playbook/blob/main/.github/workflows/mkdocs.yml).
-4. A list of plugins used during the build phase of the website. We specified ours [here](https://github.com/microsoft/code-with-engineering-playbook/blob/main/requirements-docs.txt). And these are the plugins we've used:
+1. [Playbookにある](https://github.com/microsoft/code-with-engineering-playbook/blob/main/mkdocs.yml) ```mkdocs.yaml```と同様のファイル。これは、Webサイトの外観、ナビゲーション、使用されるプラグインなどを定義する構成ファイルです。
+2. ```docs``` ドキュメントのソースファイルを含む（ディレクトリのデフォルト値）という名前のフォルダ。
+3. [Playbookのこれ](https://github.com/microsoft/code-with-engineering-playbook/blob/main/.github/workflows/mkdocs.yml)と同様の、Webサイトを自動的に生成するための[Githubアクション](https://docs.github.com/actions/learn-github-actions/understanding-github-actions)（たとえば、mainへのすべてのコミット時）。
+4. Webサイトのビルドフェーズで使用されるプラグインのリスト。[ここで](https://github.com/microsoft/code-with-engineering-playbook/blob/main/requirements-docs.txt)指定しました。そして、これらは私たちが使用したプラグインです：
+    - [MkDocs のマテリアル](https://squidfunk.github.io/mkdocs-material/): マテリアルデザインの外観とユーザーエクスペリエンス。
+    - [pymdown-extensions](https://facelessuser.github.io/pymdown-extensions/): マークダウンベースのコンテンツの外観を改善します。
+    - [mdx_truly_sane_lists](https://github.com/radude/mdx_truly_sane_lists):  Playbookに既にあるドキュメント全体をリファクタリングすることなく、リストのインデントレベルを定義します。
 
-    - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/): Material design appearance and user experience.
-    - [pymdown-extensions](https://facelessuser.github.io/pymdown-extensions/): Improves the appearance of markdown based content.
-    - [mdx_truly_sane_lists](https://github.com/radude/mdx_truly_sane_lists): For defining the indent level for lists without having to refactor the entire documentation we already had in the Playbook.
+ローカルでのセットアップは非常に簡単です。詳細については、[MkDocs入門](https://www.mkdocs.org/getting-started/)を参照してください。
 
-Setting up locally is very easy. See [Getting Started with MkDocs](https://www.mkdocs.org/getting-started/) for details.
+ウェブサイトを公開するために、[ウェブサイトをGithubページとして保存するためのGithubとの良好な統合](https://www.mkdocs.org/user-guide/deploying-your-docs/)があります。
 
-For publishing the website, there's a [good integration with Github for storing the website as a Github Page](https://www.mkdocs.org/user-guide/deploying-your-docs/).
+## 追加のリンク
 
-## Additional links
-
-- [MkDocs Plugins](https://github.com/mkdocs/mkdocs/wiki/MkDocs-Plugins)
-- [The best MkDocs plugins and customizations](https://chrieke.medium.com/the-best-mkdocs-plugins-and-customizations-fc820eb19759)
+- [MkDocsプラグイン](https://github.com/mkdocs/mkdocs/wiki/MkDocs-Plugins)
+- [最高のMkDocsプラグインとカスタマイズ](https://chrieke.medium.com/the-best-mkdocs-plugins-and-customizations-fc820eb19759)

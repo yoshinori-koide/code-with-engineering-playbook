@@ -1,6 +1,6 @@
-# How to Sync a Wiki between Repositories
+# リポジトリ間でWikiを同期する方法
 
-This is a quick guide to mirroring a Project Wiki to another repository.
+これは、ProjectWikiを別のリポジトリにミラーリングするためのクイックガイドです。
 
 ```bash
 # Clone the wiki
@@ -11,16 +11,16 @@ cd <source wiki repo working folder>
 git remote add mirror <mirror repo that must already exist>
 ```
 
-Now each time you wish to sync run the following to get latest from the source wiki repo:
+これで、同期するたびに、以下を実行して、ソースwikiリポジトリから最新のものを取得します。
 
 ```bash
 # Get everything
 git pull -v
 ```
 
-> **Warning**: Check that the output of the pull shows "From source repo URL". If this shows the mirror repo url then you've forgotten to reset the tracking. Run `git branch -u origin/wikiMaster` then continue.
+> **警告**: プルの出力に「FromsourcerepoURL」が表示されていることを確認してください。これにミラーリポジトリのURLが表示されている場合は、トラッキングをリセットするのを忘れています。 `git branch -u origin/wikiMaster`を実行して続行します。
 
-Then run this to push it to the mirror repo and reset the branch to track the source repo again:
+次に、これを実行してミラーリポジトリにプッシュし、ブランチをリセットしてソースリポジトリを再度追跡します。
 
 ```bash
 # Push all branches up to mirror remote
@@ -31,7 +31,7 @@ git branch -u origin/wikiMaster
 
 ```
 
-Your output should look like this when run:
+実行すると、出力は次のようになります。
 
 ```powershell
 PS C:\Git\MyProject.wiki> git pull -v

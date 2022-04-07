@@ -1,36 +1,36 @@
-# Languages
+# 言語
 
-## Markdown
+## マークダウンファイル
 
-Markdown is one of the most popular markup languages to add rich formatting, tables and images to your documentation using plain text documents.
+マークダウンは、プレーンテキストドキュメントを使用してドキュメントに豊富なフォーマット、表、画像を追加するための最も人気のあるマークアップ言語の1つです。
 
-Markdown files (.md) can be source-controlled along with your code.
+マークダウンファイル（.md）は、コードとともにソース制御できます。
 
-More information:
+詳しくは：
 
-- [Getting Started](https://www.markdownguide.org/getting-started/)
-- [Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
-- [Basic Syntax](https://www.markdownguide.org/basic-syntax/)
-- [Extended Syntax](https://www.markdownguide.org/extended-syntax/)
-- [Wiki Markdown Syntax](https://docs.microsoft.com/en-us/azure/devops/project/wiki/wiki-markdown-guidance?view=azure-devops)
+- [入門](https://www.markdownguide.org/getting-started/)
+- [カンニングペーパー](https://www.markdownguide.org/cheat-sheet/)
+- [基本構文](https://www.markdownguide.org/basic-syntax/)
+- [拡張構文](https://www.markdownguide.org/extended-syntax/)
+- [Wikiマークダウン構文](https://docs.microsoft.com/en-us/azure/devops/project/wiki/wiki-markdown-guidance?view=azure-devops)
 
-Tools:
+ツール：
 
-- [Markdown and Visual Studio Code](https://code.visualstudio.com/docs/languages/markdown)
-- [How to automate simple checks](./automation.md)
+- [マークダウンとVisualStudioコード](https://code.visualstudio.com/docs/languages/markdown)
+- [簡単なチェックを自動化する方法](./automation.md)
 
-## Mermaid
+## マーメイド
 
-Mermaid lets you create diagrams using text definitions that can later be rendered with a diagramming and charting tool.
+Mermaidを使用すると、テキスト定義を使用して図を作成できます。この定義は、後で図表作成ツールを使用してレンダリングできます。
 
-Mermaid files (.mmd) can be source-controlled along with your code. It's also recommended to include image files (.png) with the rendered diagrams under source control. Your markdown files should link the image files, so they can be read without the need of a Mermaid rendering tool (e.g., during Pull Request review).
+マーメイドファイル（.mmd）は、コードとともにソース制御できます。ソース管理下でレンダリングされた図に画像ファイル（.png）を含めることもお勧めします。マークダウンファイルは画像ファイルをリンクする必要があります。これにより、マーメイドレンダリングツールを必要とせずに画像ファイルを読み取ることができます（プルリクエストのレビュー中など）。
 
-More information:
+詳しくは：
 
-- [About Mermaid](https://mermaid-js.github.io/mermaid/#/)
-- [Diagram syntax](https://mermaid-js.github.io/mermaid/#/./n00b-syntaxReference)
+- [マーメイドについて](https://mermaid-js.github.io/mermaid/#/)
+- [ダイアグラムの構文](https://mermaid-js.github.io/mermaid/#/./n00b-syntaxReference)
 
-Tools:
+ツール：
 
-- [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor)
-- [Markdown Preview Mermaid Support for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+- [マーメイドライブエディター](https://mermaid-js.github.io/mermaid-live-editor)
+- [Visual Studio Codeのマークダウンプレビューマーメイドサポート](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)

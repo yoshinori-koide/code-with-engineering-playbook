@@ -1,5 +1,5 @@
-# Creating Good Documentation
+# 優れたドキュメントの作成
 
-Review the [Documentation Review Checklist](../../code-reviews/recipes/markdown.md#code-review-checklist) for advice on how to write good documentation.
+優れたドキュメントの作成方法に関するアドバイスについては、[ドキュメントレビューチェックリスト](../../code-reviews/recipes/markdown.md#code-review-checklist)を確認してください。
 
-Good documentation should follow good writing guidelines: [Writing Style Guidelines](../../code-reviews/recipes/markdown.md#writing-style-guidelines).
+優れたドキュメントは、優れたライティングガイドラインに従う必要があります：[ライティングスタイルガイドライン](../../code-reviews/recipes/markdown.md#writing-style-guidelines)。

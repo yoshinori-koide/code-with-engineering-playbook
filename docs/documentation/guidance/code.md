@@ -1,27 +1,27 @@
-# Code
+# コード
 
-You might have heard more than once that **you should write self-documenting code**. This doesn't mean that you should never comment your code.
+**自己文書化コードを書くべきだ**と何度も聞いたことがあるかもしれません。これは、コードにコメントを付けてはいけないという意味ではありません。
 
-There are two types of code comments, implementation comments and documentation comments.
+コードコメントには、実装コメントとドキュメントコメントの2種類があります。
 
-## Implementation comments
+## 実装コメント
 
-They are used for internal documentation, and are intended for anyone who may need to maintain the code in the future, including your future self.
+これらは内部ドキュメントに使用され、将来の自分自身を含め、将来コードを保守する必要がある可能性のあるすべての人を対象としています。
 
-There can be single line and multi-line comments (e.g., [C# Comments](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/lexical-structure#comments)). Comments are human-readable and not executed, thus ignored by the compiler. So you could potentially add as many as you want.
+1行コメントと複数行コメント（[C＃コメント](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/lexical-structure#comments)など）があります。コメントは人間が読める形式で実行されないため、コンパイラによって無視されます。したがって、必要な数だけ追加できる可能性があります。
 
-Now, the use of these comments is often considered a code smell. If you need to clarify your code, that may mean the code is too complex. So you should work towards the removal of the clarification by making the code simpler, easier to read, and understand. Still, these comments can be useful to give overviews of the code, or provide additional context information that is not available in the code itself.
+現在、これらのコメントの使用は、コードの臭いと見なされることがよくあります。コードを明確にする必要がある場合は、コードが複雑すぎる可能性があります。したがって、コードをより単純にし、読みやすく、理解しやすくすることで、説明の削除に向けて取り組む必要があります。それでも、これらのコメントは、コードの概要を示したり、コード自体では利用できない追加のコンテキスト情報を提供したりするのに役立ちます。
 
-Examples of useful comments:
+有用なコメントの例：
 
-- Single line comment in C# that explains **why** that piece of code is there (from a private method in [System.Text.Json.JsonSerializer](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Text.Json/src/System/Text/Json/Serialization/JsonSerializer.Read.String.cs)):
+- そのコードが存在する**理由を**説明するC＃の1行コメント（[System.Text.Json.JsonSerializer](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Text.Json/src/System/Text/Json/Serialization/JsonSerializer.Read.String.cs)のプライベートメソッドから）：
 
 ```csharp
 // For performance, avoid obtaining actual byte count unless memory usage is higher than the threshold.
 Span<byte> utf8 = json.Length <= (ArrayPoolMaxSizeBeforeUsingNormalAlloc / JsonConstants.MaxExpansionFactorWhileTranscoding) ? ...
 ```
 
-- Multi-line comment in C# that provides **additional context** (from a private method in [System.Text.Json.Utf8JsonReader](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Text.Json/src/System/Text/Json/Reader/Utf8JsonReader.cs)):
+- **追加のコンテキスト**を提供するC＃の複数行コメント（[System.Text.Json.Utf8JsonReader](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Text.Json/src/System/Text/Json/Reader/Utf8JsonReader.cs)のプライベートメソッドから）：
 
 ```csharp
 // Transcoding from UTF-16 to UTF-8 will change the length by somewhere between 1x and 3x.
@@ -42,15 +42,15 @@ if (sourceLength < charTextLength
 {
 ```
 
-## Documentation comments
+## ドキュメントのコメント
 
-Doc comments are a special kind of comment, added above the definition of any user-defined type or member, and are intended for anyone who may need to use those types or members in their own code.
+ドキュメントコメントは特別な種類のコメントであり、ユーザー定義のタイプまたはメンバーの定義の上に追加され、独自のコードでそれらのタイプまたはメンバーを使用する必要がある可能性のあるすべての人を対象としています。
 
-If, for example, you are building a library or framework, doc comments can be used to generate their documentation. This documentation should serve as API specification, and/or programming guide.
+たとえば、ライブラリまたはフレームワークを構築している場合は、ドキュメントコメントを使用してドキュメントを生成できます。このドキュメントは、API仕様やプログラミングガイドとして機能する必要があります。
 
-Doc comments won't be included by the compiler in the final executable, as with single and multi-line comments.
+Docコメントは、単一行および複数行のコメントと同様に、コンパイラによって最終的な実行可能ファイルに含まれません。
 
-Example of a doc comment in C# (from Deserialize method in [System.Text.Json.JsonSerializer](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Text.Json/src/System/Text/Json/Serialization/JsonSerializer.Read.String.cs)):
+C＃でのドキュメントコメントの例（[System.Text.Json.JsonSerializer](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Text.Json/src/System/Text/Json/Serialization/JsonSerializer.Read.String.cs)のDeserializeメソッドから）：
 
 ```csharp
 /// <summary>
@@ -84,15 +84,15 @@ public static TValue? Deserialize<TValue>(string json, JsonSerializerOptions? op
 {
 ```
 
-In **C#**, doc comments can be processed by the compiler to generate XML documentation files. These files can be distributed alongside your libraries so that Visual Studio and other IDEs can use IntelliSense to show quick information about types or members. Additionally, these files can be run through tools like [DocFx](https://dotnet.github.io/docfx/) to generate API reference websites.
+**C＃**では、ドキュメントコメントをコンパイラで処理してXMLドキュメントファイルを生成できます。これらのファイルはライブラリと一緒に配布できるため、Visual Studioやその他のIDEはIntelliSenseを使用して、タイプやメンバーに関する情報をすばやく表示できます。さらに、これらのファイルを[DocFx](https://dotnet.github.io/docfx/)などのツールで実行して、APIリファレンスWebサイトを生成できます。
 
-More information:
+詳しくは:
 
-- [Recommended XML tags for C# documentation comments](https://docs.microsoft.com/dotnet/csharp/language-reference/xmldoc/recommended-tags).
+- [C＃ドキュメントコメントに推奨されるXMLタグ](https://docs.microsoft.com/dotnet/csharp/language-reference/xmldoc/recommended-tags)。
 
-In other languages, you may require external tools. For example, **Java** doc comments can be processed by Javadoc tool to generate HTML documentation files.
+他の言語では、外部ツールが必要になる場合があります。たとえば、**Java** docコメントをJavadocツールで処理して、HTMLドキュメントファイルを生成できます。
 
-More information:
+詳しくは:
 
-- [How to Write Doc Comments for the Javadoc Tool](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)
-- [Javadoc Tool](https://www.oracle.com/java/technologies/javase/javadoc-tool.html#javadocdocuments)
+- [Javadocツールのドキュメントコメントの書き方](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)
+- [Javadocツール](https://www.oracle.com/java/technologies/javase/javadoc-tool.html#javadocdocuments)

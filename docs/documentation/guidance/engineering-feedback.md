@@ -1,11 +1,11 @@
-# Engineering Feedback
+# エンジニアリングフィードバック
 
-Good engineering feedback is:
+優れたエンジニアリングフィードバックは次のとおりです。
 
-- Actionable
-- Specific
-- Detailed
-  - Includes assets (script, data, code, etc.) to reproduce scenario and validate solution
-  - Includes details about the customer scenario / what the customer was trying to achieve
+- 実用的
+- 明確
+- 詳細
+  - シナリオを再現し、ソリューションを検証するためのアセット（スクリプト、データ、コードなど）が含まれています
+  - お客様のシナリオ/お客様が達成しようとしていたことに関する詳細が含まれています
 
-Refer to [Microsoft Engineering Feedback](../../engineering-feedback/README.md) for more details, including [guidance](../../engineering-feedback/feedback-guidance.md), [FAQ](../../engineering-feedback/feedback-faq.md) and [examples](../../engineering-feedback/feedback-examples.md).
+[ガイダンス](../../engineering-feedback/feedback-guidance.md)、[FAQ](../../engineering-feedback/feedback-faq.md)、[例示](../../engineering-feedback/feedback-examples.md)などの詳細については、[Microsoftエンジニアリングフィードバック](../../engineering-feedback/README.md)を参照してください。

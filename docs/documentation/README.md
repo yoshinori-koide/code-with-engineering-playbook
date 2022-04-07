@@ -1,88 +1,90 @@
-# Documentation
+# ドキュメンテーション
 
-Every software development project requires documentation. [Agile Software Development](https://agilemanifesto.org/) values *working software over comprehensive documentation*. Still, projects should include the key information needed to understand the development and the use of the generated software.
+すべてのソフトウェア開発プロジェクトにはドキュメントが必要です。[アジャイルソフトウェア開発](https://agilemanifesto.org/)は、*包括的なドキュメントよりも実用的なソフトウェア*を重視しています。それでも、プロジェクトには、生成されたソフトウェアの開発と使用を理解するために必要な重要な情報を含める必要があります。
 
-Documentation shouldn't be an afterthought. Different written documents and materials should be created during the whole life cycle of the project, as per the project needs.
+ドキュメントは後から考えるべきではありません。プロジェクトのニーズに応じて、プロジェクトのライフサイクル全体でさまざまな文書や資料を作成する必要があります。
 
-## Table of Contents
+## 目次
 
-- [Goals](#goals)
-- [Challenges](#challenges)
-- [What documentation should exist?](#what-documentation-should-exist)
-- [Best practices](#best-practices)
-- [Tools](#tools)
-- [Recipes](#recipes)
-- [Resources](#resources)
+- [ドキュメンテーション](#ドキュメンテーション)
+  - [目次](#目次)
+  - [目標](#目標)
+  - [課題](#課題)
+  - [あるべきドキュメント](#あるべきドキュメント)
+  - [ベストプラクティス](#ベストプラクティス)
+  - [ツール](#ツール)
+  - [レシピ](#レシピ)
+  - [資料](#資料)
 
-## Goals
+## 目標
 
-- Facilitate onboarding of new team members.
-- Improve communication and collaboration between teams (especially when distributed across time zones).
-- Improve the transition of the project to another team.
+- 新しいチームメンバーのオンボーディングを促進します。
+- チーム間のコミュニケーションとコラボレーションを改善します（特にタイムゾーンに分散している場合）。
+- プロジェクトの別のチームへの移行を改善します。
 
-## Challenges
+## 課題
 
-When working in an engineering project, we typically encounter one or more of these challenges related to documentation (including some examples):
+エンジニアリングプロジェクトで作業する場合、通常、ドキュメントに関連するこれらの課題の1つ以上に遭遇します（いくつかの例を含む）。
 
-- **Non-existent**.
-  - No onboarding documentation, so it takes a long time to set up the environment when you join the project.
-  - No document in the wiki explaining existing repositories, so you cannot tell which of the 10 available repositories you should clone.
-  - No main README, so you don't know where to start when you clone a repository.
-  - No "how to contribute" section, so you don't know which is the branch policy, where to add new documents, etc.
-  - No code guidelines, so everyone follows different naming conventions, etc.
-- **Hidden**.
-  - Impossible to find useful documentation as it’s scattered all over the place. E.g., no idea how to compile, run and test the code as the README is hidden in a folder within a folder within a folder.
-  - Useful processes (e.g., grooming process) explained outside the backlog management tool and not linked anywhere.
-  - Decisions taken in different channels other than the backlog management tool and not recorded anywhere else.
-- **Incomplete**.
-  - No clear branch policy, so everyone names their branches differently.
-  - Missing settings in the "how to run this" document that are required to run the application.
-- **Inaccurate**.
-  - Documents not updated along with the code, so they don't mention the right folders, settings, etc.
-- **Obsolete**.
-  - Design documents that don't apply anymore, sitting next to valid documents. Which one shows the latest decisions?
-- **Out of order (subject / date)**.
-  - Documents not organized per subject/workstream so not easy to find relevant information when you change to a new workstream.
-  - Design decision logs out of order and without a date that helps to determine which is the final decision on something.
-- **Duplicate**.
-  - No settings file available in a centralized place as a single source of truth, so developers must keep sharing their own versions, and we end up with many files that might or might not work.
-- **Afterthought**.
-  - Key documents created several weeks into the project: onboarding, how to run the app, etc.
-  - Documents created last minute just before the end of a project, forgetting that they also help the team while working on the project.
+- **存在しない**.
+  - オンボーディングドキュメントがないため、プロジェクトに参加するときに環境をセットアップするのに長い時間がかかります。
+  - ウィキには既存のリポジトリを説明するドキュメントがないため、利用可能な10個のリポジトリのどれを複製する必要があるかわかりません。
+  - メインのREADMEがないため、リポジトリのクローンを作成するときにどこから始めればよいかわかりません。
+  - 「寄稿方法」のセクションがないため、ブランチポリシーがどれであるか、新しいドキュメントをどこに追加するかなどがわかりません。
+  - コードガイドラインがないため、全員が異なる命名規則などに従います。
+- **見つからない**.
+  - それはいたるところに散らばっているので、有用なドキュメントを見つけることは不可能です。たとえば、READMEはフォルダ内のフォルダ内のフォルダに隠されているため、コードをコンパイル、実行、およびテストする方法がわかりません。
+  - 有用なプロセス（グルーミングプロセスなど）は、バックログ管理ツールの外部で説明されており、どこにもリンクされていません。
+  - バックログ管理ツール以外のさまざまなチャネルで行われ、他の場所には記録されていない決定。
+- **不完全**.
+  - 明確なブランチポリシーがないため、ブランチの名前は人によって異なります。
+  - アプリケーションの実行に必要な「これを実行する方法」ドキュメントに設定がありません。
+- **不正確**.
+  - ドキュメントはコードとともに更新されないため、適切なフォルダーや設定などについては言及されていません。
+- **廃止**.
+  - 有効なドキュメントの横に配置して、適用されなくなったドキュメントを設計します。どちらが最新の決定を示していますか？
+- **命名不足/期限切れ**.
+  - ドキュメントは主題/ワークストリームごとに整理されていないため、新しいワークストリームに変更したときに関連情報を見つけるのは簡単ではありません。
+  - 設計上の決定は順不同でログに記録され、日付がないため、どちらが最終的な決定であるかを判断するのに役立ちます。
+- **重複**.
+  - 信頼できる唯一の情報源として一元化された場所で利用できる設定ファイルがないため、開発者は独自のバージョンを共有し続ける必要があり、機能する場合と機能しない場合がある多くのファイルが作成されます。
+- **後付け**.
+  - プロジェクトの数週間後に作成された主要なドキュメント：オンボーディング、アプリの実行方法など。
+  - プロジェクトの終了直前に作成されたドキュメント。プロジェクトでの作業中にチームにも役立つことを忘れています。
 
-## What documentation should exist
+## あるべきドキュメント
 
-- [Project and Repositories](./guidance/project-and-repositories.md)
-- [Commit Messages](../source-control/README.md#commit-best-practices)
-- [Pull Requests](./guidance/pull-requests.md)
-- [Code](./guidance/code.md)
-- [Work Items](./guidance/work-items.md)
+- [プロジェクトとリポジトリ](./guidance/project-and-repositories.md)
+- [コミットメッセージ](../source-control/README.md#commit-best-practices)
+- [プルリクエスト](./guidance/pull-requests.md)
+- [コード](./guidance/code.md)
+- [作業項目](./guidance/work-items.md)
 - [REST APIs](./guidance/rest-apis.md)
-- [Engineering Feedback](./guidance/engineering-feedback.md)
+- [エンジニアリングフィードバック](./guidance/engineering-feedback.md)
 
-## Best practices
+## ベストプラクティス
 
-- [Establishing and managing documentation](./best-practices/establish-and-manage.md)
-- [Creating good documentation](./best-practices/good-documentation.md)
-- [Replacing documentation with automation](./best-practices/automation.md)
+- [ドキュメントの確立と管理](./best-practices/establish-and-manage.md)
+- [優れたドキュメントの作成](./best-practices/good-documentation.md)
+- [ドキュメントを自動化に置き換える](./best-practices/automation.md)
 
-## Tools
+## ツール
 
-- [Wikis](./tools/wikis.md)
+- [ウィキ](./tools/wikis.md)
 - [Languages](./tools/languages.md)
-  - [markdown](./tools/languages.md#markdown)
-  - [mermaid](./tools/languages.md#mermaid)
-- [How to automate simple checks](./tools/automation.md)
-- [Integration with Teams/Slack](./tools/integrations.md)
+  - [マークダウン](./tools/languages.md#markdown)
+  - [マーメイド](./tools/languages.md#mermaid)
+- [簡単なチェックを自動化する方法](./tools/automation.md)
+- [Teams/Slackとの統合](./tools/integrations.md)
 
-## Recipes
+## レシピ
 
-- [How to sync a wiki between repositories](./recipes/sync-wiki-between-repos.md)
-- [Using DocFx and Companion Tools to generate a Documentation website](./recipes/using-docfx-and-tools.md)
-- [Deploy the DocFx Documentation website to an Azure Website automatically](./recipes/deploy-docfx-azure-website.md)
-- [How to create a static website for your documentation based on MkDocs and Material for MkDocs](./recipes/static-website-with-mkdocs.md)
+- [リポジトリ間でWikiを同期する方法](./recipes/sync-wiki-between-repos.md)
+- [DocFxおよびコンパニオンツールを使用してドキュメントWebサイトを生成する](./recipes/using-docfx-and-tools.md)
+- [DocFxドキュメントWebサイトをAzureWebサイトに自動的にデプロイする](./recipes/deploy-docfx-azure-website.md)
+- [MkDocsとMaterialforMkDocsに基づいてドキュメント用の静的Webサイトを作成する方法](./recipes/static-website-with-mkdocs.md)
 
-## Resources
+## 資料
 
-- [Software Documentation Types and Best Practices](https://blog.prototypr.io/software-documentation-types-and-best-practices-1726ca595c7f)
-- [Why is project documentation important?](https://www.greycampus.com/blog/project-management/why-is-project-documentation-important)
+- [ソフトウェアドキュメントの種類とベストプラクティス](https://blog.prototypr.io/software-documentation-types-and-best-practices-1726ca595c7f)
+- [プロジェクトのドキュメントが重要なのはなぜですか？](https://www.greycampus.com/blog/project-management/why-is-project-documentation-important)
