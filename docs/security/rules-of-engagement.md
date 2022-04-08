@@ -1,16 +1,16 @@
-# Rules of Engagement
+# エンゲージメントのルール
 
-When performing application security analysis, it is expected that the tester follow the *Rules of Engagement* as laid out below. This is to standardize the scope of application testing and provide a concrete awareness of what is considered "out of scope" for security analysis.
+アプリケーションのセキュリティ分析を実行する場合、テスターは以下に示すエンゲージメントのルールに従うことが期待されます。これは、アプリケーションテストの範囲を標準化し、セキュリティ分析の「範囲外」と見なされるものを具体的に認識するためです。
 
-## Rules of Engagement - For those requesting review
+## エンゲージメントのルール-レビューをリクエストする人のために
 
-* Web Application Firewalls can be up and configured, but do not enable any automatic blocking. This can greatly slow down the person performing the test.
-* Similarly, if a service is running on a virtual machine, ensure services such as `fail2ban` are disabled.
-* You cannot make changes to the running application until the test is complete. This is to prevent accidentally breaking an otherwise valid attack in progress.
-* Any review results are not considered as "final". A security review should always be performed by a security team orchestrated by the customer prior to moving an application into production. If a customer requires further assistance, they can engage Premier Support.
+* Webアプリケーションファイアウォールを起動して構成することはできますが、自動ブロックを有効にしないでください。これにより、テストを実行する人の速度が大幅に低下する可能性があります。
+* 同様に、サービスが仮想マシンで実行されている場合は、などのサービス`fail2ban`が無効になっていることを確認してください。
+* テストが完了するまで、実行中のアプリケーションに変更を加えることはできません。これは、進行中の有効な攻撃を誤って壊すことを防ぐためです。
+* レビュー結果は「最終」とは見なされません。セキュリティレビューは、アプリケーションを本番環境に移行する前に、常にお客様が調整したセキュリティチームが実行する必要があります。お客様がさらにサポートを必要とする場合は、プレミアサポートを利用できます。
 
-## Rules of Engagement - For those performing tests
+## エンゲージメントのルール-テストを実行する人向け
 
-* Do not attempt to perform Denial-of-Service attacks or otherwise crash services. Heavy active scanning is tolerated (and is assumed to be somewhat of a load test) but deliberate takedowns are not permitted.
-* Do not interact with human beings. Phishing credentials or other such client-side attacks are off-limits. Detailing XSS and similar attacks is encouraged as a part of the test, but do not leverage these against internal users or customers.
-* Attack from a single point. Especially if the application is currently in the customer's hands, provide the IP address or hostname of the attacking host to avoid setting off alarms.
+* サービス拒否攻撃やその他の方法でサービスをクラッシュさせようとしないでください。大量のアクティブスキャンは許容されますが（負荷テストの程度であると想定されます）、意図的な削除は許可されていません。
+* 人間と対話しないでください。フィッシング認証またはその他のそのようなクライアント側の攻撃は立ち入り禁止です。XSSおよび同様の攻撃の詳細は、テストの一部として推奨されますが、内部ユーザーまたは顧客に対してこれらを活用しないでください。
+* 一点からの攻撃。特に、アプリケーションが現在顧客の手元にある場合は、アラームが発生しないように、攻撃しているホストのIPアドレスまたはホスト名を指定してください。

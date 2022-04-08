@@ -1,94 +1,94 @@
-# Reliability
+# 信頼性
 
-All the other CSE Eng Fundamentals work towards a more reliable infrastructure. Automated integration and deployment ensures code is properly tested, and helps remove human error, while slow releases build confidence in the code. Observability helps more quickly pinpoint errors when they arise to get back to a stable state, and so on.
+他のすべてのCSE Eng Fundamentalsは、より信頼性の高いインフラストラクチャに向けて取り組んでいます。自動化された統合とデプロイにより、コードが適切にテストされ、人為的エラーを取り除くことができます。また、リリースが遅いと、コードの信頼性が高まります。可観測性は、エラーが発生して安定した状態に戻るときに、エラーをより迅速に特定するのに役立ちます。
 
-However, there are some additional steps we can take, that don't neatly fit into the previous categories, to help ensure a more reliable solution. We'll explore these below.
+ただし、より信頼性の高いソリューションを確保するために、前のカテゴリにうまく適合しない、実行できる追加の手順がいくつかあります。これらについては、以下で説明します。
 
-## Remove "Foot-Guns"
+## 「Foot-Guns」を削除します
 
-Prevent your dev team from shooting themselves in the foot. People make mistakes; any mistake made in production is not the fault of that person, it's the collective fault of the system to not prevent that mistake from happening.
+開発チームが自分の足を撃たないようにします。人々は間違いを犯します。生産で行われた間違いはその人のせいではなく、その間違いの発生を防がないのはシステムの集合的なせいです。
 
-Check out the below list for some common tooling to remove these foot guns:
+これらのフットガンを取り外すための一般的なツールについては、以下のリストを確認してください。
 
-* In Kubernetes, leverage [Admission Controllers](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) to prevent "bad things" from happening.
-  * You can create custom controllers using the Webhook Admission controller.
-* [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) is a pre-built Webhook Admission controller, leveraging [OPA](https://github.com/open-policy-agent/opa) underneath the hood, with support for some [out-of-the-box protections](https://github.com/open-policy-agent/gatekeeper-library/tree/master/library)
+* Kubernetesでは、[Admission Controllers](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/)を活用して、「悪いこと」が発生しないようにします。
+  * Webhookアドミッションコントローラーを使用してカスタムコントローラーを作成できます。
+* [Gatekeeper](https://github.com/open-policy-agent/gatekeeper)は、事前に構築されたWebhookアドミッションコントローラーであり、内部で[OPA](https://github.com/open-policy-agent/opa)を活用し、すぐに使用できる[保護をサポート](https://github.com/open-policy-agent/gatekeeper-library/tree/master/library)します。
 
-If a user ever makes a mistake, don't ask: "how could somebody possibly do that?", do ask: "how can we prevent this from happening in the future?"
+ユーザーが間違いを犯した場合でも、「誰かがそれを行う可能性があるのはなぜですか」と尋ねないでください。「将来、これが起こらないようにするにはどうすればよいですか」と尋ねてください。
 
-## Autoscaling
+## 自動スケーリング
 
-Whenever possible, leverage autoscaling for your deployments. Vertical autoscaling can scale your VM's by tuning parameters like CPU, disk, and RAM, while horizontal autoscaling can tune the number of running images backing your deployments. Autoscaling can help your system respond to inorganic growth in traffic, and prevent failing requests due to resource starvation.
+可能な限り、デプロイメントに自動スケーリングを活用してください。垂直方向の自動スケーリングでは、CPU、ディスク、RAMなどのパラメーターを調整することで、VMをスケーリングできます。一方、水平方向の自動スケーリングでは、展開をサポートする実行中のイメージの数を調整できます。自動スケーリングは、システムがトラフィックの無機的な増加に対応し、リソース不足によるリクエストの失敗を防ぐのに役立ちます。
 
-> Note: In environments like K8s, both horizontal and vertical autoscaling are offered as a native solution. The VM's backing each Pod however, may also need autoscaling to handle an increase in the number of Pods.
+> 注：K8sのような環境では、水平方向と垂直方向の両方の自動スケーリングがネイティブソリューションとして提供されます。ただし、VMが各ポッドをサポートしている場合は、ポッド数の増加に対応するために自動スケーリングが必要になることもあります。
 
-It should also be noted that the parameters that affect autoscaling can be difficult to tune. Typical metrics like CPU or RAM utilization, or request rate may not be enough. Sometimes you might want to consider custom metrics, like cache eviction rate.
+自動スケーリングに影響を与えるパラメータは調整が難しい場合があることにも注意してください。CPUまたはRAMの使用率、要求率などの一般的なメトリックでは不十分な場合があります。キャッシュ排除率などのカスタムメトリックを検討したい場合があります。
 
-## Load shedding & DOS Protection
+## 負荷制限とDOS保護
 
-Often we think of Denial of Service [DOS] attacks as an act from a malicious actor, so we place some load shedding at the gates to our system and call it a day. In reality, many DOS attacks are unintentional, and self-inflicted. A bad deployment that takes down a Cache results in hammering downstream services. Polling from a distributed system synchronizes and results in a [thundering herd](https://en.wikipedia.org/wiki/Thundering_herd_problem). A misconfiguration results in an error which triggers clients to retry uncontrollably. Requests append to a stored object until it is so big that future reads crash the server. The list goes on.
+多くの場合、サービス拒否(DOS)攻撃は悪意のある攻撃者による行為と見なされるため、システムのゲートに負荷を軽減し、それを1日と呼びます。実際には、多くのDOS攻撃は意図的ではなく、自発的なものです。キャッシュを停止する不適切なデプロイメントは、ダウンストリームサービスに打撃を与えます。分散システムからのポーリングは同期し、[雷の群れ](https://en.wikipedia.org/wiki/Thundering_herd_problem)になります。設定を誤るとエラーが発生し、クライアントが制御不能に再試行します。リクエストは、将来の読み取りでサーバーがクラッシュするほど大きくなるまで、保存されたオブジェクトに追加されます。リストは続きます。
 
-Follow these steps to protect yourself:
+身を守るために次の手順に従ってください。
 
-* Add a jitter (random) to any action that occurs from a non-user triggered flow (ie: add a random duration to the sleep in a cron, or job that continuously polls a downstream service).
-* Implement [exponential backoff retry policies](https://en.wikipedia.org/wiki/Exponential_backoff) in your client code
-* Add load shedding to your servers (yes, your internal microservices too).
-  * This can be configured easily when leveraging a sidecar like envoy.
-* Be careful when deserializing user requests, and use buffer limits.
-  * ie: HTTP/gRPC Servers can set limits on how much data will get read from the socket.
-* Set alerts for utilization, servers restarting, or going offline to detect when your system may be failing.
+* ユーザーがトリガーしないフローから発生するアクションにジッター（ランダム）を追加します（つまり、cronのスリープ、またはダウンストリームサービスを継続的にポーリングするジョブにランダムな期間を追加します）。
+* クライアントコードに[指数バックオフ再試行ポリシー](https://en.wikipedia.org/wiki/Exponential_backoff)を実装する。
+* サーバーに負荷制限を追加します（はい、内部マイクロサービスも）。
+  * これは、envoy のようなサイドカーを活用するときに簡単に構成できます。
+* ユーザー要求を逆シリアル化するときは注意し、バッファー制限を使用してください。
+  * すなわち：HTTP / gRPCサーバーは、ソケットから読み取られるデータの量に制限を設定できます。
+* 使用率、サーバーの再起動、またはオフラインになることについてアラートを設定し、システムに障害が発生している可能性があることを検出します。
 
-These types of errors can result in Cascading Failures, where a non-critical portion of your system takes down the entire service. Plan accordingly, and make sure to put extra thought into how your system might degrade during failures.
+これらのタイプのエラーは、システムの重要でない部分がサービス全体を停止させるカスケード障害を引き起こす可能性があります。それに応じて計画を立て、障害時にシステムがどのように劣化する可能性があるかを十分に考慮してください。
 
-## Backup Data
+## バックアップデータ
 
-Data gets lost, corrupted, or accidentally deleted. It happens. Take data backups to help get your system back up online as soon as possible. It can happen in the application stack, with code deleting or corrupting data, or at the storage layer by losing the volumes, or losing encryption keys.
+データが失われたり、破損したり、誤って削除されたりします。それは起こります。データのバックアップを取り、システムをできるだけ早くオンラインに戻すのに役立ててください。これは、コードがデータを削除または破損したり、ストレージレイヤーでボリュームを失ったり、暗号化キーを失ったりして、アプリケーションスタックで発生する可能性があります。
 
-Consider things like:
+次のようなことを検討してください。
 
-* How long will it take to restore data.
-* How much data loss can you tolerate.
-* How long will it take you to notice there is data loss.
+* データの復元にはどのくらい時間がかかりますか。
+* どのくらいのデータ損失を許容できますか。
+* データの損失があることに気付くのにどのくらい時間がかかりますか。
 
-Look into the difference between **snapshot** and **incremental** backups. A good policy might be to take incremental backups on a period of N, and a snapshot backup on a period of M (where N < M).
+**スナップショット** と **増分** のバックアップの違いを調べてください。適切なポリシーは、期間Nで増分バックアップを作成し、期間M（N < M）でスナップショットバックアップを作成することです。
 
-## Target Uptime & Failing Gracefully
+## 稼働時間の目標と適切な失敗
 
-It's a known fact that systems cannot target 100% uptime. There are too many factors in today's software systems to achieve this, many outside of our control. Even a service that never gets updated and is 100% bug free will fail. Upstream DNS servers have issues all the time. Hardware breaks. Power outages, backup generators fail. The world is chaotic. Good services target some number of "9's" of uptime. ie: 99.99% uptime means that the system has a "budget" of 4 minutes and 22 seconds of uptime each month. Some months might achieve 100% uptime, which means that budget gets rolled over to the next month. What uptime means is different for everybody, and up to the service to define.
+システムが100％の稼働時間をターゲットにできないことは既知の事実です。今日のソフトウェアシステムには、これを達成するにはあまりにも多くの要因があり、その多くは私たちの制御の及ばないものです。更新されることはなく、100％バグがないサービスでも失敗します。アップストリームDNSサーバーには常に問題があります。ハードウェアが壊れています。停電、バックアップ発電機の故障。世界は混沌としている。優れたサービスは、稼働時間の「9」の数を対象としています。つまり、99.99％の稼働率は、システムの「予算」が毎月4分22秒であることを意味します。一部の月は100％の稼働時間を達成する可能性があります。これは、予算が翌月に繰り越されることを意味します。稼働時間の意味は、すべての人にとって、そして定義するサービスによって異なります。
 
-A good practice is to use any leftover budget at the end of the period (ie: year, quarter), to intentionally take that service down, and ensure that the rest of your systems fail as expected. Often times other engineers and services come to rely on that additional achieved availability, and it can be healthy to ensure that systems fail gracefully.
+期間の終わり（つまり、年、四半期）に残った予算を使用して、そのサービスを意図的に停止し、残りのシステムが期待どおりに機能しなくなるようにすることをお勧めします。多くの場合、他のエンジニアやサービスは、その追加の達成された可用性に依存するようになり、システムが正常に失敗することを保証することは健全である可能性があります。
 
-We can build graceful failure (or graceful degradation) into our software stack by anticipating failures. Some tactics include:
+障害を予測することで、ソフトウェアスタックに正常な障害（または正常な劣化）を組み込むことができます。いくつかの戦術は次のとおりです。
 
-* Failover to healthy services
-  * [Leader Election](https://en.wikipedia.org/wiki/Leader_election) can be used to keep healthy services on standby in case the leader experiences issues.
-  * Entire cluster failover can redirect traffic to another region or availability zone.
-  * Propagate downstream failures of **dependent services** up the stack via health checks, so that your ingress points can re-route to healthy services.
-* [Circuit breakers](https://techblog.constantcontact.com/software-development/circuit-breakers-and-microservices/#:~:text=The%20Circuit%20breaker%20pattern%20helps,unavailable%20or%20have%20high%20latency.) can bail early on requests vs. propagating errors throughout the system
+* 健全なサービスへのフェイルオーバー
+  * [リーダーの選出](https://en.wikipedia.org/wiki/Leader_election)は、リーダーが問題を経験した場合に備えて、健全なサービスを待機状態に保つために使用できます。
+  * クラスタ全体のフェールオーバーにより、トラフィックを別のリージョンまたはアベイラビリティーゾーンにリダイレクトできます。
+  * **依存サービス** のダウンストリーム障害をヘルスチェックを介してスタックに伝播し、入力ポイントが正常なサービスに再ルーティングできるようにします。
+* [ブレーカー回路](https://techblog.constantcontact.com/software-development/circuit-breakers-and-microservices/#:~:text=The%20Circuit%20breaker%20pattern%20helps,unavailable%20or%20have%20high%20latency.)は、システム全体にエラーを伝播するのではなく、要求に応じて早期に救済することができます
 
-## Practice
+## 練習
 
-[None of the above recommendations will work if they are not tested](https://thinkmeta.net/2010/11/06/what-is-an-untested-dr-plan-worth/). Your backups are meaningless if you don't know how to mount them. Your cluster failover and other mitigations will regress over time if they are not tested. Here are some tips to test the above:
+[上記の推奨事項は、テストされていない場合は機能しません](https://thinkmeta.net/2010/11/06/what-is-an-untested-dr-plan-worth/)。マウント方法がわからない場合、バックアップは無意味です。クラスターのフェイルオーバーおよびその他の緩和策は、テストされていない場合、時間の経過とともに低下します。上記をテストするためのヒントを次に示します。
 
-### Maintain Playbooks
+### プレイブックを維持する
 
-No software service is complete without playbooks to navigate the devs through unfamiliar territory. Playbooks should be thorough and cover all known failure scenarios and mitigations.
+なじみのない領域を開発者がナビゲートするためのプレイブックがなければ、ソフトウェアサービスは完成しません。プレイブックは徹底的であり、すべての既知の障害シナリオと軽減策を網羅している必要があります。
 
-### Run maintenance exercises
+### メンテナンス演習を実行する
 
-Take the time to fabricate scenarios, and run a D&D style campaign to solve your issues. This can be as elaborate as spinning up a new environment and injecting errors, or as simple as asking the "players" to navigate to a dashboard and describing would they would see in the fabricated scenario (small amounts of imagination required). The playbooks should **easily** navigate the user to the correct solution/mitigation. If not, update your playbooks.
+時間をかけてシナリオを作成し、D＆Dスタイルのキャンペーンを実行して問題を解決してください。これは、新しい環境を起動してエラーを挿入するのと同じくらい複雑な場合もあれば、「プレーヤー」にダッシュボードに移動して、作成されたシナリオで表示される内容を説明するのと同じくらい簡単な場合もあります（少し想像力が必要です）。プレイブックは、ユーザーを正しい解決策/緩和策に **簡単** にナビゲートする必要があります。そうでない場合は、プレイブックを更新してください。
 
-### Chaos Testing
+### カオステスト
 
-Leverage automated chaos testing to see how things break. Check out the list of the following tools:
+自動化されたカオステストを活用して、状況がどのように機能するかを確認します。次のツールのリストを確認してください。
 
 * [Chaos Monkey](https://netflix.github.io/chaosmonkey/)
 * [Kraken](https://github.com/cloud-bulldozer/kraken)
-* Many services meshes, like [Linkerd](https://linkerd.io/2/features/fault-injection/), offer fault injection tooling through the use of their sidecars.
+* [Linkerd](https://linkerd.io/2/features/fault-injection/)のような多くのサービスメッシュは、サイドカーを使用してフォールトインジェクションツールを提供します。
 * [Chaos Mesh](https://github.com/chaos-mesh/chaos-mesh)
 
-## Analyze all Failures
+## すべての失敗を分析する
 
-Writing up a [post-mortem](https://en.wikipedia.org/wiki/Postmortem_documentation) is a great way to document the root causes, and action items for your failures. They're also a great way to track recurring issues, and create a strong case for prioritizing fixes.
+[事後分析](https://en.wikipedia.org/wiki/Postmortem_documentation)を作成することは、根本的な原因と失敗のアクションアイテムを文書化するための優れた方法です。また、繰り返し発生する問題を追跡し、修正に優先順位を付けるための強力なケースを作成するための優れた方法でもあります。
 
-This can even be tied into your regular Agile [restrospectives](../agile-development/retrospectives.md).
+これは、通常のアジャイル[再検討](../agile-development/retrospectives.md)に結び付けることもできます。
