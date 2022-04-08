@@ -1,92 +1,85 @@
-# Application Deployment
+# アプリケーションの展開
 
-The Memory application leverages [Azure DevOps](https://docs.microsoft.com/en-gb/azure/devops/index?view=azure-devops) for work item tracking as well as continuous integration (CI) and continuous deployment (CD).
+メモリアプリケーションは、[Azure DevOps](https://docs.microsoft.com/en-gb/azure/devops/index?view=azure-devops)を活用して、作業項目の追跡、継続的インテグレーション（CI）および継続的デプロイ（CD）を実現します。
 
 ---
 
-## Environments
+## 環境
 
-The Memory project uses multiple environments to isolate and test changes before promoting releases to the global user base.
+メモリプロジェクトは、複数の環境を使用して、リリースをグローバルユーザーベースにプロモートする前に、変更を分離してテストします。
 
-New environment rollouts are automatically triggered based upon a successful deployment of the previous stage /environment.
+新しい環境のロールアウトは、前のステージ/環境の展開が成功したことに基づいて自動的にトリガーされます。
 
-The **development**, **staging** and **production** environments leverage slot deployment during an environment rollout.
-After a new release is deployed to a staging slot, it is validated through a series of functional integration tests.
-Upon a 100% pass rate of all tests the staging & production slots are swapped effectively making updates to the environment available.
+**開発**、**ステージング**、および**実稼働環境**は、環境のロールアウト中にスロットの展開を活用します。新しいリリースがステージングスロットにデプロイされた後、一連の機能統合テストを通じて検証されます。すべてのテストの合格率が100％になると、ステージングスロットと本番スロットが効果的に交換され、環境の更新が利用可能になります。
 
-Any errors or failed tests halt the deployment in the current stage and prevent changes to further environments.
+エラーまたは失敗したテストは、現在の段階での展開を停止し、それ以降の環境への変更を防ぎます。
 
-Each deployed environment is completely isolated and does not share any components.
-They each have unique resource instances of Azure Traffic Manager, Cosmos DB, etc.
+デプロイされた各環境は完全に分離されており、コンポーネントを共有しません。それぞれに、Azure Traffic Manager、CosmosDBなどの一意のリソースインスタンスがあります。
 
-### Deployment Dependencies
+### 展開の依存関係
 
-| Development      | Staging     | Production      |
+| 開発環境      　　| ステージング | 本番環境　      |
 | ---------------- | ----------- | --------------- |
-| CI Quality Gates | Development | Staging         |
-|                  |             | Manual Approval |
+| CI品質ゲート      | 開発環境　　 | ステージング     |
+|                  |             | 手動承認　　　　 |
 
-### Local
+### ローカル
 
-The local environment is used by individual software engineers during the development of new features and components.
+ローカル環境は、新しい機能やコンポーネントの開発中に個々のソフトウェアエンジニアによって使用されます。
 
-Engineers leverage some components from the deployed development environment that are not available on certain platforms or are unable to run locally.
+エンジニアは、展開された開発環境の一部のコンポーネントを活用します。これらのコンポーネントは、特定のプラットフォームでは使用できないか、ローカルで実行できません。
 
 - CosmosDB
-  - Emulator only exists for Windows
+  - エミュレータはWindowsにのみ存在します
 
-The local environment also does not use Azure Traffic Manager.
-The frontend web app directly communicates to the backend REST API typically running on a separate localhost port mapping.
+ローカル環境も Azure Traffic Manager を使用しません。フロントエンド Web アプリは、通常は別のローカルホストポートマッピングで実行されているバックエンドREST　APIと直接通信します。
 
-### Development
+### 開発環境
 
-The development environment is used as the first quality gate.
-All code that is checked into the `main` branch is automatically deployed to this environment after all CI quality gates have passed.
+開発環境は、最初の品質ゲートとして使用されます。`main`ブランチにチェックインされるすべてのコードはすべてのCI品質ゲートが通過した後にこの環境に自動的にデプロイされます。
 
-#### Dev Regions
+#### 開発リージョン
 
-- West US (westus)
+- 米国西部（westus）
 
-### Staging
+### ステージング環境
 
-The staging environment is used to validate new features, components and other changes prior to production rollout.
-This environment is primarily used by developers, QA and other company stakeholders.
+ステージング環境は、本番環境に展開する前に、新機能、コンポーネント、およびその他の変更を検証するために使用されます。この環境は、主に開発者、QA、およびその他の企業の利害関係者によって使用されます。
 
-#### Staging Regions
+#### ステージングリージョン
 
-- West US (westus)
-- East US (eastus)
+- 米国西部（westus）
+- 米国東部（eastus）
 
-### Production
+### 本番環境
 
-The production environment is used by the worldwide user base.
-Changes to this environment are gated by manual approval by your product's leadership team in addition to other automatic quality gates.
+本番環境は、世界中のユーザーベースによって使用されています。この環境への変更は、他の自動品質ゲートに加えて、製品のリーダーシップチームによる手動承認によってゲートされます。
 
-#### Production Regions
+#### 本番環境 リージョン
 
-- West US (westus)
-- Central US (centralus)
-- East US (eastus)
+- 米国西部（westus）
+- 米国中部（centralus）
+- 米国東部（eastus）
 
 ---
 
-## Environment Variable Group
+## 環境変数グループ
 
-### Infrastructure Setup (cse-memory-common)
+### インフラストラクチャのセットアップ (cse-memory-common)
 
 - appName
 - businessUnit
 - serviceConnection
 - subscriptionId
 
-### Development Setup (cse-memory-dev)
+### 開発セットアップ (cse-memory-dev)
 
 - environmentName (placeholder)
 
-### Staging Setup (cse-memory-staging)
+### ステージング設定 (cse-memory-staging)
 
 - environmentName (placeholder)
 
-### Production Setup (cse-memory-prod)
+### 本番セットアップ (cse-memory-prod)
 
 - environmentName (placeholder)

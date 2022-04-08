@@ -1,23 +1,22 @@
-# Decision Log
+# 決定ログ
 
-This document is used to track key decisions that are made during the course of the project.
-This can be used at a later stage to understand why decisions were made and by whom.
+このドキュメントは、プロジェクトの過程で行われた重要な決定を追跡するために使用されます。これは、後の段階で、決定が行われた理由と誰によって行われたかを理解するために使用できます。
 
-| **Decision** | **Date** | **Alternatives Considered** | **Reasoning** | **Detailed doc** | **Made By** | **Work Required** |
+| **決定** | **日付** | **検討された代替案** | **事由** | **詳細なドキュメント** | **作成者** | **必要な作業** |
 | --- | --- |  --- | --- | --- | --- | --- |
-| Use Architecture Decision Records | 01/25/2021 | Standard Design Docs | An easy and low cost solution of tracking architecture decisions over the lifetime of a project | Record Architecture Decisions | Dev Team | #21654 |
-| Use ArgoCD | 01/26/2021 | FluxCD | ArgoCD is more feature rich, will support more scenarios, and will be a better tool to put in our tool belts. So we have decided at this point to go with ArgoCD | [GitOps Trade Study](Trade-Studies/GitOps.md) | Dev Team | #21672 |
-| Use Helm | 01/28/2021 | Kustomize, Kubes, Gitkube, Draft | Platform maturity, templating, ArgoCD support | K8s Package Manager Trade Study | Dev Team | #21674 |
-| Use CosmosDB | 01/29/2021 | Blob Storage, CosmosDB, SQL Server, Neo4j, JanusGraph, ArangoDB | CosmosDB has better Azure integration, managed identity, and the Gremlin API is powerful. | Graph Storage Trade Study and Decision | Dev Team | #21650 |
-| Use Azure Traffic Manager | 02/02/2021 | Azure Front Door | A lightweight solution to route traffic between multiple k8s regional clusters | Routing Trade Study | Dev Team | #21673
-| Use Linkerd + Contour | 02/02/2021 | Istio, Consul, Ambassador, Traefik | A CNCF backed cloud native k8s stack to deliver service mesh, API gateway and ingress | Routing Trade Study | Dev Team | #21673
-| Use ARM Templates | 02/02/2021 | Terraform, Pulumi, Az CLI | Azure Native, Az Monitoring and incremental updates support | Automated Deployment Trade Study | Dev Team | #21651 |
-| Use 99designs/gqlgen | 02/04/2021 | graphql, graphql-go, thunder | Type safety, auto-registration and code generation | GraphQL Golang Trade Study | Dev Team | #21775 |
-| Create normalized role data model | 03/25/2021 | Career Stage Profiles (CSP), Microsoft Role Library | Requires a data model that support the data requirements of both role systems | Role Data Model Schema | Dev Team | #22035 |
-| Design for edges and vertices | 03/25/2021 | N/A | N/A | Data Model | Dev Team | #21976 |
-| Use grammes | 03/29/2021 | Gremlin, gremgo, gremcos | Balance of documentation and maturity | Gremlin API library Trade Study | Dev Team | #21870 |
-| Design for Gremlin implementation | 04/02/2021 | N/A | N/A | Gremlin | Dev Team | #21980 |
-| Design for Gremlin implementation | 04/02/2021 | N/A | N/A | Gremlin | Dev Team | #21980 |
-| Expose 1:1 data model from API to DB | 04/02/2021 | Exposing a minified version of data model contract | Team decided that there were no pieces of data that we can rule out as being useful. Will update if data model becomes too complex | API README | Dev Team | #21658 |
-| Deprecate SonarCloud | 04/05/2021 | Checkstyle, PMD, FindBugs | Requires paid plan to use in a private repo | Code Quality & Security | Dev Team | #22090 |
-| Adopted Stable Tagging Strategy | 04/08/2021 | N/A | Team aligned on the proposed docker container tagging strategy  | Tagging Strategy | Dev Team | #22005 |
+| アーキテクチャ決定レコードを使用する | 01/25/2021 | 標準設計ドキュメント | プロジェクトの存続期間にわたってアーキテクチャの決定を追跡する簡単で低コストのソリューション | アーキテクチャの決定を記録する | 開発チーム | #21654 |
+| ArgoCDを使用する | 01/26/2021 | FluxCD | ArgoCDはより機能が豊富で、より多くのシナリオをサポートし、ツールベルトに入れるためのより良いツールになります。そのため、この時点でArgoCDを使用することにしました。 | [GitOps Trade Study](Trade-Studies/GitOps.md) | 開発チーム | #21672 |
+| Helmを使用する | 01/28/2021 | Kustomize, Kubes, Gitkube, Draft | プラットフォームの成熟度、テンプレート、ArgoCDのサポート | K8sパッケージマネージャーのトレードス​​タディ | 開発チーム | #21674 |
+| CosmosDBを使用する | 01/29/2021 | Blob Storage, CosmosDB, SQL Server, Neo4j, JanusGraph, ArangoDB | CosmosDBはより優れたAzure統合、マネージドIDを備えており、GremlinAPIは強力です。 | グラフストレージトレードの調査と決定 | 開発チーム | #21650 |
+| Azure Traffic Manager を使用する | 02/02/2021 | Azure Front Door | 複数のk8sリージョナルクラスター間でトラフィックをルーティングするための軽量ソリューション | ルーティングトレードス​​タディ | 開発チーム | #21673
+| Linkerd + Contour を使用する | 02/02/2021 | Istio, Consul, Ambassador, Traefik | CNCFでサポートされたクラウドネイティブk8sスタックは、サービスメッシュ、APIゲートウェイ、および入力を提供します | ルーティングトレードス​​タディ | 開発チーム | #21673
+| ARM テンプレートを使用する | 02/02/2021 | Terraform, Pulumi, Az CLI | Azure Native、Az Monitoring、およびインクリメンタル更新のサポート | 自動展開トレードス​​タディ | 開発チーム | #21651 |
+| 99designs/gqlgenを使用する | 02/04/2021 | graphql, graphql-go, thunder | 型安全性、自動登録、コード生成 | GraphQLGolangトレードス​​タディ | 開発チーム | #21775 |
+| 正規化された役割データモデルを作成する | 03/25/2021 | キャリアステージプロファイル（CSP）、Microsoftロールライブラリ | 両方の役割システムのデータ要件をサポートするデータモデルが必要です | 役割データモデルスキーマ | 開発チーム | #22035 |
+| エッジと頂点の設計 | 03/25/2021 | 該当なし | 該当なし | データモデル | 開発チーム | #21976 |
+| grammesを使用する | 03/29/2021 | Gremlin, gremgo, gremcos | ドキュメントと成熟度のバランス | Gremlin API ライブラリトレードス​​タディ | 開発チーム | #21870 |
+| Gremlin 実装の設計 | 04/02/2021 | 該当なし | 該当なし | Gremlin | 開発チーム | #21980 |
+| Gremlin 実装の設計 | 04/02/2021 | 該当なし | 該当なし | Gremlin | 開発チーム | #21980 |
+| APIからDBに1：1のデータモデルを公開する | 04/02/2021 | データモデル契約の縮小版を公開する | チームは、有用であると除外できるデータはないと判断しました。データモデルが複雑になりすぎると更新されます | API README | 開発チーム | #21658 |
+| SonarCloudの廃止 | 04/05/2021 | Checkstyle, PMD, FindBugs | プライベートリポジトリで使用するには有料プランが必要です | コードの品質とセキュリティ | 開発チーム | #22090 |
+| 安定したタグ付け戦略の採用 | 04/08/2021 | 該当なし | チームは提案されたDockerコンテナのタグ付け戦略に沿って調整しました | タグ付け戦略 | 開発チーム | #22005 |

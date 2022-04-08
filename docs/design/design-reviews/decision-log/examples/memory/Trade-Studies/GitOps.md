@@ -1,156 +1,148 @@
-# Trade Study: GitOps
+# 貿易調査：GitOps
 
-Conducted by: Tess and Jeff
+実施者: テスとジェフ
 
-Backlog Work Item: #21672
+バックログ作業項目: #21672
 
-Decision Makers: Wallace, whole team
+意思決定者: ウォレス、チーム全体
 
-## Overview
+## 概要
 
-For Memory, we will be creating a cloud native application with infrastructure as code.
-We will use GitOps for Continuous Deployment through pull requests infrastructure changes to be reflected.
+メモリについては、インフラストラクチャをコードとして使用するクラウドネイティブアプリケーションを作成します。反映されるプルリクエストインフラストラクチャの変更を通じて、継続的デプロイにGitOpsを使用します。
 
-Overall, between our two options, one is more simple and targeted in a way that we believe would meet the requirements for this project.
-The other does the same, with additional features that may or may not be worth the extra configuration and setup.
+全体として、2つのオプションのうち、1つはより単純で、このプロジェクトの要件を満たすと思われる方法で対象を絞っています。もう1つは同じことを行いますが、追加の構成とセットアップの価値がある場合とない場合がある追加機能があります。
 
-### Evaluation Criteria
+### 評価基準
 
-1. Repo style: mono versus multi
-1. Policy Enforcement
-1. Deployment Methods
-1. Deployment Monitoring
-1. Admission Control
-1. Azure Documentation availability
-1. Maintainability
-1. Maturity
-1. User Interface
+1. レポスタイル: モノvsマルチ
+1. ポリシーの施行
+2. デプロイ方法
+3. デプロイ監視
+4. アドミッションコントロール
+5. Azureドキュメントの可用性
+6. 保守性
+7. 成熟
+8. ユーザーインターフェース
 
-## Solutions
+## ソリューション
 
 ### Flux
 
-[Flux](https://toolkit.fluxcd.io/) is a tool created by Waveworks and is built on top of Kubernetes' API extension system, supports multi-tenancy, and integrates seamlessly with popular tools like Prometheus.
+[Flux](https://toolkit.fluxcd.io/)は、Waveworksによって作成されたツールであり、KubernetesのAPI拡張システム上に構築され、マルチテナンシーをサポートし、Prometheusなどの一般的なツールとシームレスに統合されます。
 
-#### Flux Acceptance Criteria Evaluation
+#### Flux 許容基準評価
 
-1. Repo style: mono versus multi
-   - Flux supports both as of v2
-1. Policy Enforcement
-   - [Azure Policy is in Preview](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/use-azure-policy)
-1. Deployment Methods
-   - Define a Helm [release](https://toolkit.fluxcd.io/guides/helmreleases/) using Helm Controllers
-   - [Kustomization](https://toolkit.fluxcd.io/get-started/#deploy-podinfo-application) describes deployments
-1. Deployment Monitoring
-   - Flux works with Prometheus for deployment monitoring as well as Grafana dashboards
-1. Admission Control
-   - Flux uses RBAC from Kubernetes to lock down sync permissions.
-   - [Uses the service account to access image pull secrets](https://docs.fluxcd.io/en/1.21.1/faq/#how-do-i-give-flux-access-to-an-image-registry)
-1. Azure Documentation availability
-   - Great, better when using Helm Operators
-1. Maintainability
-   - Manage via YAML files in git repo
-1. Maturity
-   - [v2 is published under Apache license in GitHub](https://github.com/fluxcd/flux2), it works with Helm v3, and has PR commits from as recently as today
-   - 945 stars, 94 forks
-1. User Interface
-   - CLI, the simplest lightweight option
+1. レポスタイル：モノ対マルチ
+   - Fluxはv2の時点で両方をサポートしています
+1. ポリシーの施行
+   - [Azureポリシーはプレビュー中です](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/use-azure-policy)
+1. デプロイ方法
+   - HelmControllerを使用してHelm [リリース](https://toolkit.fluxcd.io/guides/helmreleases/)を定義します
+   - [Kustomization](https://toolkit.fluxcd.io/get-started/#deploy-podinfo-application)でデプロイについて解説
+2. デプロイ監視
+   - Fluxは、Prometheusと連携して、デプロイ監視とGrafanaダッシュボードを実行します
+3. アドミッションコントロール
+   - Fluxは、KubernetesのRBACを使用して同期権限をロックダウンします。
+   - [サービスアカウントを使用して、イメージプルシークレットにアクセスする](https://docs.fluxcd.io/en/1.21.1/faq/#how-do-i-give-flux-access-to-an-image-registry)
+4. Azureドキュメントの可用性
+   - ヘルム演算子を使用すると、より良い
+5. 保守性
+   - gitリポジトリのYAMLファイルを介して管理する
+6. 成熟
+   - [v2はGitHubでApacheライセンスで公開](https://github.com/fluxcd/flux2)おり、Helm v3で動作し、今日からのPRコミットがあります。
+   - 945スター、94フォーク
+7. ユーザーインターフェース
+   - CLI、最もシンプルな軽量オプション
 
-Other features to call out (see more on website)
+呼び出すその他の機能（Webサイトで詳細を参照）
 
-- Flux only supports Pull-based deployments which means it must be paired with an operator
-- Flux can send notifications and receive webhooks for syncing
-- Health assessments
-- Dependency management
-- Automatic deployment
-- Garbage collection
-- Deploy on commit
+- Fluxはプルベースの展開のみをサポートします。つまり、オペレーターとペアリングする必要があります
+- Fluxは、同期のために通知を送信したり、Webhookを受信したりできます
+- ヘルス評価
+- 依存関係の管理
+- 自動展開
+- ガベージコレクション
+- コミット時にデプロイ
 
-#### Variations
+#### バリエーション
 
-##### Controllers
+##### コントローラー
 
-Both Controller options are optional.
+両方のコントローラーオプションはオプションです。
 
-The Helm Controller additionally fetches helm artifacts to publish, see below diagram.
+Helm Controllerは、公開するヘルムアーティファクトを追加でフェッチします。下の図を参照してください。
 
-The Kustomize Controller manages state and continuous deployment.
+Kustomize Controllerは、状態と継続的デプロイメントを管理します。
 
-We will not decide between the controller to use here, as that's a separate trade study, however we will note that Helm is more widely documented within Flux documentation.
+これは別のトレードス​​タディであるため、ここで使用するコントローラーを決定することはしませんが、HelmはFluxのドキュメント内でより広くドキュメント化されていることに注意してください。
 
 ##### Flux v1
 
-[Flux v1](https://github.com/fluxcd/flux) is only in maintenance mode and should not be used anymore.
-So this section does not consider the v1 option a valid option.
+[Flux v1](https://github.com/fluxcd/flux)はメンテナンスモードのみであり、使用しないでください。したがって、このセクションでは、v1オプションを有効なオプションとは見なしません。
 
 ##### GitOps Toolkit
 
-Flux v2 is built on top of the [GitOps Toolkit](https://toolkit.fluxcd.io/components/), however we do not evaluate using the [GitOps Toolkit](https://toolkit.fluxcd.io/components/) alone as that is for when you want to make your own CD system, which is not what we want.
+Flux v2 は[GitOps Toolkit](https://toolkit.fluxcd.io/components/)の上に構築されていますが、[GitOps Toolkit](https://toolkit.fluxcd.io/components/)を単独で使用することは評価していません。これは、独自のCDシステムを作成する場合であり、これは私たちが望んでいることではありません。
 
-### ArgoCD with Helm Charts
+### Helm Charts を用いた ArgoCD 
 
-ArgoCD is a declarative, GitOps-based Continuous Delivery (CD) tool for Kubernetes.
+ArgoCDは、Kubernetes用の宣言型のGitOpsベースの継続的デリバリー（CD）ツールです。
 
-#### ArgoCD with Helm Acceptance Criteria Evaluation
+#### ヘルム受け入れ基準評価を伴うArgoCD
 
-1. Repo style: mono versus multi
-   - ArgoCD supports both
-1. Policy Enforcement
-   - [Azure Policy is in Preview](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/use-azure-policy)
-1. Deployment Methods
-   - Deploy with [Helm](https://argo-cd.readthedocs.io/en/stable/user-guide/helm/) Chart
-   - Use [Kustomize](https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/) to apply some post-rendering to the Helm release templates
-1. Deployment Monitoring
-   - Argo CD expose two sets of [Prometheus](https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/) metrics (application metrics and API server metrics) for deployment monitoring.
-1. Admission Control
-   - ArgoCD use RBAC feature.
-     [RBAC](https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/) requires SSO configuration or one or more local users setup.
-     Once SSO or local users are configured, additional RBAC roles can be defined
-   - Argo CD does not have its own user management system and has only one built-in user admin.
-     The admin user is a superuser, and it has unrestricted access to the system
-   - [Authorization is handled via JWT tokens](https://argo-cd.readthedocs.io/en/stable/operator-manual/security/#authentication) and checking group claims in them
-1. Azure Documentation availability
-   - Argo has [documentation](https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/microsoft/) on Azure AD
-1. Maturity
-   - Has PR commits from as recently as today
-   - 5,000 stars, 1,100 forks
-1. Maintainability
-   - Can use GitOps to manage it
-1. User Interface
-   - ArgoCD has a GUI and can be used across clusters
+1. レポスタイル：モノ対マルチ
+   - ArgoCDは両方をサポートします
+1. ポリシーの施行
+   - [Azureポリシーはプレビュー中です](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/use-azure-policy)
+1. デプロイ方法
+   - [Helm](https://argo-cd.readthedocs.io/en/stable/user-guide/helm/) Chartを使用してデプロイする
+   - [Kustomize](https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/)を使用して、Helmリリーステンプレートにポストレンダリングを適用します。
+2. デプロイ監視
+   - Argo CDは、デプロイメント監視用に2セットの[Prometheus](https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/)メトリック（アプリケーションメトリックとAPIサーバーメトリック）を公開します。
+3. アドミッションコントロール
+   - ArgoCDはRBAC機能を使用します。 [RBAC](https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/)は、SSO構成または1人以上のローカルユーザーのセットアップが必要です。SSOまたはローカルユーザーを構成すると、追加のRBACロールを定義できます
+   - Argo CDには独自のユーザー管理システムがなく、組み込みのユーザー管理者は1人だけです。管理者ユーザーはスーパーユーザーであり、システムへの無制限のアクセス権があります
+   - [承認はJWTトークンを介して処理](https://argo-cd.readthedocs.io/en/stable/operator-manual/security/#authentication)され、JWTトークン内のグループクレームをチェックします
+4. Azureドキュメントの可用性
+   - ArgoにはAzureADに関する[ドキュメント](https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/microsoft/)がある。
+5. 成熟
+   - 今日からPRコミットがあります
+   - 5,000の星、1,100のフォーク
+6. 保守性
+   - GitOpsを使用して管理できます
+7. ユーザーインターフェース
+   - ArgoCDにはGUIがあり、クラスター間で使用できます
 
-Other features to call out (see more on website)
+呼び出すその他の機能（Webサイトで詳細を参照）
 
-- ArgoCD support both pull model and push model for continuous delivery
-- Argo can send notifications, but you need a separate tool for it
-- Argo can receive webhooks
-- Health assessments
-- Potentially much more useful multi-tenancy tools.
-  Manages multiple projects, maps them to teams, etc.
-- SSO Integration
-- Garbage collection
+- ArgoCDは、継続的デリバリーのためにプルモデルとプッシュモデルの両方をサポートします
+- Argoは通知を送信できますが、別のツールが必要です
+- ArgoはWebhookを受信できます
+- ヘルス評価
+- 潜在的にはるかに便利なマルチテナンシーツール。複数のプロジェクトを管理し、それらをチームにマッピングします。
+- SSO 統合
+- ガベージコレクション
 
 ![Architecture](https://argo-cd.readthedocs.io/en/stable/assets/argocd_architecture.png)
 
-## Results
+## 結果
 
-This section should contain a table that has each solution rated against each of the evaluation criteria:
+このセクションには、各評価基準に対して各ソリューションが評価された表が含まれている必要があります。
 
-| Solution | Repo style  | Policy Enforcement    | Deployment Methods            | Deployment Monitoring | Admission Control | Azure Doc              | Maintainability       | Maturity                                  | UI                                 |
+| ソリューション | リポジトリ形式  | ポリシーの施行 | デプロイ方式       | デプロイ監視 | 権限管理 | Azure Doc              | 保守性       | 成熟性                                  | UI                                 |
 | -------- | ----------- | --------------------- | ----------------------------- | --------------------- | ----------------- | ---------------------- | --------------------- | ----------------------------------------- | ---------------------------------- |
-| Flux     | mono, multi | Azure Policy, preview | Helm, Kustomize               | Prometheus, Grafana   | RBAC              | Yes on Azure           | YAML in git repo      | 945 stars, 94 forks, currently maintained | CLI                                |
-| ArgoCD   | mono, multi | Azure Policy, preview | Helm, Kustomize, KSonnet, ... | Prometheus, Grafana   | RBAC              | Only in their own docs | manifests in git repo | 5,000 stars, 1,100 forks                  | GUI, multiple clusters in same GUI |
+| Flux     | モノ、マルチ | Azure Policy プレビュー | Helm, Kustomize               | Prometheus, Grafana   | RBAC              | Azure上にあり           | Git の YAML      | 945 スター, 94 フォーク, 現在メンテ中 | CLI                                |
+| ArgoCD   | モノ、マルチ | Azure Policy プレビュー | Helm, Kustomize, KSonnet, ... | Prometheus, Grafana   | RBAC              | Azure上にはない | Git の manifests | 5,000 スター, 1,100 フォーク                  | GUI, マルチクラスターも同じUIで管理 |
 
-## Decision
+## 決断
 
-ArgoCD is more feature rich, will support more scenarios, and will be a better tool to put in our tool belts.
-So we have decided at this point to go with ArgoCD.
+ArgoCDはより機能が豊富で、より多くのシナリオをサポートし、ツールベルトに入れるためのより良いツールになります。そのため、この時点でArgoCDを使用することにしました。
 
 ## References
 
 1. [GitOps](https://www.gitops.tech/#:~:text=What%20is%20GitOps?%20GitOps%20is%20a%20way%20of,familiar%20with,%20including%20Git%20and%20Continuous%20Deployment%20tools.)
-1. [Enforcement](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/use-azure-policy)
-1. [Monitoring](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-onboard)
-1. [Policies](https://docs.microsoft.com/en-us/azure/governance/policy/concepts/policy-for-kubernetes)
-1. [Deployment](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/use-gitops-with-helm)
-1. [Push with ArgoCD in Azure DevOps](https://www.linkedin.com/pulse/azure-devops-gitops-aks-argocd-ajay-vikram-singh?articleId=6677601917633355776)
+1. [執行](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/use-azure-policy)
+1. [モニタリング](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-onboard)
+1. [ポリシー](https://docs.microsoft.com/en-us/azure/governance/policy/concepts/policy-for-kubernetes)
+1. [デプロイ](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/use-gitops-with-helm)
+2. [Azure DevOpsでArgoCDを使用してプッシュする](https://www.linkedin.com/pulse/azure-devops-gitops-aks-argocd-ajay-vikram-singh?articleId=6677601917633355776)
