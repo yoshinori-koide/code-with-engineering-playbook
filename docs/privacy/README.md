@@ -1,13 +1,10 @@
-# Privacy fundamentals
+# プライバシーの基礎
 
-This part of the engineering playbook focuses on privacy design guidelines and principles.
-Private data handling and protection requires both the proper design of software,
-systems and databases, as well as the implementation of organizational processes and procedures.
+エンジニアリングプレイブックのこの部分は、プライバシー設計のガイドラインと原則に焦点を当てています。プライベートデータの処理と保護には、ソフトウェア、システム、データベースの適切な設計と、組織のプロセスと手順の実装の両方が必要です。
 
-In general, developers working on [CSE](../CSE.md) projects should adhere to
-Microsoft's recommended standard practices and regulations on Privacy and Data Handling.
+一般に、 [CSE](../CSE.md) プロジェクトに取り組んでいる開発者は、プライバシーとデータ処理に関するMicrosoftの推奨する標準的な慣行と規制を順守する必要があります。
 
-The playbook currently contains two main parts:
+プレイブックには現在、2つの主要な部分が含まれています。
 
-1. [Privacy and Data](data-handling.md): Best practices for properly handling sensitive and private data.
-2. [Privacy frameworks](privacy-frameworks.md): A list of frameworks which could be applied in private data scenarios.
+1. [プライバシーとデータ](data-handling.md): 機密データとプライベートデータを適切に処理するためのベストプラクティス。
+2. [プライバシーフレームワーク](privacy-frameworks.md): プライベートデータシナリオに適用できるフレームワークのリスト。

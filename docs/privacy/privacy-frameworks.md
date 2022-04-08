@@ -1,212 +1,168 @@
-# Privacy related frameworks
+# プライバシー関連のフレームワーク
 
-The following tools/frameworks could be leveraged when data analysis or model development needs to take place on private data.
-Note that the use of such frameworks still requires the solution to adhere to privacy regulations and others, and additional safeguards should be applied.
+以下のツール/フレームワークは、個人データに対してデータ分析またはモデル開発を行う必要がある場合に活用できます。このようなフレームワークを使用するには、プライバシー規制などに準拠するソリューションが必要であり、追加の保護手段を適用する必要があることに注意してください。
 
-## Typical scenarios for leveraging a Privacy framework
+## プライバシーフレームワークを活用するための典型的なシナリオ
 
-1. Sharing data or results while preserving data subjects' privacy
+1. データ主体のプライバシーを保護しながらデータまたは結果を共有する
 
-2. Performing analysis or statistical modeling on private data
+2. プライベートデータの分析または統計モデリングの実行
 
-3. Developing privacy preserving ML models and data pipelines
+3. プライバシーを保護するMLモデルとデータパイプラインの開発
 
-## Privacy frameworks
+## プライバシーフレームワーク
 
-Protecting private data involves the entire data lifecycle, from acquisition, through storage, processing, analysis,
-modeling and usage in reports or machine learning models. Proper safeguards and restrictions should be applied in each of these phases.
+プライベートデータの保護には、取得から保存、処理、分析、モデリング、レポートや機械学習モデルでの使用まで、データのライフサイクル全体が含まれます。これらの各フェーズでは、適切な保護手段と制限を適用する必要があります。
 
-In this section we provide a **non-exhaustive list** of privacy frameworks which can be leveraged for protecting and preserving privacy.
+このセクションでは、プライバシーの保護と保護に活用できるプライバシーフレームワークの **非網羅的なリスト** を提供します。
 
-We focus on four main use cases in the data lifecycle:
+データライフサイクルの4つの主なユースケースに焦点を当てます。
 
-1. [Obtaining non-sensitive data](#obtaining-non-sensitive-data)
-2. [Establishing trusted research and modeling environments](#trusted-research-and-modeling-environments)
-3. [Creating privacy preserving data and ML pipelines](#privacy-preserving-data-pipelines-and-ml)
-4. [Data loss prevention](#data-loss-prevention)
+1. [機密性の低いデータの取得](#obtaining-non-sensitive-data)
+2. [信頼できる研究およびモデリング環境の確立](#trusted-research-and-modeling-environments)
+3. [プライバシー保護データとMLパイプラインの作成](#privacy-preserving-data-pipelines-and-ml)
+4. [データ損失防止](#data-loss-prevention)
 
-### Obtaining non-sensitive data
+### 機密性の低いデータの取得
 
-In many scenarios, analysts, researchers and data scientists require access to a non-sensitive version or sample of the private data.
-In this section we focus on two approaches for obtaining non-sensitive data.
+多くのシナリオでは、アナリスト、研究者、およびデータサイエンティストは、機密性の低いバージョンまたはプライベートデータのサンプルにアクセスする必要があります。このセクションでは、機密性の低いデータを取得するための2つのアプローチに焦点を当てます。
 
-**Note:** These two approaches do not guarantee that the outcome would not include private data, and additional measures should be applied.
+**注：** これら2つのアプローチは、結果に個人データが含まれないことを保証するものではなく、追加の対策を適用する必要があります。
 
-#### Data de-identification
+#### データの匿名化
 
-De-identification is the process of applying a set of transformations to a dataset,
-in order to lower the risk of unintended disclosure of personal data.
-De-identification involves the removal or substitution of both direct identifiers (such as name, or social security number) or quasi-identifiers,
-which can be used for re-identification using additional external information.
+匿名化は、個人データの意図しない開示のリスクを低減するために、データセットに一連の変換を適用するプロセスです。匿名化には、追加の外部情報を使用した再識別に使用できる直接識別子（名前、社会保障番号など）または準識別子の両方の削除または置換が含まれます。
 
-De-identification can be applied to different types of data, such as structured data, images and text.
-However, de-identification of non-structured data often involves statistical approaches which might result in undetected PII (Personal Identifiable Information) or non-private information being redacted or replaced.
+匿名化は、構造化データ、画像、テキストなど、さまざまな種類のデータに適用できます。ただし、非構造化データの匿名化には、多くの場合、検出されないPII（個人識別情報）または非個人情報が編集または置換される可能性のある統計的アプローチが含まれます。
 
-Here we outline several de-identification solutions available as open source:
+ここでは、オープンソースとして利用可能ないくつかの匿名化ソリューションの概要を説明します。
 
-| Solution | Notes |
+| ソリューション | ノート |
 | ----- | ----- |
-| [Presidio](https://microsoft.github.io/presidio) | Presidio helps to ensure sensitive data is properly managed and governed. It provides fast identification and anonymization modules for private entities in text such as credit card numbers, names, locations, social security numbers, bitcoin wallets, US phone numbers, financial data and more in unstructured text and images. It's useful when high customizability is required, for example to detect custom PII entities or languages. [Link to repo](https://aka.ms/presidio), [link to docs](https://microsoft.github.io/presidio), [link to demo](https://aka.ms/presidio-demo). |
-| [FHIR tools for anonymization](https://github.com/microsoft/FHIR-Tools-for-Anonymization) | FHIR Tools for Anonymization is an open-source project that helps anonymize healthcare FHIR data (FHIR=Fast Healthcare Interoperability Resources, a standard for exchanging Electric Health Records), on-premises or in the cloud, for secondary usage such as research, public health, and more. [Link](https://github.com/microsoft/FHIR-Tools-for-Anonymization). Works with FHIR format (Stu3 and R4), allows different strategies for anonymization (date shift, crypto-hash, encrypt, substitute, perturb, generalize) |
-| [ARX](https://arx.deidentifier.org/) | Anonymization using statistical models, specifically k-anonymity, ℓ-diversity, t-closeness and δ-presence. Useful for validating the anonymization of aggregated data. Links: [Repo](https://github.com/arx-deidentifier/arx), [Website](https://arx.deidentifier.org/). Written in Java. |
-| [k-Anonymity](https://github.com/Nuclearstar/K-Anonymity) |  Github repo with examples on how to produce k-anonymous datasets. k-anonymity protects the privacy of individual persons by pooling their attributes into groups of at least *k* people. [repo](https://github.com/Nuclearstar/K-Anonymity/blob/master/k-Anonymity.ipynb) |
+| [Presidio](https://microsoft.github.io/presidio) | Presidioは、機密データが適切に管理および管理されるようにするのに役立ちます。クレジットカード番号、名前、場所、社会保障番号、ビットコインウォレット、米国の電話番号、財務データなどの非構造化テキストや画像のテキストで、個人エンティティの高速識別および匿名化モジュールを提供します。カスタムPIIエンティティや言語を検出する場合など、高度なカスタマイズ性が必要な場合に役立ちます。[リポジトリへのリンク](https://aka.ms/presidio)、[ドキュメントへのリンク](https://microsoft.github.io/presidio)、[デモへのリンク](https://aka.ms/presidio-demo)。|
+| [匿名化のためのFHIRツール](https://github.com/microsoft/FHIR-Tools-for-Anonymization) | FHIR Tools for Anonymizationは、オンプレミスまたはクラウドで、研究、公衆衛生などの二次利用のために、ヘルスケアFHIRデータ（FHIR = Fast Healthcare Interoperability Resources、Electric Health Recordsを交換するための標準）の匿名化を支援するオープンソースプロジェクトです。追加情報の[リンク](https://github.com/microsoft/FHIR-Tools-for-Anonymization)。FHIR形式（Stu3およびR4）で動作し、匿名化のさまざまな戦略を可能にします（日付シフト、暗号化ハッシュ、暗号化、置換、摂動、一般化）|
+| [ARX](https://arx.deidentifier.org/) | 統計モデル、具体的にはk-匿名性、ℓ-多様性、t-近似性、およびδ-存在を使用した匿名化。集約されたデータの匿名化を検証するのに役立ちます。リンク：[レポ](https://github.com/arx-deidentifier/arx)、[ウェブ](https://arx.deidentifier.org/)。Java 製。 |
+| [k-Anonymity](https://github.com/Nuclearstar/K-Anonymity) |  k-匿名データセットを生成する方法の例を含むGithubリポジトリ。k-匿名性は、属性を少なくともk人のグループにプールすることにより、個人のプライバシーを保護します。[レポ](https://github.com/Nuclearstar/K-Anonymity/blob/master/k-Anonymity.ipynb) |
 
-#### Synthetic data generation
+#### 合成データの生成
 
-A synthetic dataset is a repository of data generated from actual data and has the same statistical properties as the real data.
-The degree to which a synthetic dataset is an accurate proxy for real data is a measure of utility.
-The potential benefit of such synthetic datasets is for sensitive applications – medical classifications or financial modelling, where getting hands on a high-quality labelled dataset is often prohibitive.
+合成データセットは、実際のデータから生成されたデータのリポジトリであり、実際のデータと同じ統計プロパティを持っています。合成データセットが実際のデータの正確なプロキシである程度は、効用の尺度です。このような合成データセットの潜在的な利点は、高品質のラベル付きデータセットを手に入れることがしばしば禁止されている医療分類や財務モデリングなどの機密性の高いアプリケーションにあります。
 
-When determining the best method for creating synthetic data, it is essential first to consider what type of synthetic data you aim to have. There are two broad categories to choose from, each with different benefits and drawbacks:
+合成データを作成するための最良の方法を決定するときは、最初に、どのタイプの合成データを使用するかを検討することが不可欠です。選択できるカテゴリは大きく2つあり、それぞれに長所と短所があります。
 
-- Fully synthetic: This data does not contain any original data, which means that re-identification of any single unit is almost impossible, and all variables are still fully available.
+- 完全合成：このデータには元のデータが含まれていません。つまり、単一ユニットの再識別はほとんど不可能であり、すべての変数は引き続き完全に利用可能です。
 
-- Partially synthetic: Only sensitive data is replaced with synthetic data, which requires a heavy dependency on the imputation model. This leads to decreased model dependence but does mean that some disclosure is possible due to the actual values within the dataset.
+- 部分的に合成：機密データのみが合成データに置き換えられます。これには、代入モデルへの大きな依存が必要です。これにより、モデルの依存度が低下しますが、データセット内の実際の値により、ある程度の開示が可能であることを意味します。
 
-| Solution | Notes |
+| ソリューション | Notes |
 | ----- | ----- |
-|[Synthea](https://synthetichealth.github.io/synthea/)|Synthea was developed with numerous data sources collected on the internet, including US Census Bureau demographics, Centers for Disease Control and Prevention prevalence and incidence rates, and National Institutes of Health reports. The source code and disease models include annotations and citations for all data, statistics, and treatments. These models of diseases and treatments interact appropriately with the health record.|
-|[PII dataset generator](https://github.com/microsoft/presidio-research/blob/master/presidio_evaluator/data_generator/README.md)|A synthetic data generator developed on top of Fake Name Generator which takes a text file with templates (e.g. my name is *PERSON*) and creates a list of Input Samples which contain fake PII entities instead of placeholders.|
-|[CheckList](https://github.com/marcotcr/checklist) |CheckList provides a framework for perturbation techniques to evaluate specific behavioral capabilities of NLP models systematically|
-|[Mimesis](https://github.com/lk-geimfari/mimesis )|Mimesis a high-performance fake data generator for Python, which provides data for a variety of purposes in a variety of languages.|
-|[Faker](https://github.com/joke2k/faker )|Faker is a Python package that generates fake data for you. Whether you need to bootstrap your database, create good-looking XML documents, fill-in your persistence to stress test it, or anonymize data taken from a production service, Faker is for you.|
-|[Plaitpy](https://github.com/plaitpy/plaitpy )|The idea behind plait.py is that it should be easy to model fake data that has an interesting shape. Currently, many fake data generators model their data as a collection of IID variables; with plait.py we can stitch together those variables into a more coherent model.|
+|[Synthea](https://synthetichealth.github.io/synthea/)|Syntheaは、米国国勢調査局の人口統計、米国疾病予防管理センターの有病率と発生率、国立衛生研究所のレポートなど、インターネット上で収集された多数のデータソースを使用して開発されました。ソースコードと疾患モデルには、すべてのデータ、統計、および治療の注釈と引用が含まれています。これらの病気と治療のモデルは、健康記録と適切に相互作用します。|
+|[PII dataset generator](https://github.com/microsoft/presidio-research/blob/master/presidio_evaluator/data_generator/README.md)|偽の名前ジェネレーターの上に開発された合成データジェネレーター。テンプレートを含むテキストファイル（たとえば、私の名前はPERSON）を取得し、プレースホルダーの代わりに偽のPIIエンティティを含む入力サンプルのリストを作成します。|
+|[CheckList](https://github.com/marcotcr/checklist) |チェックリストは、NLPモデルの特定の動作機能を体系的に評価するための摂動手法のフレームワークを提供します|
+|[Mimesis](https://github.com/lk-geimfari/mimesis )|Mimesisは、さまざまな言語でさまざまな目的のデータを提供するPython用の高性能の偽のデータジェネレーターです。|
+|[Faker](https://github.com/joke2k/faker )|Fakerは、偽のデータを生成するPythonパッケージです。データベースをブートストラップする必要がある場合でも、見栄えの良いXMLドキュメントを作成する必要がある場合でも、永続性を入力してストレステストを行う必要がある場合でも、本番サービスから取得したデータを匿名化する必要がある場合でも、Fakerは最適です。|
+|[Plaitpy](https://github.com/plaitpy/plaitpy )|plait.pyの背後にある考え方は、興味深い形の偽のデータを簡単にモデル化できるようにすることです。現在、多くの偽のデータジェネレータは、データをIID変数のコレクションとしてモデル化しています。plait.pyを使用すると、これらの変数をつなぎ合わせて、より一貫性のあるモデルにすることができます。|
 
-### Trusted research and modeling environments
+### 信頼できる研究およびモデリング環境
 
-#### Trusted research environments
+#### 信頼できる研究環境
 
-Trusted Research Environments (TREs) enable organizations to create secure workspaces for analysts,
-data scientists and researchers who require access to sensitive data.
+信頼できる研究環境（TRE）により、組織は機密データへのアクセスを必要とするアナリスト、データサイエンティスト、および研究者のための安全なワークスペースを作成できます。
 
-TREs enforce a secure boundary around distinct workspaces to enable information governance controls.
-Each workspace is accessible by a set of authorized users, prevents the exfiltration of sensitive data,
-and has access to one or more datasets provided by the data platform.
+TREは、個別のワークスペースの周囲に安全な境界を適用して、情報ガバナンスの制御を可能にします。各ワークスペースには、許可されたユーザーのセットがアクセスでき、機密データの漏洩を防ぎ、データプラットフォームによって提供される1つ以上のデータセットにアクセスできます。
 
-We highlight several alternatives for Trusted Research Environments:
+信頼できる研究環境のいくつかの選択肢を強調します。
 
-| Solution | Notes |
+| ソリューション | Notes |
 | ----- |  ----- |
-| Azure Trusted Research Environment  | [Link](https://github.com/microsoft/azuretre). An Open Source TRE for Azure. |
-| Aridhia DRE | [Link](https://appsource.microsoft.com/en-us/product/web-apps/aridhiainformatics.analytixagility_workspace_123?tab=Overview)
+| Azureの信頼できる研究環境  | [リンク](https://github.com/microsoft/azuretre)。Azure用のオープンソースTRE。 |
+| Aridhia DRE | [リンク](https://appsource.microsoft.com/en-us/product/web-apps/aridhiainformatics.analytixagility_workspace_123?tab=Overview)
 
-#### Eyes-off machine learning
+#### 目が離せない機械学習
 
-In certain situations, Data Scientists may need to train models on data they are not allowed to see. In these cases, an "eyes-off" approach is recommended.
-An eyes-off approach provides a data scientist with an environment in which scripts can be run on the data but direct access to samples is not allowed.
-When using Azure ML, tools such as the [Identity Based Data Access](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-identity-based-data-access) can enable this scenario,
-alongside proper role assignment for users.
+特定の状況では、データサイエンティストは、表示が許可されていないデータについてモデルをトレーニングする必要がある場合があります。このような場合、「目が離せない」アプローチが推奨されます。目が離せないアプローチは、データサイエンティストに、データに対してスクリプトを実行できる環境を提供しますが、サンプルへの直接アクセスは許可されていません。Azure MLを使用する場合、 [IDベースのデータアクセス](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-identity-based-data-access)などのツールを使用すると、ユーザーに適切な役割を割り当てるとともに、このシナリオを有効にできます。
 
-During the processing within the eyes-off environment, only certain outputs (e.g. logs) are allowed to be extracted back to the user.
-For example, a user would be able to submit a script which trains a model and inspect the model's performance, but would not be able to see on which samples the model predicted the wrong output.
+アイオフ環境内での処理中は、特定の出力（ログなど）のみをユーザーに抽出して戻すことができます。たとえば、ユーザーはモデルをトレーニングしてモデルのパフォーマンスを検査するスクリプトを送信することはできますが、モデルが間違った出力を予測したサンプルを確認することはできません。
 
-In addition to the eyes-off environment, this approach usually entails providing access to an "eyes-on" dataset, which is a representative, cleansed, sample set of data for model design purposes.
-The Eyes-on dataset is often a de-identified subset of the private dataset, or a synthetic dataset generated based on the characteristics of the private dataset.
+アイオフ環境に加えて、このアプローチでは通常、モデル設計の目的で、代表的なクレンジングされたデータのサンプルセットである「アイオン」データセットへのアクセスを提供する必要があります。Eyes-onデータセットは、多くの場合、プライベートデータセットの匿名化されたサブセット、またはプライベートデータセットの特性に基づいて生成された合成データセットです。
 
-#### Private data sharing platforms
+#### プライベートデータ共有プラットフォーム
 
-Various tools and systems allow different parties to share data with 3rd parties while protecting private entities,
-and securely process data while reducing the likelihood of data exfiltration.
-These tools include [Secure Multi Party Computation (SMPC)](https://en.wikipedia.org/wiki/Secure_multi-party_computation) systems,
-[Homomorphic Encryption](#homomorphic-encryption) systems, [Confidential Computing](https://azure.microsoft.com/en-us/solutions/confidential-compute/),
-private data analysis frameworks such as [PySift](https://github.com/OpenMined/PySyft) among others.
+さまざまなツールとシステムにより、さまざまなパーティがプライベートエンティティを保護しながらサードパーティとデータを共有し、データの漏洩の可能性を減らしながらデータを安全に処理できます。これらのツールには、[セキュアマルチパーティ計算（SMPC）](https://en.wikipedia.org/wiki/Secure_multi-party_computation) システム、[準同型暗号化](#準同型暗号化)システム、[機密コンピューティング](https://azure.microsoft.com/en-us/solutions/confidential-compute/)、 [PySift](https://github.com/OpenMined/PySyft)などのプライベートデータ分析フレームワークが含まれます。
 
-### Privacy preserving data pipelines and ML
+### プライバシー保護データパイプラインとML
 
-Even when our data is secure, private entities can still be extracted when the data is consumed.
-Privacy preserving data pipelines and ML models focus on minimizing the risk of private data exfiltration during data querying or model predictions.
+データが安全な場合でも、データが消費されたときにプライベートエンティティを抽出できます。プライバシー保護データパイプラインとMLモデルは、データクエリまたはモデル予測中のプライベートデータの漏えいのリスクを最小限に抑えることに重点を置いています。
 
-#### Differential Privacy
+#### 差分プライバシー
 
-Differential privacy (DP) is a system that enables one to extract meaningful insights from datasets about subgroups of people,
-while also providing strong guarantees with regards to protecting any given individual's privacy.
-This is typically achieved by adding a small statistical noise to every individual's information,
-thereby introducing uncertainty in the data.
-However, the insights gleaned still accurately represent what we intend to learn about the population in the aggregate.
-This approach is known to be robust to re-identification attacks and data reconstruction by adversaries who possess auxiliary information.
-For a more comprehensive overview,
-check out [Differential privacy: A primer for a non-technical audience](https://dash.harvard.edu/bitstream/handle/1/38323292/4_Wood_Final.pdf?sequence=1&isAllowed=y).
+差分プライバシー（DP）は、人々のサブグループに関するデータセットから意味のある洞察を抽出できるようにすると同時に、特定の個人のプライバシーを保護することに関して強力な保証を提供するシステムです。これは通常、すべての個人の情報に小さな統計的ノイズを追加し、それによってデータに不確実性を導入することによって達成されます。ただし、収集された洞察は、全体としての人口について学習しようとしていることを正確に表しています。このアプローチは、補助情報を持っている攻撃者による再識別攻撃やデータ再構築に対して堅牢であることが知られています。より包括的な概要については、[差分プライバシー：技術者以外の対象者向けの入門書]((https://dash.harvard.edu/bitstream/handle/1/38323292/4_Wood_Final.pdf?sequence=1&isAllowed=y)をご覧ください。
 
-DP has been widely adopted in various scenarios such as learning from census data, user telemetry data analysis,
-audience engagement to advertisements, and health data insights where PII protection is of paramount importance. However, DP is less suitable for small datasets.
+DPは、国勢調査データからの学習、ユーザーテレメトリデータ分析、広告へのオーディエンスエンゲージメント、PII保護が最も重要な健康データの洞察など、さまざまなシナリオで広く採用されています。ただし、DPは小さなデータセットにはあまり適していません。
 
-Tools that implement DP include [SmartNoise](https://github.com/opendifferentialprivacy/smartnoise-samples),
-[Tensorflow Privacy](https://github.com/tensorflow/privacy) among some others.
+DPを実装するツールには、[SmartNoise](https://github.com/opendifferentialprivacy/smartnoise-samples)、[TensorflowPrivacy](https://github.com/tensorflow/privacy)などがあります。
 
-#### Homomorphic Encryption
+#### 準同型暗号化
 
-Homomorphic Encryption (HE) is a form of encryption allowing one to perform calculations on encrypted data without decrypting it first.
-The result of the computation *F* is in an encrypted form, which on decrypting gives us the same result if computation *F* was done on raw unencrypted data.
-([source](https://en.wikipedia.org/wiki/Homomorphic_encryption#:~:text=Homomorphic%20encryption%20is%20a%20form,performed%20on%20the%20unencrypted%20data.))
+準同型暗号化（HE）は暗号化の形式であり、暗号化されたデータを最初に復号化せずに計算を実行できます。計算Fの結果は暗号化された形式であり、暗号化されていない生データに対して計算Fが実行された場合、復号化すると同じ結果が得られます。（[ソース](https://en.wikipedia.org/wiki/Homomorphic_encryption#:~:text=Homomorphic%20encryption%20is%20a%20form,performed%20on%20the%20unencrypted%20data.)）
 
-Homomorphic Encryption frameworks:
+準同型暗号化フレームワーク：
 
-| Solution | Notes |
+| ソリューション | Notes |
 | ----- | ----- |
-| [Microsoft SEAL](https://www.microsoft.com/en-us/research/project/microsoft-seal) | Secure Cloud Storage and Computation, ML Modeling. A widely used open-source library from Microsoft that supports the BFV and the CKKS schemes. |
-| [Palisade](https://palisade-crypto.org/) | A widely used open-source library from a consortium of DARPA-funded defense contractors that supports multiple homomorphic encryption schemes such as BGV, BFV, CKKS, TFHE and FHEW, among others, with multiparty support. [Link to repo](https://gitlab.com/palisade/palisade-release) |
-| [PySift](https://github.com/OpenMined/PySyft) | Private deep learning. PySyft decouples private data from model training, using Federated Learning, Differential Privacy, and Encrypted Computation (like Multi-Party Computation (MPC) and Homomorphic Encryption (HE)) within the main Deep Learning frameworks like PyTorch and TensorFlow.
+| [Microsoft SEAL](https://www.microsoft.com/en-us/research/project/microsoft-seal) | 安全なクラウドストレージと計算、MLモデリング。BFVおよびCKKSスキームをサポートするMicrosoftの広く使用されているオープンソースライブラリ。|
+| [Palisade](https://palisade-crypto.org/) | BGV、BFV、CKKS、TFHE、FHEWなどの複数の準同型暗号化スキームをサポートし、マルチパーティをサポートする、DARPAが資金提供する防衛請負業者のコンソーシアムから広く使用されているオープンソースライブラリ。[リポジトリへのリンク](https://gitlab.com/palisade/palisade-release) |
+| [PySift](https://github.com/OpenMined/PySyft) | プライベートディープラーニング。PySyftは、PyTorchやTensorFlowなどの主要なディープラーニングフレームワーク内で、連合学習、差分プライバシー、および暗号化計算（Multi-Party Computation（MPC）やHomomorphic Encryption（HE）など）を使用して、モデルトレーニングからプライベートデータを分離します。|
 
-A list of additional OSS tools can be found [here](https://homomorphicencryption.org/introduction/).
+追加のOSSツールのリストは[ここ](https://homomorphicencryption.org/introduction/)にあります。
 
-#### Federated learning
+#### 連合学習
 
-Federated learning is a Machine Learning technique which allows the training of ML models in a decentralized way without having to share the actual data.
-Instead of sending data to the processing engine of the model,
-the approach is to distribute the model to the different data owners and perform training in a distributed fashion.
+連合学習は、実際のデータを共有することなく、分散型の方法でMLモデルのトレーニングを可能にする機械学習手法です。モデルの処理エンジンにデータを送信する代わりに、モデルをさまざまなデータ所有者に配布し、分散してトレーニングを実行するというアプローチがあります。
 
-Federated learning frameworks:
+連合学習フレームワーク：
 
-| Solution | Notes |
+| ソリューション | Notes |
 | ----- | ----- |
-| [TensorFlow Federated Learning](https://github.com/tensorflow/federated) | OSS federated learning system built on top of TensorFlow |
-| [FATE](https://fate.fedai.org/) | An OSS federated leraning system with different options for deployment and different algorithms adapted for federated learning |
-| [IBM Federated Learning](https://github.com/IBM/federated-learning-lib) | A Python based federated learning framework focused on enterprise environments. |
+| [TensorFlow Federated Learning](https://github.com/tensorflow/federated) | TensorFlow上に構築されたOSS連合学習システム |
+| [FATE](https://fate.fedai.org/) | 展開のためのさまざまなオプションと連合学習に適合したさまざまなアルゴリズムを備えたOSS連合学習システム |
+| [IBM Federated Learning](https://github.com/IBM/federated-learning-lib) | エンタープライズ環境に焦点を当てたPythonベースの連合学習フレームワーク。 |
 
-### Data loss prevention
+### データ損失防止
 
-Organizations have sensitive information under their control such as financial data, proprietary data, credit card numbers, health records, or social security numbers.
-To help protect this sensitive data and reduce risk, they need a way to prevent their users from inappropriately sharing it with people who shouldn't have it.
-This practice is called data loss prevention (DLP). ([Source](https://docs.microsoft.com/en-us/microsoft-365/compliance/dlp-learn-about-dlp))
+組織は、財務データ、専有データ、クレジットカード番号、健康記録、社会保障番号などの機密情報を管理しています。この機密データを保護し、リスクを軽減するために、ユーザーがデータを持ってはいけない人々と不適切に共有することを防ぐ方法が必要です。この方法は、データ損失防止（DLP）と呼ばれます。（[出典](https://docs.microsoft.com/en-us/microsoft-365/compliance/dlp-learn-about-dlp)）
 
-Below we focus on two aspects of DLP: Sensitive data classification and Access management.
+以下では、DLPの2つの側面に焦点を当てます。機密データの分類とアクセス管理です。
 
-#### Sensitive data classification
+#### 機密データの分類
 
-Sensitive data classification is an important aspect of DLP, as it allows organizations to track, monitor, secure and identify sensitive and private data.
-Furthermore, different sensitivity levels can be applied to different data items, facilitating proper governance and cataloging.
+機密データの分類は、組織が機密データとプライベートデータを追跡、監視、保護、および識別することを可能にするため、DLPの重要な側面です。さらに、さまざまな感度レベルをさまざまなデータアイテムに適用できるため、適切なガバナンスとカタログ化が容易になります。
 
-There are typically four levels data classification levels:
+通常、4つのレベルのデータ分類レベルがあります。
 
 1. Public
 2. Internal
 3. Confidential
 4. Restricted / Highly confidential
 
-Tools for data classification on Azure:
+Azureでのデータ分類のためのツール：
 
-| Solution | Notes |
+| ソリューション | Notes |
 | ----- | ----- |
-| [Microsoft Information Protection](https://docs.microsoft.com/en-us/microsoft-365/compliance/information-protection) (MIP) | A suite for DLP, sensitive data classification, cataloging  and more.|
-| [Azure Purview](https://azure.microsoft.com/en-us/services/purview/) | A unified data governance service, which includes the classification and cataloging of sensitive data. Azure Purview leverages the MIP technology for data classification and more.|
-| [Data Discovery & Classification for Azure SQL Database, Azure SQL Managed Instance, and Azure Synapse](https://docs.microsoft.com/en-us/azure/azure-sql/database/data-discovery-and-classification-overview) | Basic capabilities for discovering, classifying, labeling, and reporting the sensitive data in Azure SQL and Synapse databases. |
-| [Data Discovery & Classification for SQL Server](https://docs.microsoft.com/en-us/sql/relational-databases/security/sql-data-discovery-and-classification?view=sql-server-ver15&tabs=t-sql) | Capabilities for discovering, classifying, labeling & reporting the sensitive data in SQL Server databases. |
+| [Microsoft Information Protection](https://docs.microsoft.com/en-us/microsoft-365/compliance/information-protection) (MIP) | DLP、機密データの分類、カタログ化などのためのスイート。|
+| [Azure Purview](https://azure.microsoft.com/en-us/services/purview/) | 機密データの分類とカタログ化を含む、統合されたデータガバナンスサービス。Azure Purviewは、データ分類などにMIPテクノロジを活用します。|
+| [Azure SQLデータベース、Azure SQLマネージドインスタンス、およびAzureSynapseのデータ検出と分類](https://docs.microsoft.com/en-us/azure/azure-sql/database/data-discovery-and-classification-overview) | Azure SQLおよびSynapseデータベースの機密データを検出、分類、ラベル付け、およびレポートするための基本機能。 |
+| [SQLServerのデータ検出と分類](https://docs.microsoft.com/en-us/sql/relational-databases/security/sql-data-discovery-and-classification?view=sql-server-ver15&tabs=t-sql) | SQL Serverデータベース内の機密データを検出、分類、ラベル付け、およびレポートする機能。 |
 
-Often, tools used for de-identification can also serve as sensitive data classifiers.
-Refer to [de-identification tools](#data-de-identification) for such tools.
+多くの場合、匿名化に使用されるツールは、機密データの分類子としても機能します。このようなツールについては、[匿名化ツール](#データの匿名化)を参照してください。
 
-Additional resources:
+追加のリソース：
 
-- [Example guidelines for data classification](https://www.cmu.edu/iso/governance/guidelines/data-classification.html)
-- [Learn about sensitivity levels](https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
+- [データ分類のガイドライン例](https://www.cmu.edu/iso/governance/guidelines/data-classification.html)
+- [感度レベルについて学ぶ](https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide)
 
-#### Access management
+#### アクセス管理
 
-Access control is an important component of privacy by design and falls into overall data lifecycle protection.
-Successful access control will restrict access only to authorized individuals that should have access to data.
-Once data is secure in an environment, it is important to review who should access this data and for what purpose.
-Access control may be audited with a comprehensive logging strategy which may include the integration of
-[activity logs](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/platform-logs-overview)
-that can provide insight into operations performed on resources in a subscription.
+アクセス制御は、設計上プライバシーの重要なコンポーネントであり、全体的なデータライフサイクル保護に分類されます。アクセス制御が成功すると、データへのアクセス権を持つ必要がある許可された個人にのみアクセスが制限されます。環境内でデータが保護されたら、誰がどのような目的でこのデータにアクセスする必要があるかを確認することが重要です。 アクセス制御は、サブスクリプション内のリソースで実行される操作への洞察を提供できる[アクティビティログ](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/platform-logs-overview)の統合を含む包括的なログ戦略で監査 できます。
 
-- [OWASP Access Control Cheat Sheet](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Access_Control_Cheat_Sheet.md)
+- [OWASPアクセス制御に関するチートシート](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Access_Control_Cheat_Sheet.md)
