@@ -1,19 +1,19 @@
-# Naming branches
+# ブランチに名前を付ける
 
-When contributing to existing projects, look for and stick with the agreed branch naming convention. In open source projects this information is typically found in the contributing instructions, often in a file named `CONTRIBUTING.md`.
+既存のプロジェクトに貢献するときは、合意されたブランチの命名規則を探してそれに従ってください。オープンソースプロジェクトでは、この情報は通常、寄稿の指示にあり、多くの場合、`CONTRIBUTING.md`という名前のファイルにあります。
 
-In the beginning of a new project the team agrees on the project conventions including the branch naming strategy.
+新しいプロジェクトの開始時に、チームはブランチの命名戦略を含むプロジェクトの規則に同意します。
 
-Here's an example of a branch naming convention:
+ブランチの命名規則の例を次に示します。
 
 ```plaintext
 <user alias>/[feature/bug/hotfix]/<work item ID>_<title>
 ```
 
-Which could translate to something as follows:
+これは次のように解釈できます。
 
 ```plaintext
 dickinson/feature/271_add_more_cowbell
 ```
 
-The example above is just that - an example. The team can choose to omit or add parts. Choosing a branch convention can depend on the development model (e.g. [trunk-based development](https://trunkbaseddevelopment.com/)), [versioning](component-versioning.md) model, tools used in managing source control, matter of taste etc. Focus on simplicity and reducing ambiguity; a good branch naming strategy allows the team to understand the purpose and ownership of each branch in the repository.
+上記の例はまさにその例です。チームは、パーツを省略するか追加するかを選択できます。ブランチ規則の選択は、開発モデル（[トランクベースの開発](https://trunkbaseddevelopment.com/)など）、[バージョン管理](component-versioning.md)モデル、ソース管理の管理に使用されるツール、好みの問題などに依存する可能性があります。単純さとあいまいさの削減に焦点を当てます。優れたブランチ命名戦略により、チームはリポジトリ内の各ブランチの目的と所有権を理解できます。

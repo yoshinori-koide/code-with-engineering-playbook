@@ -1,10 +1,10 @@
-# Git Guidance
+# Gitガイダンス
 
-## What is Git?
+## Gitとは何ですか？
 
-Git is a distributed version control system. This means that - unlike SVN or CVS - it doesn't use a central server to synchronize. Instead, every participant has a local copy of the source-code, and the attached history that is kept in sync by comparing commit hashes (SHA hashes of changes between each git commit command) making up the latest version (called `HEAD`).
+Gitは分散バージョン管理システムです。これは、SVNやCVSとは異なり、同期に中央サーバーを使用しないことを意味します。代わりに、すべての参加者はソースコードのローカルコピーを持ち、添付された履歴は、（`HEAD`と呼ばれる）最新バージョンを構成するコミットハッシュ（各git commitコマンド間の変更のSHAハッシュ）を比較することによって同期されます。
 
-For example:
+例えば：
 
 ```plain
 repo 1: A -> B -> C -> D -> HEAD
@@ -13,19 +13,19 @@ repo 3: X -> Y -> Z -> HEAD
 repo 4: A -> J -> HEAD
 ```
 
-Since they share a common history, repo 1 and repo 2 can be synchronized fairly easily, repo 4 _may_ be able to synchronize as well, but it's going to have to add a commit (J, and maybe a merge commit) to repo 1. Repo 3 cannot be easily synchronized with the others. Everything related to these commits is stored in a local .git directory in the root of the repository.
+Sそれらは共通の履歴を共有しているため、レポ1とレポ2はかなり簡単に同期できます。レポ4も同期できる可能性がありますが、レポ1にコミット（J、場合によってはマージコミット）を追加する必要があります。 Repo3は他のRepo3と簡単に同期できません。これらのコミットに関連するものはすべて、リポジトリのルートにあるローカルの.gitディレクトリに保存されます。
 
-In other words, by using Git you are simply creating immutable file histories that uniquely identify the current state and therefore allow sharing whatever comes after. It's a [Merkle tree](https://en.wikipedia.org/wiki/Merkle_tree).
+つまり、Gitを使用し、現在の状態を一意に識別する不変のファイル履歴を作成するだけで、その後の状態を共有できます。[マークルツリー](https://en.wikipedia.org/wiki/Merkle_tree)です。
 
-Be sure to run `git help` after Git installation to find really in-depth explanations of everything.
+Gitのインストール後に`git help`を実行すれば、すべてに対する非常に詳細な説明を見つけることができるでしょう。
 
-## Installation
+## インストール
 
-Git is a toolset that must be installed. [Install Git](https://git-scm.com/downloads) and follow the [First-Time Git Setup](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
+Gitはインストールする必要のあるツールセットです。[Gitをインストール](https://git-scm.com/downloads)し、[初めてのGitセットアップ](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)に従います。
 
-A recommended installation is the [Git Lens extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens). Visualize code authorship at a glance via Git blame annotations and code lens, seamlessly navigate and explore Git repositories, gain valuable insights via powerful comparison commands, and so much more.
+推奨されるインストールは、[Visual Studio Code用のGit Lens拡張機能](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)です。Gitの非難アノテーションとコードレンズを介してコードの作成者を一目で視覚化し、Gitリポジトリをシームレスにナビゲートして探索し、強力な比較コマンドを介して貴重な洞察を得ることができます。
 
-You can use these commands as well to configure your Git for Visual Studio Code as an editor for merge conflicts and diff tool.
+これらのコマンドを使用して、Git for Visual Studio Codeをマージの競合および差分ツールのエディターとして構成することもできます。
 
 ```cmd
 git config --global user.name [YOUR FIRST AND LAST NAME]
@@ -38,9 +38,9 @@ git config --global diff.tool vscode
 git config --global difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"
 ```
 
-## Basic workflow
+## 基本的なワークフロー
 
-A basic Git workflow is as follows; you can find more information on the specific steps below.
+基本的なGitワークフローは次のとおりです。以下の特定の手順の詳細を確認できます。
 
 ```cmd
 # pull the latest changes
@@ -68,36 +68,36 @@ git status
 git push --set-upstream origin feature/123-add-git-instructions
 ```
 
-### Cloning
+### クローニング
 
-Whenever you want to make a change to a repository, you need to first clone it. Cloning a repository pulls down a full copy of all the repository data, so that you can work on it locally. This copy includes all versions of every file and folder for the project.
+リポジトリに変更を加える場合は常に、最初にリポジトリのクローンを作成する必要があります。リポジトリのクローンを作成すると、すべてのリポジトリデータの完全なコピーが取得されるため、ローカルで作業できます。このコピーには、プロジェクトのすべてのファイルとフォルダーのすべてのバージョンが含まれています。
 
 ```cmd
 git clone https://github.com/username/repo-name
 ```
 
-You only need to clone the repository the first time. Before any subsequent branches you can sync any changes from the remote repository using `git pull`.
+リポジトリのクローンを作成する必要があるのは、最初のときだけです。後続のブランチの前に、`git pull` を使用してリモートリポジトリからの変更を同期できます。
 
-### Branching
+### ブランチ
 
-To avoid adding code that has not been peer reviewed to the main branch (ex. `develop`) we typically work in feature branches, and merge these back to the main trunk with a Pull Request. It's even the case that often the `main` or `develop` branch of a repository are locked so that you can't make changes without a Pull Request. Therefore, it is useful to create a separate branch for your local/feature work, so that you can work and track your changes in this branch.
+メインブランチ（例: `develop` ）にピアレビューされていないコードを追加しないようにするために、通常は機能ブランチで作業し、プルリクエストを使用してこれらをメイントランクにマージします。多くの場合、リポジトリの`main`または`develop`ブランチがロックされているため、プルリクエストなしで変更を加えることはできません。したがって、ローカル/機能の作業用に別のブランチを作成して、このブランチでの変更を作業および追跡できるようにすると便利です。
 
-Pull the latest changes and create a new branch for your work based on the trunk (in this case `develop`).
+最新の変更をプルし、トランク（この場合 `develop`）に基づいて作業用の新しいブランチを作成します。
 
 ```cmd
 git pull
 git checkout -b feature/feature-name develop
 ```
 
-At any point, you can move between the branches with `git checkout <branch>` as long as you have committed or stashed your work. If you forget the name of your branch use `git branch --all` to list all branches.
+いつでも、作業をコミットまたは隠している限り、`git checkout <branch>`でブランチ間を移動できます。ブランチの名前を忘れた場合は、すべてのブランチを一覧表示するために`git branch --all`を使用します。
 
-### Committing
+### コミット
 
-To avoid losing work, it is good to commit often in small chunks. This allows you to revert only the last changes if you discover a problem and also neatly explains exactly what changes were made and why.
+作業の損失を避けるために、小さなチャンクで頻繁にコミットすることをお勧めします。これにより、問題を発見した場合に最後の変更のみを元に戻すことができ、加えられた変更とその理由を正確に説明することもできます。
 
-1. Make changes to your branch
+1. ブランチに変更を加える
 
-2. Check what files were changed
+2. 変更されたファイルを確認する
 
     ```cmd
     > git status
@@ -108,49 +108,49 @@ To avoid losing work, it is good to commit often in small chunks. This allows yo
             modified:   source-control/git-guidance/readme.md
     ```
 
-3. Track the files you wish to include in the commit. To track all modified files:
+3. コミットに含めたいファイルを追跡します。変更されたすべてのファイルを追跡するには：
 
     ```cmd
     git add --all
     ```
 
-   Or to track only specific files:
+   または、特定のファイルのみを追跡するには：
 
     ```cmd
     git add source-control/git-guidance/readme.md
     ```
 
-4. Commit the changes to your local branch with a descriptive [commit message](../README.md#commit-best-practices)
+4. 説明的な[コミットメッセージ](../README.md#commit-best-practices)を使用して、ローカルブランチに変更をコミットします
 
     ```cmd
     git commit -m "add basic git instructions"
     ```
 
-### Pushing
+### プッシュ
 
-When you are done working, push your changes to a branch in the remote repository using:
+作業が完了したら、以下を使用してリモートリポジトリのブランチに変更をプッシュします。
 
 ```cmd
 git push
 ```
 
-The first time you push, you first need to set an upstream branch as follows. After the first push, the --set-upstream parameter and branch name are not needed anymore.
+初めてプッシュするときは、最初に次のようにアップストリームブランチを設定する必要があります。最初のプッシュの後、-set-upstreamパラメーターとブランチ名は不要になります。
 
 ```cmd
 git push --set-upstream origin feature/feature-name
 ```
 
-Once the feature branch is pushed to the remote repository, it is visible to anyone with access to the code.
+機能ブランチがリモートリポジトリにプッシュされると、コードにアクセスできるすべてのユーザーに開示されます。
 
-### Merging
+### マージ
 
-In [CSE](../../CSE.md) we encourage the use of Pull Request to merge code to the main repository to make sure that all code in the final product is [code reviewed](../../code-reviews/README.md)
+[CSE](../../CSE.md)では、プルリクエストを使用してコードをメインリポジトリにマージし、最終製品のすべてのコードが[コードレビューされていること](../../code-reviews/README.md)を確認することをお勧めします
 
-The Pull Request (PR) process in [Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/repos/git/pull-requests?view=azure-devops), [GitHub](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) and other similar tools make it easy both to start a PR, review a PR and merge a PR.
+[Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/repos/git/pull-requests?view=azure-devops), [GitHub](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)、GitHub 、およびその他の同様のツールのプルリクエスト（PR）プロセスにより、PRの開始、PRの確認、およびPRのマージの両方が簡単になります。
 
-#### Merge Conflicts
+#### マージの競合
 
-If multiple people make changes to the same files, you may need to resolve any conflicts that have occurred before you can merge.
+複数の人が同じファイルに変更を加えた場合、マージする前に、発生した競合を解決する必要がある場合があります。
 
 ```cmd
 # check out the develop branch and get the latest changes
@@ -169,11 +169,11 @@ git merge develop
 git status
 ```
 
-You can start an interactive process that will show which files have conflicts. Sometimes you removed a file, where it was changed in dev. Or you made changes to some lines in a file where another developer made changes as well. If you went through the installation steps mentioned before, Visual Studio Code is set up as merge tool. You can also use a merge tool like [kdiff3](https://github.com/KDE/kdiff3). When editing conflicts occur, the process will automatically open Visual Studio Code where the conflicting parts are highlighted in green and blue, and you have make a choice:
+どのファイルに競合があるかを示すインタラクティブなプロセスを開始できます。時々あなたはそれがdevで変更されたファイルを削除しました。または、別の開発者が変更を加えたファイルの一部の行に変更を加えました。前述のインストール手順を実行した場合、Visual Studio Codeはマージツールとしてセットアップされます。[kdiff3](https://github.com/KDE/kdiff3) のようなマージツールを使用することもできます。編集の競合が発生すると、プロセスによってVisual Studio Codeが自動的に開き、競合する部分が緑と青で強調表示されます。次のいずれかを選択できます。
 
-* Accept your changes (current)
-* Accept the changes from dev branch (incoming)
-* Accept them both and fix the code (probably needed)
+* 変更を受け入れる (current)
+* devブランチからの変更を受け入れる (incoming)
+* それらの両方を受け入れて、コードを修正します (おそらく必要です)
 
 ```text
 Here are lines that are either unchanged from the common
@@ -187,7 +187,7 @@ Git makes conflict resolution easy.
 And here is another line that is cleanly resolved or unmodified
 ```
 
-When this process is completed, make sure you test the result by executing build, checks, test to validate this merged result.
+このプロセスが完了したら、ビルド、チェック、テストを実行して結果をテストし、このマージされた結果を検証してください。
 
 ```cmd
 # conclude the merge
@@ -200,11 +200,11 @@ git log
 git push
 ```
 
-If no other conflicts appear, the PR can now be merged, and your branch deleted. Use `squash` to reduce your changes into a single commit, so the commit history can be within an acceptable size.
+他の競合が表示されない場合は、PRをマージして、ブランチを削除できます。変更を1つのコミットに減らすために`squash`使用します。これにより、コミット履歴を許容可能なサイズ内に収めることができます。
 
-### Stashing changes
+### 変更のスタッシング
 
-`git stash` is super handy if you have un-committed changes in your working directory, but you want to work on a different branch. You can run `git stash`, save the un-committed work, and revert to the HEAD commit. You can retrieve the saved changes by running `git stash pop`:
+作業ディレクトリにコミットされていない変更があるが、別のブランチで作業したい場合、`git stash`が非常に便利です。`git stash`を実行し、コミットされていない作業を保存して、HEADコミットに戻すことができます。`git stash pop` を実行すると、保存された変更を取得できます。
 
 ```cmd
 git stash
@@ -212,28 +212,29 @@ git stash
 git stash pop
 ```
 
-Or you can move the current state into a new branch:
+または、現在の状態を新しいブランチに移動することもできます。
 
 ```cmd
 git stash branch <new_branch_to_save_changes>
 ```
 
-### Recovering lost commits
+### 失われたコミットの回復
 
-If you "lost" a commit that you want to return to, for example to revert a `git rebase` where your commits got squashed, you can use `git reflog` to find the commit:
+例えば コミットが押しつぶされた場所で`git rebase`したのを元に戻したい、などのようにコミットを「失った」場合、 `git reflog` コマンドを使用してコミットを見つけることができます。
 
 ```cmd
 git reflog
 ```
 
-Then you can use the reflog reference (`HEAD@{}`) to reset to a specific commit before the rebase:
+次に、reflog参照（HEAD@{}）を使用して、リベースの前に特定のコミットにリセットできます。
 
 ```cmd
 git reset HEAD@{2}
 ```
 
-## Managing remotes
+## リモートの管理
 
+ローカルのgitリポジトリには、1つ以上のバッキングリモートリポジトリを含めることができます。`git remote`を使用してリモートリポジトリを一覧表示できます-デフォルトでは、クローンを作成したリモートリポジトリは origin と呼ばれます
 A local git repository can have one or more backing remote repositories. You can list the remote repositories using `git remote` - by default, the remote repository you cloned from will be called origin
 
 ```cmd
@@ -242,14 +243,13 @@ origin  https://github.com/microsoft/code-with-engineering-playbook.git (fetch)
 origin  https://github.com/microsoft/code-with-engineering-playbook.git (push)
 ```
 
-### Working with forks
+### フォークでの作業
 
-You can set multiple remotes. This is useful for example if you want to work with a forked version of the repository.
-For more info on how to set upstream remotes and syncing repositories when working with forks see GitHub's [Working with forks documentation](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/working-with-forks).
+複数のリモートを設定できます。これは、たとえば、フォークされたバージョンのリポジトリを操作する場合に役立ちます。フォークを操作するときにアップストリームリモートを設定してリポジトリを同期する方法の詳細については、GitHubの[フォークの操作に関するドキュメント](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/working-with-forks)を参照してください。
 
-### Updating the remote if a repository changes names
+### リポジトリの名前が変更された場合のリモートの更新
 
-If the repository is changed in some way, for example a name change, or if you want to switch between HTTPS and SSH you need to update the remote
+名前の変更など、リポジトリが何らかの方法で変更された場合、またはHTTPSとSSHを切り替えたい場合は、リモートを更新する必要があります
 
 ```cmd
 # list the existing remotes
@@ -266,53 +266,53 @@ origin  https://hostname/username/new-repository-name.git (fetch)
 origin  https://hostname/username/new-repository-name.git (push)
 ```
 
-## Rolling back changes
+## 変更のロールバック
 
-### Reverting and deleting commits
+### コミットの取り消しと削除
 
-To "undo" a commit, run the following two commands: `git revert` and `git reset`. `git revert` creates a new commit that undoes commits while `git reset` allows deleting commits entirely from the commit history.
+コミットを「元に戻す」には、次の2つのコマンドを実行します。`git revert`および`git reset`。`git revert`は、コミット履歴から`git reset`でコミットを完全に削除できるようにしながら、コミットを元に戻す新しいコミットを作成します。
 
-> If you have committed secrets/keys, `git reset` will remove them from the commit history!
+> シークレット/キーをコミットした場合は、`git reset`でコミット履歴からそれらを削除します！
 
-To **delete** the latest commit use `HEAD~`:
+最新のコミットを **削除する**には、`HEAD~` を使用します。
 
 ```bash
 git reset --hard HEAD~1
 ```
 
-To delete commits back to a specific commit, use the respective commit id:
+コミットを削除して特定のコミットに戻すには、それぞれのコミットIDを使用します。
 
 ```bash
 git reset --hard <sha1-commit-id>
 ```
 
-after you deleted the unwanted commits, push using `force`:
+不要なコミットを削除した後、 `force`を使用してプッシュします。
 
 ```bash
 git push origin HEAD --force
 ```
 
-Interactive rebase for undoing commits:
+コミットを元に戻すためのインタラクティブなリベース：
 
 ```bash
 git rebase -i HEAD~N
 ```
 
-The above command will open an interactive session in an editor (for example vim) with the last N commits sorted from oldest to newest. To undo a commit, delete the corresponding line of the commit and save the file. Git will rewrite the commits in the order listed in the file and because one (or many) commits were deleted, the commit will no longer be part of the history.
+上記のコマンドは、エディター（vimなど）でインタラクティブセッションを開き、最後のN個のコミットを古いものから新しいものへと並べ替えます。コミットを元に戻すには、コミットの対応する行を削除してファイルを保存します。Gitは、ファイルにリストされている順序でコミットを書き換えます。1つ（または複数）のコミットが削除されたため、そのコミットは履歴の一部ではなくなります。
 
-Running rebase will locally modify the history, after this one can use `force` to push the changes to remote without the deleted commit.
+リベースを実行すると、履歴がローカルで変更されます。`force`を使用すると、コミットを削除せずに変更をリモートにプッシュできます。
 
-## Using submodules
+## サブモジュールの使用
 
-Submodules can be useful in more complex deployment and/or development scenarios
+サブモジュールは、より複雑な展開や開発のシナリオで役立ちます。
 
-Adding a submodule to your repo
+リポジトリにサブモジュールを追加する
 
 ```bash
 git submodule add -b master <your_submodule>
 ```
 
-Initialize and pull a repo with submodules:
+サブモジュールを使用してリポジトリを初期化してプルします。
 
 ```bash
 git submodule init
@@ -321,21 +321,20 @@ git submodule foreach git checkout master
 git submodule foreach git pull origin
 ```
 
-## Working with images, video and other binary content
+## 画像、ビデオ、その他のバイナリコンテンツの操作
 
-Avoid committing frequently changed binary files, such as large images, video or compiled code to your git repository. Binary content is not diffed like text content, so cloning or pulling from the repository may pull each revision of the binary file.
+大きな画像、ビデオ、コンパイルされたコードなど、頻繁に変更されるバイナリファイルをgitリポジトリにコミットしないでください。バイナリコンテンツはテキストコンテンツのように区別されないため、クローンを作成したり、リポジトリからプルしたりすると、バイナリファイルの各リビジョンがプルされる可能性があります。
 
-One solution to this problem is `Git LFS (Git Large File Storage)` - an open source Git extension for versioning large files. You can find more information on Git LFS in the [Git LFS and VFS document](git-lfs-and-vfs.md).
+この問題の1つの解決策は `Git LFS (Git Large File Storage)` … 大きなファイルをバージョン管理するためのオープンソースのGit拡張機能です。Git LFSの詳細については、[Git LFS および VFS ドキュメント](git-lfs-and-vfs.md)を参照してください。
 
-## Working with large repositories
+## 大規模なリポジトリでの作業
 
-When working with a very large repository of which you don't require all the files, you can use `VFS for Git` - an open source Git extension that virtualizes the file system beneath your Git repository, so that you seem to work in a regular working directory but while VFS for Git only downloads objects as they are needed. You can find more information on VFS for Git in the [Git LFS and VFS document](git-lfs-and-vfs.md).
+すべてのファイルを必要としない非常に大きなリポジトリで作業する場合は`VFS for Git`、Gitリポジトリの下のファイルシステムを仮想化するオープンソースのGit拡張機能を使用できます。これにより、通常の作業ディレクトリで作業しているように見えます。 VFS for Gitは、必要に応じてオブジェクトのみをダウンロードします。GitのVFSの詳細については、[Git LFS および VFS ドキュメント](git-lfs-and-vfs.md)を参照してください。
 
-## Tools
+## ツール
 
-* Visual Studio Code is a cross-platform powerful source code editor with built in git commands. Within Visual Studio Code editor you can review diffs, stage changes, make commits, pull and push to your git repositories.
-You can refer to [Visual Studio Code Git Support](https://code.visualstudio.com/docs/editor/versioncontrol#_git-support) for documentation.
+* Visual Studio Codeは、gitコマンドが組み込まれたクロスプラットフォームの強力なソースコードエディターです。Visual Studio Codeエディター内で、差分の確認、変更のステージング、コミットの作成、gitリポジトリーへのプルとプッシュを行うことができます。ドキュメントについては、[Visual Studio Code Git サポート](https://code.visualstudio.com/docs/editor/versioncontrol#_git-support)を参照してください。
 
-* Use a shell/terminal to work with Git commands instead of relying on [GUI clients](https://git-scm.com/downloads/guis/).
+* [GUI クライアント](https://git-scm.com/downloads/guis/)に依存する代わりに、シェル/ターミナルを使用してGitコマンドを操作します。
 
-* If you're working on Windows, [posh-git](https://github.com/dahlbyk/posh-git) is a great PowerShell environment for Git. Another option is to use [Git bash for Windows](http://www.techoism.com/how-to-install-git-bash-on-windows/). On Linux/Mac, install git and use your favorite shell/terminal.
+* Windowsで作業している場合、[posh-git](https://github.com/dahlbyk/posh-git)はGitに最適なPowerShell環境です。もう1つのオプションは、[Windows用のGit bash](http://www.techoism.com/how-to-install-git-bash-on-windows/)を使用することです。Linux / Macでは、gitをインストールし、お気に入りのシェル/ターミナルを使用します。

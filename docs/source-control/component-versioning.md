@@ -1,60 +1,60 @@
-# Component Versioning
+# コンポーネントのバージョン管理
 
-## Goal
+## ゴール
 
-Larger applications consist of multiple components that reference each other and rely on compatibility of the interfaces/contracts of the components.
+大規模なアプリケーションは、相互に参照し、コンポーネントのインターフェース/コントラクトの互換性に依存する複数のコンポーネントで構成されます。
 
-To achieve the goal of loosely coupled applications, each component should be versioned independently hence allowing developers to detect breaking changes or seamless updates just by looking at the version number.
+疎結合アプリケーションの目標を達成するには、各コンポーネントを個別にバージョン管理する必要があります。これにより、開発者はバージョン番号を確認するだけで、重大な変更やシームレスな更新を検出できます。
 
-## Version Numbers and Versioning schemes
+## バージョン番号とバージョン管理スキーム
 
-For developers or other components to detect breaking changes the version number of a component is important.
+開発者または他のコンポーネントが重大な変更を検出するには、コンポーネントのバージョン番号が重要です。
 
-There is different versioning number schemes, e.g.
+さまざまなバージョン番号スキームがあります。
 
 `major.minor[.build[.revision]]`
 
-or
+または
 
 `major.minor[.maintenance[.build]]`.
 
-Upon build / CI these version numbers are being generated. During CD / release components are pushed to a *component repository* such as Nuget, NPM, Docker Hub where a history of different versions is being kept.
+ビルド/CI時に、これらのバージョン番号が生成されます。CD /リリース中、コンポーネントはNuget、NPM、Docker Hubなどのコンポーネントリポジトリにプッシュされ、さまざまなバージョンの履歴が保持されます。
 
-Each build the version number is incremented at the last digit.
+ビルドごとに、バージョン番号が最後の桁でインクリメントされます。
 
-Updating the major / minor version indicates changes of the API / interfaces / contracts:
+メジャー/マイナーバージョンの更新は、API/インターフェース/コントラクトの変更を示します。
 
-* Major Version: A breaking change
-* Minor Version: A backwards-compatible minor change
-* Build / Revision: No API change, just a different build.
+* メジャーバージョン：重大な変更
+* マイナーバージョン：下位互換性のあるマイナーな変更
+* ビルド/リビジョン：APIの変更はなく、ビルドが異なるだけです。
 
-## Semantic Versioning
+## セマンティックバージョニング
 
-Semantic Versioning is a concept of calculating the version number automatically based on a certain source code repository.
+セマンティックバージョニングは、特定のソースコードリポジトリに基づいてバージョン番号を自動的に計算するという概念です。
 
-The `semver` tool looks at a GIT source control branch and comes up with a *repeatable* and *unique* version number based on
+この `semver` ツールはGITソース管理ブランチを調べ、に基づいて繰り返し可能で一意のバージョン番号を考え出します。
 
-* number of commits since last major or minor release
-* commit messages
-* tags
-* branch names
+* 前回のメジャーリリースまたはマイナーリリース以降のコミット数
+* メッセージをコミットする
+* タグ
+* ブランチ名
 
-Examples of semver version numbers:
+semverバージョン番号の例：
 
-* **1.0.0-alpha.1**: +1 commit *after* the alpha release of 1.0.0
-* **2.1.0-beta**: 2.1.0 in beta branch
-* **2.4.2**: 2.4.2 release
+* **1.0.0-alpha.1**: 1.0.0のアルファリリース *後に* +1コミット +1 commit *after* the alpha release of 1.0.0
+* **2.1.0-beta**: ベータブランチの2.1.0
+* **2.4.2**: 2.4.2リリース
 
-Version Updates happen through:
+バージョンの更新は次の方法で行われます。
 
-* Commit messages or tags for Major / Minor / Revision updates.
-* Branch names (e.g. develop, release/..) for Alpha / Beta / RC
-* Otherwise: Number of commits (+12, ...)
+* メジャー/マイナー/リビジョンの更新のメッセージまたはタグをコミットします。
+* Alpha / Beta / RCのブランチ名（例：開発、リリース/ ..）
+* それ以外の場合：コミット数（+12、...）
 
-Recommendation is to run semver during your CI process to make each build uniquely identifiable.
+CIプロセス中にsemverを実行して、各ビルドを一意に識別できるようにすることをお勧めします。
 
-## Resources
+## 参照資料
 
-* [Semantic Versioning](https://semver.org/)
-* [Versioning in C#](https://docs.microsoft.com/en-us/dotnet/csharp/versioning)
-* [SemVer Task for VSTS](https://marketplace.visualstudio.com/items?itemName=geeklearningio.gl-vsts-tasks-semver)
+* [セマンティックバージョニング](https://semver.org/)
+* [C＃でのバージョン管理](https://docs.microsoft.com/en-us/dotnet/csharp/versioning)
+* [Visual Studio Team Services の SemVer タスク](https://marketplace.visualstudio.com/items?itemName=geeklearningio.gl-vsts-tasks-semver)

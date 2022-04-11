@@ -1,14 +1,14 @@
-# Using Git LFS and VFS for Git introduction
+# Gitの紹介にGitLFSとVFSを使用する
 
-**Git LFS** and **VFS for Git** are solutions for using Git with (large) binary files and large source trees.
+**Git LFS** と **VFS for Git** は、（大きな）バイナリファイルと大きなソースツリーでGitを使用するためのソリューションです。
 
 ## Git LFS
 
-Git is very good and keeping track of changes in text-based files like code, but it is not that good at tracking binary files. For instance, if you store a Photoshop image file (PSD) in a repository, with every change, the complete file is stored again in the history. This can make the history of the Git repo very large, which makes a clone of the repository more and more time-consuming.
+Gitは非常に優れており、コードなどのテキストベースのファイルの変更を追跡しますが、バイナリファイルの追跡はそれほど得意ではありません。たとえば、Photoshop画像ファイル（PSD）をリポジトリに保存すると、変更のたびに、ファイル全体が再び履歴に保存されます。これにより、Gitリポジトリの履歴が非常に大きくなり、リポジトリのクローンがますます時間がかかる可能性があります。
 
-A solution to work with binary files is using Git LFS (or Git Large File System). This is an extension to Git and must be installed separately, and it can only be used with a repository platform that supports LFS. GitHub.com and Azure DevOps for instance are platforms that have support for LFS.
+バイナリファイルを操作するためのソリューションは、Git LFS（またはGitラージファイルシステム）を使用することです。これはGitの拡張機能であり、個別にインストールする必要があり、LFSをサポートするリポジトリプラットフォームでのみ使用できます。たとえば、GitHub.comとAzure DevOpsは、LFSをサポートするプラットフォームです。
 
-The way it works in short, is that a placeholder file is stored in the repo with information for the LFS system. It looks something like this:
+つまり、プレースホルダーファイルは、LFSシステムの情報とともにリポジトリに保存されます。これは次のようになります。
 
 ```shell
 version https://git-lfs.github.com/spec/v1
@@ -16,86 +16,86 @@ oid a747cfbbef63fc0a3f5ffca332ae486ee7bf77c1d1b9b2de02e261ef97d085fe
 size 4923023
 ```
 
-The actual file is stored in a separate storage. This way Git will track changes in this placeholder file, not the large file. The combination of using Git and Git LFS will hide this from the developer though. You will just work with the repository and files as before.
+実際のファイルは別のストレージに保存されます。このようにして、Gitは大きなファイルではなく、このプレースホルダーファイルの変更を追跡します。ただし、GitとGit LFSの組み合わせは、これを開発者から隠します。以前と同じように、リポジトリとファイルを操作します。
 
-When working with these large files yourself, you'll still see the Git history grown on your own machine, as Git will still start tracking these large files locally, but when you clone the repo, the history is actually pretty small. So it's beneficial for others not working directly on the large files.
+これらの大きなファイルを自分で操作する場合、Gitは引き続きこれらの大きなファイルをローカルで追跡し始めるため、Gitの履歴は自分のマシンで成長しますが、リポジトリのクローンを作成すると、実際には履歴はかなり小さくなります。したがって、大きなファイルを直接操作しない他の人にとっては有益です。
 
-### Pros of Git LFS
+### Git LFS の長所
 
-* Uses the end to end Git workflow for all files
-* Git LFS supports file locking to avoid conflicts for undiffable assets
-* Git LFS is fully supported in Azure DevOps Services
+* すべてのファイルにエンドツーエンドの Git ワークフローを使用します
+* Git LFSは、ファイルのロックをサポートして、差分できないアセットの競合を回避します
+* Git LFSは、Azure DevOps Servicesで完全にサポートされています
 
-### Cons of Git LFS
+### Git LFS の短所
 
-* Everyone who contributes to the repository needs to install Git LFS
-* If not set up properly:
-  * Binary files committed through Git LFS are not visible as Git will only download the data describing the large file
-  * Committing large binaries will push the full binary to the repository
-* Git cannot merge the changes from two different versions of a binary file; file locking mitigates this
-* Azure Repos do not support using SSH for repositories with Git LFS tracked files - for more information see the Git LFS [authentication documentation](https://github.com/git-lfs/git-lfs/blob/master/docs/api/authentication.md)
+* リポジトリに貢献するすべての人は、Git LFS をインストールする必要があります。
+* 適切に設定されていない場合:
+  * Gitは大きなファイルを説明するデータのみをダウンロードするため、GitLFSを介してコミットされたバイナリファイルは表示されません。
+  * 大きなバイナリをコミットすると、完全なバイナリがリポジトリにプッシュされます
+* Gitは、バイナリファイルの2つの異なるバージョンからの変更をマージすることはできません。ファイルロックはこれを軽減します
+* Azureリポジトリは、Git LFSで追跡されたファイルを含むリポジトリでの SSH の使用をサポートしていません - Git LFS [認証のドキュメント](https://github.com/git-lfs/git-lfs/blob/master/docs/api/authentication.md)を参照してください。
 
-### Installation and use of Git LFS
+### Git LFS のインストールと使用
 
-Go to [https://git-lfs.github.com](https://git-lfs.github.com) and download and install the setup from there.
+[https://git-lfs.github.com](https://git-lfs.github.com) にアクセスし、そこからセットアップをダウンロードしてインストールします。
 
-For every repository you want to use LFS, you have to go through these steps:
+LFSを使用するリポジトリごとに、次の手順を実行する必要があります。
 
-* Setup LFS for the repo:
+* リポジトリのLFSを設定します。
 
 ```shell
 git lfs install
 ```
 
-* Indicate which files have to be considered as large files (or binary files). As an example, to consider all Photoshop files to be large:
+* どのファイルを大きなファイル（またはバイナリファイル）と見なす必要があるかを示します。例として、すべてのPhotoshopファイルを大きいと見なすには：
 
 ```shell
 git lfs track "*.psd"
 ```
 
-There are more fine-grained ways to indicate files in a folder and more. See the [Git LFS Documentation](https://github.com/git-lfs/git-lfs/tree/master/docs?utm_source=gitlfs_site&utm_medium=docs_link&utm_campaign=gitlfs).
+フォルダ内のファイルを示すためのよりきめ細かい方法などがあります。[Git LFS ドキュメント](https://github.com/git-lfs/git-lfs/tree/master/docs?utm_source=gitlfs_site&utm_medium=docs_link&utm_campaign=gitlfs)を参照してください。
 
-With these commands a `.gitattribute` file is created which contains these settings and must be part of the repository.
+これらのコマンドを使用するとこれらの設定を含む`.gitattribute`ファイルが作成されますが、これはリポジトリの一部である必要があります。
 
-From here on you just use the standard Git commands to work in the repository. The rest will be handled by Git and Git LFS.
+ここからは、標準のGitコマンドを使用してリポジトリで作業します。残りは Git と Git LFS によって処理されます。
 
-### Common LFS commands
+### 一般的な LFS コマンド
 
-Install Git LFS
+Git LFS をインストールする
 
 ```bash
 git lfs install       # windows
 sudo apt-get git-lfs  # linux
 ```
 
-See the [Git LFS installation instructions](https://github.com/git-lfs/git-lfs/wiki/Installation) for installation on other systems
+他のシステムへのインストールについては、[Git LFS のインストール手順](https://github.com/git-lfs/git-lfs/wiki/Installation)を参照してください。
 
-Track .mp4 files with Git LFS
+Git LFS で .mp4ファイルを追跡する場合:
 
 ```bash
 git lfs track '*.mp4'
 ```
 
-Update the `.gitattributes` file listing the files and patterns to track
+`.gitattributes`ファイルの、追跡するファイルとパターンのリストを更新します
 
 ```bash
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 docs/images/* filter=lfs diff=lfs merge=lfs -text
 ```
 
-List all patterns tracked
+追跡されたすべてのパターンを一覧表示します
 
 ```bash
 git lfs track
 ```
 
-List all files tracked
+追跡されたすべてのファイルを一覧表示します
 
 ```bash
 git lfs ls-files
 ```
 
-Download files to your working directory
+作業ディレクトリにファイルをダウンロードします
 
 ```bash
 git lfs pull
@@ -104,51 +104,51 @@ git lfs pull --include="path/to/file"
 
 ## VFS for Git
 
-Imagine a large repository containing multiple projects, ex. one per feature. As a developer you may only be working on some features, and thus you don't want to download all the projects in the repo. By default, with Git however, cloning the repository means you will download *all* files/projects.
+複数のプロジェクトを含む大規模なリポジトリを想像してみてください。機能ごとに1つ。開発者は一部の機能にしか取り組んでいない可能性があるため、リポジトリ内のすべてのプロジェクトをダウンロードする必要はありません。ただし、デフォルトでは、Gitを使用すると、リポジトリのクローンを作成すると、すべてのファイル/プロジェクトがダウンロードされます。
 
-VFS for Git (or Virtual File System for Git) solves this problem, as it will only download what you need to your local machine, but if you look in the file system, e.g. with Windows Explorer, it will show all the folders and files including the correct file sizes.
+VFS for Git（またはVirtual File System for Git）は、必要なものだけをローカルマシンにダウンロードするため、この問題を解決しますが、Windowsエクスプローラーなどでファイルシステムを見ると、すべてのフォルダーとファイルが表示されます。正しいファイルサイズを含みます。
 
-The Git platform must support GVFS to make this work. GitHub.com and Azure DevOps both support this out of the box.
+これを機能させるには、Gitプラットフォームが GVFS をサポートしている必要があります。GitHub.comとAzureDev Opsはどちらも、これを完璧にサポートしています。
 
-### Installation and use of VFS for Git
+### VFS for Git のインストールと使用
 
-Microsoft create VFS for Git and made it open source. It can be found at [https://github.com/microsoft/VFSForGit](https://github.com/microsoft/VFSForGit). It's only available for Windows.
+MicrosoftはVFS for Gitを作成し、それをオープンソースにしました。[https://github.com/microsoft/VFSForGit](https://github.com/microsoft/VFSForGit)で見つけることができます。Windowsでのみ使用できます。
 
-The necessary installers can be found at [https://github.com/Microsoft/VFSForGit/releases](https://github.com/Microsoft/VFSForGit/releases)
+必要なインストーラーは[https://github.com/Microsoft/VFSForGit/releases](https://github.com/Microsoft/VFSForGit/releases)にあります。
 
-On the releases page you'll find two important downloads:
+リリースページには、2つの重要なダウンロードがあります。
 
-* Git 2.28.0.0 installer, which is a requirement for running VFS for Git. This is not the same as the standard Git for Windows install!
-* SetupGVFS installer.
+* Git 2.28.0.0 インストーラー。これは、Git for VFS を実行するための要件です。これは、標準のGit for Windowsインストールと同じではありません。
+* SetupGVFS インストーラー
 
-Download those files and install them on your machine.
+それらのファイルをダウンロードして、マシンにインストールします。
 
-To be able to use VFS for Git for a repository, a `.gitattributes` file needs to be added to the repo with this line in it:
+リポジトリにVFS for Gitを使用できるようにするには、次のような行を含む`.gitattributes`ファイルをリポジトリに追加する必要があります。
 
 ```shell
 * -text
 ```
 
-To clone a repository to your machine using VFS for Git you use `gvfs` instead of `git` like so:
+VFS for Gitを使用してリポジトリをマシンに複製するには、`git`の代わりに `gvfs` を使用します。
 
 ```shell
 gvfs clone [URL] [dir]
 ```
 
-Once this is done, you have a folder which contains a `src` folder which contains the contents of the repository. This is done because of a practice to put all outputs of build systems outside this tree. This makes it easier to manage `.gitignore` files and to keep Git performant with lots of files.
+これが完了すると、リポジトリのコンテンツを含む `src`フォルダを含むフォルダが作成されます。これは、ビルドシステムのすべての出力をこのツリーの外に配置するために行われます。これにより、`.gitignore`ファイルの管理が容易になり、多数のファイルで Git のパフォーマンスを維持できます。
 
-For working with the repository you just use Git commands as before.
+リポジトリを操作するには、以前と同じようにGitコマンドを使用します。
 
-To remove a VFS for Git repository from your machine, make sure the VFS process is stopped and execute this command from the main folder:
+マシンからVFS for Gitリポジトリを削除するには、VFS プロセスが停止していることを確認し、メインフォルダーから次のコマンドを実行します。
 
 ```shell
 gvfs unmount
 ```
 
-This will stop the process and unregister it, after that you can safely remove the folder.
+これにより、プロセスが停止して登録が解除され、その後、フォルダを安全に削除できます。
 
-### References
+### 参考文献
 
-* [Git LFS getting started](https://git-lfs.github.com/)
-* [Git LFS manual](https://github.com/git-lfs/git-lfs/tree/master/docs)
-* [Git LFS on Azure Repos](https://docs.microsoft.com/en-us/azure/devops/repos/git/manage-large-files?view=azure-devops)
+* [Git LFS の開始](https://git-lfs.github.com/)
+* [Git LFS マニュアル](https://github.com/git-lfs/git-lfs/tree/master/docs)
+* [Azure リポジトリ上での Git LFS](https://docs.microsoft.com/en-us/azure/devops/repos/git/manage-large-files?view=azure-devops)

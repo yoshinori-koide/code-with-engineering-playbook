@@ -1,13 +1,12 @@
-# Working with Secrets in Source Control
+# ソース管理におけるシークレットの操作
 
-The best way to avoid leaking secrets is to store them in local/private files and exclude these from git tracking with a [.gitignore](https://git-scm.com/docs/gitignore) file.
-E.g. the following pattern will exclude all files with the extension `.private.config`:
+シークレットの漏洩を回避する最善の方法は、シークレットをローカル/プライベートファイルに保存し、[.gitignore](https://git-scm.com/docs/gitignore)ファイルを使用してgitトラッキングから除外することです。たとえば、次のパターンでは、拡張子が`.private.config`のすべてのファイルが除外されます。
 
 ```bash
 # remove private configuration
 *.private.config
 ```
 
-For more details on proper management of credentials and secrets in source control, and handling an accidental commit of secrets to source control, please refer to the [Secrets Management](../continuous-delivery/secrets-management/README.md) document which has further information, split by language as well.
+ソース管理におけるクレデンシャルとシークレットの適切な管理、およびソース管理へのシークレットの偶発的なコミットの処理の詳細については、言語ごとに分割された詳細情報が記載された[シークレット管理](../continuous-delivery/secrets-management/README.md)ドキュメントを参照してください。
 
-As an extra security measure, apply [credential scanning](../continuous-integration/dev-sec-ops/secret-management/recipes/detect-secrets.md) in your CI/CD pipeline.
+追加のセキュリティ対策として、CI/CDパイプラインに[クレデンシャルスキャン](../continuous-integration/dev-sec-ops/secret-management/recipes/detect-secrets.md)を適用します。
