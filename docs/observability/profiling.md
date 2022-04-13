@@ -1,25 +1,25 @@
-# Profiling
+# プロファイリング
 
-## Overview
+## 概要
 
-Profiling is a form of runtime analysis that measures various components of the runtime such as, memory allocation, garbage collection, threads and locks, call stacks, or frequency and duration of specific functions. It can be used to see which functions are the most costly in your binary, allowing you to focus your effort on removing the largest inefficiencies as quickly as possible. It can help you find deadlocks, memory leaks, or inefficient memory allocation, and help inform decisions around resource allocation (ie: CPU or RAM).
+プロファイリングは、メモリ割り当て、ガベージコレクション、スレッドとロック、コールスタック、特定の機能の頻度と期間など、ランタイムのさまざまなコンポーネントを測定するランタイム分析の形式です。これを使用して、バイナリで最もコストのかかる関数を確認できるため、最大の非効率性を可能な限り迅速に取り除くことに注力できます。これは、デッドロック、メモリリーク、または非効率的なメモリ割り当てを見つけるのに役立ち、リソース割り当て（つまり、CPUまたはRAM）に関する決定を通知するのに役立ちます。
 
-## How to Profile your Applications
+## アプリケーションのプロファイルを作成する方法
 
-Profiling is somewhat language dependent, so start off by searching for "profile $language" (some common tools are listed below). Additionally, Linux Perf is a good fallback, since a lot of languages have bindings in C/C++.
+プロファイリングは言語に多少依存するため、「profile $language」を検索することから始めます（いくつかの一般的なツールを以下に示します）。さらに、多くの言語にはC / C ++のバインディングがあるため、LinuxPerfは優れたフォールバックです。
 
-Profiling does incur some cost, as it requires inspecting the call stack, and sometimes pausing the application all together (ie: to trigger a full GC in Java). It is recommended to continuously profile your services, say for 10s every 10 minutes. Consider the cost when deciding on tuning these parameters.
+プロファイリングには、コールスタックを検査し、場合によってはアプリケーションをまとめて一時停止する必要があるため、ある程度のコストがかかります（つまり、Javaで完全なGCをトリガーするため）。たとえば、10分ごとに10秒間、サービスのプロファイルを継続的に作成することをお勧めします。これらのパラメータを調整することを決定するときは、コストを考慮してください。
 
-Different tools visualize profiles differently. Common CPU profiles might use a directed graph ![graph](images/pprof-dot.png) or a flame graph. ![flame](images/flame.png)
+ツールが異なれば、プロファイルの視覚化も異なります。一般的なCPUプロファイルは、有向グラフ ![graph](images/pprof-dot.png)またはフレームグラフを使用する場合があります。 ![flame](images/flame.png)
 
-Unfortunately, each profiler tool typically uses its own format for storing profiles, and comes with its own visualization.
+残念ながら、各プロファイラーツールは通常、プロファイルを保存するために独自の形式を使用し、独自の視覚化が付属しています。
 
 ## Specific tools
 
-- (Java, Go, Python, Ruby, eBPF) [Pyroscope](https://github.com/pyroscope-io/pyroscope) continuous profiling out of the box.
-- (Java and Go) [Flame](https://github.com/VerizonMedia/kubectl-flame) - profiling containers in Kubernetes
-- (Java, Python, Go) [Datadog Continuous profiler](https://www.datadoghq.com/product/code-profiling/)
+- (Java, Go, Python, Ruby, eBPF) [Pyroscope](https://github.com/pyroscope-io/pyroscope) 連続プロファイリングをそのまま使用できます。
+- (Java and Go) [Flame](https://github.com/VerizonMedia/kubectl-flame) - Kubernetesのコンテナのプロファイリング
+- (Java, Python, Go) [Datadog連続プロファイラー](https://www.datadoghq.com/product/code-profiling/)
 - (Java, Python, Go, Node.js) [Instana](https://www.instana.com/blog/instana-announces-the-industrys-first-commercial-continuous-production-profiler/)
-- (Go) [profefe](https://github.com/profefe/profefe), which builds `pprof` to provide continuous profiling
+- (Go) [profefe](https://github.com/profefe/profefe)、継続的なプロファイリングを提供するために `pprof`を構築します
 - (Java) [Opsian](https://opsian.com/)
 - (Java) [Eclipse Memory Analyzer](https://www.eclipse.org/mat/)

@@ -1,38 +1,38 @@
-# Observability
+# 可観測性
 
-Building observable systems enables development teams at CSE to measure how well the application is behaving. Observability serves the following goals:
+監視可能なシステムを構築することで、CSEの開発チームはアプリケーションの動作を測定できます。可観測性は次の目標を果たします。
 
-- Provide holistic view of the _application health_.
-- Help measure _business performance_ for the customer.
-- Measure _operational performance_ of the system.
-- Identify and _diagnose failures_ to get to the problem fast.
+- _アプリケーションの健全性_ の全体像を提供します。
+- _顧客の業績_を測定するのに役立ちます。
+- システムの _運用パフォーマンス_ を測定します。
+- _障害を特定して診断_ し、問題を迅速に解決します。s
 
-## Pillars of Observability
+## 可観測性の柱
 
-- [Logs](pillars/logging.md)
-- [Metrics](pillars/metrics.md)
-- [Tracing](pillars/tracing.md)
-- [Logs vs Metrics](log-vs-metric.md)
+- [ログ](pillars/logging.md)
+- [指標](pillars/metrics.md)
+- [トレース](pillars/tracing.md)
+- [ログ vs メトリクス](log-vs-metric.md)
 
-## Insights
+## 洞察
 
-- [Dashboards and Reporting](pillars/dashboard.md)
+- [ダッシュボードとレポート](pillars/dashboard.md)
 
-## Tools, Patterns and Recommended Practices
+## ツール、パターン、および推奨される方法
 
-- [Tooling and Patterns](tools/README.md)
-- [Observability As Code](observability-as-code.md)
-- [Recommended Practices](best-practices.md)
-- [Diagnostics tools](diagnostic-tools.md)
+- [ツーリングとパターン](tools/README.md)
+- [コードとしての可観測性](observability-as-code.md)
+- [推奨される方法](best-practices.md)
+- [診断ツール](diagnostic-tools.md)
 
-## Facets of Observability
+## 可観測性の側面
 
-- [Observability for Microservices](microservices.md)
-- [Observability in Machine Learning](ml-observability.md)
-- [Observability of CI/CD Pipelines](observability-pipelines.md)
-- [Observability in Azure Databricks](observability-databricks.md)
-- [Recipes](recipes-observability.md)
+- [マイクロサービスの可観測性](microservices.md)
+- [機械学習における可観測性](ml-observability.md)
+- [CI/CDパイプラインの可観測性](observability-pipelines.md)
+- [Azure Databricksの可観測性](observability-databricks.md)
+- [レシピ](recipes-observability.md)
 
-## Useful links
+## 便利なリンク
 
-- [Non-Functional Requirements Guidance](../design/design-patterns/non-functional-requirements-capture-guide.md)
+- [非機能要件ガイダンス](../design/design-patterns/non-functional-requirements-capture-guide.md)

@@ -1,57 +1,50 @@
-# Observability in Machine Learning
+# 機械学習における可観測性
 
-Development process of software system with machine learning component is more complex
-than traditional software. We need to monitor changes and variations in three dimensions:
-the code, the model and the data.
-We can distinguish two stages of such system lifespan: experimentation and production
-that require  different approaches to observability as discussed below:
+機械学習コンポーネントを備えたソフトウェアシステムの開発プロセスは、従来のソフトウェアよりも複雑です。コード、モデル、データの3つの次元で変化と変化を監視する必要があります。このようなシステムの寿命の2つの段階を区別できます。以下で説明するように、可観測性への異なるアプローチを必要とする実験と生産です。
 
-## Model experimentation and tuning
+## モデルの実験と調整
 
-Experimentation is a process of finding suitable machine learning model and its parameters via training and evaluating such models with one or more datasets.
+実験とは、1つ以上のデータセットを使用してそのようなモデルをトレーニングおよび評価することにより、適切な機械学習モデルとそのパラメーターを見つけるプロセスです。
 
-When developing and tuning machine learning models, the data scientists are interested in observing and comparing selected performance metrics for various model parameters.
-They also need a reliable way to reproduce a training process, such that a given dataset and given parameters produces the same models.
+機械学習モデルを開発および調整する場合、データサイエンティストは、さまざまなモデルパラメーターに対して選択されたパフォーマンスメトリックを観察および比較することに関心があります。また、特定のデータセットと特定のパラメーターが同じモデルを生成するように、トレーニングプロセスを再現するための信頼できる方法も必要です。
 
-There are many model metric evaluation solutions available, both open source (like MLFlow) and proprietary (like Azure Machine Learning Service), and of which some serve different purposes. To capture model metrics, there are a.o. the following options available:
+オープンソース（MLFlowなど）とプロプライエタリ（Azure Machine Learning Serviceなど）の両方で利用可能な多くのモデルメトリック評価ソリューションがあり、そのうちのいくつかは異なる目的を果たします。モデルメトリックをキャプチャするために、次のオプションを使用できます。
 
 [Azure Machine Learning Service SDK](https://ml.azure.com/)
-Azure Machine Learning service provides an SDK for Python, R and C# to capture your evaluation metrics to an Azure Machine Learning service (AML) Experiment. Experiments are viewed in the AML dashboard. Reproducibility is achieved by storing code or notebook snapshot together with viewed metric. You can create versioned Datasets within Azure Machine Learning service.
+Azure Machine Learning Serviceは、評価指標をAzure Machine Learning Service（AML）実験に取り込むためのPython、R、およびC＃用のSDKを提供します。実験はAMLダッシュボードに表示されます。再現性は、コードまたはノートブックのスナップショットを表示されたメトリックと一緒に保存することで実現されます。AzureMachineLearningサービス内でバージョン管理されたデータセットを作成できます。
 
 [MLFlow (for Databricks)](https://docs.microsoft.com/en-us/azure/databricks/applications/mlflow/)
-MLFlow is open source framework, and can be hosted on Azure Databricks as its remote tracking server (it currently is the only solution that offers first-party integration with Databricks). You can use the MLFlow SDK tracking component to capture your evaluation metrics or any parameter you would like and track it at experimentation board in Azure Databricks. Source code and dataset version are also saved with log snapshot to provide reproducibility.
+MLFlowはオープンソースフレームワークであり、リモート追跡サーバーとしてAzure Databricksでホストできます（現在、Databricksとのファーストパーティ統合を提供する唯一のソリューションです）。MLFlow SDK追跡コンポーネントを使用して、評価メトリックまたは任意のパラメーターをキャプチャし、AzureDatabricksの実験ボードで追跡できます。ソースコードとデータセットのバージョンもログスナップショットとともに保存され、再現性を提供します。
 
 [TensorBoard](https://www.tensorflow.org/tensorboard/)
-TensorBoard is a popular tool amongst data scientist to visualize specific metrics of Deep Learning runs, especially of TensorFlow runs. TensorBoard is not an MLOps tool like AML/MLFlow, and therefore does not offer extensive logging capabilities. It is meant to be transient; and can therefore be used as an addition to an end-to-end MLOps tool like AML, but not as a complete MLOps tool.
+TensorBoardは、データサイエンティストの間で人気のあるツールであり、ディープラーニングの実行、特にTensorFlowの実行の特定のメトリックを視覚化します。TensorBoardはAML/MLFlowのようなMLOpsツールではないため、広範なログ機能を提供しません。これは一時的なものです。したがって、AMLのようなエンドツーエンドのMLOpsツールへの追加として使用できますが、完全なMLOpsツールとしては使用できません。
 
 [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
-Application Insights can be used as an alternative sink to capture model metrics, and can therefore offer more extensive options as metrics can be transferred to e.g. a PowerBI dashboard. It also enables log querying. However, this solution means that a custom application needs to be written to send logs to AppInsights (using for example the OpenCensus Python SDK), which would mean extra effort of creating/maintaining custom code.
+Application Insightsは、モデルメトリックをキャプチャするための代替シンクとして使用できるため、メトリックをPowerBIダッシュボードなどに転送できるため、より広範なオプションを提供できます。また、ログクエリを有効にします。ただし、このソリューションは、ログをAppInsightsに送信するためにカスタムアプリケーションを作成する必要があることを意味します（たとえば、OpenCensus Python SDKを使用）。これは、カスタムコードを作成/維持するための余分な労力を意味します。
 
-An extensive comparison of the four tools can be found as follows:
+4つのツールの広範な比較は、次のとおりです。
 
 |                           | Azure ML      | MLFlow      | TensorBoard   | Application Insights |
 | -----------               | ----------- | ----------- | -----------   | -----------          |
-| **Metrics support**       | Values, images, matrices, logs | Values, images, matrices and plots as files | Metrics relevant to DL research phase | Values, images, matrices, logs
-| **Customizability**       | Basic | Basic | Very basic | High
-| **Metrics accessible**    | AML portal, AML SDK | MLFlow UI, Tracking service API | Tensorboard UI, history object | Application Insights
-| **Logs accessible**       | Rolling logs written to .txt files in blob storage, accessible via blob or AML portal. Not query-able | Rolling logs are not stored | Rolling logs are not stored | Application Insights in Azure Portal. Query-able with KQL
-| **Ease of use and set up** | Very straightforward, only one portal | More moving parts due to remote tracking server | A bit over process overhead. Also depending on ML framework | More moving parts as a custom app needs to be maintained
-| **Shareability** | Across people with access to AML workspace | Across people with access to remote tracking server | Across people with access to same directory | Across people with access to AppInsights
+| **メトリクスのサポート**       | 値、画像、マトリックス、ログ | ファイルとしての値、画像、行列、プロット | DL調査フェーズに関連する指標 | 値、画像、マトリックス、ログ
+| **カスタマイズ性**       | 基本 | 基本 | 非常に基本的 | 高い
+| **メトリックへのアクセス性**    | AMLポータル、AML SDK | MLFlow UI、トラッキングサービスAPI | Tensorboard UI、履歴オブジェクト | Application Insights
+| **ログへのアクセス性**       | BLOBまたはAMLポータルを介してアクセス可能なBLOBストレージ内の.txtファイルに書き込まれたローリングログ。クエリ不可 | ローリングログは保存されません | ローリングログは保存されませ | Azure PortalのApplication Insights。KQLでクエリ可能
+| **使いやすさとセットアップ** | 非常に簡単で、ポータルは1つだけです | リモートトラッキングサーバーによる可動部品の増加 | プロセスのオーバーヘッドを少し超えています。MLフレームワークにも依存 | カスタムアプリとしてより多くの可動部品を維持する必要があります
+| **共有可能性** | AMLワークスペースにアクセスできる人々全体 | リモート追跡サーバーにアクセスできる人々全体 | 同じディレクトリにアクセスできる人全体 | AppInsightsにアクセスできる人々全体
 
-## Model in production
+## 本番環境モデル
 
-The trained model can be deployed to production as container. Azure Machine Learning service provides SDK to deploy model as Azure Container Instance and publishes REST endpoint. You can monitor it using microservice observability methods( for more details -refer to [Recipes](README.md) section). MLFLow is an alternative way to deploy ML model as a service.
+トレーニングされたモデルは、コンテナーとして本番環境にデプロイできます。Azure Machine Learningサービスは、モデルをAzure Container InstanceとしてデプロイするためのSDKを提供し、RESTエンドポイントを公開します。マイクロサービスの可観測性メソッドを使用して監視できます（詳細については、[レシピ](README.md)のセクションを参照してください）。MLFLowは、MLモデルをサービスとしてデプロイするための代替方法です。
 
-## Training and re-training
+## トレーニングと再トレーニング
 
-To automatically retrain the model you can use AML Pipelines or Azure Databricks.
-When re-training with AML Pipelines you can monitor information of each run, including the output, logs, and various metrics in the Azure portal experiment dashboard, or manually extract it using the AML SDK
+モデルを自動的に再トレーニングするには、AMLパイプラインまたはAzureDatabricksを使用できます。AMLパイプラインを使用して再トレーニングする場合、Azureポータルの実験ダッシュボードの出力、ログ、さまざまなメトリックなど、各実行の情報を監視したり、AMLSDKを使用して手動で抽出したりできます。
 
-## Model performance over time: data drift
+## 時間の経過に伴うモデルのパフォーマンス：データドリフト
 
-We re-train machine learning models to improve their performance and make models better aligned with data changing over time. However, in some cases model performance may degrade. This may happen in case data change dramatically and do not exhibit the patterns we observed during model development anymore. This effect is called data drift. Azure Machine Learning Service has preview feature to observe and report data drift.
-This [article](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-monitor-datasets) describes it in detail.
+機械学習モデルを再トレーニングして、パフォーマンスを向上させ、時間の経過とともに変化するデータとモデルをより適切に整合させます。ただし、モデルのパフォーマンスが低下する場合があります。これは、データが劇的に変化し、モデル開発中に観察されたパターンが表示されなくなった場合に発生する可能性があります。この効果はデータドリフトと呼ばれます。Azure Machine Learning Serviceには、データのドリフトを監視および報告するためのプレビュー機能があります。この[記事](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-monitor-datasets) ではそれについて詳しく説明します。
 
-## Data versioning
+## データのバージョン管理
 
-It is recommended practice to add version to all datasets. You can create a versioned Azure ML Dataset for this purpose, or manually version it if using other systems.
+すべてのデータセットにバージョンを追加することをお勧めします。この目的のためにバージョン管理されたAzureMLデータセットを作成するか、他のシステムを使用している場合は手動でバージョン管理することができます。

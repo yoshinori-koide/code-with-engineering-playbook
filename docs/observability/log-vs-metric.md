@@ -1,18 +1,18 @@
-# Logs vs Metrics
+# ログとメトリクス
 
-## Overview
+## 概要
 
-### Metrics
+### 指標
 
-The purpose of metrics is to inform observers about the health & operations regarding a component or system. A metric represents a point in time measure of a particular source, and data-wise tends to be very small. The compact size allows for efficient collection even at scale in large systems. Metrics also lend themselves very well to pre-aggregation within the component before collection, reducing computation cost for processing & storing large numbers of metric time series in a central system. Due to how efficiently metrics are processed & stored, it lends itself very well for use in automated alerting, as metrics are an excellent source for the health data for all components in the system.
+メトリックの目的は、コンポーネントまたはシステムに関するヘルスと操作についてオブザーバーに通知することです。メトリックは特定のソースの特定の時点の測定値を表し、データに関しては非常に小さい傾向があります。コンパクトなサイズにより、大規模なシステムでも効率的な収集が可能です。メトリックは、収集前にコンポーネント内で事前に集計するのにも非常に役立ち、中央システムで多数のメトリック時系列を処理および保存するための計算コストを削減します。メトリックは非常に効率的に処理および保存されるため、メトリックはシステム内のすべてのコンポーネントのヘルスデータの優れたソースであるため、自動アラートでの使用に非常に適しています。
 
-### Logs
+### ログ
 
-Log data inform observers about the discrete events that occurred within a component or a set of components. Just about every software component log information about its activities over time. This rich data tends to be much larger than metric data and can cause processing issues, especially if components are logging too verbosely. Therefore, using log data to understand the health of an extensive system tends to be avoided and depends on metrics for that data. Once metric telemetry highlights potential problem sources, filtered log data for those sources can be used to understand what occurred.
+ログデータは、コンポーネントまたはコンポーネントのセット内で発生した離散イベントについてオブザーバーに通知します。ほぼすべてのソフトウェアコンポーネントは、時間の経過に伴うそのアクティビティに関する情報をログに記録します。この豊富なデータはメトリックデータよりもはるかに大きくなる傾向があり、特にコンポーネントが非常に詳細にログを記録している場合、処理の問題を引き起こす可能性があります。したがって、ログデータを使用して大規模なシステムの状態を理解することは避けられる傾向があり、そのデータのメトリックに依存します。メトリックテレメトリが潜在的な問題の原因を明らかにしたら、それらの原因のフィルタリングされたログデータを使用して、何が発生したかを理解できます。
 
-## Usage Guidance
+## 使用ガイダンス
 
-When to use metric or log data to track a particular piece of telemetry can be summarized with the following points:
+メトリックまたはログデータを使用して特定のテレメトリを追跡する場合は、次の点で要約できます。
 
-- Use metrics to track the occurrence of an event, counting of items, the time taken to perform an action or to report the current value of a resource (CPU, memory, etc.)
-- Use logs to track detailed information about an event also monitored by a metric, particularly errors, warnings or other exceptional situations.
+- メトリックを使用して、イベントの発生、アイテムのカウント、アクションの実行にかかった時間、またはリソース（CPU、メモリなど）の現在の値を報告します。
+- ログを使用して、メトリックによって監視されるイベント、特にエラー、警告、またはその他の例外的な状況に関する詳細情報を追跡します。

@@ -1,17 +1,17 @@
-# Recommended Practices
+# 推奨される方法
 
-1. **Correlation Id**: Include unique identifier at the start of the interaction to tie down aggregated data from various system components and provide a holistic view. Read more guidelines about using [correlation id](correlation-id.md).
-1. Ensure health of the services are **monitored** and provide insights into system's performance and behavior.
-1. Ensure **dependent services** are monitored properly. Errors and exceptions in dependent services like Redis cache, Service bus, etc. should be logged and alerted. Also, metrics related to dependent services should be captured and logged.
+1. **Correlation Id**: 対話の開始時に一意の識別子を含めて、さまざまなシステムコンポーネントからの集約データを拘束し、全体的なビューを提供します。[相関ID](correlation-id.md)の使用に関するその他のガイドラインをお読みください。
+1. サービスの状態が**監視されていること**を確認し、システムのパフォーマンスと動作に関する洞察を提供します。
+1. **依存サービス**が適切に監視されていることを確認します。Redisキャッシュ、サービスバスなどの依存サービスのエラーと例外は、ログに記録して警告する必要があります。また、依存サービスに関連するメトリックをキャプチャしてログに記録する必要があります。
 
-    - Additionally, failures in **dependent services** should be propagated up each level of the stack by the health check.
+    - さらに、**依存サービス**の障害は、ヘルスチェックによってスタックの各レベルに伝播する必要があります。
 
-1. **Faults, crashes, and failures** are logged as discrete events. This helps engineers identify problem area(s) during failures.
-1. Ensure logging configuration (eg: setting logging to "verbose") can be controlled without code changes.
-1. Ensure that **metrics** around latency and duration are collected and can be aggregated.
-1. Start small and add where there is customer impact. [Avoiding metric fatigue](pitfalls.md#metric-fatigue) is very crucial to collecting actionable data.
-1. It is important that every data that is collected contains relevant and rich context.
-1. Personally Identifiable Information or any other customer sensitive information should never be logged. Special attention should be paid to any local privacy data regulations and collected data must adhere to those. (ex: GPDR)
-1. **Health checks** : Appropriate health checks should added to determine if service is healthy and ready to serve traffic. On a kubernetes platform different types of probes e.g. Liveness, Readiness, Startup etc. can be used to determine health and readiness of the deployed service.
+1. **障害、クラッシュ、および障害** は、個別のイベントとしてログに記録されます。これは、エンジニアが障害時に問題のある領域を特定するのに役立ちます。
+1. ロギング構成（例：ロギングを「詳細」に設定）をコードを変更せずに制御できることを確認します。
+1. レイテンシと期間に関する**メトリック**が収集され、集約できることを確認します。
+1. 小規模から始めて、顧客に影響がある場所を追加します。[メトリックの疲労を回避すること](pitfalls.md#metric-fatigue)は、実用的なデータを収集するために非常に重要です。
+1. 収集されるすべてのデータに、関連性のある豊富なコンテキストが含まれていることが重要です。
+1. 個人を特定できる情報やその他の顧客の機密情報は決して記録しないでください。地域のプライバシーデータ規制には特別な注意を払う必要があり、収集されたデータはそれらに準拠する必要があります。（例：GPDR）
+1. **ヘルスチェック**：サービスが正常でトラフィックを処理する準備ができているかどうかを判断するには、適切なヘルスチェックを追加する必要があります。kubernetesプラットフォームでは、Liveness、Readiness、Startupなどのさまざまなタイプのプローブを使用して、デプロイされたサービスの正常性と準備状況を判断できます。
 
-Read more [here](pitfalls.md) to understand what to watch out for while designing and building an observable system.
+監視可能なシステムを設計および構築する際に注意すべき点を理解するには、[こちら](pitfalls.md)をお読みください。

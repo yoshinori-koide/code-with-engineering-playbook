@@ -1,33 +1,33 @@
-# Recipes
+# レシピ
 
 ## Application Insights/ASP.NET
 
-[Github Repo](https://github.com/Azure-Samples/application-insights-aspnet-sample-opentelemetry), [Article](https://devblogs.microsoft.com/aspnet/observability-asp-net-core-apps/).
+[Github リポジトリ](https://github.com/Azure-Samples/application-insights-aspnet-sample-opentelemetry), [記事](https://devblogs.microsoft.com/aspnet/observability-asp-net-core-apps/).
 
-## Application Insights/ASP.NET Core with distributed Trace Context propagation to Kafka
+## Kafkaへの分散トレースコンテキスト伝播を備えた Application Insights/ ASP.NET Core
 
-[Github Repo](https://github.com/MagdaPaj/application-insights-aspnet-sample-trace-context-propagation).
+[Github リポジトリ](https://github.com/MagdaPaj/application-insights-aspnet-sample-trace-context-propagation).
 
-## Example: Setup Azure Monitor dashboards and alerts with Terraform
+## 例：Terraform を使用してAzure Monitor ダッシュボードとアラートをセットアップする
 
-[Github Repo](https://github.com/buzzfrog/azure-alert-dashboard-terraform)
+[Github リポジトリ](https://github.com/buzzfrog/azure-alert-dashboard-terraform)
 
-## On-premises Application Insights
+## オンプレミスのApplication Insights
 
-[On-premise Application Insights](https://github.com/c-w/appinsights-on-premises) is a service that is compatible with Azure App Insights, but stores the data in an in-house database like PostgreSQL or object storage like [Azurite](https://github.com/Azure/Azurite).
+[オンプレミスのApplication Insights](https://github.com/c-w/appinsights-on-premises)は、Azure App Insightsと互換性のあるサービスですが、データをPostgreSQLなどの社内データベースまたは[Azurite](https://github.com/Azure/Azurite)などのオブジェクトストレージに保存します。
 
-On-premises Application Insights is useful as a drop-in replacement for Azure Application Insights in scenarios where a solution must be cloud deployable but must also support on-premises disconnected deployment scenarios.
+オンプレミスのApplication Insightsは、ソリューションがクラウド展開可能である必要があるが、オンプレミスの切断された展開シナリオもサポートする必要があるシナリオで、Azure Application Insightsのドロップイン代替として役立ちます。
 
-On-premises Application Insights is also useful for testing telemetry integration. Issues related to telemetry can be hard to catch since often these integrations are excluded from unit-test or integration test flows due to it being non-trivial to use a live Azure Application Insights resource for testing, e.g. managing the lifetime of the resource, having to ignore old telemetry for assertions, if a new resource is used it can take a while for the telemetry to show up, etc. The On-premise Application Insights service can be used to make it easier to integrate with an Azure Application Insights compatible API endpoint during local development or continuous integration without having to spin up a resource in Azure. Additionally, the service simplifies integration testing of asynchronous workflows such as web workers since integration tests can now be written to assert against telemetry logged to the service, e.g. assert that no exceptions were logged, assert that some number of events of a specific type were logged within a certain time-frame, etc.
+オンプレミスのApplicationInsightsは、テレメトリ統合のテストにも役立ちます。テレメトリに関連する問題は、ライブのAzure Application Insightsリソースをテストに使用するのが簡単ではないため、これらの統合が単体テストまたは統合テストフローから除外されることが多いため、キャッチするのが難しい場合があります。アサーションの古いテレメトリを無視する場合、新しいリソースを使用すると、テレメトリが表示されるまでに時間がかかる場合があります。オンプレミスのApplication Insightsサービスを使用すると、AzureApplicationInsights互換APIとの統合が容易になります。 Azureでリソースを起動することなく、ローカル開発または継続的な統合中のエンドポイント。など。
 
-## Azure DevOps Pipelines Reporting with Power BI
+## Power BI を使用した Azure DevOps パイプラインレポート
 
-The [Azure DevOps Pipelines Report](https://github.com/Azure-Samples/powerbi-pipeline-report) contains a [Power BI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) template for monitoring project, pipeline, and pipeline run data from an Azure DevOps (AzDO) organization.
+[Azure DevOpsパイプラインレポート](https://github.com/Azure-Samples/powerbi-pipeline-report)には、Azure DevOps（AzDO）組織からのプロジェクト、パイプライン、およびパイプライン実行データを監視するための[Power BI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview)テンプレートが含まれています。
 
-This dashboard recipe provides observability for AzDO pipelines by displaying various metrics (i.e. average runtime, run outcome statistics, etc.) in a table. Additionally, the second page of the template visualizes pipeline success and failure trends using Power BI charts. Documentation and setup information can be found in the project README.
+このダッシュボードレシピは、さまざまなメトリック（つまり、平均実行時間、実行結果統計など）をテーブルに表示することにより、AzDOパイプラインの可観測性を提供します。さらに、テンプレートの2ページ目は、PowerBIチャートを使用してパイプラインの成功と失敗の傾向を視覚化します。ドキュメントとセットアップ情報は、プロジェクトREADMEにあります。
 
-## Python Logger class for Application Insights using OpenCensus
+## OpenCensus を使用したApplication InsightsのPythonLoggerクラス
 
-This repository contains "AppLogger" class which is a python logger class for Application Insights using Opencensus. It also contains sample code that shows the usage of "AppLogger".
+このリポジトリには、Opencensusを使用するApplication InsightsのPythonロガークラスである「AppLogger」クラスが含まれています。また、「AppLogger」の使用法を示すサンプルコードも含まれています。
 
-[GitHub Repo](https://github.com/Azure-Samples/azure-monitor-opencensus-python/tree/master/azure_monitor/python_logger_opencensus_azure)
+[GitHub リポジトリ](https://github.com/Azure-Samples/azure-monitor-opencensus-python/tree/master/azure_monitor/python_logger_opencensus_azure)

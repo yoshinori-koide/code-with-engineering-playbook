@@ -1,27 +1,25 @@
-# Guidance for Privacy
+# プライバシーに関するガイダンス
 
-## Overview
+## 概要
 
-To ensure the privacy of your system users, as well as comply with several regulations like GDPR, some types of data shouldn’t exist in logs.
-This includes customer's sensitive, Personal Identifiable Information (PII), and any other data that wasn't legally sanctioned.
+システムユーザーのプライバシーを確​​保し、GDPRなどのいくつかの規制に準拠するために、一部の種類のデータはログに存在しないようにする必要があります。これには、顧客の機密性の高い個人情報（Personal Identifiable Information,PII）、および法的に認可されていないその他のデータが含まれます。
 
-### Recommended Practices
+### 推奨される方法
 
-1. Separate components and minimize the parts of the system that log sensitive data.
-2. Keep sensitive data out of URLs, since request URLs are typically logged by proxies and web servers.
-3. Avoid using PII data for system debugging as much as possible. For example, use ids instead of usernames.
-4. Use Structured Logging and include a deny-list for sensitive properties.
-5. Put an extra effort on spotting logging statements with sensitive data during code review, as it is common for reviewers to skip reading logging statements. This can be added as an additional checkbox if you're using Pull Request Templates.
-6. Include mechanisms to detect sensitive data in logs, on your organizational pipelines for QA or Automated Testing.
+1. コンポーネントを分離し、機密データを記録するシステムの部分を最小限に抑えます。
+2. リクエストURLは通常、プロキシとWebサーバーによってログに記録されるため、機密データをURLに含めないでください。
+3. システムのデバッグにPIIデータを使用することはできるだけ避けてください。たとえば、ユーザー名の代わりにIDを使用します。
+4. 構造化ログを使用し、機密性の高いプロパティの拒否リストを含めます。
+5. レビュー担当者はログステートメントの読み取りをスキップするのが一般的であるため、コードレビュー中に機密データを含むログステートメントを見つけることに特別な努力を払ってください。プルリクエストテンプレートを使用している場合は、これを追加のチェックボックスとして追加できます。
+6. QAまたは自動テストの組織パイプラインで、ログに機密データを検出するメカニズムを含めます。
 
-### Tools and Implementation Methods
+### ツールと実装方法
 
-Use these tools and methods for sensitive data de-identification in logs.
+ログ内の機密データの匿名化には、これらのツールと方法を使用してください。
 
-#### Application Insights
+#### アプリケーションインサイト
 
-Application Insights offers telemetry interception in some of the SDKs, that can be done by implementing the `ITelemetryProcessor` interface.
-ITelemetryProcessor processes the telemetry information before it is sent to Application Insights, and can be useful in many situations, such as filtering and modifications. Below is an example of intercepting 'trace' typed telemetry:
+Application Insightsは、一部のSDKでテレメトリインターセプトを提供します。これは、`ITelemetryProcessor`インターフェイスを実装することで実行できます。ITelemetryProcessorは、テレメトリ情報をApplication Insightsに送信する前に処理し、フィルタリングや変更などの多くの状況で役立ちます。以下は、「トレース」タイプのテレメトリをインターセプトする例です。
 
 ```csharp
 using Microsoft.ApplicationInsights.DataContracts;
@@ -44,21 +42,13 @@ namespace Example
 }
 ```
 
-#### Elastic Stack
+#### Elasticスタック
 
-Elastic Stack (formerly "ELK stack") allows logs interception by Logstash's [filter-plugins](https://www.elastic.co/guide/en/logstash/current/filter-plugins.html).
-Using some of the existing plugins, like 'mutate', 'alter' and 'prune' might be sufficient for most cases of deidentifying and redacting PIIs.
-For a more robust and customized use-case, a 'ruby' plugin can be used, executing arbitrary Ruby code.
-Filter plugins also exists in some Logstash alternatives, like [Fluentd](https://docs.fluentd.org/filter) and [Fluent Bit](https://docs.fluentbit.io/manual/pipeline/filters).
+Elastic Stack（以前の「ELKスタック」）では、Logstashの[フィルタープラグイン](https://www.elastic.co/guide/en/logstash/current/filter-plugins.html)によるログのインターセプトが可能です。PIIの匿名化と編集のほとんどの場合、「mutate」、「alter」、「prune」などの既存のプラグインのいくつかを使用するだけで十分な場合があります。より堅牢でカスタマイズされたユースケースとして、「ruby」プラグインを使用して、任意のRubyコードを実行できます。フィルタプラグインは、[Fluentd](https://docs.fluentd.org/filter)や[FluentBit]などの一部のLogstashの代替手段にも存在します。
 
 #### Presidio
 
-[Presidio](https://github.com/microsoft/presidio) offers data protection and anonymization API. It provides fast identification and anonymization modules for private entities in text.
-Presidio allows using predefined or custom PII recognizers, leveraging Named Entity Recognition, regular expressions, rule based logic and checksum with relevant context in multiple languages.
-It can be used alongside the log interception methods mentioned above to help and ensure sensitive data is properly managed and governed.
-Presidio is containerized for REST HTTP API and also can be installed as a python package, to be called from python code.
-Instead of handling the anonymization in the application code, both APIs can be used using external calls.
-Elastic Stack, for example, can handle PII redaction using the 'ruby' filter plugin to call Presidio in REST HTTP API, or by calling a python script consuming Presidio as a package:
+[Presidio](https://github.com/microsoft/presidio)はデータ保護と匿名化APIを提供します。これは、テキスト内のプライベートエンティティの高速識別および匿名化モジュールを提供します。Presidioを使用すると、事前定義またはカスタムのPII認識機能を使用して、固有表現抽出、正規表現、ルールベースのロジック、および複数の言語の関連するコンテキストでのチェックサムを活用できます。上記のログ傍受方法と一緒に使用して、機密データが適切に管理および管理されるようにすることができます。PresidioはREST HTTP API用にコンテナ化されており、Python パッケージとしてインストールして、Pythonコードから呼び出すこともできます。アプリケーションコードで匿名化を処理する代わりに、外部呼び出しを使用して両方のAPIを使用できます。たとえば、Elastic Stackは、「ru​​by」フィルタープラグインを使用してPIIの編集を処理し、REST HTTP APIでPresidioを呼び出すことができます。
 
 `logstash.conf`
 

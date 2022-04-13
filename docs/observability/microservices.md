@@ -1,53 +1,53 @@
-# Observability in Microservices
+# マイクロサービスでの可観測性
 
-Microservices is a very popular software architecture, where the application is arranged as a collection of loosely coupled services. Some of those services can be written in different languages by different teams.
+マイクロサービスは非常に人気のあるソフトウェアアーキテクチャであり、アプリケーションは疎結合サービスのコレクションとして配置されます。これらのサービスの一部は、さまざまなチームによってさまざまな言語で作成できます。
 
-## Motivations
+## 動機
 
-We need to consider special cases when creating a microservice architecture from the perspective of observability. We want to capture the interactions when making requests between those microservices and correlate them.
+可観測性の観点からマイクロサービスアーキテクチャを作成する場合は、特殊なケースを考慮する必要があります。これらのマイクロサービス間でリクエストを行う際の相互作用をキャプチャし、それらを相互に関連付けたいと考えています。
 
-Imagine we have a microservice that accesses a database to retrieve some data as part of a request. This microservice is going to be called by someone else as part of an incoming http request or an internal process being executed. What happens if a problem occurs during the retrieval of the data (or the update of the data)? How can we associate, or correlate, that this particular call failed in the destination microservice?
+データベースにアクセスしてリクエストの一部としてデータを取得するマイクロサービスがあるとします。このマイクロサービスは、着信httpリクエストまたは実行中の内部プロセスの一部として他の誰かによって呼び出されます。データの取得（またはデータの更新）中に問題が発生した場合はどうなりますか？この特定の呼び出しが宛先マイクロサービスで失敗したことをどのように関連付け、または関連付けることができますか？
 
-This is a common issue. When calling other microservices, depending on the technology stack we use, we can accidentally hide errors and exceptions that might happen on the other side. If we are using a simple REST interface, the other microservice can return a 500 HTTP status code and we don't have any idea what happen inside that microservice.
+これは一般的な問題です。他のマイクロサービスを呼び出す場合、使用するテクノロジースタックによっては、反対側で発生する可能性のあるエラーや例外を誤って非表示にすることがあります。単純なRESTインターフェースを使用している場合、他のマイクロサービスは500 HTTPステータスコードを返す可能性があり、そのマイクロサービス内で何が起こっているのかわかりません。
 
-More important, we don't have any way to associate our Correlation Id to whatever happens inside that microservice. Therefore, is so important to have a plan in place to be able to extend your traceability and monitoring efforts, especially when using a microservice architecture.
+さらに重要なのは、相関IDをそのマイクロサービス内で発生するものに関連付ける方法がないことです。したがって、特にマイクロサービスアーキテクチャを使用する場合は、トレーサビリティと監視の取り組みを拡張できるように計画を立てることが非常に重要です。
 
-## How to extend your tracing information between microservices
+## マイクロサービス間でトレース情報を拡張する方法
 
-The W3C consortium is working on a [Trace Context](https://www.w3.org/TR/trace-context/) definition that can be applied when using HTTP as the protocol in a microservice architecture. But let's explain how we can implement this functionality in our software.
+W3C コンソーシアムは、マイクロサービスアーキテクチャのプロトコルとして HTTP を使用する場合に適用できる[トレースコンテキスト](https://www.w3.org/TR/trace-context/)定義に取り組んでいます。しかし、この機能をソフトウェアに実装する方法を説明しましょう。
 
-The main idea behind this is to propagate the correlation information between HTTP request so other pieces of software can read this information and correctly correlate telemetry across microservices.
+この背後にある主なアイデアは、HTTPリクエスト間の相関情報を伝播して、他のソフトウェアがこの情報を読み取り、マイクロサービス間でテレメトリを正しく相関できるようにすることです。
 
-The way to propagate this information is to use HTTP Headers for the Correlation Id, parent Correlation Id, etc.
+この情報を伝達する方法は、相関ID、親相関IDなどにHTTPヘッダーを使用することです。
 
-When you are in the scope of a HTTP Request, your tracing system should already have created four properties that you can use to send across your microservices.
+HTTPリクエストの範囲内にいる場合、トレースシステムは、マイクロサービス間で送信するために使用できる4つのプロパティをすでに作成している必要があります。
 
 - RequestId:0HLQV2BC3VP2T:00000001,
 - SpanId:da13aa3c6fd9c146,
 - TraceId:f11a03e3f078414fa7c0a0ce568c8b5c,
 - ParentId:5076c17d0a604244
 
-This is an example of the four properties you can find which identify the current request.
+これは、現在のリクエストを識別する4つのプロパティの例です。
 
-- RequestId is the unique id that represent the current HTTP Request.
-- SpanId is the default automatically generated span. You can have more than one Span that scope different functionality inside your software.
-- TraceId represent the id for current log trace.
-- ParentId is the parent span id, that in some case can be the same or something different.
+- RequestIdは、現在のHTTPリクエストを表す一意のIDです。
+- SSpanIdは、自動的に生成されるデフォルトのスパンです。ソフトウェア内のさまざまな機能を対象とする複数のスパンを持つことができます。
+- TraceIdは、現在のログトレースのIDを表します。
+- ParentIdは親スパンIDであり、場合によっては同じまたは異なるものになる可能性があります。
 
-## Example
+## 例
 
-Now we are going to explore an example with 3 microservices that calls to each other in a row.
+次に、3つのマイクロサービスが連続して相互に呼び出しを行う例を見ていきます。
 
 ![image](./microservices.png)
 
-This image is the summary of what is needed in each microservice to propagate the trace-id from A to C.
+このイメージは、trace-idをAからCに伝播するために各マイクロサービスで必要なものの要約です。
 
-The root caller is A and that is why it doesn't have a parent-id, only have a new trace-id. Next, A calls B using HTTP. To propagate the correlation information as part of the request, we are using two new headers based on the W3C Correlation specification, trace-id and parent-id. In this example because A is the root caller, A only sends its own trace-id to microservice B.
+ルート呼び出し元はAであるため、親IDはなく、新しいトレースIDのみがあります。次に、AはHTTPを使用してBを呼び出します。リクエストの一部として相関情報を伝播するために、W3C相関仕様に基づく2つの新しいヘッダー、trace-idとparent-idを使用しています。この例では、Aがルート呼び出し元であるため、Aは独自のトレースIDのみをマイクロサービスBに送信します。
 
-When microservice B receives the incoming HTTP request, it checks the contents of these two headers. It reads the content of the trace-id header and sets its own parent-id to this trace-id (as shown in the green rectangle inside's B). In addition, it creates a new trace-id to signal that is a new scope for the telemetry. During the execution of microservice B, it also calls microservice C and repeats the pattern. As part of the request it includes the two headers and propagates trace-id and parent-id as well.
+マイクロサービスBは、着信HTTPリクエストを受信すると、これら2つのヘッダーの内容をチェックします。trace-idヘッダーの内容を読み取り、独自の親IDをこのtrace-idに設定します（のB内の緑色の長方形で示されています）。さらに、テレメトリの新しいスコープである信号への新しいtrace-idを作成します。マイクロサービスBの実行中に、マイクロサービスCも呼び出し、パターンを繰り返します。リクエストの一部として、2つのヘッダーが含まれ、trace-idとparent-idも伝播します。
 
-Finally, microservice C, reads the value for the incoming trace-id and sets as his own parent-id, but also creates a new trace-id that will use to send telemetry about his own operations.
+最後に、マイクロサービスCは、着信trace-idの値を読み取り、自分の親IDとして設定しますが、自分の操作に関するテレメトリを送信するために使用する新しいtrace-idも作成します。
 
-## Summary
+## 概要
 
-A number of Application Monitoring (APM) technology products already supports most of this Correlation Propagation. The most popular is [OpenZipkin/B3-Propagation](https://github.com/openzipkin/b3-propagation). W3C already proposed a recommendation for the [W3C Trace Context](https://www.w3.org/blog/2019/12/trace-context-enters-proposed-recommendation/), where you can see what SDK and frameworks already support this functionality. It's important to correctly implement the propagation specially when there are different teams that used different technology stacks in the same project.
+多くのアプリケーション監視（APM）テクノロジ製品は、すでにこの相関伝搬のほとんどをサポートしています。最も人気のあるのは[OpenZipkin/B3-Propagation](https://github.com/openzipkin/b3-propagation)です。W3Cは、[W3C Trace Context](https://www.w3.org/blog/2019/12/trace-context-enters-proposed-recommendation/)の推奨事項をすでに提案しています。ここでは、どのSDKとフレームワークがすでにこの機能をサポートしているかを確認できます。同じプロジェクトで異なるテクノロジースタックを使用した異なるチームが存在する場合は特に、伝播を正しく実装することが重要です。

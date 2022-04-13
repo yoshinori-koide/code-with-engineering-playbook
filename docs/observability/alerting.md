@@ -1,15 +1,15 @@
-# Guidance for Alerting
+# 警告のためのガイダンス
 
-One of the goals of building highly observable systems is to provide valuable insight into the behavior of the application. Observable systems allow problems to be identified and surfaced through alerts before end users are impacted.
+高度に監視可能なシステムを構築する目的の1つは、アプリケーションの動作に関する貴重な洞察を提供することです。監視可能なシステムにより、エンドユーザーが影響を受ける前に、アラートを通じて問題を特定して表面化することができます。
 
-## Best Practices
+## ベストプラクティス
 
-- The foremost thing to do before creating alerts is to implement observability. Without monitoring systems in place, it becomes next to impossible to know what activities need to be monitored and when to alert the teams.
-- Identify what the application's minimum viable service quality needs to be. It is not what you intend to deliver, but is acceptable for the customer. These [Service Level Objectives](https://landing.google.com/sre/sre-book/chapters/service-level-objectives/)(SLOs) are a metric for measurement of the application's performance.
-- SLOs are defined with respect to the end users. The alerts must watch for visible impact to the user. For example, alerting on request rate, latency and errors.
-- Use automated, scriptable tools to mimic end-to-end important code paths relatable to activities in the application. Create alert polices on user impacting events or metric rate of change.
-- Alert fatigue is real. Engineers are recommended to pay attention to their monitoring system so that accurate alerts and thresholds can be defined.
-- Establish a primary channel for alerts that needs immediate attention and tag the right team/person(s) based on the nature of the incident. Not every single alert needs to be sent to the primary on-call channel.
-- Establish a secondary channel for items that need to be looked into and does not affect the users, yet. For example, storage that nearing capacity threshold. These items will be what the engineering services will look to regularly to monitor the health of the system.
-- Ensure to set up proper alerting for failures in dependent services like Redis cache, Service Bus etc. For example, if Redis cache is throwing 10 exceptions in last 60 secs, proper alerts are recommended to be created so that these failures are surfaced and action be taken.
-- It is important to learn from each incident and continually improve the process. After every incident has been triaged, conduct a [post mortem of the scenario](https://landing.google.com/sre/workbook/chapters/postmortem-culture/). Scenarios and situations that were not initially considered will occur, and the post-mortem workflow is a great way to highlight that to improve the monitoring/alerting of the system. Configuring an alert to detect that incident scenario is a good idea to see if the event occurs again.
+- アラートを作成する前に行うべき最も重要なことは、可観測性を実装することです。監視システムが整っていないと、監視する必要のあるアクティビティと、チームに警告するタイミングを知ることはほぼ不可能になります。
+- アプリケーションの最低限の実行可能なサービス品質が何である必要があるかを特定します。それはあなたが提供しようとしているものではありませんが、顧客には受け入れられます。これらの[サービスレベル目標](https://landing.google.com/sre/sre-book/chapters/service-level-objectives/)（SLO）は、アプリケーションのパフォーマンスを測定するためのメトリックです。
+- SLOは、エンドユーザーに関して定義されます。アラートは、ユーザーへの目に見える影響を監視する必要があります。たとえば、リクエストレート、レイテンシ、エラーに関するアラート。
+- 自動化されたスクリプト可能なツールを使用して、アプリケーションのアクティビティに関連するエンドツーエンドの重要なコードパスを模倣します。ユーザーに影響を与えるイベントまたはメトリックの変化率に関するアラートポリシーを作成します。
+- アラート疲労は本物です。エンジニアは、正確なアラートとしきい値を定義できるように、監視システムに注意を払うことをお勧めします。
+- 早急な対応が必要なアラートのプライマリチャネルを確立し、インシデントの性質に基づいて適切なチーム/担当者にタグを付けます。すべてのアラートをプライマリオンコールチャネルに送信する必要はありません。
+- 調査する必要があり、まだユーザーに影響を与えていないアイテムのセカンダリチャネルを確立します。たとえば、容量のしきい値に近づいているストレージ。これらの項目は、エンジニアリングサービスがシステムの状態を監視するために定期的に確認するものになります。
+- Redisキャッシュ、Service Busなどの依存サービスの障害に対して適切なアラートを設定するようにしてください。たとえば、Redisキャッシュが過去60秒間に10個の例外をスローする場合、これらの障害が表面化してアクションが実行されるように、適切なアラートを作成することをお勧めします。取られた。
+- それぞれの事件から学び、継続的にプロセスを改善することが重要です。すべてのインシデントがトリアージされた後、[シナリオの事後分析](https://landing.google.com/sre/workbook/chapters/postmortem-culture/)を実行します。最初は考慮されていなかったシナリオや状況が発生します。事後ワークフローは、システムの監視/アラートを改善するためにそれを強調するための優れた方法です。インシデントシナリオを検出するようにアラートを構成することは、イベントが再度発生するかどうかを確認することをお勧めします。

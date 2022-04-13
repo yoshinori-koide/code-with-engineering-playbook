@@ -1,42 +1,42 @@
-# Correlation IDs
+# 相関ID
 
-## The Need
+## 必要なもの
 
-In a distributed system architecture (microservice architecture), it is highly difficult to understand a single end to end customer transaction flow through the various components.
+分散システムアーキテクチャ（マイクロサービスアーキテクチャ）では、さまざまなコンポーネントを介した単一のエンドツーエンドの顧客トランザクションフローを理解することは非常に困難です。
 
-Here are some the general challenges -
+ここにいくつかの一般的な課題があります -
 
-* It becomes challenging to understand the end-to-end behavior of a client request entering the application.
-* Aggregation: Consolidating logs from multiple components and making sense out of these logs is difficult, if not impossible.
-* Cyclic dependencies on services, course of events and asynchronous requests are not easily deciphered.
-* While troubleshooting a request, the diagnostic context of the logs are very important to get to the root of the problem.
+* アプリケーションに入るクライアント要求のエンドツーエンドの動作を理解することは困難になります。
+* 集約：複数のコンポーネントからのログを統合し、これらのログを理解することは、不可能ではないにしても、困難です。
+* サービスへの循環依存、イベントのコース、非同期リクエストは簡単に解読できません。
+* リクエストのトラブルシューティングを行う際、問題の根本を突き止めるには、ログの診断コンテキストが非常に重要です。
 
-## Solution
+## 解決
 
-A Correlation ID is a unique identifier that is added to the very first interaction (incoming request) to  identify the context and is passed to all components that are involved in the transaction flow. Correlation ID becomes the glue that binds the transaction together and helps to draw an overall picture of events.
+相関IDは、コンテキストを識別するために最初の対話（着信要求）に追加され、トランザクションフローに関与するすべてのコンポーネントに渡される一意の識別子です。相関IDは、トランザクションを結び付け、イベントの全体像を描くのに役立つ接着剤になります。
 
->Note: Before implementing your own Correlation ID, investigate if your telemetry tool of choice provides an auto-generated Correlation ID and that it serves the purposes of your application. For instance, [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/auto-collect-dependencies) offers dependency auto-collection for some application frameworks
+>注：独自の相関IDを実装する前に、選択したテレメトリツールが自動生成された相関IDを提供しているかどうか、およびそれがアプリケーションの目的に役立つかどうかを調査してください。たとえば、[Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/auto-collect-dependencies)は、一部のアプリケーションフレームワークの依存関係の自動収集を提供します
 
-### Recommended Practices
+### 推奨される方法
 
-1. Assign each external request a Correlation ID that binds the message to a transaction.
-2. The Correlation ID for a transaction must be assigned as early as you can.
-3. Propagate Correlation ID to all downstream components/services.
-4. All components/services of the transaction use this Correlation ID in their logs.
-5. For an HTTP Request, Correlation ID is typically passed in the header.
-6. Add it to an outgoing response where possible.
-7. Based on the use case, there can be additional correlation IDs that may be needed. For instance, tracking logs based on both Session ID and User ID may be required. While adding multiple correlation ID, remember to propagate them through the components.
+1. 各外部リクエストに、メッセージをトランザクションにバインドする相関IDを割り当てます。
+2. トランザクションの相関IDは、できるだけ早く割り当てる必要があります。
+3. 相関IDをすべてのダウンストリームコンポーネント/サービスに伝達します。
+4. トランザクションのすべてのコンポーネント/サービスは、ログでこの相関IDを使用します。
+5. HTTPリクエストの場合、相関IDは通常ヘッダーで渡されます。
+6. 可能な場合は、送信応答に追加します。
+7. ユースケースに基づいて、必要になる可能性のある追加の相関IDが存在する可能性があります。たとえば、セッションIDとユーザーIDの両方に基づく追跡ログが必要になる場合があります。複数の相関IDを追加するときは、それらをコンポーネント全体に伝播することを忘れないでください。
 
-## Use Cases
+## ユースケース
 
-### Log Correlation
+### ログの相関
 
-Log correlation is the ability to track disparate events through different parts of the application. Having a Correlation ID provides more context making it easy to build rules for reporting and analysis.
+ログ相関は、アプリケーションのさまざまな部分を介して異種のイベントを追跡する機能です。相関IDを使用すると、より多くのコンテキストが提供され、レポートと分析のルールを簡単に作成できます。
 
-### Secondary reporting/observer systems
+### 二次報告/オブザーバーシステム
 
-Using Correlation ID helps secondary systems to correlate data without application context. Some examples - generating metrics based on tracing data, integrating runtime/system diagnostics etc. For example, feeding AppInsights data and correlating it to infrastructure issues.
+相関IDを使用すると、セカンダリシステムがアプリケーションコンテキストなしでデータを相関させるのに役立ちます。いくつかの例-トレースデータに基づくメトリックの生成、ランタイム/システム診断の統合など。たとえば、AppInsightsデータをフィードし、それをインフラストラクチャの問題に関連付けます。
 
-### Troubleshooting Errors
+### エラーのトラブルシューティング
 
-For troubleshooting an errors, Correlation ID is a great starting point to trace the workflow of a transaction.
+エラーのトラブルシューティングを行う場合、相関IDは、トランザクションのワークフローを追跡するための優れた開始点です。

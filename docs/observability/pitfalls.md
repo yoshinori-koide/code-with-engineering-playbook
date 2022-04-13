@@ -1,23 +1,22 @@
-# Things to Watch for when Building Observable Systems
+# 監視可能なシステムを構築する際の注意事項
 
-## Observability as an afterthought
+## 後付けとしての可観測性
 
-One of the design goals when building a system should be to enable monitoring of the system. This helps planning and thinking application availability, logging and metrics at the time of design and development. Observability also acts as a great debugging tool providing developers a bird's eye view of the system. By leaving instrumentation and logging of metrics towards the end, the development teams lose valuable insights during development.
+システムを構築する際の設計目標の1つは、システムの監視を可能にすることです。これは、設計および開発時にアプリケーションの可用性、ロギング、およびメトリックを計画および検討するのに役立ちます。可観測性は、開発者にシステムの鳥瞰図を提供する優れたデバッグツールとしても機能します。インストルメンテーションとメトリックのログ記録を最後まで残すことにより、開発チームは開発中に貴重な洞察を失います。
 
-## Metric Fatigue
+## メトリック疲れ
 
-1. It is recommended to collect and measure *what you need* **and** *not what you can*. Don't attempt to monitor everything.
-2. If the data is not actionable, it is useless and becomes noise. On the contrary, it is sometimes very difficult to forecast every possible scenario that could go wrong.
-3. There must be a balance between collecting what is needed vs. logging every single activity in the system. A general rule of thumb is to follow these principles
+1. *できること* **ではなく**、*必要なもの* を収集して測定することをお勧めします。すべてを監視しようとしないでください。
+2. データが実用的でない場合、それは役に立たず、ノイズになります。それどころか、うまくいかない可能性のあるすべてのシナリオを予測することは非常に難しい場合があります。
+3. 必要なものを収集することと、システム内のすべてのアクティビティをログに記録することの間には、バランスが必要です。一般的な経験則は、これらの原則に従うことです
 
-   - rules that catch incidents must be simple, relevant and reliable
-   - any data that is collected but not aggregated or alerted on must be reviewed if it is still required.
+   - インシデントをキャッチするルールは、シンプルで、関連性があり、信頼できるものでなければなりません
+   - 収集されたが集計もアラートもされていないデータは、それでも必要な場合は確認する必要があります。
 
-## Context
+## コンテクスト
 
-All data logged must contain rich context, which is useful for getting an overall view of the system and easy to trace back errors/failures during troubleshooting. While logging data, care must also be taken to avoid data silos.
+ログに記録されるすべてのデータには、リッチコンテキストが含まれている必要があります。これは、システムの全体像を把握し、トラブルシューティング中にエラーや障害を簡単に追跡するのに役立ちます。データをログに記録するときは、データのサイロを回避するようにも注意する必要があります。
 
-## Personally Identifiable Information
+## 個人を特定できる情報
 
-As a general rule, do not log any customer sensitive and Personal Identifiable Information (PII). Ensure any pertinent privacy regulations are followed regarding PII (Ex: GDPR etc.)
-Read more [here](logs-privacy.md) on how to keep sensitive data out of logs.
+原則として、顧客の機密情報および個人情報（PII）をログに記録しないでください。PII（例：GDPRなど）に関して関連するプライバシー規制が遵守されていることを確認します。機密データをログに記録しないようにする方法について詳しくは、[こちら](logs-privacy.md)をご覧ください。

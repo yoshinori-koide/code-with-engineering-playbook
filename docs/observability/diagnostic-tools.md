@@ -1,56 +1,56 @@
-# Diagnostic tools
+# 診断ツール
 
-Besides [Logging](pillars/logging.md), [Tracing](pillars/tracing.md) and [Metrics](pillars/metrics.md), there are additional tools to help diagnose issues when applications do not behave as expected. In some scenarios, analyzing the memory consumption and drilling down into why a specific process takes longer than expected may require additional measures. In these cases, platform or programming language specific diagnostic tools come into play and are useful to debug a memory leak, profile the CPU usage, or the cause of delays in multi-threading.
+[ロギング](pillars/logging.md)、[トレース](pillars/tracing.md)、および[メトリック](pillars/metrics.md)に加えて、アプリケーションが期待どおりに動作しない場合に問題を診断するのに役立つ追加のツールがあります。一部のシナリオでは、メモリ消費量を分析し、特定のプロセスに予想よりも時間がかかる理由を掘り下げるには、追加の対策が必要になる場合があります。このような場合、プラットフォームまたはプログラミング言語固有の診断ツールが機能し、メモリリークのデバッグ、CPU使用率のプロファイリング、またはマルチスレッドの遅延の原因を特定するのに役立ちます。
 
-## Profilers and Memory Analyzers
+## プロファイラーとメモリーアナライザー
 
-There are two types of diagnostics tools you may want to use: profilers and memory analyzers.
+使用する可能性のある診断ツールには、プロファイラーとメモリアナライザーの2種類があります。
 
-### Profiling
+### プロファイリング
 
-Profiling is a technique where you take small snapshots of all the threads in a running application to see the stack trace of each thread for a specified duration. This tool can help you identify where you are spending CPU time during the execution of your application. There are two main techniques to achieve this: CPU-Sampling and Instrumentation.
+プロファイリングは、実行中のアプリケーション内のすべてのスレッドの小さなスナップショットを取得して、指定された期間の各スレッドのスタックトレースを確認する手法です。このツールは、アプリケーションの実行中にCPU時間を費やしている場所を特定するのに役立ちます。これを実現するための主な手法は、CPUサンプリングとインストルメンテーションの2つです。
 
-CPU-Sampling is a non-invasive method which takes snapshots of all the stacks at a set interval. It is the most common technique for profiling and doesn't require any modification to your code.
+CPUサンプリングは、設定された間隔ですべてのスタックのスナップショットを取得する非侵襲的な方法です。これはプロファイリングの最も一般的な手法であり、コードを変更する必要はありません。
 
-Instrumentation is the other technique where you insert a small piece of code at the beginning and end of each function which is going to signal back to the profiler about the time spent in the function, the function name, parameters and others. This way you modify the code of your running application. There are two effects to this: your code may run a little bit more slowly, but on the other hand you have a more accurate view of every function and class that has been executed so far in your application.
+インストルメンテーションは、各関数の最初と最後に小さなコードを挿入して、関数で費やされた時間、関数名、パラメーターなどについてプロファイラーに通知するもう1つの手法です。このようにして、実行中のアプリケーションのコードを変更します。これには2つの効果があります。コードの実行速度が少し遅くなる可能性がありますが、一方で、アプリケーションでこれまでに実行されたすべての関数とクラスをより正確に表示できます。
 
-#### When to use Sampling vs Instrumentation?
+#### サンプリングとインストルメンテーションをいつ使用するのですか？
 
-Not all programming languages support instrumentation. Instrumentation is mostly supported for compiled languages like .NET and Java, and some languages interpreted at runtime like Python and Javascript. Keep in mind that enabling instrumentation can require to modify your build pipeline, i.e. by adding special parameters to the command line argument. You should normally start with Sampling because it doesn't require to modify your binaries, it doesn't affect your process performance, and can be quicker to start with.
+すべてのプログラミング言語がインストルメンテーションをサポートしているわけではありません。インストルメンテーションは、主に.NETやJavaなどのコンパイル言語、およびPythonやJavascriptなどの実行時に解釈される一部の言語でサポートされています。インストルメンテーションを有効にするには、ビルドパイプラインを変更する必要がある場合があります。つまり、コマンドライン引数に特別なパラメーターを追加する必要があります。バイナリを変更する必要がなく、プロセスのパフォーマンスに影響を与えず、より早く開始できるため、通常はサンプリングから開始する必要があります。
 
-Once you have your profiling data, there are multiple ways to visualize this information depending of the format you saved it. As an example for .NET (dotnet-trace), there are three available formats to save these traces: Chromium, NetTrace and SpeedScope. Select the output format depending on the tool you are going to use. [SpeedScope](https://www.speedscope.app/) is an online web application you can use to visualize and analyze traces, and you only need a modern browser. Be careful with online tools, as dumps/traces might contain confidential information that you don't want to share outside of your organization.
+プロファイリングデータを取得したら、保存した形式に応じて、この情報を視覚化する方法が複数あります。.NET（dotnet-trace）の例として、これらのトレースを保存するために使用できる3つの形式があります。Chromium、NetTrace、およびSpeedScopeです。使用するツールに応じて、出力形式を選択してください。[SpeedScope](https://www.speedscope.app/)は、トレースの視覚化と分析に使用できるオンラインWebアプリケーションであり、必要なのは最新のブラウザーのみです。ダンプ/トレースには、組織外で共有したくない機密情報が含まれている可能性があるため、オンラインツールには注意してください。
 
-### Memory analyzers
+### メモリアナライザ
 
-Memory analyzers and memory dumps are another set of diagnostic tools you can use to identify issues in your process.  Normally these types of tools take the whole memory the process is using at a point in time and saves it in a file which  can be analyzed. When using these types of tools, you want to stress your process as much as possible to amplify whatever deficiency you may have in terms of memory management. The memory dump should then be taken when the process is in this stressed state.
+メモリアナライザとメモリダンプは、プロセスの問題を特定するために使用できるもう1つの診断ツールのセットです。通常、これらのタイプのツールは、プロセスが特定の時点で使用しているメモリ全体を取得し、分析可能なファイルに保存します。これらのタイプのツールを使用するときは、メモリ管理の点で発生する可能性のある欠陥を増幅するために、プロセスに可能な限りストレスをかける必要があります。プロセスがこのストレス状態にあるときに、メモリダンプを取得する必要があります。
 
-In some scenarios we recommend to take more than one memory dump during the reproduction of a problem. For example, if you suspect a memory leak and you are running a test for 30 min, it is useful to take at least 3 dumps at different intervals (i.e. 10, 20 & 30 min) to compare them with each other.
+一部のシナリオでは、問題の再現中に複数のメモリダンプを取得することをお勧めします。たとえば、メモリリークが疑われ、30分間テストを実行している場合、それらを相互に比較するために、異なる間隔（つまり、10、20、および30分）で少なくとも3つのダンプを取得すると便利です。
 
-There are multiple ways to take a memory dump depending the operating system you are using. Also, each operating system has it own debugger which is able to load this memory dump, and explore the state of the process at the time the memory dump was taken.
+使用しているオペレーティングシステムに応じて、メモリダンプを取得する方法は複数あります。また、各オペレーティングシステムには、このメモリダンプをロードし、メモリダンプが取得されたときのプロセスの状態を調べることができる独自のデバッガがあります。
 
-The most common debuggers are:
+最も一般的なデバッガーは次のとおりです。
 
-- Windows - [WinDbg and WinDgbNext](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools) (included in the Windows SDK), [Visual Studio](https://visualstudio.microsoft.com/) can also load a memory dump for a .NET Framework and .NET Core process
-- Linux - [GDB is the GNU Debugger](https://www.gnu.org/software/gdb/)
-- Mac OS - [LLDB Debugger](https://lldb.llvm.org/)
+- Windows - [WinDbg および WinDgbNext](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools) (Windows SDKに含まれています), [Visual Studio](https://visualstudio.microsoft.com/) は、.NETFrameworkおよび.NETCoreプロセスのメモリダンプをロードすることもできます
+- Linux - [GDBはGNUデバッガ](https://www.gnu.org/software/gdb/)です。
+- Mac OS - [LLDBデバッガ](https://lldb.llvm.org/)
 
-There are a range of developer platform specific diagnostic tools which can be used:
+使用できる開発者プラットフォーム固有の診断ツールには、次のようなものがあります。
 
-- [.NET Core diagnostic tools](https://docs.microsoft.com/en-us/dotnet/core/diagnostics/#net-core-diagnostic-global-tools), [GitHub repository](https://github.com/dotnet/diagnostics)
-- [Java diagnostic tools - version specific](https://docs.oracle.com/en/java/javase/16/troubleshoot/general-java-troubleshooting.html)
-- [Python debugging and profiling - version specific](https://docs.python.org/3/library/debug.html)
-- [Node.js Diagnostics working group](https://github.com/nodejs/diagnostics)
+- [.NET Core診断ツール](https://docs.microsoft.com/en-us/dotnet/core/diagnostics/#net-core-diagnostic-global-tools), [GitHubリポジトリ](https://github.com/dotnet/diagnostics)
+- [Java 診断ツール - バージョン固有](https://docs.oracle.com/en/java/javase/16/troubleshoot/general-java-troubleshooting.html)
+- [Python デバッグとプロファイル - バージョン固有](https://docs.python.org/3/library/debug.html)
+- [Node.js 診断ワーキンググループ](https://github.com/nodejs/diagnostics)
 
-## Environment for profiling
+## プロファイリングのための環境
 
-To create an application profile as close to production as possible, the environment in which the application is intended to run in production has to be considered and it might be necessary to perform a snapshot of the application state [under load](../automated-testing/performance-testing/README.md).
+可能な限り本番環境に近いアプリケーションプロファイルを作成するには、アプリケーションを本番環境で実行する環境を考慮する必要があり、[負荷がかかった](../automated-testing/performance-testing/README.md)状態でアプリケーションの状態のスナップショットを実行する必要がある場合があります。
 
-### Diagnostics in containers
+### コンテナ内の診断
 
-For monolithic applications, diagnostics tools can be installed and run on the VM hosting them. Most scalable applications are developed as [microservices](./microservices.md) and have complex interactions which require to install the tools in the containers running the process or to leverage a sidecar container (see [sidecar pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/sidecar)). Some platforms expose endpoints to interact with the application and return a dump.
+モノリシックアプリケーションの場合、診断ツールをインストールして、それらをホストするVMで実行できます。ほとんどのスケーラブルなアプリケーションは[マイクロサービス](./microservices.md)として開発されており、プロセスを実行するコンテナーにツールをインストールするか、サイドカーコンテナーを活用する必要がある複雑な相互作用があります（[サイドカーパターンを参照](https://docs.microsoft.com/en-us/azure/architecture/patterns/sidecar)）。一部のプラットフォームは、エンドポイントを公開してアプリケーションと対話し、ダンプを返します。
 
-Useful links:
+便利なリンク：
 
-- [.NET Core diagnostics in containers](https://docs.microsoft.com/en-us/dotnet/core/diagnostics/diagnostics-in-containers)
-- [Experimental tool dotnet-monitor](https://devblogs.microsoft.com/dotnet/introducing-dotnet-monitor/), [What's new](https://devblogs.microsoft.com/dotnet/whats-new-in-dotnet-monitor/), [GItHub repository](https://github.com/dotnet/dotnet-monitor/tree/main/documentation)
-- [Spring Boot actuator endpoints](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#actuator.endpoints)
+- [コンテナ内の.NETCore診断](https://docs.microsoft.com/en-us/dotnet/core/diagnostics/diagnostics-in-containers)
+- [実験ツール dotnet-monitor](https://devblogs.microsoft.com/dotnet/introducing-dotnet-monitor/)、[What's new](https://devblogs.microsoft.com/dotnet/whats-new-in-dotnet-monitor/)、[GItHubリポジトリ](https://github.com/dotnet/dotnet-monitor/tree/main/documentation)
+- [Spring Boot アクチュエーターエンドポイント](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#actuator.endpoints)

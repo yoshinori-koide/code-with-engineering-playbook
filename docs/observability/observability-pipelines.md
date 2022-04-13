@@ -1,26 +1,19 @@
-# Observability of CI/CD Pipelines
+# CI/CDパイプラインの可観測性
 
-With increasing complexity to delivery pipelines, it is very important
-to consider Observability in the context of build and release of
-applications.
+配信パイプラインの複雑さが増すにつれて、アプリケーションのビルドとリリースのコンテキストで可観測性を考慮することが非常に重要になります。
 
-## Benefits
+## 利点
 
-- Having proper instrumentation during build time helps gain insights into the various stages of the build and release process.
+- ビルド時に適切なインストルメンテーションを使用すると、ビルドおよびリリースプロセスのさまざまな段階についての洞察を得るのに役立ちます。
 
-- Helps developers understand where the pipeline performance bottlenecks are, based on the data collected. This
-helps in having data-driven conversations around identifying latency between jobs, performance issues,
-artifact upload/download times providing valuable insights into agents availability and capacity.
+- 収集されたデータに基づいて、開発者がパイプラインのパフォーマンスのボトルネックがどこにあるかを理解するのに役立ちます。これは、ジョブ間の遅延、パフォーマンスの問題、アーティファクトのアップロード/ダウンロード時間の特定に関するデータ駆動型の会話を行うのに役立ち、エージェントの可用性と容量に関する貴重な洞察を提供します。
 
-- Helps to identify trends in failures, thus allowing developers to quickly do root cause analysis.
+- 障害の傾向を特定するのに役立ち、開発者が根本原因分析を迅速に実行できるようにします。
 
-- Helps to provide an organization-wide view of pipeline health to easily identify trends.
+- 傾向を簡単に特定するために、パイプラインの状態に関する組織全体のビューを提供するのに役立ちます。
 
-## Points to Consider
+## 考慮すべきポイント
 
-- It is important to identify the Key Performance Indicators (KPIs) for evaluating a successful CI/CD pipeline. Where needed, additional tracing can be added to better record KPI metrics. For example, adding pipeline build tags to identify a 'Release Candidate' vs. 'Non-Release Candidate' helps in evaluating the end-to-end release process timeline.
+- 成功したCI/CDパイプラインを評価するには、主要業績評価指標（KPI）を特定することが重要です。必要に応じて、KPIメトリックをより適切に記録するために、追加のトレースを追加できます。たとえば、パイプラインビルドタグを追加して「リリース候補」と「非リリース候補」を識別すると、エンドツーエンドのリリースプロセスのタイムラインを評価するのに役立ちます。
 
-- Depending on the tooling used (Azure DevOps, Jenkins etc.,), basic reporting on the pipelines is
-available out-of-the-box. It is important to evaluate these reports against the KPIs to understand if
-a custom reporting solution for their pipelines is needed. If required, custom dashboards can be built using
-third-party tools like Grafana or Power BI Dashboards.
+- 使用するツール（Azure DevOps、Jenkinsなど）に応じて、パイプラインに関する基本的なレポートをすぐに利用できます。KPIに対してこれらのレポートを評価して、パイプラインのカスタムレポートソリューションが必要かどうかを理解することが重要です。必要に応じて、GrafanaやPowerBIダッシュボードなどのサードパーティツールを使用してカスタムダッシュボードを構築できます。
