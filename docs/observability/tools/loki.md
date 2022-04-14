@@ -1,38 +1,26 @@
 # Loki
 
-Loki is a horizontally-scalable, highly-available, multi-tenant log aggregation system, created by Grafana
-Labs inspired by the learnings from Prometheus. Loki is commonly referred as 'Prometheus, but for logs', which
-makes total sense. Both tools follow the same architecture, which is an agent collecting metrics in each
-of the components of the software system, a server which stores the logs and also the Grafana dashboard, which
-access the loki server to build its visualizations and queries. That being said, Loki has three main
-components:
+Lokiは、Prometheusからの学習に触発された、Grafana Labsによって作成された、水平方向にスケーラブルで可用性の高いマルチテナントログ集約システムです。ロキは一般に「プロメテウスですが、ログ用」と呼ばれ、これは完全に理にかなっています。どちらのツールも同じアーキテクチャに従います。これは、ソフトウェアシステムの各コンポーネントでメトリックを収集するエージェント、ログを保存するサーバー、およびlokiサーバーにアクセスして視覚化とクエリを構築するGrafanaダッシュボードです。そうは言っても、Lokiには3つの主要なコンポーネントがあります。
 
 ## Promtail
 
-It is the agent portion of Loki. It can be used to grab logs from several places, like var/log/ for
-example. The configuration of the Promtail is a yaml file called ```config-promtail.yml```. In this file, its described all the paths and log sources that will be
-aggregated on Loki Server.
+Lokiのエージェント部分です。たとえば、var /log/などの複数の場所からログを取得するために使用できます。Promtailの構成は、```config-promtail.yml```と呼ばれるyamlファイルです。このファイルには、Lokiサーバーで集約されるすべてのパスとログソースが記述されています。
 
-## Loki Server
+## Loki サーバー
 
-Loki Server is responsible for receiving and storing all the logs received from all the different systems. The Loki Server is also
-responsible for the queries done on Grafana, for example.
+Loki サーバーは、すべての異なるシステムから受信したすべてのログを受信して​​保存する責任があります。Lokiサーバーは、たとえばGrafanaで実行されるクエリも担当します。
 
-## Grafana Dashboards
+## Grafanaダッシュボード
 
-Grafana Dashboards are responsible for creating the visualizations and performing queries. After all, it will
-be a web page that people with the right access can log into to see, query and create alerts for the aggregated
-logs.
+Grafanaダッシュボードは、視覚化の作成とクエリの実行を担当します。結局のところ、これは、適切なアクセス権を持つユーザーがログインして、集約されたログのアラートを表示、クエリ、および作成できるWebページになります。
 
-## Why use Loki
+## Lokiを使用する理由
 
-The main reason to use Loki instead of other log aggregation tools, is that Loki optimizes the necessary
-storage. It does that by following the same pattern as prometheus, which index the labels and make chunks
-of the log itself, using less space than just storing the raw logs.
+他のログ集計ツールの代わりにLokiを使用する主な理由は、Lokiが必要なストレージを最適化することです。これは、プロメテウスと同じパターンに従うことで実現されます。プロメテウスは、ラベルにインデックスを付け、ログ自体のチャンクを作成し、生のログを保存するよりも少ないスペースを使用します。
 
-## References
+## 参考文献
 
-- [Loki Official Site](https://grafana.com/oss/loki/)
-- [Inserting logs into Loki](https://grafana.com/docs/loki/latest/getting-started/get-logs-into-loki/)
-- [Adding Loki Source to Grafana](https://grafana.com/docs/grafana/latest/datasources/loki/#adding-the-data-source)
-- [Loki Best Practices](https://grafana.com/docs/loki/latest/best-practices/)
+- [Loki 公式サイト](https://grafana.com/oss/loki/)
+- [Lokiへのログの挿入](https://grafana.com/docs/loki/latest/getting-started/get-logs-into-loki/)
+- [LokiSourceをGrafanaに追加](https://grafana.com/docs/grafana/latest/datasources/loki/#adding-the-data-source)
+- [Lokiのベストプラクティス](https://grafana.com/docs/loki/latest/best-practices/)

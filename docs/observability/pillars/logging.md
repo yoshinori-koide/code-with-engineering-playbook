@@ -1,78 +1,78 @@
-# Logging
+# ロギング
 
-## Overview
+## 概要
 
-Logs are discrete events with the goal of helping engineers identify problem area(s) during failures.
+ログは、エンジニアが障害時に問題のある領域を特定するのを支援することを目的とした離散イベントです。
 
-## Collection Methods
+## 収集方法
 
-When it comes to log collection methods, two of the standard techniques are a direct-write, or an agent-based approach.
+ログ収集方法に関して言えば、標準的な手法の2つは、直接書き込みまたはエージェントベースのアプローチです。
 
-Directly written log events are handled in-process of the particular component, usually utilizing a provided library. [Azure Monitor](https://azure.microsoft.com/en-us/services/monitor) has direct send capabilities, but it's not recommended for serious/production use. This approach has some advantages:
+直接書き込まれたログイベントは、通常、提供されたライブラリを利用して、特定のコンポーネントの処理中に処理されます。[Azure Monitor](https://azure.microsoft.com/en-us/services/monitor)には直接送信機能がありますが、本格的な/本番環境での使用はお勧めしません。このアプローチにはいくつかの利点があります。
 
-- There is no external process to configure or monitor
-- No log file management (rolling, expiring) to prevent out of disk space issues.
+- 構成または監視する外部プロセスはありません
+- ディスク容量不足の問題を防ぐためのログファイル管理（ローリング、期限切れ）はありません。
 
-The potential trade-offs of this approach:
+このアプローチの潜在的なトレードオフ：
 
-- Potentially higher memory usage if the particular library is using a memory backed buffer.
-- In the event of an extended service outage, log data may get dropped or truncated due to buffer constraints.
-- Multiple component process logging will manage & emit logs individually, which can be more complex to manage for the outbound load.
+- 特定のライブラリがメモリバックアップバッファを使用している場合、メモリ使用量が増える可能性があります。
+- 長時間のサービス停止が発生した場合、バッファの制約によりログデータが削除または切り捨てられる可能性があります。
+- 複数コンポーネントのプロセスロギングは、ログを個別に管理および発行します。これは、アウトバウンド負荷の管理がより複雑になる可能性があります。
 
-Agent-based log collection relies on an external process running on the host machine, with the particular component emitting log data stdout or file. Writing log data to stdout is the preferred practice when running applications within a container environment like Kubernetes. The container runtime redirects the output to files, which can then be processed by an agent. [Azure Monitor](https://azure.microsoft.com/en-us/services/monitor), [Grafana Loki](https://github.com/grafana/loki) [Elastic's Logstash](https://www.elastic.co/logstash) and [Fluent Bit](https://fluentbit.io/) are examples of log shipping agents.
+エージェントベースのログ収集は、ホストマシンで実行されている外部プロセスに依存しており、特定のコンポーネントがログデータの標準またはファイルを発行します。Kubernetesなどのコンテナ環境内でアプリケーションを実行する場合は、ログデータをstdoutに書き込むことをお勧めします。コンテナランタイムは、出力をファイルにリダイレクトします。ファイルは、エージェントによって処理されます。 [Azure Monitor](https://azure.microsoft.com/en-us/services/monitor), [Grafana Loki](https://github.com/grafana/loki) [ElasticのLogstash](https://www.elastic.co/logstash)や[Fluent Bit](https://fluentbit.io/)などは、ログ配布エージェントの例です。
 
-There are several advantages when using an agent to collect & ship log files:
+エージェントを使用してログファイルを収集および送信する場合、いくつかの利点があります。
 
-- Centralized configuration.
-- Collecting multiple sources of data with a single process.
-- Local pre-processing & filtering of log data before sending it to a central service.
-- Utilizing disk space as a data buffer during a service disruption.
+- 一元化された構成。
+- 1つのプロセスで複数のデータソースを収集します。
+- 中央サービスに送信する前のログデータのローカル前処理とフィルタリング。
+- サービスの中断時にデータバッファとしてディスクスペースを利用する。
 
-This approach isn't without trade-offs:
+このアプローチにはトレードオフがあります。
 
-- Required exclusive CPU & memory resources for the processing of log data.
-- Persistent disk space for buffering.
+- ログデータの処理に必要な専用のCPUおよびメモリリソース。
+- バッファリング用の永続ディスクスペース。
 
-## Best Practices
+## ベストプラクティス
 
-- Pay attention to logging levels. Logging too much will increase costs and decrease application throughput.
-- Ensure logging configuration can be modified without code changes. Ideally, make it changeable without application restarts.
-- If available, take advantage of logging levels per category allowing granular logging configuration.
-- Check for log levels before logging, thus avoiding allocations and string manipulation costs.
-- Ensure service versions are included in logs to be able to identify problematic releases.
-- Log a raised exception only once. In your handlers, only catch expected exceptions that you can handle gracefully (even with a specific return code). If you want to log and rethrow, leave it to the top level exception handler. Do the minimal amount of cleanup work needed then throw to maintain the original stack trace. Don’t log a warning or stack trace for expected exceptions (eg: properly expected 404, 403 HTTP statuses).
-- Fine tune logging levels in production (>= warning for instance). During a new release the verbosity can be increased to facilitate bug identification.
-- If using sampling, implement this at the service level rather than defining it in the logging system. This way we have control over what gets logged. An additional benefit is reduced number of roundtrips.
-- Only include failures from health checks and non-business driven requests.
-- Ensure a downstream system malfunction won't cause repetitive logs being stored.
-- Don't reinvent the wheel, use existing tools to collect and analyse the data.
-- Ensure personal identifiable information policies and restrictions are followed.
-- Ensure errors and exceptions in dependent services are captured and logged. For example, if an application uses Redis cache, Service Bus or any other service, any errors/exceptions raised while accessing these services should be captured and logged.
+- ロギングレベルに注意してください。ロギングが多すぎると、コストが増加し、アプリケーションのスループットが低下します。
+- コードを変更せずにロギング構成を変更できることを確認してください。理想的には、アプリケーションを再起動せずに変更可能にします。
+- 可能な場合は、カテゴリごとのログレベルを利用して、詳細なログ構成を可能にします。
+- ログに記録する前にログレベルを確認して、割り当てと文字列操作のコストを回避します。
+- 問題のあるリリースを特定できるように、サービスバージョンがログに含まれていることを確認してください。
+- 発生した例外を1回だけログに記録します。ハンドラーでは、（特定の戻りコードを使用しても）正常に処理できる予想される例外のみをキャッチします。ログに記録して再スローする場合は、最上位の例外ハンドラーに任せてください。必要な最小限のクリーンアップ作業を実行してから、元のスタックトレースを維持するためにスローします。予想される例外（例：適切に予想される404、403 HTTPステータス）の警告またはスタックトレースをログに記録しないでください。
+- 本番環境でログレベルを微調整します（たとえば、> =警告）。新しいリリースでは、バグの識別を容易にするために冗長性を高めることができます。
+- サンプリングを使用する場合は、ロギングシステムで定義するのではなく、サービスレベルでこれを実装します。このようにして、ログに記録される内容を制御できます。追加の利点は、往復の回数が減ることです。
+- ヘルスチェックとビジネス以外の要求による失敗のみを含めます。
+- ダウンストリームシステムの誤動作によってログが繰り返し保存されないようにしてください。
+- 車輪の再発明をしないでください。既存のツールを使用してデータを収集および分析してください。
+- 個人を特定できる情報のポリシーと制限が守られていることを確認してください。
+- 依存サービスのエラーと例外がキャプチャされ、ログに記録されるようにします。たとえば、アプリケーションがRedisキャッシュ、Service Bus、またはその他のサービスを使用している場合、これらのサービスへのアクセス中に発生したエラー/例外をキャプチャしてログに記録する必要があります。
 
-### If there's sufficient log data, is there a need for instrumenting metrics?
+### 十分なログデータがある場合、メトリックを計測する必要がありますか？
 
-[Logs vs Metrics](../log-vs-metric.md) covers some high level guidance on when to utilize metric data and when to use log data. Both have a valuable part to play in creating observable systems.
+[ログとメトリック](../log-vs-metric.md) は、メトリックデータをいつ利用するか、およびログデータをいつ使用するかに関するいくつかの高レベルのガイダンスをカバーしています。どちらも、観察可能なシステムを作成する上で重要な役割を果たします。
 
-### Having problems identifying what to log?
+### 何をログに記録するかを特定するのに問題がありますか？
 
-**At application startup**:
+**アプリケーションの起動時**:
 
-- Unrecoverable errors from startup.
-- Warnings if application still runnable, but not as expected (i.e. not providing blob connection string, thus resorting to local files. Another example is if there's a need to fail back to a secondary service or a known good state, because it didn’t get an answer from a primary dependency.)
-- Information about the service’s state at startup (build #, configs loaded, etc.)
+- 起動時の回復不能なエラー。
+- アプリケーションがまだ実行可能であるが期待どおりではない場合の警告（つまり、blob接続文字列を提供しないため、ローカルファイルに頼る。別の例は、セカンダリサービスまたは既知の良好な状態にフェールバックする必要がある場合です。主な依存関係からの回答。）
+- 起動時のサービスの状態に関する情報（ビルド番号、ロードされた構成など）
 
-**Per incoming request**:
+**着信リクエストごと**:
 
-- Basic information for each incoming request: the url (scrubbed of any personally identifying data, a.k.a. PII), any user/tenant/request dimensions, response code returned, request-to-response latency, payload size, record counts, etc. (whatever you need to learn something from the aggregate data)
-- Warning for any unexpected exceptions, caught only at the top controller/interceptor and logged with or alongside the request info, with stack trace. Return a 500. This code doesn’t know what happened.
+- 各着信リクエストの基本情報：URL（個人を特定するデータ、別名PIIのスクラブ）、ユーザー/テナント/リクエストのディメンション、返されたレスポンスコード、リクエストからレスポンスへのレイテンシ、ペイロードサイズ、レコード数など（何でも）集合体データから何かを学ぶ必要があります）
+- 予期しない例外に対する警告。トップコントローラー/インターセプターでのみキャッチされ、スタックトレースを使用して、リクエスト情報と一緒に、またはリクエスト情報と一緒にログに記録されます。500を返します。このコードは何が起こったのかわかりません。
 
-**Per outgoing request**:
+**送信リクエストごと**:
 
-- Basic information for each outgoing request: the url (scrubbed of any personally identifying data, a.k.a. PII), any user/tenant/request dimensions, response code returned, request-to-response latency, payload sizes, record counts returned, etc. Report perceived availability and latency of dependencies and including slicing/clustering data that could help with later analysis.
+- 各送信リクエストの基本情報：URL（個人を特定するデータ、別名PIIのスクラブ）、ユーザー/テナント/リクエストのディメンション、返された応答コード、リクエストからレスポンスまでのレイテンシ、ペイロードサイズ、返されたレコード数など。レポート依存関係の認識された可用性と遅延、および後の分析に役立つ可能性のあるスライス/クラスタリングデータを含みます。
 
-## Recommended Tools
+## 推奨ツール
 
-- [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview) - Umbrella of services including system metrics, log analytics and more.
-- [Grafana Loki](../tools/loki.md) - An open source log aggregation platform, built on the learnings from the Prometheus Community for highly efficient collection & storage of log data at scale.
-- [The Elastic Stack](https://www.elastic.co/what-is/elk-stack) - An open source log analytics tech stack utilizing Logstash, Beats, Elastic search and Kibana.
-- [Grafana](https://grafana.com) - Open source dashboard & visualization tool. Supports Log, Metrics and Distributed tracing data sources.
+- [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview) - システムメトリック、ログ分析などを含むサービスの傘。
+- [Grafana Loki](../tools/loki.md) - プロメテウスコミュニティからの学習に基づいて構築されたオープンソースのログ集約プラットフォームで、大規模なログデータの非常に効率的な収集と保存を実現します。
+- [The Elastic Stack](https://www.elastic.co/what-is/elk-stack) - Logstash、Beats、Elastic search、Kibanaを利用したオープンソースのログ分析技術スタック。
+- [Grafana](https://grafana.com) - オープンソースのダッシュボードと視覚化ツール。ログ、メトリクス、分散トレースデータソースをサポートします。

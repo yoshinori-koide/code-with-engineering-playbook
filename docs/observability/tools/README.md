@@ -1,30 +1,30 @@
-# Tools and Patterns
+# ツールとパターン
 
-There are a number of modern tools to make systems observable. While identifying and/or creating tools that work for your system, here are a few things to consider to help guide the choices.
+システムを監視可能にするための最新のツールがいくつかあります。システムで機能するツールを特定および/または作成する際に、選択をガイドするために考慮すべきいくつかの事項を以下に示します。
 
-- Must be simple to integrate and easy to use.
-- It must be possible to aggregate and visualize data.
-- Tools must provide real-time data.
-- Must be able to guide users to the problem area with suitable, adequate end-to-end context.
+- 統合が簡単で使いやすいものでなければなりません。
+- データを集約して視覚化できる必要があります。
+- ツールはリアルタイムデータを提供する必要があります。
+- 適切で適切なエンドツーエンドのコンテキストを使用して、ユーザーを問題のある領域に誘導できる必要があります。
 
-## Choices
+## 選択肢
 
 - [Loki](./loki.md)
 - [OpenTelemetry](./OpenTelemetry.md)
 - [Kubernetes Dashboards](./KubernetesDashboards.md)
 - [Prometheus](./Prometheus.md)
 
-## Service Mesh
+## サービスメッシュ
 
-Leveraging a Service Mesh that follows the [Sidecar Pattern](https://www.oreilly.com/library/view/designing-distributed-systems/9781491983638/ch02.html#:~:text=The%20sidecar%20pattern%20is%20a,first%20is%20the%20application%20container.&text=In%20addition%20to%20the%20application,without%20the%20application%20container's%20knowledge.) quickly sets up a go-to set of metrics, and traces (although traces need to be propagated from incoming requests to outgoing requests manually).
+[サイドカーパターン](https://www.oreilly.com/library/view/designing-distributed-systems/9781491983638/ch02.html#:~:text=The%20sidecar%20pattern%20is%20a,first%20is%20the%20application%20container.&text=In%20addition%20to%20the%20application,without%20the%20application%20container's%20knowledge.)に従うサービスメッシュを利用すると、すぐに使用できるメトリックとトレースのセットが設定されます（ただし、トレースは着信要求から発信要求に手動で伝播する必要があります）。
 
-A sidecar works by intercepting all incoming and outgoing traffic to your image. It then adds trace headers to each request and emits a standard set of logs and metrics. These metrics are extremely powerful for observability, allowing every service, whether client-side or server-side, to leverage a unified set of metrics, including:
+サイドカーは、画像へのすべての着信および発信トラフィックを傍受することで機能します。次に、各リクエストにトレースヘッダーを追加し、ログとメトリックの標準セットを発行します。これらのメトリックは、可観測性に関して非常に強力であり、クライアント側かサーバー側かに関係なく、すべてのサービスが次のような統一されたメトリックのセットを活用できるようにします。
 
-- Latency
-- Bytes
-- Request Rate
-- Error Rate
+- レイテンシー
+- バイト
+- リクエストレート
+- エラー率
 
-In a microservice architecture, pinpointing the root cause of a spike in 500's can be non-trivial, but with the added observability from a sidecar you can quickly determine which service in your service mesh resulted in the spike in errors.
+マイクロサービスアーキテクチャでは、500の急増の根本原因を特定することは簡単ではありませんが、サイドカーからの可観測性が追加されているため、サービスメッシュ内のどのサービスがエラーの急増につながったかをすばやく判断できます。
 
-Service Mesh's have a large surface area for configurability, and can seem like a daunting undertaking to deploy. However, most services (including Linkerd) offer a sane set of defaults, and can be deployed via the happy path to quickly land these observability wins.
+Service Meshは、構成可能性のために大きな表面積を持っており、展開するのが困難な作業のように見える場合があります。ただし、ほとんどのサービス（Linkerdを含む）は、適切なデフォルトのセットを提供し、これらの可観測性の勝利をすばやく実現するために、ハッピーパスを介して展開できます。

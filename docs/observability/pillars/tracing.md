@@ -1,20 +1,20 @@
-# Tracing
+# トレース
 
-## Overview
+## 概要
 
-Produces the information required to observe series of correlated operations in a distributed system. Once collected they show the path, measurements and faults in an end-to-end transaction.
+分散システムで一連の相関操作を観察するために必要な情報を生成します。収集されると、エンドツーエンドのトランザクションでのパス、測定値、および障害が表示されます。
 
-## Best Practices
+## ベストプラクティス
 
-- Ensure that at least key business transactions are traced.
-- Include in each trace necessary information to identify software releases (i.e. service name, version). This is important to correlate deployments and system degradation.
-- Ensure dependencies are included in trace (databases, I/O).
-- If costs are a concern use sampling, avoiding throwing away errors, unexpected behavior and critical information.
-- Don't reinvent the wheel, use existing tools to collect and analyse the data.
-- Ensure personal identifiable information policies and restrictions are followed.
+- 少なくとも主要なビジネストランザクションがトレースされていることを確認してください。
+- ソフトウェアリリース（サービス名、バージョンなど）を識別するために必要な情報を各トレースに含めます。これは、展開とシステムの劣化を関連付けるために重要です。
+- 依存関係がトレース（データベース、I / O）に含まれていることを確認します。
+- コストが懸念される場合は、サンプリングを使用して、エラー、予期しない動作、および重要な情報を破棄しないようにします。
+- 車輪の再発明をしないでください。既存のツールを使用してデータを収集および分析してください。
+- 個人を特定できる情報のポリシーと制限が守られていることを確認してください。
 
-## Recommended Tools
+## 推奨ツール
 
-- [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview) - Umbrella of services including system metrics, log analytics and more.
-- [Jaeger Tracing](https://www.jaegertracing.io) - Open source, end-to-end distributed tracing.
-- [Grafana](https://grafana.com) - Open source dashboard & visualization tool. Supports Log, Metrics and Distributed tracing data sources.
+- [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview) - システムメトリック、ログ分析などを含むサービス群。
+- [Jaeger Tracing](https://www.jaegertracing.io) - オープンソースのエンドツーエンドの分散トレース。
+- [Grafana](https://grafana.com) - オープンソースのダッシュボードと視覚化ツール。ログ、メトリクス、分散トレースデータソースをサポートします。

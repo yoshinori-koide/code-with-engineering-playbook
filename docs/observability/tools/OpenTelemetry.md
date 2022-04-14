@@ -1,19 +1,18 @@
-# Open Telemetry
+# OpenTelemetry
 
-OpenTelemetry is a set of APIs, SDKs and instrumentation which can be used for collection, processing and orchestrating telemetry data like traces metrics and logs. It supports multiple languages(Java, .NET, Python, JavaScript, Golang, Erlang etc.). Open telemetry follows a vendor agnostic and standards based approach for collection and management of telemetry data. Important point to note is that OpenTelemetry does not have its own backend, all telemetry collected by OpenTelemetry Collector must be sent to a backend like Prometheus etc. Open telemetry is also the 2nd most active CNCF project after Kubernetes.
+OpenTelemetry は、トレースメトリックやログなどのテレメトリデータの収集、処理、および調整に使用できるAPI、SDK、およびインストルメンテーションのセットです。複数の言語（Java、.NET、Python、JavaScript、Golang、Erlangなど）をサポートしています。オープンテレメトリは、テレメトリデータの収集と管理について、ベンダーにとらわれない標準ベースのアプローチに従います。注意すべき重要な点は、OpenTelemetryには独自のバックエンドがないことです。OpenTelemetryCollectorによって収集されたすべてのテレメトリは、Prometheusなどのバックエンドに送信する必要があります。OpenTelemetryは、Kubernetesに次ぐ2番目にアクティブなCNCFプロジェクトでもあります。
 
-## Collector
+## コレクタ
 
-OpenTelemetry Collector performs telemetry collection, processing and export. It is mostly run as an agent or a sidecar with the application or as a daemon if installed directly on host. As the collector is standards based and supports many integrations, there is a possibility that many tool specific agents for metric, traces and logs can be replaced by a single OpenTelemetry collector.
-The collector can also be installed as standalone service to receive telemetry data from multiple applications.
+OpenTelemetry Collectorは、テレメトリの収集、処理、およびエクスポートを実行します。ほとんどの場合、アプリケーションのエージェントまたはサイドカーとして実行されるか、ホストに直接インストールされている場合はデーモンとして実行されます。コレクターは標準ベースであり、多くの統合をサポートしているため、メトリック、トレース、およびログ用の多くのツール固有のエージェントを単一のOpenTelemetryコレクターに置き換えることができる可能性があります。コレクターは、複数のアプリケーションからテレメトリデータを受信するためのスタンドアロンサービスとしてインストールすることもできます。
 
-## Instrumentation Libraries
+## インストルメンテーションライブラリ
 
-A library that enables observability for another library is called an instrumentation library. OpenTelemetry libraries are language specific, currently there is good support for Java, Python, Javascript, dotnet and golang. Support for automatic instrumentation is available for some libraries which make using OpenTelemetry easy and trivial. In case automatic instrumentation is not available, manual instrumentation can be configured by using the OpenTelemetry SDK.
+別のライブラリの可観測性を可能にするライブラリは、インストルメンテーションライブラリと呼ばれます。OpenTelemetryライブラリは言語固有であり、現在、Java、Python、Javascript、dotnet、golangが適切にサポートされています。自動インストルメンテーションのサポートは、OpenTelemetryの使用を簡単かつ簡単にする一部のライブラリで利用できます。自動インストルメンテーションが利用できない場合は、OpenTelemetrySDKを使用して手動インストルメンテーションを構成できます。
 
-## Integration of OpenTelemetry
+## OpenTelemetryの統合
 
-OpenTelemetry can be used to collect, process and export data into multiple backends, some popular integrations supported with OpenTelemetry are:
+OpenTelemetryを使用して、データを収集し、処理して、複数のバックエンドにエクスポートできます。OpenTelemetryでサポートされている一般的な統合には、次のようなものがあります。
 
 1. Zipkin
 2. Prometheus.
@@ -21,22 +20,20 @@ OpenTelemetry can be used to collect, process and export data into multiple back
 4. New Relic.
 5. Azure Monitor
 
-## Why use OpenTelemetry
+## OpenTelemetryを使用する理由
 
-The main reason to use OpenTelemetry is that it offers tracing, metrics and logging telemetry through a single agent which supports multiple integrations. Separate agents for tracing, logging and metrics will not be needed to be setup if OpenTelemetry is used.
-Good causes to use OpenTelemetry would include if the stack is using OpenCensus or OpenTracing. As OpenCensus and OpenTracing have carved way for OpenTelemetry, it makes sense to introduce OpenTelemetry where OpenCensus or OpenTracing is getting used as it still has backward compatibility.
-Apart from features like adding custom attributes, sampling, collecting data for metrics and traces, OpenTelemetry is governed by specifications and backed up big players in Observability landscape like Microsoft, Splunk, AppDynamics etc. It is likely that OpenTelemetry will become a de-facto open source standard for enabling metrics and tracing when all features become GA.
+OpenTelemetryを使用する主な理由は、複数の統合をサポートする単一のエージェントを介して、トレース、メトリック、およびロギングテレメトリを提供することです。OpenTelemetryを使用する場合は、トレース、ロギング、およびメトリック用に個別のエージェントを設定する必要はありません。OpenTelemetryを使用する適切な理由には、スタックがOpenCensusまたはOpenTracingを使用しているかどうかが含まれます。OpenCensusとOpenTracingはOpenTelemetryに道を切り開いたので、OpenCensusまたはOpenTracingがまだ下位互換性を持っているので、OpenTelemetryを導入することは理にかなっています。カスタム属性の追加、サンプリング、メトリックとトレースのデータの収集などの機能とは別に、OpenTelemetryは仕様に準拠し、Microsoft、Splunk、AppDynamicsなどの可観測性ランドスケープの大手企業をバックアップします。
 
-## Current Status of OpenTelemetry Project
+## OpenTelemetryプロジェクトの現状
 
-OpenTelemetry is a project which emerged from merging of OpenCensus and OpenTracing in 2019. Although OpenCensus and OpenTracing are frozen and no new features are being developed for them, OpenTelemetry has backward compatibility with OpenCensus and OpenTracing. Some features of OpenTelemetry are still in beta, feature support for different languages is being tracked here: [Feature Status of OpenTelemetry](https://github.com/open-telemetry/opentelemetry-specification/blob/main/spec-compliance-matrix.md). Status of OpenTelemetry project can be tracked [here](https://opentelemetry.io/status/).
+OpenTelemetryは、2019年にOpenCensusとOpenTracingを統合したことから生まれたプロジェクトです。OpenCensusとOpenTracingは凍結されており、新しい機能は開発されていませんが、OpenTelemetryはOpenCensusおよびOpenTracingと下位互換性があります。OpenTelemetryの一部の機能はまだベータ版であり、さまざまな言語の機能サポートがここで追跡されています：[OpenTelemetryの機能ステータス](https://github.com/open-telemetry/opentelemetry-specification/blob/main/spec-compliance-matrix.md)。OpenTelemetryプロジェクトのステータスは[ここ](https://opentelemetry.io/status/)で追跡できます。
 
-## What to watch out for
+## 注意すべき点
 
-As OpenTelemetry is a very recent project (first GA version of some features released in 2020), many features are still in beta hence due diligence needs to be done before using such features in production. Also, OpenTelemetry supports many popular languages but features in all languages are not at par. Some languages offer more features as compared to other languages. It also needs to be called out as some features are not in GA, there may be some incompatibility issues with the tooling. That being said, OpenTelemetry is one of the most active projects of CNCF, so it is expected that many more features would reach GA soon.
+OpenTelemetryはごく最近のプロジェクト（2020年にリリースされた一部の機能の最初のGAバージョン）であるため、多くの機能はまだベータ版であり、本番環境でそのような機能を使用する前にデューデリジェンスを行う必要があります。また、OpenTelemetryは多くの一般的な言語をサポートしていますが、すべての言語の機能は同等ではありません。一部の言語は、他の言語と比較してより多くの機能を提供します。一部の機能はGAに含まれていないため、これも呼び出す必要があります。ツールとの非互換性の問題がある可能性があります。そうは言っても、OpenTelemetryはCNCFの最も活発なプロジェクトの1つであるため、まもなくさらに多くの機能がGAに到達すると予想されます。
 
-## References
+## 参考文献
 
-- [OpenTelemetry Official Site](https://opentelemetry.io/)
-- [Getting Started with dotnet and OpenTelemetry](https://opentelemetry.io/docs/net/getting-started/)
-- [Using OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/)
+- [OpenTelemetry 公式サイト](https://opentelemetry.io/)
+- [dotnet と OpenTelemetryの使用開始](https://opentelemetry.io/docs/net/getting-started/)
+- [OpenTelemetry Collectorの使用](https://opentelemetry.io/docs/collector/getting-started/)

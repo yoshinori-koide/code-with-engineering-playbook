@@ -1,39 +1,39 @@
-# Kubernetes UI Dashboards
+# Kubernetes UI ダッシュボード
 
-This document covers the options and benefits of various Kubernetes UI Dashboards which are useful tools for monitoring and debugging your application on Kubernetes Clusters. It allows the management of applications running in the cluster, debug them and manage the cluster all through these dashboards.
+このドキュメントでは、Kubernetesクラスタでアプリケーションを監視およびデバッグするための便利なツールであるさまざまなKubernetesUIダッシュボードのオプションと利点について説明します。これにより、これらのダッシュボードを介して、クラスターで実行されているアプリケーションの管理、デバッグ、およびクラスターの管理が可能になります。
 
-## Overview and Background
+## 概要と背景
 
-There are times when not all solutions can be run locally. This limitation could be due to a cloud service which does not offer a robust or efficient way to locally debug the environment. In these cases, it is necessary to use other tools which provide the capabilities to monitor your application with Kubernetes.
+すべてのソリューションをローカルで実行できるとは限らない場合があります。この制限は、環境をローカルでデバッグするための堅牢で効率的な方法を提供しないクラウドサービスが原因である可能性があります。このような場合、Kubernetesでアプリケーションを監視する機能を提供する他のツールを使用する必要があります。
 
-## Advantages and Use Cases
+## 利点とユースケース
 
-- Allows the ability to view, manage and monitor the operational aspects of the Kubernetes Cluster.
+- Kubernetesクラスターの運用面を表示、管理、監視する機能を提供します。
 
-- Benefits of using a UI dashboard includes the following:
-  - see an overview of the cluster
-  - deploy applications onto the cluster
-  - troubleshoot applications running on the cluster
-  - view, create, modify, and delete Kubernetes resources
-  - view basic resource metrics including resource usage for Kubernetes objects
-  - view and access logs
-  - live view of the pods state (e.g. started, terminating, etc)
+- UIダッシュボードを使用する利点は次のとおりです。
+  - クラスターの概要を見る
+  - アプリケーションをクラスターにデプロイする
+  - クラスタで実行されているアプリケーションのトラブルシューティング
+  - Kubernetesリソースの表示、作成、変更、削除
+  - Kubernetesオブジェクトのリソース使用量を含む基本的なリソースメトリックを表示する
+  - ログの表示とアクセス
+  - ポッドの状態のライブビュー（例：開始、終了など）
 
-- Different dashboards may provide different functionalities, and the use case to choose a particular dashboard will depend on the requirements. For example, many dashboards provide a way to only monitor your applications on Kubernetes but do not provide a way to manage them.
+- ダッシュボードが異なれば機能も異なり、特定のダッシュボードを選択するユースケースは要件によって異なります。たとえば、多くのダッシュボードは、Kubernetes上のアプリケーションのみを監視する方法を提供しますが、それらを管理する方法は提供しません。
 
-## Open Source Dashboards
+## オープンソースダッシュボード
 
-There are currently several UI dashboards available to monitor your applications or manage them with Kubernetes. For example:
+現在、アプリケーションを監視したり、Kubernetesで管理したりするために利用できるUIダッシュボードがいくつかあります。例えば：
 
 - [Octant](https://github.com/vmware-tanzu/octant)
-- [Prometheus and Grafana](https://prometheus.io/docs/visualization/grafana/)
-  - [Kube Prometheus Stack Chart](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack): provides an easy way to operate end-to-end Kubernetes cluster monitoring with Prometheus using the Prometheus Operator.
+- [PrometheusとGrafana](https://prometheus.io/docs/visualization/grafana/)
+  - [Kube Prometheus スタックチャート](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack): PrometheusOperatorを使用してPrometheusでエンドツーエンドのKubernetesクラスターモニタリングを操作する簡単な方法を提供します。
 - [K8Dash](https://github.com/indeedeng/k8dash)
-- [kube-ops-view](https://github.com/hjacobs/kube-ops-view): a tool to visualize node occupancy & utilization
-- [Lens](https://k8slens.dev/): Client side desktop tool
-- [Thanos](https://github.com/thanos-io/thanos) and [Cortex](https://cortexmetrics.io/docs/): Multi-cluster implementations
+- [kube-ops-view](https://github.com/hjacobs/kube-ops-view): ノードの占有率と使用率を視覚化するツール
+- [Lens](https://k8slens.dev/): クライアント側デスクトップツール
+- [Thanos](https://github.com/thanos-io/thanos)および[Cortex](https://cortexmetrics.io/docs/): マルチクラスターの実装
 
-## References
+## 参考文献
 
-- [Alternatives to Kubernetes Dashboard](https://octopus.com/blog/alternative-kubernetes-dashboards)
-- [Prometheus and Grafana with Kubernetes](https://tanzu.vmware.com/developer/guides/kubernetes/observability-prometheus-grafana-p1/)
+- [Kubernetesダッシュボードの代替](https://octopus.com/blog/alternative-kubernetes-dashboards)
+- [Kubernetesを用いたPrometheusとGrafana](https://tanzu.vmware.com/developer/guides/kubernetes/observability-prometheus-grafana-p1/)

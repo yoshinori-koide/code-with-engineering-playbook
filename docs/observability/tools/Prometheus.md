@@ -1,25 +1,24 @@
 # Prometheus
 
-## Overview
+## 概要
 
-Originally built at SoundCloud, [Prometheus](https://prometheus.io/docs/introduction/overview/) is an open-source monitoring and alerting toolkit based on time series metrics data. It has become a de facto standard metrics solution in the Cloud Native world and widely used with Kubernetes.
+もともとSoundCloudで構築された[Prometheus](https://prometheus.io/docs/introduction/overview/)は、時系列メトリックデータに基づくオープンソースの監視およびアラートツールキットです。これは、クラウドネイティブの世界でデファクトスタンダードのメトリクスソリューションになり、Kubernetesで広く使用されています。
 
-The core of Prometheus is a server that scrapes and stores metrics. There are other numerous optional features and components like an Alert-manager and [client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) for programming languages to extend the functionalities of Prometheus beyond the basics.
-The client libraries offer four [metric types](https://prometheus.io/docs/concepts/metric_types/): `Counter`, `Gauge`, `Histogram`, and `Summary`.
+Prometheusの中核は、メトリックをスクレイプして保存するサーバーです。Prometheusの機能を基本を超えて拡張するためのプログラミング言語用のアラートマネージャや[クライアントライブラリ](https://prometheus.io/docs/instrumenting/clientlibs/)など、他にも多数のオプション機能やコンポーネントがあります。クライアントライブラリは`Counter`、`Gauge`、`Histogram`および`Summary`の4つの[メトリックタイプ](https://prometheus.io/docs/concepts/metric_types/)を提供します。
 
-## Why Prometheus?
+## なぜ Prometheus?
 
-- Prometheus is a time series database and allow for events or measurements to be tracked, monitored, and aggregated over time.
-- Prometheus is a pull-based tool. One of the biggest advantages of Prometheus over other monitoring tools is that Prometheus actively scrapes targets in order to retrieve metrics from them. Prometheus also supports the push model for pushing metrics.
-- Prometheus allows for control over how to scrape, and how often to scrape them. Through the Prometheus server, there can be multiple scrape configurations, allowing for multiple rates for different targets.
-- Similar to [Grafana](https://prometheus.io/docs/visualization/grafana/), visualization for the time series can be directly done through the Prometheus Web UI. The Web UI provides the ability to easily filter and have an overview of what is taking place with your different targets.
-- Prometheus provides a powerful functional query language called PromQL (Prometheus Query Language) that lets the user aggregate time series data in real time.
+- Prometheus は時系列データベースであり、イベントまたは測定値を追跡、監視、および時間の経過とともに集計することができます。
+- Prometheus はプルベースのツールです。他の監視ツールに対する Prometheus の最大の利点の1つは、Prometheus がターゲットからメトリックを取得するためにターゲットを積極的にスクレイプすることです。Prometheus は、メトリックをプッシュするためのプッシュモデルもサポートしています。
+- Prometheusを使用すると、スクレイプする方法と、スクレイプする頻度を制御できます。Prometheusサーバーを介して、複数のスクレイプ構成が可能であり、さまざまなターゲットに対して複数のレートを使用できます。
+- [Grafana](https://prometheus.io/docs/visualization/grafana/) と同様に、時系列の視覚化はPrometheus Web UIを介して直接実行できます。Web UIは、さまざまなターゲットで何が起こっているかを簡単にフィルタリングして概要を把握する機能を提供します。
+- Prometheusは、PromQL（Prometheus Query Language）と呼ばれる強力な機能クエリ言語を提供します。これにより、ユーザーは時系列データをリアルタイムで集計できます。
 
-## Integration with Other Tools
+## 他のツールとの統合
 
-The Prometheus client libraries allow you to add instrumentation to your code and expose internal metrics via an HTTP endpoint. The official [Prometheus client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) currently are `Go`, `Java or Scala`, `Python` and `Ruby`. Unofficial third-party libraries include: `.NET/C#`, `Node.js`, and `C++`.
+Prometheusクライアントライブラリを使用すると、コードにインストルメンテーションを追加し、HTTPエンドポイントを介して内部メトリックを公開できます。現在、公式の[Prometheusクライアントライブラリ](https://prometheus.io/docs/instrumenting/clientlibs/)は `Go`、`Java or Scala`、`Python`および`Ruby` です。非公式のサードパーティライブラリには、`.NET/C#`、`Node.js`、および `C++`が含まれます。
 
-Prometheus' metrics format is supported by a wide array of tools and services including:
+Prometheusのメトリック形式は、次のようなさまざまなツールとサービスでサポートされています。
 
 - [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-prometheus-integration)
 - [Stackdriver](https://cloud.google.com/stackdriver/docs/solutions/gke/prometheus)
@@ -29,12 +28,12 @@ Prometheus' metrics format is supported by a wide array of tools and services in
 - [Flagger](https://docs.flagger.app/tutorials/prometheus-operator)
 - [Grafana](https://grafana.com/docs/grafana/latest/getting-started/getting-started-prometheus/)
 - [GitLab](https://docs.gitlab.com/ee/user/project/integrations/prometheus.html)
-- [etc...](https://prometheus.io/docs/operating/integrations/)
+- [その他...](https://prometheus.io/docs/operating/integrations/)
 
-There are numerous [exporters](https://prometheus.io/docs/instrumenting/exporters/) which are used in exporting existing metrics from third-party databases, hardware, CI/CD tools, messaging systems, APIs and other monitoring systems. In addition to client libraries and exporters, there is a significant number of [integration points](https://prometheus.io/docs/operating/integrations/) for service discovery, remote storage, alerts and management.
+サードパーティのデータベース、ハードウェア、CI / CDツール、メッセージングシステム、API、およびその他の監視システムから既存のメトリックをエクスポートする際に使用される[多数のエクスポーター](https://prometheus.io/docs/instrumenting/exporters/)があります。クライアントライブラリとエクスポーターに加えて、サービスディスカバリ、リモートストレージ、アラート、および管理のための[統合ポイント](https://prometheus.io/docs/operating/integrations/)が多数あります。
 
-## References
+## 参考文献
 
-- [Prometheus Docs](https://prometheus.io/docs)
-- [Prometheus Best Practices](https://prometheus.io/docs/practices)
-- [Grafana with Prometheus](https://prometheus.io/docs/visualization/grafana/)
+- [Prometheus ドキュメント](https://prometheus.io/docs)
+- [Prometheus ベストプラクティス](https://prometheus.io/docs/practices)
+- [GrafanaとPrometheus](https://prometheus.io/docs/visualization/grafana/)

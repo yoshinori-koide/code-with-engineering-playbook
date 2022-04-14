@@ -1,72 +1,72 @@
-# Metrics
+# 指標
 
-## Overview
+## 概要
 
-Metrics provide a near real-time stream of data, informing operators and stakeholders about the functions the system is performing as well as its health. Unlike logging and tracing, metric data tends to be more efficient to transmit and store.
+メトリックは、ほぼリアルタイムのデータストリームを提供し、システムが実行している機能とその状態についてオペレーターと利害関係者に通知します。ロギングやトレースとは異なり、メトリックデータは送信と保存がより効率的である傾向があります。
 
-## Collection Methods
+## 収集方法
 
-Metric collection approaches fall into two broad categories: push metrics & pull metrics. Push metrics means that the originating component sends the data to a remote service or agent. [Azure Monitor](https://azure.microsoft.com/en-us/services/monitor) and [Etsy's statsd](https://github.com/statsd/statsd) are examples of push metrics. Some strengths with push metrics include:
+メトリック収集アプローチは、プッシュメトリックとプルメトリックの2つの大きなカテゴリに分類されます。プッシュメトリックは、元のコンポーネントがデータをリモートサービスまたはエージェントに送信することを意味します。[Azure Monitor](https://azure.microsoft.com/en-us/services/monitor)および[Etsyのstatsd](https://github.com/statsd/statsd)は、プッシュメトリックの例です。プッシュメトリックの長所は次のとおりです。
 
-- Only require network egress to the remote target.
-- Originating component controls the frequency of measurement.
-- Simplified configuration as the component only needs to know the destination of where to send data.
+- リモートターゲットへのネットワーク出力のみが必要です。
+- 発信コンポーネントは、測定の頻度を制御します。
+- コンポーネントはデータの送信先を知るだけでよいため、構成が簡素化されます。
 
-Some trade-offs with this approach:
+このアプローチとのいくつかのトレードオフ:
 
-- At scale, it is much more difficult to control data transmission rates, which can cause service throttling or dropping of values.
-- Determining if every component, particularly in a dynamic scale environment, is healthy and sending data is difficult.
+- 大規模な場合、データ伝送速度を制御することははるかに困難であり、サービスの抑制や値の低下を引き起こす可能性があります。
+- 特に動的スケール環境ですべてのコンポーネントが正常にデータを送信しているのか判断するのが困難です。
 
-In the case of pull metrics, each originating component publishes an endpoint for the metric agent to connect to and gather measurements. [Prometheus](https://prometheus.io/) and its ecosystem of tools are an example of pull style metrics. Benefits experienced using a pull metrics setup may involve:
+プルメトリックの場合、各発信コンポーネントは、メトリックエージェントが接続して測定値を収集するためのエンドポイントを公開します。[Prometheus](https://prometheus.io/)とそのツールのエコシステムは、プルスタイルのメトリックの例です。プルメトリクス設定を使用して経験する利点には、次のものが含まれる場合があります。
 
-- Singular configuration for determining what is measured and the frequency of measurement for the local environment.
-- Every measurement target has a meta metric related to if the collection is successful or not, which can be used as a general health check.
-- Support for routing, filtering and processing of metrics before sending them onto a globally central metrics store.
+- 何を測定するか、およびローカル環境の測定頻度を決定するための特異な構成。
+- すべての測定ターゲットには、収集が成功したかどうかに関連するメタメトリックがあり、一般的なヘルスチェックとして使用できます。
+- メトリックをグローバルに中央のメトリックストアに送信する前に、メトリックのルーティング、フィルタリング、および処理をサポートします。
 
-Items of concern to some may include:
+一部の人が懸念する項目は次のとおりです。
 
-- Configuring & managing data sources can lead to a complex configuration. Prometheus has tooling to auto-discover and configure data sources in some environments, such as Kubernetes, but there are always exceptions to this, which lead to configuration complexity.
-- Network configuration may add further complexity if firewalls and other ACLs need to be managed to allow connectivity.
+- データソースの構成と管理は、複雑な構成につながる可能性があります。Prometheusには、Kubernetesなどの一部の環境でデータソースを自動検出して構成するためのツールがありますが、これには常に例外があり、構成が複雑になります。
+- 接続を許可するためにファイアウォールやその他のACLを管理する必要がある場合は、ネットワーク構成によってさらに複雑になる可能性があります。
 
-## Best Practices
+## ベストプラクティス
 
-### When should I use metrics instead of logs?
+### ログの代わりにメトリックを使用する必要があるのはいつですか？
 
-[Logs vs Metrics](../log-vs-metric.md) covers some high level guidance on when to utilize metric data and when to use log data. Both have a valuable part to play in creating observable systems.
+[ログとメトリック](../log-vs-metric.md)は、メトリックデータをいつ利用するか、およびログデータをいつ使用するかに関するいくつかの高レベルのガイダンスをカバーしています。どちらも、観察可能なシステムを作成する上で重要な役割を果たします。
 
-### What should be tracked?
+### 何を追跡すべきか？
 
-System critical measurements that relate to the application/machine health, which are usually excellent alert candidates. Work with your engineering and devops peers to identify the metrics, but they may include:
+アプリケーション/マシンの状態に関連するシステムクリティカルな測定値。通常、優れたアラート候補です。エンジニアリングおよびDevOpsピアと協力してメトリックを特定しますが、次のものが含まれる場合があります。
 
-- CPU and memory utilization.
-- Request rate.
-- Queue length.
-- Unexpected exception count.
-- Dependent service metrics like response time for Redis cache, Sql server or Service bus.
+- CPUとメモリの使用率。
+- リクエストレート。
+- キューの長さ。
+- 予期しない例外カウント。
+- Redisキャッシュ、SQLサーバー、サービスバスの応答時間などの依存するサービスメトリック。
 
-Important business-related measurements, which drive reporting to stakeholders. Consult with the various stakeholders of the component, but some examples may include:
+利害関係者への報告を促進する重要なビジネス関連の測定など、コンポーネントのさまざまな利害関係者に相談しますが、いくつかの例には次のものが含まれる場合があります。
 
-- Jobs performed.
-- User Session length.
-- Games played.
-- Site visits.
+- 実行されたジョブ。
+- ユーザーセッションの長さ。
+- プレイしたゲーム数。
+- サイト訪問数。
 
-### Dimension Labels
+### 寸法ラベル
 
-Modern metric systems today usually define a single time series metric as the combination of the name of the metric and its dictionary of dimension labels. Labels are an excellent way to distinguish one instance of a metric, from another while still allowing for aggregation and other operations to be performed on the set for analysis. Some common labels used in metrics may include:
+今日の最新のメトリックシステムは、通常、単一の時系列メトリックを、メトリックの名前とそのディメンションラベルのディクショナリの組み合わせとして定義します。ラベルは、メトリックの1つのインスタンスを別のインスタンスから区別するための優れた方法ですが、分析のためにセットに対して集計やその他の操作を実行することもできます。指標で使用される一般的なラベルには、次のものがあります。
 
-- Container Name
-- Host name
-- Code Version
-- Kubernetes cluster name
-- Azure Region
+- コンテナ名
+- ホスト名
+- コードバージョン
+- Kubernetesクラスター名
+- Azureリージョン
 
-_Note_: Since dimension labels are used for aggregations and grouping operations, do not use unique strings or those with high cardinality as the value of a label. The value of the label is significantly diminished for reporting and in many cases has a negative performance hit on the metric system used to track it.
+注：ディメンションラベルは集計およびグループ化操作に使用されるため、ラベルの値として一意の文字列やカーディナリティの高い文字列を使用しないでください。ラベルの値は、レポートのために大幅に減少し、多くの場合、それを追跡するために使用されるメトリックシステムに悪影響を及ぼします。
 
-## Recommended Tools
+## 推奨ツール
 
-- [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview) - Umbrella of services including system metrics, log analytics and more.
-- [Prometheus](https://docs.microsoft.com/en-us/azure/azure-monitor/overview) - A real-time monitoring & alerting application. It's exposition format for exposing time-series is the basis for OpenMetrics's standard format.
-- [Thanos](https://thanos.io) - Open source, highly available Prometheus setup with long term storage capabilities.
-- [Cortex](https://cortexmetrics.io) - Horizontally scalable, highly available, multi-tenant, long term Prometheus.
-- [Grafana](https://grafana.com) - Open source dashboard & visualization tool. Supports Log, Metrics and Distributed tracing data sources.
+- [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview) - システムメトリック、ログ分析などを含むサービス群。
+- [Prometheus](https://docs.microsoft.com/en-us/azure/azure-monitor/overview) - リアルタイムの監視およびアラートアプリケーション。時系列を公開するための説明形式は、OpenMetricsの標準形式の基礎です。
+- [Thanos](https://thanos.io) - 長期保存機能を備えたオープンソースの高可用性Prometheusセットアップ。
+- [Cortex](https://cortexmetrics.io) - 水平方向にスケーラブルで可用性が高く、マルチテナントで長期的なPrometheus。
+- [Grafana](https://grafana.com) - オープンソースのダッシュボードと視覚化ツール。ログ、メトリクス、分散トレースデータソースをサポートします。
