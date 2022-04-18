@@ -1,160 +1,159 @@
-# Continuous Delivery
+# 継続的デリバリー
 
-The inspiration behind continuous delivery is constantly delivering valuable software to users and developers more frequently. Applying the principles and practices laid out in this readme will help you reduce risk, eliminate manual operations and increase quality and confidence.
+継続的デリバリーの背後にあるインスピレーションは、ユーザーと開発者により頻繁に価値のあるソフトウェアを絶えず提供することです。このreadmeに記載されている原則と実践を適用することで、リスクを軽減し、手動操作を排除し、品質と信頼性を高めることができます。
 
-Deploying software involves the following principles:
+ソフトウェアの展開には、次の原則が含まれます。
 
-1. Provision and manage the cloud environment runtime for your application (cloud resources, infrastructure, hardware, services, etc).
-1. Install the target application version across your cloud environments.
-1. Configure your application, including any required data.
+1. アプリケーション（クラウドリソース、インフラストラクチャ、ハードウェア、サービスなど）のクラウド環境ランタイムをプロビジョニングおよび管理します。
+1. クラウド環境全体にターゲットアプリケーションバージョンをインストールします。
+1. 必要なデータを含めて、アプリケーションを構成します。s
 
-A continuous delivery pipeline is an automated manifestation of your process to streamline these very principles in a consistent and repeatable manner.
+継続的デリバリーパイプラインは、プロセスの自動化された表現であり、一貫性のある繰り返し可能な方法でこれらの原則を合理化します。
 
-## Goal
+## ゴール
 
-* Follow industry best practices for delivering software changes to customers and developers.
-* Establish consistency for the guiding principles and best practices when assembling continuous delivery workflows.
+* 顧客と開発者にソフトウェアの変更を提供するための業界のベストプラクティスに従ってください。
+* 継続的デリバリーワークフローを組み立てる際の指針とベストプラクティスの一貫性を確立します。
 
-## General Guidance
+## 一般的なガイダンス
 
-### Define a Release Strategy
+### リリース戦略を定義する
 
-It's important to establish a common understanding between the Dev Lead and application stakeholder(s) around the release strategy / design  during the planning phase of a project. This common understanding includes the deployment and maintenance of the application throughout its SDLC.
+プロジェクトの計画段階で、リリース戦略/設計に関して開発リーダーとアプリケーションの利害関係者の間で共通の理解を確立することが重要です。この一般的な理解には、SDLC全体でのアプリケーションの展開と保守が含まれます。
 
-#### Release Strategy Principles
+#### リリース戦略の原則
 
-*Continuous Delivery* by Jez Humble, David Farley cover the key considerations to follow when creating a release strategy:
+Jez Humble、David Farleyによる*継続的デリバリー* では、リリース戦略を作成する際に従うべき重要な考慮事項について説明している。
 
-* Parties in charge of deployments to each environment, as well as in charge of the release.
-* An asset and configuration management strategy.
-* An enumeration of the environments available for acceptance, capacity, integration, and user acceptance testing, and the process by which builds will be moved through these environments.
-* A description of the processes to be followed for deployment into testing and production environments, such as change requests to be opened and approvals that need to be granted.
-* A discussion of the method by which the application’s deploy-time and runtime configuration will be managed, and how this relates to the automated deployment process.
-* _Description of the integration with any external systems. At what stage and how are they tested as part of a release? How does the technical operator communicate with the provider in the event of a problem?
-* _A disaster recovery plan so that the application’s state can be recovered following a disaster. Which steps will need to be in place to restart or redeploy the application should it fail.
-* _Production sizing and capacity planning: How much data will your live application create? How many log files or databases will you need? How much bandwidth and disk space will you need? What latency are clients expecting?
-* How the initial deployment to production works.
-* How fixing defects and applying patches to the production environment will be handled.
-* How upgrades to the production environment will be handled, including data migration. How will upgrades be carried out to the application without destroying its state.
+* 各環境への展開とリリースを担当する当事者。
+* 資産および構成管理戦略。
+* 受け入れ、容量、統合、およびユーザー受け入れテストに使用できる環境の列挙、およびビルドがこれらの環境を移動するプロセス。
+* 開く必要のある変更要求や付与する必要のある承認など、テスト環境および実稼働環境に展開するために従う必要のあるプロセスの説明。
+* アプリケーションのデプロイ時間とランタイム構成を管理する方法、およびこれが自動デプロイメントプロセスにどのように関連するかについての説明。
+* _災害後にアプリケーションの状態を回復できるようにするための災害復旧計画。アプリケーションが失敗した場合に、アプリケーションを再起動または再デプロイするには、どの手順を実行する必要がありますか。
+* _本番環境のサイジングと容量計画：ライブアプリケーションはどのくらいのデータを作成しますか？いくつのログファイルまたはデータベースが必要ですか？どのくらいの帯域幅とディスク容量が必要ですか？クライアントはどのような遅延を期待していますか？
+* 本番環境への初期展開はどのように機能しますか。
+* 欠陥の修正と実稼働環境へのパッチの適用方法。
+* データ移行を含む、実稼働環境へのアップグレードの処理方法。状態を破壊せずに、アプリケーションのアップグレードをどのように実行するか。
 
-### Application Release and Environment Promotion
+### アプリケーションのリリースと環境の促進
 
-Your release manifestation process should take the deployable build artifact created from your commit stage and deploy them across all cloud environments, starting with your test environment.
+リリースマニフェストプロセスでは、コミットステージから作成されたデプロイ可能なビルドアーティファクトを取得し、テスト環境から始めて、すべてのクラウド環境にデプロイする必要があります。
 
-The test environment (*often called Integration*) acts as a gate to validate if your test suite completes successfully for all release candidates. This validation should always begin in a test environment while inspecting the deployed release integrated from the feature / release branch containing your code changes.
+テスト環境（*統合と呼ばれることもあります*）は、すべてのリリース候補に対してテストスイートが正常に完了したかどうかを検証するためのゲートとして機能します。この検証は、コードの変更を含む機能/リリースブランチから統合されたデプロイ済みリリースを検査している間、常にテスト環境で開始する必要があります。
 
-Code changes released into the *test* environment typically targets the main branch (when doing [trunk](https://devblogs.microsoft.com/devops/release-flow-how-we-do-branching-on-the-vsts-team/#why-trunk-based-development)) or release branch (when doing [gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)).
+*テスト*環境にリリースされたコード変更は、通常、メインブランチ（[トランク](https://devblogs.microsoft.com/devops/release-flow-how-we-do-branching-on-the-vsts-team/#why-trunk-based-development)を実行している場合）またはリリースブランチ（[gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)を実行している場合）を対象としています。
 
-#### The First Deployment
+#### 最初の展開
 
-The very first deployment of any application should be showcased to the customer in a production-like environment (*UAT*) to solicit feedback early. The UAT environment is used to obtain product owner sign-off acceptance to ultimately promote the release to production.
+アプリケーションの最初の展開は、本番環境のような環境（*UAT*）で顧客に紹介し、フィードバックを早期に求める必要があります。UAT環境は、製品所有者の承認を取得して、最終的に本番環境へのリリースを促進するために使用されます。
 
-#### Criteria for a production-like environment
+#### 本番環境のような環境の基準
 
-* Runs the same operating system as production.
-* Has the same software installed as production.
-* Is sized and configured the same way as production.
-* Mirrors production's networking topology.
-* Simulated production-like load tests are executed following a release to surface any latency or throughput degradation.
+* 本番環境と同じオペレーティングシステムを実行します。
+* 本番環境と同じソフトウェアがインストールされています。
+* 実稼働と同じサイズと構成です。
+* 本番環境のネットワークトポロジをミラーリングします。
+* シミュレートされた本番環境のような負荷テストは、リリース後に実行され、遅延やスループットの低下を明らかにします。
 
-#### Modeling your Release Pipeline
+#### リリースパイプラインのモデリング
 
-It's critical to model your test and release process to establish a common understanding between the application engineers and customer stakeholders. Specifically aligning expectations for how many cloud environments need to be pre-provisioned as well as defining sign-off gate roles and responsibilities.
+テストとリリースのプロセスをモデル化して、アプリケーションエンジニアと顧客の利害関係者の間で共通の理解を確立することが重要です。具体的には、事前にプロビジョニングする必要のあるクラウド環境の数に対する期待を調整し、サインオフゲートの役割と責任を定義します。
 
 ![image](./images/example_release_flow.png)
 
-##### Release Pipeline Modeling Considerations
+##### リリースパイプラインモデリングの考慮事項
 
-* Depict all stages an application change would have to go through before it is released to production.
-* Define all release gate controls.
-* Determine customer-specific Cloud RBAC groups which have the authority to approve release candidates per environment.
+* アプリケーションの変更が本番環境にリリースされる前に実行する必要があるすべての段階を示します。
+* すべてのリリースゲートコントロールを定義します。
+* 環境ごとにリリース候補を承認する権限を持つ顧客固有のクラウドRBACグループを決定します。
 
-#### Release Pipeline Stages
+#### パイプラインステージのリリース
 
-The stages within your release workflow are ultimately testing a version of your application to validate it can be released in accordance to your acceptance criteria. The release pipeline should account for the following conditions:
+リリースワークフロー内の段階では、最終的にアプリケーションのバージョンをテストして、受け入れ基準に従ってリリースできることを検証します。リリースパイプラインは、次の条件を考慮する必要があります。
 
-* Release Selection: The developer carrying out application testing should have the capability to select which release version to deploy to the testing environment.
-* Deployment - Release the application deployable build artifact (*created from the CI stage*) to the target cloud environment.
-* Configuration - Applications should be configured consistently across all your environments. This configuration is applied at the time of deployment.  Sensitive data like app secrets and certificates should be mastered in a fully managed PaaS key and secret store (eg [Key Vault](https://azure.microsoft.com/en-us/services/key-vault/), [KMS](https://aws.amazon.com/kms/)). Any secrets used by the application should be sourced internally within the application itself. Application Secrets should not be exposed within the runtime environment. We encourage 12 Factor principles, especially when it comes to [configuration management](https://12factor.net/config).
-* Data Migration - Pre populate application state and/or data records which is needed for your runtime environment. This may also include test data required for your end-to-end integration test suite.
-* Deployment smoke test. Your smoke test should also verify that your application is pointing to the correct configuration (e.g. production pointing to a UAT Database).
-* Perform any manual or automated acceptance test scenarios.
-* Approve the release gate to promote the application version to the target cloud environment. This promotion should also include the environment's configuration state (e.g. new env settings, feature flags, etc).
+* リリースの選択：アプリケーションテストを実行する開発者は、テスト環境にデプロイするリリースバージョンを選択できる必要があります。
+* デプロイ - アプリケーションのデプロイ可能なビルドアーティファクト（*CIステージから作成*）をターゲットクラウド環境にリリースします。
+* 構成 - アプリケーションは、すべての環境で一貫して構成する必要があります。この構成は、展開時に適用されます。アプリのシークレットや証明書などの機密データは、完全に管理されたPaaSキーとシークレットストア（[Key Vault](https://azure.microsoft.com/en-us/services/key-vault/)、[KMS](https://aws.amazon.com/kms/)など）でマスターする必要があります。アプリケーションで使用されるシークレットは、アプリケーション自体の内部で取得する必要があります。アプリケーションシークレットは、ランタイム環境内で公開しないでください。特に[構成管理](https://12factor.net/config)に関しては、12の要素の原則をお勧めします。
+* データ移行 - ランタイム環境に必要なアプリケーションの状態やデータレコードを事前に入力します。これには、エンドツーエンドの統合テストスイートに必要なテストデータも含まれる場合があります。
+* 展開スモークテスト。スモークテストでは、アプリケーションが正しい構成を指していることも確認する必要があります（たとえば、本番環境がUATデータベースを指している）。
+* 手動または自動の受け入れテストシナリオを実行します。
+* リリースゲートを承認して、アプリケーションバージョンをターゲットクラウド環境にプロモートします。このプロモーションには、環境の構成状態（新しい環境設定、機能フラグなど）も含める必要があります。
 
-#### Live Release Warm Up
+#### ライブリリースウォーミングアップ
 
-A release should be running for a period of time before it's considered live and allowed to accept user traffic. These *warm up* activities may include application server(s) and database(s) pre-fill any dependent cache(s) as well as establish all service connections (eg *connection pool allocations, etc*).
+リリースは、ライブと見なされてユーザートラフィックの受け入れを許可される前に、一定期間実行されている必要があります。これらのウォームアップアクティビティには、アプリケーションサーバーとデータベースが依存キャッシュを事前に入力し、すべてのサービス接続（*接続プールの割り当てなど*）を確立することが含まれる場合があります。
 
-#### Pre-production releases
+#### 実動前リリース
 
-Application release candidates should be deployed to a staging environment similar to production for carrying out final manual/automated tests (*including capacity testing*). Your production and staging / pre-prod cloud environments should be setup at the beginning of your project.
+アプリケーションリリース候補は、最終的な手動/自動テスト（*容量テストを含む*）を実行するために、本番環境と同様のステージング環境に展開する必要があります。実稼働およびステージング/実稼働前のクラウド環境は、プロジェクトの開始時にセットアップする必要があります。
 
-Application warm up should be a quantified measurement that's validated as part of your pre-prod smoke tests.
+アプリケーションのウォームアップは、製品前のスモークテストの一部として検証された定量化された測定値である必要があります。
 
-### Rolling-Back Releases
+### ロールバックリリース
 
-Your release strategy should account for rollback scenarios in the event of unexpected failures following a deployment.
+リリース戦略では、展開後に予期しない障害が発生した場合のロールバックシナリオを考慮する必要があります。
 
-Rolling back releases can get tricky, especially when database record/object changes occur in result of your deployment (*either inadvertently or intentionally*). If there are no data changes which need to be backed out, then you can simply trigger a new release candidate for the last known production version and promote that release along your CD pipeline.
+リリースのロールバックは、特に展開の結果としてデータベースレコード/オブジェクトの変更が発生した場合（*不注意または意図的に*）、注意が必要になる場合があります。バックアウトする必要のあるデータ変更がない場合は、最後の既知の製品バージョンの新しいリリース候補をトリガーし、CDパイプラインに沿ってそのリリースをプロモートするだけです。
 
-For rollback scenarios involving data changes, there are several approaches to mitigating this which fall outside the scope of this guide. Some involve database record versioning, time machining database records / objects, etc. All data files and databases should be backed up prior to each release so they could be restored. The mitigation strategy for this scenario will vary across our projects. The expectation is that this mitigation strategy should be covered as part of your release strategy.
+データ変更を伴うロールバックシナリオの場合、これを軽減するためのいくつかのアプローチがあり、このガイドの範囲外です。一部には、データベースレコードのバージョン管理、データベースレコード/オブジェクトのタイムマシニングなどが含まれます。すべてのデータファイルとデータベースは、復元できるように、各リリースの前にバックアップする必要があります。このシナリオの緩和戦略は、プロジェクトによって異なります。この緩和戦略は、リリース戦略の一部としてカバーする必要があることが期待されます。
 
-Another approach to consider when designing your release strategy is [deployment rings](https://docs.microsoft.com/en-us/azure/devops/migrate/phase-rollout-with-rings?view=azure-devops). This approach simplifies rollback scenarios while limiting the impact of your release to end-users by gradually deploying and validating your changes in production.
+リリース戦略を設計する際に考慮すべきもう1つのアプローチは、[デプロイメントリング](https://docs.microsoft.com/en-us/azure/devops/migrate/phase-rollout-with-rings?view=azure-devops)です。このアプローチは、本番環境での変更を段階的に展開して検証することにより、エンドユーザーへのリリースの影響を制限しながら、ロールバックシナリオを簡素化します。
 
-### Zero Downtime Releases
+### ゼロダウンタイムリリース
 
-A hot deployment follows a process of switching users from one release to another with no impact to the user experience. As an example, Azure managed app services allows developers to validate app changes in a staging deployment slot before swapping it with the production slot. App Service slot swapping can also be fully automated once the source slot is fully warmed up (and [auto swap](https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots#configure-auto-swap) is enabled). Slot swapping also simplifies release rollbacks once a technical operator restores the slots to their pre-swap states.
+ホットデプロイメントは、ユーザーエクスペリエンスに影響を与えることなく、ユーザーをあるリリースから別のリリースに切り替えるプロセスに従います。例として、Azureマネージドアプリサービスを使用すると、開発者は、ステージング展開スロットでアプリの変更を検証してから、本番スロットと交換できます。ソーススロットが完全にウォームアップされると（そして[自動スワップ](https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots#configure-auto-swap)が有効になると）、AppServiceスロットのスワップも完全に自動化できます。スロットスワッピングは、技術オペレーターがスロットをスワッピング前の状態に復元した後のリリースロールバックも簡素化します。
 
-Kubernetes natively supports [rolling updates](https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/).
+Kubernetesは[ローリングアップデート](https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/)をネイティブにサポートしています。
 
-### Blue-Green Deployments
+### ブルー - グリーン展開
 
-Blue / Green is a deployment technique which reduces downtime by running two identical instances of a production environment called *Blue* and *Green*.
+Blue / Greenは、 *Blue*と*Green*と呼ばれる本番環境の2つの同一のインスタンスを実行することにより、ダウンタイムを削減するデプロイメント手法です。
 
-Only one of these environments accepts live production traffic at a given time.
+これらの環境の1つだけが、特定の時間にライブの本番トラフィックを受け入れます。
 
 ![image](./images/blue_green.png)
 
-In the above example, live production traffic is routed to the Green environment. During application releases, the new version is deployed to the blue environment which occurs independently from the Green environment. Live traffic is unaffected from Blue environment releases. You can point your end-to-end test suite against the Blue environment as one of your test checkouts.
+上記の例では、ライブプロダクショントラフィックはグリーン環境にルーティングされます。アプリケーションのリリース中に、新しいバージョンは、グリーン環境とは独立して発生するブルー環境にデプロイされます。ライブトラフィックは、Blue環境のリリースの影響を受けません。テストチェックアウトの1つとして、Blue環境に対してエンドツーエンドのテストスイートを指定できます。
 
-Migrating users to the new application version is as simple as changing the router configuration to direct all traffic to the Blue environment.
+ユーザーを新しいアプリケーションバージョンに移行するのは、ルーター構成を変更してすべてのトラフィックをBlue環境に転送するのと同じくらい簡単です。
 
-This technique simplifies rollback scenarios as we can simply switch the router back to Green.
+この手法では、ルーターをグリーンに戻すだけでよいため、ロールバックシナリオが簡素化されます。
 
-Database providers like Cosmos and Azure SQL natively support data replication to help enable fully synchronized Blue Green database environments.
+CosmosやAzureSQLなどのデータベースプロバイダーは、データレプリケーションをネイティブにサポートして、完全に同期されたBlueGreenデータベース環境を実現します。
 
-### Canary Releasing
+### カナリア リリース
 
-Canary releasing enables development teams to gather faster feedback when deploying new features to production. These releases are rolled out to a subset of production nodes (*where no users are routed to*) to collect early insights around capacity testing and functional completeness and impact.
+カナリアリリースにより、開発チームは、新機能を本番環境にデプロイするときに、より迅速なフィードバックを収集できます。これらのリリースは、本番ノードのサブセット（ユーザーがルーティングされていない）にロールアウトされ、容量テストと機能の完全性および影響に関する初期の洞察を収集します。
 
 ![image](./images/canary_release.png)
 
-Once smoke and capacity tests are completed, you can route a small subset of users to the production nodes hosting the release candidate.
+スモークと容量のテストが完了したら、リリース候補をホストしている本番ノードにユーザーの小さなサブセットをルーティングできます。
 
-Canary releases simplify rollbacks as you can avoid routing users to bad application versions.
+Canaryリリースは、ユーザーを不正なアプリケーションバージョンにルーティングすることを回避できるため、ロールバックを簡素化します。
 
-Try to limit the number of versions of your application running parallel in production, as it can complicate maintenance and monitoring controls.
+保守と監視の制御が複雑になる可能性があるため、本番環境で並行して実行されるアプリケーションのバージョン数を制限するようにしてください。
 
-### Low code solutions
+### ローコードソリューション
 
-Low code solutions have increased their participation in the applications and processes and because of that it is required that a proper conjunction of disciplines improve their development.
+ローコードソリューションは、アプリケーションとプロセスへの参加を増やしました。そのため、分野を適切に組み合わせることで、開発を改善する必要があります。
 
-Here is a guide for [continuous deployment for Low Code Solutions](low-code-solutions/low-code-solutions.md).
+こちらは、[ローコードソリューションの継続的展開](low-code-solutions/low-code-solutions.md)のガイドです。
 
-## References
+## 参考文献
 
-* [Continuous Delivery](https://www.continuousdelivery.com/) by Jez Humble, David Farley.
-* [Continuous integration vs. continuous delivery vs. continuous deployment](https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment)
-* [Deployment Rings](https://docs.microsoft.com/en-us/azure/devops/migrate/phase-rollout-with-rings?view=azure-devops)
+* Jez Humble、David Farleyによる [継続的デリバリー](https://www.continuousdelivery.com/)
+* [継続的インテグレーションvs.継続的デリバリーvs.継続的デプロイ](https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment)
+* [展開リング](https://docs.microsoft.com/en-us/azure/devops/migrate/phase-rollout-with-rings?view=azure-devops)
 
-### Tools
+### ツール
 
-Check out the below tools to help with some CD best practices listed above:
+上記のCDのベストプラクティスに役立つ以下のツールを確認してください。
 
-* [Flux](https://fluxcd.io/docs/concepts/) for gitops
-* [CI/CD workflow using GitOps](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-gitops-ci-cd#example-workflow)
-* [Tekton](https://github.com/tektoncd) for Kubernetes native pipelines
-  * Note Jenkins-X uses Tekton under the hood.
-* [Argo Workflows](https://github.com/argoproj/argo-workflows)
-* [Flagger](https://github.com/fluxcd/flagger) for powerful, Kubernetes native releases including blue/green, canary, and A/B testing.
-* Not quite CD related, but checkout [jsonnet](https://jsonnet.org/), a templating language to reduce boilerplate and increase sharing between your yaml/json manifests.
+* GitOps の [Flux](https://fluxcd.io/docs/concepts/)
+* [GitOpsを使用したCI/CDワークフロー](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-gitops-ci-cd#example-workflow)
+* [Tekton](https://github.com/tektoncd) for Kubernetes ネイティブパイプライン
+  * Jenkins-Xは内部でTektonを使用していることに注意してください。
+* [Argo ワークフロー](https://github.com/argoproj/argo-workflows)
+* 青/緑、カナリア、A/Bテストを含む強力なKubernetesネイティブリリースの[Flagger](https://github.com/fluxcd/flagger)
+* CDに完全に関連しているわけではありませんが、ボイラープレートを減らし、yaml/jsonマニフェスト間の共有を増やすためのテンプレート言語である[jsonnet](https://jsonnet.org/)をチェックアウトします。

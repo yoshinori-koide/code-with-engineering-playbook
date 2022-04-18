@@ -1,45 +1,45 @@
-# Continuous delivery on low-code and no-code solutions
+# ローコードおよびノー​​コードソリューションでの継続的デリバリー
 
-Low-code and no-code platforms have taken a spot in a wide variety of Business Solutions involving process automation, AI models, Bots, Business Applications and Business Intelligence. The scenarios enabled by these platforms are constantly evolving and opening a spot for productive roles. This has been exactly the reason why bringing more professional tools to their development have become necessary such as controlled and automated delivery.
+ローコードおよびノー​​コードプラットフォームは、プロセス自動化、AIモデル、ボット、ビジネスアプリケーション、およびビジネスインテリジェンスを含むさまざまなビジネスソリューションで注目を集めています。これらのプラットフォームによって可能になるシナリオは絶えず進化しており、生産的な役割の場を開いています。これがまさに、制御された自動配信など、より専門的なツールを開発に取り入れることが必要になった理由です。
 
-In the case of Power Platform products, the adoption of a CI/CD process may seem to increase the development complexity to a solution oriented to [Citizen Developers](https://www.gartner.com/en/information-technology/glossary/citizen-developer) it is more important to make the development process more scalable and capable of dealing with new features and bug corrections in a faster way.
+Power Platform製品の場合、CI / CDプロセスの採用により、[市民開発者](https://www.gartner.com/en/information-technology/glossary/citizen-developer)向けのソリューションの開発が複雑になるように思われる場合があります。開発プロセスをよりスケーラブルにし、新しい機能やバグに対処できるようにすることがより重要です。より高速な方法での修正。
 
-## Environments in Power Platform Solutions
+## PowerPlatformソリューションの環境
 
-Environments are spaces where Power Platform Solutions exists. They store, manage and share everything related to the solution like data, apps, chatbots, flows and models. They also serve as containers to separate apps that might have different roles, security requirements or just target audiences. They can be used to create different stages of the solution development process, the expected model of working with environments in a CI/CD process will be as the following image suggests.
+環境は、PowerPlatformSolutionsが存在するスペースです。データ、アプリ、チャットボット、フロー、モデルなど、ソリューションに関連するすべてのものを保存、管理、共有します。また、さまざまな役割、セキュリティ要件、または単に対象ユーザーを対象とする可能性のあるアプリを分離するためのコンテナとしても機能します。これらは、ソリューション開発プロセスのさまざまな段階を作成するために使用できます。CI/ CDプロセスで環境を操作する場合の予想されるモデルは、次の画像が示すとおりです。
 
 ![image](../images/environments.png)
 
-### Environments considerations
+### 環境に関する考慮事項
 
-Whenever an environment has been created, its resources can be only accessed by users within the same tenant which is an Azure Active Directory tenant in fact. When you create an app in an environment that app can only interact with data sources that are also deployed in that same environment, this includes connections, flows and Dataverse databases. This is an important consideration when dealing with a CD process.
+環境が作成されている場合は常に、そのリソースにアクセスできるのは、実際にはAzureActiveDirectoryテナントである同じテナント内のユーザーのみです。アプリが同じ環境にデプロイされているデータソースとのみ対話できる環境でアプリを作成する場合、これには接続、フロー、およびDataverseデータベースが含まれます。これは、CDプロセスを扱う際の重要な考慮事項です。
 
-## Deployment strategy
+## 展開戦略
 
-With three environments already created to represent the stages of the deployment, the goal now is to automate the deployment from one environment to another. Each environment will require the creation of its own solution: business logic and data.
+展開の段階を表すために3つの環境がすでに作成されているため、現在の目標は、ある環境から別の環境への展開を自動化することです。各環境では、ビジネスロジックとデータという独自のソリューションを作成する必要があります。
 
-### Step 1
+### ステップ1
 
-Development team will be working in a **Dev** environment. These environments according to the team could be one for the team or one for each developer.
+開発チームは**開発**環境で作業します。チームに応じたこれらの環境は、チーム用に1つ、または開発者ごとに1つにすることができます。
 
-Once changes have been made, the first step will be packaging the solution and export it into source control.
+変更が加えられたら、最初のステップはソリューションをパッケージ化し、ソース管理にエクスポートすることです。
 
-### Step 2
+### ステップ2
 
-Second step is about the solution, you need to have a managed solution to deploy to other environments such as **Stage** or **Production** so now you should use a JIT environment where you would import your unmanaged solution and export them as managed. These solution files won't be checked into source control but will be stored as a build artifact in the pipeline making them available to be deployed in the release pipeline. This is where the second environment will be used. This second environment will be responsible of receiving the output managed solution coming from the artifact.
+2番目のステップはソリューションに関するものです。**ステージ**や**本番環境**などの他の環境にデプロイするためのマネージドソリューションが必要なので、アンマネージドソリューションをインポートしてマネージドとしてエクスポートするJIT環境を使用する必要があります。これらのソリューションファイルはソース管理にチェックインされませんが、ビルドアーティファクトとしてパイプラインに保存され、リリースパイプラインで展開できるようになります。これは、2番目の環境が使用される場所です。この2番目の環境は、アーティファクトからの出力管理ソリューションを受け取る役割を果たします。
 
-### Step 3
+### ステップ3
 
-Third and final step will import the solution into the production environment, this means that this stage will take the artifact from last step and will export it. When working in this environment you can also version your product in order to make a better trace of the product.
+3番目の最後のステップでは、ソリューションを本番環境にインポートします。これは、このステージが最後のステップからアーティファクトを取得してエクスポートすることを意味します。この環境で作業する場合、製品のトレースを改善するために製品をバージョン管理することもできます。
 
-## Tools
+## ツール
 
-Most used tools to get this process completed are:
+このプロセスを完了するために最もよく使用されるツールは次のとおりです。
 
-* [Power Platform Build Tools](https://marketplace.visualstudio.com/items?itemName=microsoft-IsvExpTools.PowerPlatform-BuildTools).
+* [Power Platform ビルドツール](https://marketplace.visualstudio.com/items?itemName=microsoft-IsvExpTools.PowerPlatform-BuildTools)。
 
-* There is also a non graphical tool that could be used to work with this CD process. The [Power CLI](https://aka.ms/PowerAppsCLI) tool.
+* このCDプロセスを操作するために使用できる非グラフィカルツールもあります。[Power CLI](https://aka.ms/PowerAppsCLI) ツール。
 
-## References
+## 参考文献
 
-[Application lifecycle management with Microsoft Power Platform](https://docs.microsoft.com/en-us/power-platform/alm/)
+[Microsoft Power Platformを使用したアプリケーションライフサイクル管理](https://docs.microsoft.com/en-us/power-platform/alm/)

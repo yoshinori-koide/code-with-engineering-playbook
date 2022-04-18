@@ -1,22 +1,22 @@
-# GitHub Workflows
+# GitHubワークフロー
 
-A workflow is a configurable automated process made up of one or more jobs where each of these jobs can be an action in GitHub. Currently, a YAML file format is supported for defining a workflow in GitHub.
+ワークフローは、1つ以上のジョブで構成される構成可能な自動プロセスであり、これらの各ジョブはGitHubのアクションになります。現在、GitHubでワークフローを定義するためにYAMLファイル形式がサポートされています。
 
-Additional information on GitHub actions and GitHub Workflows in the links posted in the [references](#References) section below.
+以下の[参考文献セクション](#参考文献)に掲載されているリンクのGitHubアクションとGitHubワークフローに関する追加情報。
 
-## Workflow Per Environment
+## 環境ごとのワークフロー
 
-The general approach is to have one pipeline, where the code is built, tested and deployed, and the artifact is then promoted to the next environment, eventually to be deployed into production.
+一般的なアプローチは、1つのパイプラインを使用して、コードをビルド、テスト、およびデプロイし、アーティファクトを次の環境にプロモートして、最終的に本番環境にデプロイすることです。
 
-There are multiple ways in GitHub that an environment setup can be achieved. One way it can be done is to have one workflow for multiple environments, but the complexity increases as additional processes and jobs are added to a workflow, which does not mean it cannot be done for small pipelines. The plus point of having one workflow is that, when an artifact flows from one environment to another the state and environment values between the deployment environments can be passed easily.
+GitHubには、環境設定を実現する方法が複数あります。これを実行する1つの方法は、複数の環境に対して1つのワークフローを使用することですが、ワークフローにプロセスとジョブが追加されると複雑さが増します。これは、小さなパイプラインに対しては実行できないことを意味しません。1つのワークフローを持つことの利点は、アーティファクトが1つの環境から別の環境に流れるときに、デプロイメント環境間の状態と環境の値を簡単に渡すことができることです。
 
 ![Workflow-Designs-Dependent-Workflows](images/Workflow-Designs-Dependent-Workflows.png)
 
-One way to get around the complexity of a single workflow is to have separate workflows for different environments, making sure that only the artifacts created and validated are promoted from one environment to another, as well as, the workflow is small enough, to debug any issues seen in any of the workflows. In this case, the state and environment values need to be passed from one deployment environment to another. Multiple workflows also helps to keep the deployments to the environments independent thus reducing the time to deploy and find issues earlier than later in the process. Also, since the environments are independent of each other, any failures in deploying to one environment does not block deployments to other environments. One tradeoff in this method, is that with different workflows for each environment, the maintenance increases as the complexity of workflows increase over time.
+単一のワークフローの複雑さを回避する1つの方法は、異なる環境に別々のワークフローを用意し、作成および検証されたアーティファクトのみが1つの環境から別の環境にプロモートされるようにすることです。また、ワークフローは十分に小さいため、ワークフローのいずれかで見られる問題。この場合、状態と環境の値を1つのデプロイメント環境から別のデプロイメント環境に渡す必要があります。複数のワークフローは、環境への展開を独立させておくのにも役立ちます。これにより、展開してプロセスの後半よりも早く問題を見つける時間を短縮できます。また、環境は互いに独立しているため、1つの環境への展開で障害が発生しても、他の環境への展開がブロックされることはありません。この方法のトレードオフの1つは、環境ごとにワークフローが異なることです。
 
 ![Workflow-Designs-Independent-Workflows](images/Workflow-Designs-Independent-Workflows.png)
 
-## References
+## 参考文献
 
 - [GitHub Actions](https://docs.github.com/en/actions)
 - [GitHub Workflows](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)

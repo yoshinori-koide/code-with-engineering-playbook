@@ -1,54 +1,48 @@
-# Secrets Management
+# シークレットマネジメント
 
-Secrets Management refers to the way in which we protect configuration settings and other sensitive data which, if
-made public, would allow unauthorized access to resources. Examples of secrets are usernames, passwords, api keys, SAS
-tokens etc.
+シークレット管理とは、構成設定やその他の機密データを保護する方法を指します。これらのデータは、公開された場合、リソースへの不正アクセスを許可します。シークレットの例としては、ユーザー名、パスワード、APIキー、SASトークンなどがあります。
 
-We should assume any repo we work on may go public at any time and protect our secrets, even if
-the repo is initially private.
+作業中のリポジトリは、最初は非公開であっても、いつでも公開され、秘密を保護できると想定する必要があります。
 
-## General Approach
+## 一般的方法
 
-The general approach is to keep secrets in separate configuration files that are not checked in
-to the repo. Add the files to the [.gitignore](https://git-scm.com/docs/gitignore) to prevent that they're checked in.
+一般的なアプローチは、リポジトリにチェックインされていない個別の構成ファイルにシークレットを保持することです。ファイルを[.gitignore](https://git-scm.com/docs/gitignore)に追加して、チェックインされないようにします。
 
-Each developer maintains their own local version of the file or, if required, circulate them via private channels e.g. a Teams chat.
+各開発者は、ファイルの独自のローカルバージョンを維持するか、必要に応じて、Teamsチャットなどのプライベートチャネルを介してファイルを配布します。
 
-In a production system, assuming Azure, create the secrets in the environment of the running process. We can do this by manually editing the 'Applications Settings' section of the resource, but a script using
-the Azure CLI to do the same is a useful time-saving utility. See [az webapp config appsettings](https://docs.microsoft.com/en-us/cli/azure/webapp/config/appsettings?view=azure-cli-latest) for more details.
+本番システムでは、Azureを想定して、実行中のプロセスの環境にシークレットを作成します。これは、リソースの[アプリケーション設定]セクションを手動で編集することで実行できますが、Azure CLIを使用して同じことを行うスクリプトは、時間を節約できる便利なユーティリティです。詳細については、[az webapp config appsettings](https://docs.microsoft.com/en-us/cli/azure/webapp/config/appsettings?view=azure-cli-latest)を参照してください。
 
-It's best practice to maintain separate secrets configurations for each environment that you run. e.g. dev, test, prod, local etc
+実行する環境ごとに個別のシークレット構成を維持することをお勧めします。例：dev、test、prod、localなど
 
-The [secrets-per-branch recipe](./recipes/azure-devops/secrets-per-branch.md) describes a simple way to manage separate secrets configurations for each environment.
+[ブランチごとのシークレットのレシピ](./recipes/azure-devops/secrets-per-branch.md)では、環境ごとに個別のシークレット構成を管理する簡単な方法について説明しています。
 
-> Note: even if the secret was only pushed to a feature branch and never merged, it's still a part of the git history. Follow [these instructions](https://help.github.com/en/github/authenticating-to-github/removing-sensitive-data-from-a-repository) to remove any sensitive data and/or regenerate any keys and other sensitive information added to the repo. If a key or secret made it into the code base, rotate the key/secret so that it's no longer active
+> 注：シークレットが機能ブランチにプッシュされただけでマージされなかったとしても、それはgit履歴の一部です。[これらの手順](https://help.github.com/en/github/authenticating-to-github/removing-sensitive-data-from-a-repository)に従って、機密データを削除したり、リポジトリに追加されたキーやその他の機密情報を再生成したりします。キーまたはシークレットがコードベースに入った場合は、キー/シークレットを回転させてアクティブでなくなるようにします
 
-## Keeping Secrets Secret
+## 秘密を守る
 
-The care taken to protect our secrets applies both to how we get and store them, but also to how we use them.
+私たちの秘密を保護するために取られた注意は、私たちがそれらを取得して保存する方法だけでなく、私たちがそれらを使用する方法にも適用されます。
 
-- **Don't log secrets**
-- Don't put them in reporting
-- Don't send them to other applications, as part of URLs, forms, or in any other way other than to make a request to the service that requires that secret
+- **秘密を記録しない**
+- レポートに入れない
+- URL、フォームの一部として、またはその秘密を必要とするサービスにリクエストを行う以外の方法で、他のアプリケーションに送信しない
 
-## Enhanced-Security Applications
+## 強化されたセキュリティアプリケーション
 
-The techniques outlined below provide *good* security and a common pattern for a wide range of languages. They rely on
-the fact that Azure keeps application settings (the environment) encrypted until your app runs.
+以下に概説する手法は、幅広い言語に*優れた*セキュリティと共通のパターンを提供します。Azureは、アプリが実行されるまでアプリケーション設定（環境）を暗号化しておくという事実に依存しています。
 
-They do *not* prevent secrets from existing in plaintext in memory at runtime. In particular, for garbage collected languages those values may exist for longer than the lifetime of the variable, and may be visible when debugging a memory dump of the process.
+実行時にメモリ内のプレーンテキストにシークレットが存在することを*妨げません*。特に、ガベージコレクションされた言語の場合、これらの値は変数の存続期間より長く存在する可能性があり、プロセスのメモリダンプをデバッグするときに表示される可能性があります。
 
-> If you are working on an application with enhanced security requirements you should consider using additional techniques to maintain encryption on secrets throughout the application lifetime.
+> セキュリティ要件が強化されたアプリケーションで作業している場合は、アプリケーションの存続期間を通じてシークレットの暗号化を維持するために、追加の手法を使用することを検討する必要があります。
 
-Always rotate encryption keys on a regular basis.
+暗号化キーは常に定期的にローテーションしてください。
 
-## Techniques for Secrets Management
+## シークレット管理のテクニック
 
-These techniques make the loading of secrets  transparent to the developer.
+これらの手法により、シークレットのロードが開発者に対して透過的になります。
 
 ### C#/.NET
 
-Use the [`file`](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/appsettings/appsettings-element-for-configuration) attribute of the appSettings element to load secrets from a local file.
+appSettings要素の[`file`](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/appsettings/appsettings-element-for-configuration)属性を使用して、ローカルファイルからシークレットをロードします。
 
 ``` XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -63,7 +57,7 @@ Use the [`file`](https://docs.microsoft.com/en-us/dotnet/framework/configure-app
 </configuration>
 ```
 
-Access secrets:
+アクセスの秘密：
 
 ```C#
 static void Main(string[] args)
@@ -72,18 +66,18 @@ static void Main(string[] args)
 }
 ```
 
-When running in Azure, ConfigurationManager will load these settings from the process environment. We don't need to upload secrets files to the server or change any code.
+Azureで実行している場合、ConfigurationManagerはこれらの設定をプロセス環境から読み込みます。シークレットファイルをサーバーにアップロードしたり、コードを変更したりする必要はありません。
 
 ### Node
 
-Store secrets in environment variables or in a `.env` file
+シークレットを環境変数または`.env`ファイルに保存します
 
 ```bash
 $ cat .env
 MY_SECRET=mySecret
 ```
 
-Use the [dotenv](https://www.npmjs.com/package/dotenv) package to load and access environment variables
+[dotenv](https://www.npmjs.com/package/dotenv)パッケージを使用して、環境変数をロードしてアクセスします
 
 ```node
 require('dotenv').config()
@@ -92,14 +86,14 @@ let mySecret = process.env("MY_SECRET")
 
 ### Python
 
-Store secrets in environment variables or in a `.env` file
+シークレットを環境変数または`.env`ファイルに保存します
 
 ```bash
 $ cat .env
 MY_SECRET=mySecret
 ```
 
-Use the [dotenv](https://pypi.org/project/python-dotenv/) package to load and access environment variables
+[dotenv](https://pypi.org/project/python-dotenv/)パッケージを使用して、環境変数をロードしてアクセスします
 
 ```Python
 import os
@@ -110,7 +104,7 @@ load_dotenv()
 my_secret = os.getenv('MY_SECRET')
 ```
 
-Another good library for reading environment variables is `environs`
+環境変数を読み取るためのもう1つの優れたライブラリは `environs`
 
 ```Python
 from environs import Env
@@ -121,17 +115,17 @@ env.read_env()
 my_secret = os.environ["MY_SECRET"]
 ```
 
-### Databricks
+### データブリックス
 
-Databricks has the option of using dbutils as a secure way to retrieve credentials and not reveal them within the notebooks running on Databricks
+Databricksには、クレデンシャルを取得するための安全な方法としてdbutilsを使用し、Databricksで実行されているノートブック内でそれらを公開しないオプションがあります。
 
-The following steps lay out a clear pathway to creating new secrets and then utilizing them within a notebook on Databricks:
+次の手順は、新しいシークレットを作成し、Databricksのノートブック内でそれらを利用するための明確な経路を示しています。
 
-1. [Install and configure the Databricks CLI](https://docs.databricks.com/user-guide/dev-tools/databricks-cli.html#set-up-the-cli) on your local machine
-2. [Get the Databricks personal access token](https://docs.databricks.com/api/latest/authentication.html#token-management)
-3. [Create a scope for the secrets](https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html#create-a-databricks-backed-secret-scope)
-4. [Create secrets](https://docs.azuredatabricks.net/user-guide/secrets/secrets.html)
+1. ローカルマシンに[DatabricksCLIをインストールして構成](https://docs.databricks.com/user-guide/dev-tools/databricks-cli.html#set-up-the-cli)します
+2. [Databricksパーソナルアクセストークンを取得する](https://docs.databricks.com/api/latest/authentication.html#token-management)
+3. [シークレットのスコープを作成する](https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html#create-a-databricks-backed-secret-scope)
+4. [シークレットを作成する](https://docs.azuredatabricks.net/user-guide/secrets/secrets.html)
 
-### Validation
+### 検証
 
-Automated credential scanning can be performed on the code regardless of the programming language. Read more about it [here](../../continuous-integration/dev-sec-ops/secret-management/credential_scanning.md)
+自動クレデンシャルスキャンは、プログラミング言語に関係なく、コードに対して実行できます。詳細は[こちら](../../continuous-integration/dev-sec-ops/secret-management/credential_scanning.md)

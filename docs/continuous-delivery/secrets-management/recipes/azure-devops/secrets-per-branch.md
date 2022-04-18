@@ -1,12 +1,12 @@
-# Azure DevOps: Managing Settings on a Per-Branch Basis
+# Azure DevOps：ブランチごとの設定の管理
 
-When using [Azure DevOps Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) for CI/CD, it's convenient to leverage the built-in [pipeline variables](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables) for [secrets management](../../README.md), but using pipeline variables for secrets management has its disadvantages:
+CI/CDに[Azure DevOps Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) を使用する場合、シークレット管理に組み込みの[パイプライン変数](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables) を利用すると便利ですが、[シークレット管理](../../README.md)にパイプライン変数を使用することには欠点があります。
 
-- *Pipeline variables are managed outside the code that references them.* This makes it easy to introduce drift between the source code and the secrets, e.g. adding a reference to a new secret in code but forgetting to add it to the pipeline variables (leads to confusing build breaks), or deleting a reference to a secret in code and forgetting to remote it from the pipeline variables (leads to confusing pipeline variables).
+- *パイプライン変数は、それらを参照するコードの外部で管理されます*。これにより、ソースコードとシークレットの間にドリフトを簡単に導入できます。たとえば、コードに新しいシークレットへの参照を追加するが、パイプライン変数に追加するのを忘れる（ビルドブレークを混乱させる）、またはシークレットへの参照を削除するなどです。コードを記述し、パイプライン変数からリモート化するのを忘れると（パイプライン変数が混乱する原因になります）。
 
-- *Pipeline variables are global shared state.* This can lead to confusing situations and hard to debug problems when developers make concurrent changes to the pipeline variables which may override each other. Having a single global set of pipeline variables also makes it impossible for secrets to vary per environment (e.g. when using a branch-based deployment model where 'master' deploys using the production secrets, 'development' deploys using the staging secrets, and so forth).
+- *パイプライン変数はグローバル共有状態です*。これは、開発者がパイプライン変数に同時に変更を加えて相互にオーバーライドする場合に、混乱を招き、問題をデバッグするのが困難になる可能性があります。パイプライン変数の単一のグローバルセットがあると、環境ごとにシークレットを変更することもできなくなります（たとえば、「マスター」が本番シークレットを使用してデプロイする、「開発」がステージングシークレットを使用してデプロイするブランチベースのデプロイメントモデルを使用する場合など）。 
 
-A solution to these limitations is to manage secrets in the Git repository jointly with the project's source code. As described in [secrets management](../../README.md), don't check secrets into the repository in plain text. Instead we can add an encrypted version of our secrets to the repository and enable our CI/CD agents and developers to decrypt the secrets for local usage with some pre-shared key. This gives us the best of both worlds: a secure storage for secrets as well as side-by-side management of secrets and code.
+これらの制限に対する解決策は、プロジェクトのソースコードと一緒にGitリポジトリ内のシークレットを管理することです。[シークレット管理](../../README.md)で説明されているように、プレーンテキストでシークレットをリポジトリにチェックインしないでください。代わりに、暗号化されたバージョンのシークレットをリポジトリに追加し、CI/CDエージェントと開発者が事前共有キーを使用してローカルで使用するためにシークレットを復号化できるようにすることができます。これにより、シークレットの安全なストレージと、シークレットとコードの並列管理という、両方の長所が得られます。
 
 ```sh
 # first, make sure that we never commit our plain text secrets and generate a strong encryption key
@@ -28,7 +28,7 @@ git add .env.enc .env.template
 git commit -m "Update secrets"
 ```
 
-When running the CI/CD, the build server can now access the secrets by decrypting them. E.g. for Azure DevOps, configure `ENCRYPTION_KEY` as a [secret pipeline variable](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables#secret-variables) and then add the following step to `azure-pipelines.yml`:
+CI / CDを実行しているときに、ビルドサーバーはシークレットを復号化してアクセスできるようになりました。たとえば、Azure DevOpsの場合、`ENCRYPTION_KEY`を[シークレットパイプライン変数](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables#secret-variables)として構成してから、`azure-pipelines.yml`に次の手順を追加します。
 
 ```yaml
 steps:
@@ -36,4 +36,4 @@ steps:
     displayName: Decrypt secrets
 ```
 
-You can also use [variable groups linked directly to Azure key vault](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml#link-secrets-from-an-azure-key-vault) for your pipelines to manage all secrets in one location.
+パイプラインの[Azure key vault に直接リンクされた変数グループ](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml#link-secrets-from-an-azure-key-vault)を使用して、すべてのシークレットを1つの場所で管理することもできます。

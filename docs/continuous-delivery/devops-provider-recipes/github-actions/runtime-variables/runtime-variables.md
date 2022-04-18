@@ -1,57 +1,57 @@
-# Runtime Variables in GitHub Actions
+# GitHubアクションのランタイム変数
 
-## Objective
+## 目的
 
-While GitHub Actions is a popular choice for writing and running CI/CD pipelines, especially for open source projects hosted on GitHub, it lacks specific quality of life features found in other CI/CD environments. One key feature that GitHub Actions has not yet implemented is the ability to **mock and inject runtime variables** into a workflow, in order to test the pipeline itself.
+GitHub Actionsは、CI / CDパイプラインの作成と実行、特にGitHubでホストされるオープンソースプロジェクトで人気のある選択肢ですが、他のCI/CD環境に見られる特定の生活の質の機能が欠けています。GitHub Actionsがまだ実装していない重要な機能の1つは、パイプライン自体をテストするために、**ランタイム変数をモックしてワークフローに挿入する機能**です。
 
-This provides a bridge between a pre-existing feature in Azure DevOps, and one that has not yet released inside GitHub Actions.
+これにより、Azure DevOpsの既存の機能と、GitHubActions内でまだリリースされていない機能との間のブリッジが提供されます。
 
-## Target Audience
+## ターゲットオーディエンス
 
-This guide assumes that you are familiar with CI/CD, and understand the security implications of CI/CD pipelines. We also assume basic knowledge with GitHub Actions, including how to write and run a basic CI/CD pipeline, checkout repositories inside the action, use Marketplace Actions with version control, etc.
+このガイドは、CI / CDに精通しており、CI/CDパイプラインのセキュリティへの影響を理解していることを前提としています。また、基本的なCI / CDパイプラインの作成と実行、アクション内のリポジトリのチェックアウト、バージョン管理でのマーケットプレイスアクションの使用など、GitHubアクションに関する基本的な知識も前提としています。
 
-We assume that you, as a CI/CD engineer, want to inject environment variables or environment flags into your pipelines and workflows in order to test them, and are using GitHub Actions to accomplish this.
+CI / CDエンジニアとして、パイプラインとワークフローに環境変数または環境フラグを挿入してテストし、GitHubアクションを使用してこれを実現していることを前提としています。
 
-## Usage Scenario
+## 使用シナリオ
 
-Many integration or end-to-end workflows require specific environment variables that are only available at runtime. For example, a workflow might be doing the following:
+多くの統合またはエンドツーエンドのワークフローには、実行時にのみ使用可能な特定の環境変数が必要です。たとえば、ワークフローは次のことを実行している可能性があります。
 
 ![Workflow Diagram](images/workflow-diagram.png)
 
-In this situation, testing the pipeline is extremely difficult without having to make external calls to the resource. In many cases, making external calls to the resource can be expensive or time-consuming, significantly slowing down inner loop development.
+この状況では、リソースへの外部呼び出しを行わずにパイプラインをテストすることは非常に困難です。多くの場合、リソースへの外部呼び出しは、コストまたは時間がかかる可能性があり、内部ループの開発が大幅に遅くなります。
 
-Azure DevOps, as an example, offers a way to define pipeline variables on a manual trigger:
+例として、Azure DevOpsは、手動トリガーでパイプライン変数を定義する方法を提供します。
 
 ![AzDo Example](images/AzDoExample.PNG)
 
-GitHub Actions does not do so yet.
+GitHubActionsはまだそうしていません。
 
-## Solution
+## 解決
 
-To workaround this, the easiest solution is to add runtime variables to either commit messages or the PR Body, and `grep` for the variable. GitHub Actions provides `grep` functionality natively using a `contains` function, which is what we shall be specifically using.
+これを回避するための最も簡単な解決策は、コミットメッセージまたはPR本文のいずれかに、および変数にランタイム変数を追加し、`grep`することです。GitHub Actionsは、`contains` 関数をネイティブに使用して`grep` 機能を提供します。これを具体的に使用します。
 
-In scope:
+範囲内：
 
-- We will scope this to injecting a single environment variable into a pipeline, with a previously known key and value.
+- これをスコープして、既知のキーと値を使用して単一の環境変数をパイプラインに注入します。
 
-Out of Scope:
+範囲外：
 
-- While the solution is obviously extensible using shell scripting or any other means of creating variables, this solution serves well as the proof of the basic concept. No such scripting is provided in this guide.
-- Additionally, teams may wish to formalize this process using a PR Template that has an additional section for the variables being provided. This is not however included in this guide.
+- このソリューションは、シェルスクリプトやその他の変数作成手段を使用して明らかに拡張可能ですが、このソリューションは基本的な概念の証明として役立ちます。このガイドでは、そのようなスクリプトは提供されていません。
+- さらに、チームは、提供されている変数の追加セクションがあるPRテンプレートを使用してこのプロセスを形式化することを望む場合があります。ただし、これはこのガイドには含まれていません。
 
-> Security Warning:  
-> **This is NOT for injecting secrets** as the commit messages and PR body can be retrieved by a third party, are stored in `git log`, and can otherwise be read by a malicious individual using a variety of tools. Rather, this is for testing a workflow that needs simple variables to be injected into it, as above.  
-> **If you need to retrieve secrets or sensitive information**, use the [Github Action for Azure Key Vault](https://github.com/marketplace/actions/azure-key-vault-get-secrets) or some other similar secret storage and retrieval service.
+> セキュリティ警告：
+> **これはシークレットを挿入するためのものではありません。** コミットメッセージとPR本文はサードパーティによって取得され、`git log`に保存され、悪意のある個人がさまざまなツールを使用して読み取る可能性があるためです。むしろ、これは、上記のように、単純な変数を注入する必要があるワークフローをテストするためのものです。
+> **シークレットまたは機密情報を取得する必要がある場合**は、[Github Action for Azure Key Vault](https://github.com/marketplace/actions/azure-key-vault-get-secrets)またはその他の同様のシークレットストレージおよび取得サービスを使用してください。
 
-## Commit Message Variables
+## メッセージ変数のコミット
 
-How to inject a single variable into the environment for use, with a **specified key and value.** In this example, the key is `COMMIT_VAR` and the value is `[commit var]`.
+**指定されたキーと値**を使用して、使用するために単一の変数を環境に注入する方法。この例では、キーは`COMMIT_VAR`であり、値は`[commit var]`です。
 
-Pre-requisites:
+前提条件：
 
-- Pipeline triggers are correctly set up to trigger on pushed commits (Here we will use `actions-test-branch` as the branch of choice)
+- パイプライントリガーは、プッシュされたコミットでトリガーするように正しく設定されています（ここで`actions-test-branch`は選択のブランチとして使用します）
 
-Code Snippet:
+コードスニペット：
 
 ```yaml
 on:
@@ -83,11 +83,12 @@ jobs:
         run: echo "Flag is available and true"
 ```
 
-Available as a .YAML [here](examples/commit-example.yaml).
+[ここ](amples/commit-example.yaml)で.YAMLとして利用できます。
 
-Code Explanation:
+コードの説明：
 
-The first part of the code is setting up Push triggers on the working branch and checking out the repository, so we will not explore that in detail.
+コードの最初の部分は、作業ブランチにプッシュトリガーを設定し、リポジトリをチェックアウトすることです。そのため、これについては詳しく説明しません。
+
 
 ```yaml
 - name: "Set flag from Commit"
@@ -95,9 +96,9 @@ The first part of the code is setting up Push triggers on the working branch and
     COMMIT_VAR: ${{ contains(github.event.head_commit.message, '[commit var]') }}
 ```
 
-This is a named step inside the only Job in our GitHub Actions pipeline. Here, we set an environment variable for the step: Any code or action that the step calls will now have the environment variable available.
+これは、GitHubActionsパイプラインの唯一のジョブ内の名前付きステップです。ここでは、ステップの環境変数を設定します。ステップが呼び出すすべてのコードまたはアクションで、環境変数を使用できるようになります。
 
-`contains` is a GitHub Actions function that is available by default in all workflows. It returns a Boolean `true` or `false` value. In this situation, it checks to see if the commit message on the last push, accessed using `github.event.head_commit.message`. The `${{...}}` is necessary to use the GitHub Context and make the functions and `github.event` variables available for the command.
+`contains`は、すべてのワークフローでデフォルトで使用できるGitHubアクション関数です。`true`または`false`のブール値を返します。この状況では、`github.event.head_commit.message`を使用してアクセスされた最後のプッシュのコミットメッセージかどうかを確認します。`${{...}}`は、GitHubコンテキストを使用し、関数と`github.event`変数をコマンドで使用できるようにするために必要です。
 
 ```yaml
 run: |
@@ -110,9 +111,9 @@ run: |
   fi
 ```
 
-The `run` command here checks to see if the `COMMIT_VAR` variable has been set to `true`, and if it has, it sets a secondary flag to true, and echoes this behavior. It does the same if the variable is `false`.
+`run`コマンドは、`COMMIT_VAR`変数が`true`に設定されているかどうかを確認し、設定されている場合は、セカンダリフラグをtrueに設定して、この動作をエコーし​​ます。変数が`false`の場合も同じです。
 
-The specific reason to do this is to allow for the `flag` variable to be used in further steps instead of having to reuse the `COMMIT_VAR` in every step. Further, it allows for the flag to be used in the `if` step of an action, as in the next part of the snippet.
+これを行う具体的な理由は、すべてのステップで`COMMIT_VAR`を再利用する代わりに、flag変数を以降のステップで使用できるようにするためです。さらに、スニペットの次の部分のように、アクションの`if`ステップでフラグを使用できるようにします。
 
 ```yaml
 - name: "Use flag if true"
@@ -120,15 +121,15 @@ The specific reason to do this is to allow for the `flag` variable to be used in
   run: echo "Flag is available and true"
 ```
 
-In this part of the snippet, the next step in the same job is now using the `flag` that was set in the previous step. This allows the user to:
+スニペットのこの部分では、同じジョブの次のステップで、前のステップで設定した`flag`を使用しています。これにより、ユーザーは次のことができます。
 
-1. Reuse the flag instead of repeatedly accessing the GitHub Context
-2. Set the flag using multiple conditions, instead of just one. For example, a different step might ALSO set the flag to `true` or `false` for different reasons.
-3. Change the variable in exactly one place instead of having to change it in multiple places
+1. GitHubコンテキストに繰り返しアクセスする代わりに、フラグを再利用します
+2. 1つだけではなく、複数の条件を使用してフラグを設定します。たとえば、別のステップでフラグを設定しtrueたりfalse、別の理由で設定したりすることもできます。
+3. 複数の場所で変数を変更するのではなく、正確に1つの場所で変数を変更します
 
-Shorter Alternative:
+より短い代替案：
 
-The "Set flag from commit" step can be simplified to the following in order to make the code much shorter, although not necessarily more readable:
+「コミットからフラグを設定」ステップは、コードをはるかに短くするために次のように簡略化できますが、必ずしも読みやすくなるとは限りません。
 
 ```yaml
 - name: "Set flag from Commit"
@@ -139,11 +140,11 @@ The "Set flag from commit" step can be simplified to the following in order to m
     echo "set flag to ${COMMIT_VAR}"
 ```
 
-Usage:
+使用法：
 
-Including the Variable
+変数を含む
 
-1. Push to branch `master`:
+1. `master`ブランチにプッシュ:
 
    ```cmd
    > git add.
@@ -151,13 +152,13 @@ Including the Variable
    > git push
    ```
 
-2. This triggers the workflow (as will any push). As the `[commit var]` is in the commit message, the `${COMMIT_VAR}` variable in the workflow will be set to `true` and result in the following:
+2. これにより、ワークフローがトリガーされます（他のプッシュも同様です）。`[commit var]`はコミットメッセージにあるため、`${COMMIT_VAR}`のワークフロー変数は`true`に設定され、結果は次のようになります。
 
    ![Commit True Scenario](images/CommitTrue.PNG)
 
-Not Including the Variable
+変数を含まない
 
-1. Push to branch `master`:
+1. `master`ブランチにプッシュ:
 
    ```cmd
    > git add.
@@ -165,21 +166,21 @@ Not Including the Variable
    > git push
    ```
 
-2. This triggers the workflow (as will any push). As the `[commit var]` is **not** in the commit message, the `${COMMIT_VAR}` variable in the workflow will be set to `false` and result in the following:
+2. これにより、ワークフローがトリガーされます（他のプッシュも同様です）。`[commit var]`はコミットメッセージに**含まれていない**ため、`${COMMIT_VAR}`のワークフロー変数は`false`に設定され、結果は次のようになります。
 
    ![Commit False Scenario](images/CommitFalse.PNG)
 
-## PR Body Variables
+## PRボディ変数
 
-When a PR is made, the PR Body can also be used to set up variables. These variables can be made available to all the workflow runs that stem from that PR, which can help ensure that commit messages are more informative and less cluttered, and reduces the work on the developer.
+PRが作成されると、PR本文を使用して変数を設定することもできます。これらの変数は、そのPRに由来するすべてのワークフロー実行で利用できるようにすることができます。これにより、コミットメッセージがより有益で雑然としなくなり、開発者の作業が軽減されます。
 
-Once again, this for an expected key and value. In this case, the key is `PR_VAR` and the value is `[pr var]`.
+繰り返しますが、これは予想されるキーと値です。この場合、キーは`PR_VAR`であり、値は`[pr var]`です。
 
-Pre-requisites:
+前提条件：
 
-- Pipeline triggers are correctly set up to trigger on a pull request into a specific branch. (Here we will use master as the destination branch.)
+- パイプライントリガーは、特定のブランチへのプルリクエストでトリガーするように正しく設定されています。（ここでは、マスターを宛先ブランチとして使用します。）
 
-Code Snippet:
+コードスニペット：
 
 ```yaml
 on:
@@ -211,11 +212,11 @@ jobs:
         run: echo "Flag is available and true"
 ```
 
-Available as a .YAML [here](examples/pr-example.yaml).
+[ここ](examples/pr-example.yaml)で.YAMLとして利用できます。
 
-Code Explanation:
+コードの説明：
 
-The first part of the YAML file simply sets up the Pull Request Trigger. The majority of the following code is identical, so we will only explain the differences.
+YAMLファイルの最初の部分は、プルリクエストトリガーを設定するだけです。次のコードの大部分は同一であるため、違いについてのみ説明します。
 
 ```yaml
 - name: "Set flag from PR"
@@ -223,11 +224,11 @@ The first part of the YAML file simply sets up the Pull Request Trigger. The maj
     PR_VAR: ${{ contains(github.event.pull_request.body, '[pr var]') }}
 ```
 
-In this section, the `PR_VAR` environment variable is set to `true` or `false` depending on whether the `[pr var]` string is in the PR Body.
+このセクションでは、`PR_VAR`環境変数は、`[pr var]`文字列がPR本文にあるかどうかで`true`もしくは`false`が設定されます。
 
-Shorter Alternative:
+より短い代替案：
 
-Similarly to the above, the YAML step can be simplified to the following in order to make the code much shorter, although not necessarily more readable:
+上記と同様に、コードをはるかに短くするために、YAMLステップを次のように簡略化できますが、必ずしも読みやすくなるとは限りません。
 
 ```yaml
 - name: "Set flag from PR"
@@ -238,34 +239,34 @@ Similarly to the above, the YAML step can be simplified to the following in orde
   echo "set flag to ${PR_VAR}"
 ```
 
-Usage:
+使用法：
 
-1. Create a Pull Request into `master`, and include the expected variable in the body somewhere:
+1. `master`にプルリクエストを作成し、本文のどこかに期待される変数を含めます。
 
    ![PR Example](images/PRExample.PNG)
 
-2. The GitHub Action will trigger automatically, and since `[pr var]` is present in the PR Body, it will set the `flag` to true, as shown below:
+2. GitHubアクションは自動的にトリガーされ、`[pr var]`がPR本文に存在するため、flagは以下に示すように、trueに設定します。
 
    ![PR True](images/PRTrue.PNG)
 
-## Real World Scenarios
+## 実世界のシナリオ
 
-There are many real world scenarios where controlling environment variables can be extremely useful. Some are outlined below:
+環境変数の制御が非常に役立つ現実世界のシナリオはたくさんあります。いくつかの概要を以下に示します。
 
-### Avoiding Expensive External Calls
+### 高価な外線通話の回避
 
-Developer A is in the process of writing and testing an integration pipeline. The integration pipeline needs to make a call to an external service such as Azure Data Factory or Databricks, wait for a result, and then echo that result. The workflow could look like this:
+開発者Aは、統合パイプラインの作成とテストを行っています。統合パイプラインは、Azure Data FactoryやDatabricksなどの外部サービスを呼び出し、結果を待ってから、その結果をエコーする必要があります。ワークフローは次のようになります。
 
 ![Workflow A](images/DevAWorkflow.png)
 
-The workflow inherently takes time and is expensive to run, as it involves maintaining a Databricks cluster while also waiting for the response. This external dependency can be removed by essentially mocking the response for the duration of writing and testing other parts of the workflow, and mocking the response in situations where the actual response either does not matter, or is not being directly tested.
+ワークフローは本質的に時間とコストがかかります。これは、応答を待つ間、Databricksクラスターを維持する必要があるためです。この外部依存関係は、ワークフローの他の部分の記述とテストの期間中、基本的に応答をモックし、実際の応答が重要でないか、直接テストされていない状況で応答をモックすることによって取り除くことができます。
 
-### Skipping Long CI processes
+### 長いCIプロセスをスキップする
 
-Developer B is in the process of writing and testing a CI/CD pipeline. The pipeline has multiple CI stages, each of which runs sequentially. The workflow might look like this:
+開発者Bは、CI/CDパイプラインの作成とテストを行っています。パイプラインには複数のCIステージがあり、それぞれが順番に実行されます。ワークフローは次のようになります。
 
 ![Workflow B](images/DevBWorkflow.png)
 
-In this case, each CI stage needs to run before the next one starts, and errors in the middle of the process can cause the entire pipeline to fail. While this might be intended behavior for the pipeline in some situations (Perhaps you don't want to run a more involved, longer build or run a time-consuming test coverage suite if the CI process is failing), it means that steps need to be commented out or deleted when testing the pipeline itself.
+この場合、各CIステージは次のステージが開始する前に実行する必要があり、プロセスの途中でエラーが発生すると、パイプライン全体が失敗する可能性があります。これは、状況によってはパイプラインの意図された動作である可能性があります（CIプロセスが失敗した場合に、より複雑で、より長いビルドを実行したり、時間のかかるテストカバレッジスイートを実行したりしたくない場合もあります）。パイプライン自体をテストするときにコメントアウトまたは削除されます。
 
-Instead, an additional step could check for a `[skip ci $N]` tag in either the commit messages or PR Body, and skip a specific stage of the CI build. This ensures that the final pipeline does not have changes committed to it that render it broken, as sometimes happens when commenting out/deleting steps. It additionally allows for a mechanism to repeatedly test individual steps by skipping the others, making developing the pipeline significantly easier.
+代わりに、追加の手順で、コミットメッセージまたはPR本文のいずれかで`[skip ci $N]`タグをチェックし、CIビルドの特定の段階をスキップできます。これにより、ステップをコメントアウト/削除するときに時々発生するように、最終パイプラインに変更がコミットされて壊れることがなくなります。さらに、他のステップをスキップすることで個々のステップを繰り返しテストするメカニズムが可能になり、パイプラインの開発が大幅に容易になります。
