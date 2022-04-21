@@ -1,20 +1,19 @@
 # DevSecOps
 
-## The concept of DevSecOps
+## DevSecOpsの概念
 
-DevSecOps or DevOps security is about introducing security earlier in the life cycle of application development (a.k.a shift-left), thus minimizing the impact of vulnerabilities and bringing security closer to development team.
+DevSecOpsまたはDevOpsセキュリティは、アプリケーション開発のライフサイクルの早い段階（別名シフトレフト）でセキュリティを導入することで、脆弱性の影響を最小限に抑え、セキュリティを開発チームに近づけます。
 
-## Why
+## なぜ
 
-By embracing shift-left mentality, DevSecOps encourages organizations to bridge the gap that often exists between development and security teams to the point where many of the security processes are automated and are effectively handled by the development team.
+DevSecOpsは、左シフトの考え方を採用することで、開発チームとセキュリティチームの間にしばしば存在するギャップを埋めて、セキュリティプロセスの多くが自動化され、開発チームによって効果的に処理されるようにすることを組織に促します。
 
-## DevSecOps Practices
+## DevSecOps プラクティス
 
-This section covers different tools, frameworks and resources allowing introduction of DevSecOps best practices to your project at early stages of development.
-Topics covered:
+このセクションでは、開発の初期段階でプロジェクトにDevSecOpsのベストプラクティスを導入できるようにするさまざまなツール、フレームワーク、およびリソースについて説明します。取り上げるトピック：
 
-1. [Credential Scanning](./secret-management/credential_scanning.md) - automatically inspecting a project to ensure that no secrets are included in the project's source code.
-1. [Secrets Rotation](./secret-management/secrets_rotation.md) - automated process by which the secret, used by the application, is refreshed and replaced by a new secret.
-1. [Static Code Analysis](./static-code-analysis/static_code_analysis.md) - analyze source code or compiled versions of code to help find security flaws.
-1. [Penetration Testing](./penetration-testing/penetration_testing.md) - a simulated attack against your application to check for exploitable vulnerabilities.
-1. [Container Dependencies Scanning](./dependency-container-scanning/dependency_container_scanning.md) - search for vulnerabilities in container operating systems, language packages and application dependencies.
+1. [クレデンシャルスキャン](./secret-management/credential_scanning.md) - プロジェクトを自動的に検査して、プロジェクトのソースコードにシークレットが含まれていないことを確認します。
+1. [シークレットローテーション](./secret-management/secrets_rotation.md) - アプリケーションで使用されるシークレットが更新され、新しいシークレットに置き換えられる自動化されたプロセス。
+1. [静的コード分析](./static-code-analysis/static_code_analysis.md) - ソースコードまたはコンパイルされたバージョンのコードを分析して、セキュリティ上の欠陥を見つけます。
+1. [ペネトレーションテスト](./penetration-testing/penetration_testing.md) - 悪用可能な脆弱性をチェックするためのアプリケーションに対するシミュレートされた攻撃。
+1. [コンテナの依存関係のスキャン](./dependency-container-scanning/dependency_container_scanning.md) - コンテナのオペレーティングシステム、言語パッケージ、およびアプリケーションの依存関係の脆弱性を検索します。

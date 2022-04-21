@@ -1,37 +1,36 @@
-# Credential Scanning
+# クレデンシャルスキャン
 
-Credential scanning is the practice of automatically inspecting a project to ensure that no secrets are included in the project's source code. Secrets include database passwords, storage connection strings, admin logins, service principals, etc.
+クレデンシャルスキャンは、プロジェクトを自動的に検査して、プロジェクトのソースコードにシークレットが含まれていないことを確認する方法です。シークレットには、データベースパスワード、ストレージ接続文字列、管理者ログイン、サービスプリンシパルなどが含まれます。
 
-## Why Credential scanning
+## クレデンシャルスキャンを行う理由
 
-Including secrets in a project's source code is a significant risk, as it might make those secrets available to unwanted parties. Even if it seems that the source code is accessible to the same people who are privy to the secrets, this situation is likely to change as the project grows. Spreading secrets in different places makes them harder to manage, access control, and revoke efficiently. Secrets that are committed to source control are also harder to discard of, since they will persist in the source's history.  
-Another consideration is that coupling the project's code to its infrastructure and deployment specifics is limiting and considered a bad practice. From a software design perspective, the code should be independent of the runtime configuration that will be used to run it, and that runtime configuration includes secrets.
- As such, there should be a clear boundary between code and secrets: secrets should be managed outside of the source code (read more [here](../../../continuous-delivery/secrets-management/README.md)) and credential scanning should be employed to ensure that this boundary is never violated.
+プロジェクトのソースコードにシークレットを含めると、それらのシークレットが不要な関係者に利用可能になる可能性があるため、重大なリスクがあります。秘密を知っている同じ人がソースコードにアクセスできるように見えても、プロジェクトが成長するにつれて、この状況は変わる可能性があります。シークレットをさまざまな場所に拡散すると、シークレットの管理、アクセス制御、および効率的な取り消しが困難になります。ソース管理にコミットされているシークレットは、ソースの履歴に保持されるため、破棄するのも困難です。
+もう1つの考慮事項は、プロジェクトのコードをそのインフラストラクチャおよびデプロイメントの詳細に結合することは制限的であり、悪い習慣と見なされることです。ソフトウェア設計の観点から、コードは、それを実行するために使用されるランタイム構成から独立している必要があり、そのランタイム構成にはシークレットが含まれています。
+そのため、コードとシークレットの間には明確な境界が必要です。シークレットはソースコードの外部で管理する必要があり（詳細は[こちら](../../../continuous-delivery/secrets-management/README.md)）、この境界に違反しないようにクレデンシャルスキャンを使用する必要があります。
 
-## Applying Credential Scanning
+## 資格情報スキャンの適用
 
-Ideally, credential scanning should be run as part of a developer's workflow (e.g. via a [git pre-commit hook](https://githooks.com)), however, to protect against developer error, credential scanning must also be enforced as part of the continuous integration process to ensure that no credentials ever get merged to a project's main branch.
-To implement credential scanning for a project, consider the  following:
+理想的には、クレデンシャルスキャンは開発者のワークフローの一部として実行する必要があります（たとえば、[git pre-commitフック](https://githooks.com)を介して）が、開発者のエラーから保護するために、継続的インテグレーションプロセスの一部としてクレデンシャルスキャンを実施して、クレデンシャルがないことを確認する必要がありますプロジェクトのメインブランチにマージされることはありません。プロジェクトの資格情報スキャンを実装するには、次のことを考慮してください。
 
-1. Store secrets in an external secure store that is meant to store sensitive information
-1. Use secrets scanning tools to asses your repositories current state by scanning it's full history for secrets
-1. Incorporate an automated secrets scanning tool into your CI pipeline to detect unintentional commiting of secrets
-1. Avoid `git add .` commands on git
-1. Add sensitive files to .gitignore
+1. 機密情報を保存することを目的とした外部の安全なストアに秘密を保存する
+1. シークレットスキャンツールを使用して、リポジトリの完全な履歴をスキャンしてシークレットの現在の状態を評価します
+1. 自動化されたシークレットスキャンツールをCIパイプラインに組み込んで、意図しないシークレットのコミットを検出します
+1. gitの `git add .` コマンドを避ける
+1. 機密ファイルを .gitignore に追加します
 
-## Credential Scanning Frameworks and Tools
+## クレデンシャルスキャンのフレームワークとツール
 
-Recipes and Scenarios-
+レシピとシナリオ-
 
-1. [Detect-secrets](./recipes/detect-secrets.md) - detect-secrets is an aptly named module for detecting secrets within a code base.
-1. [detect-secrets inside Azure DevOps Pipeline](./recipes/detect-secrets-ado.md)
-1. [Microsoft Security Code Analysis extension](https://docs.microsoft.com/en-us/azure/security/develop/security-code-analysis-overview)
+1. [Detect-secrets](./recipes/detect-secrets.md) - detect-secretsは、コードベース内のシークレットを検出するための適切な名前のモジュールです。
+1. [Azure DevOps パイプライン内部でのシークレット検出](./recipes/detect-secrets-ado.md)
+1. [Microsoft Security Code Analysis 拡張機能](https://docs.microsoft.com/en-us/azure/security/develop/security-code-analysis-overview)
 
-Additional Tools -
+追加ツール -
 
-1. [CodeQL](https://securitylab.github.com/tools/codeql)  – Github security. CodeQL lets you query code as if it was data. Write a query to find all variants of a vulnerability
-1. [Git-secrets](https://github.com/awslabs/git-secrets)  - Prevents you from committing passwords and other sensitive information to a git repository.
+1. [CodeQL](https://securitylab.github.com/tools/codeql)  – Github セキュリティ。CodeQLを使用すると、データであるかのようにコードをクエリできます。脆弱性のすべての亜種を見つけるためのクエリを作成する
+1. [Git-secrets](https://github.com/awslabs/git-secrets)  - パスワードやその他の機密情報をgitリポジトリにコミットできないようにします。
 
-## Conclusion
+## 結論
 
-Secret management is essential to every project. Storing secrets in external secrets store and incorporating this mindset into your workflow will improve your security posture and will result in cleaner code.
+秘密の管理はすべてのプロジェクトに不可欠です。シークレットを外部シークレットストアに保存し、この考え方をワークフローに組み込むと、セキュリティ体制が改善され、コードがよりクリーンになります。

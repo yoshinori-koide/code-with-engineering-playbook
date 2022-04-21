@@ -1,22 +1,20 @@
-# Static Code Analysis
+# 静的コード分析
 
-Static code analysis is a method of detecting security issues by examining the source code of the application.
+静的コード分析は、アプリケーションのソースコードを調べることによってセキュリティの問題を検出する方法です。
 
-## Why Static Code Analysis
+## なぜ静的コード分析
 
-Compared to code reviews, Static code analysis tools are more fast, accurate and through.
-As it operates on the source code itself, it is a very early indicator for issues, and coding errors found earlier are less costly to fix.
+コードレビューと比較して、静的コード分析ツールはより高速で正確であり、完全です。ソースコード自体で動作するため、問題の非常に初期の指標であり、以前に見つかったコーディングエラーは修正にかかる費用が少なくて済みます。
 
-## Applying Static Code Analysis
+## 静的コード分析の適用
 
-Static Code Analysis should be integrated in your build process.
-There are [many tools](https://owasp.org/www-community/Source_Code_Analysis_Tools) available for Static Code Analysis, choose the ones that meet your programming language and development techniques.
+静的コード分析は、ビルドプロセスに統合する必要があります。静的コード分析に利用できる[ツールはたくさん](https://owasp.org/www-community/Source_Code_Analysis_Tools)あります。プログラミング言語と開発手法に合ったツールを選択してください。
 
-## Static Code Analysis Frameworks and Tools
+## 静的コード分析フレームワークとツール
 
-[SonarCloud](https://sonarcloud.io) - static code analysis with cloud-based software as a service product.
-[OWASP Source code Analysis](https://owasp.org/www-community/Source_Code_Analysis_Tools) - OWASP recommendations for source code analysis tools
+[SonarCloud](https://sonarcloud.io) - サービス製品としてのクラウドベースのソフトウェアを使用した静的コード分析。
+[OWASPソースコード分析](https://owasp.org/www-community/Source_Code_Analysis_Tools) - ソースコード分析ツールに関するOWASPの推奨事項
 
-## Conclusion
+## 結論
 
-Static code analysis is essential to identify potential problems and security issues in the code. It allows you to detect bugs and security issues at an early stage.
+静的コード分析は、コード内の潜在的な問題とセキュリティの問題を特定するために不可欠です。これにより、バグやセキュリティの問題を早期に検出できます。

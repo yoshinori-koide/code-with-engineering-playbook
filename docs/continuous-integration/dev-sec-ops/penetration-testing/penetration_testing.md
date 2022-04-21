@@ -1,21 +1,19 @@
-# Penetration Testing
+# ペネトレーションテスト
 
-A penetration test is a simulated attack against your application to check for exploitable security issues.
+ペネトレーションテストは、悪用可能なセキュリティの問題をチェックするための、アプリケーションに対するシミュレートされた攻撃です。
 
-## Why Penetration Testing
+## 侵入テストを行う理由
 
-Penetration testing performed on a running application. As such, it tests the application E2E with all of its layers. It's output is a real simulated attack on the application that succeeded, therefore it is a critical issue in your application and should be addressed as soon as possible.
+実行中のアプリケーションで実行される侵入テスト。そのため、アプリケーションE2Eをそのすべてのレイヤーでテストします。その出力は、成功したアプリケーションに対する実際のシミュレートされた攻撃であるため、アプリケーションの重大な問題であり、できるだけ早く対処する必要があります。
 
-## Applying Penetration Testing
+## ペネトレーションテストの適用
 
-Many organizations perform manual penetration testing. But new vulnerabilities found every day. Therefore, it is a good practice to have an automated penetration testing performed.
-To achieve this automation use penetration testing tools to uncover vulnerabilities, such as unsanitized inputs that are susceptible to code injection attacks.
-Insights provided by the penetration test can then be used to fine-tune your WAF security policies and patch detected vulnerabilities.
+多くの組織が手動侵入テストを実行しています。しかし、新しい脆弱性が毎日発見されています。したがって、自動侵入テストを実行することをお勧めします。この自動化を実現するには、侵入テストツールを使用して、コードインジェクション攻撃の影響を受けやすいサニタイズされていない入力などの脆弱性を明らかにします。次に、侵入テストによって提供された洞察を使用して、WAFセキュリティポリシーを微調整し、検出された脆弱性にパッチを適用できます。
 
-## Penetration Testing Frameworks and Tools
+## ペネトレーションテストのフレームワークとツール
 
-[OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/) - OWASP penetration testing tool for web applications.
+[OWASP Zed Attack Proxy (ZAP)](https://www.zaproxy.org/) - Webアプリケーション用のOWASP侵入テストツール。
 
-## Conclusion
+## 結論
 
-Penetration testing is essential to check for vulnerabilities in your application and protect it from simulated attacks. Insights provided by Penetration testing can identify weak spots in an organization's security posture, as well as measure the compliance of its security policy, test the staff's awareness of security issues and determine whether -- and how -- the organization would be subject to security disasters.
+侵入テストは、アプリケーションの脆弱性をチェックし、シミュレートされた攻撃からアプリケーションを保護するために不可欠です。侵入テストによって提供される洞察により、組織のセキュリティ体制の弱点を特定し、セキュリティポリシーのコンプライアンスを測定し、セキュリティ問題に対するスタッフの認識をテストし、組織がセキュリティ災害にさらされるかどうか、およびどのように受けるかを判断できます。

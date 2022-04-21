@@ -1,41 +1,36 @@
-# Dependency and Container Scanning
+# 依存関係とコンテナスキャン
 
-Dependency and Container scanning is performed in order to search for vulnerabilities in operating systems, language and application packages.
+オペレーティングシステム、言語、およびアプリケーションパッケージの脆弱性を検索するために、依存関係とコンテナのスキャンが実行されます。
 
-## Why Dependency and Container Scanning
+## 依存関係とコンテナスキャンを選択する理由
 
-Container images are standard application delivery format in cloud-native environments.
-Having a broad selection of images from the community, we often choose a community base image, and then add packages that we need to it, which might also come from community sources.
-Those arbitrary dependencies might introduce vulnerabilities to our image and application.
+コンテナイメージは、クラウドネイティブ環境での標準的なアプリケーション配信形式です。コミュニティからの画像の幅広い選択があるため、コミュニティベースの画像を選択し、それに必要なパッケージを追加することがよくあります。これもコミュニティソースからのものである可能性があります。これらの任意の依存関係は、イメージとアプリケーションに脆弱性をもたらす可能性があります。
 
-## Applying Dependency and Container Scanning
+## 依存関係とコンテナスキャンの適用
 
-Images that contain software with security vulnerabilities become exploitable at runtime. When building an image in your CI pipeline, image scanning must be a requirement for a build to pass. Images that did not pass scanning should never be pushed to your production-accessible container registry.
+セキュリティの脆弱性を持つソフトウェアを含むイメージは、実行時に悪用可能になります。CIパイプラインでイメージをビルドする場合、ビルドに合格するにはイメージスキャンが必要です。スキャンに合格しなかったイメージは、本番環境でアクセス可能なコンテナレジストリにプッシュしないでください。
 
-Dependency and Container scanning best practices:
+依存関係とコンテナスキャンのベストプラクティス:
 
-1. Base Image - if your image is built on top of a third-party base image, validate the following:
-   - The image comes from a well-known company or open-source group.
-   - It is hosted on a reputable registry.
-   - The Dockerfile is available, and check for dependencies installed in it.
-   - The image is frequently updated - old images might not contain the latest security updates.
-1. Remove Non-Essential Software - Start with a minimal base image and install only the tools, libraries and configuration files that are required by your application.
-Avoid installing the following tools or remove them if present:
-    - Network tools and clients: e.g., wget, curl, netcat, ssh.
-    - Shells: e.g. sh, bash. Note that removing shells also prevents the use of shell scripts at runtime. Instead, use an executable when possible.
-    - Compilers and debuggers. These should be used only in build and development containers, but never in production containers.
-1. Container images should be immutable - download and include all the required dependencies during the image build.
-1. Scan for vulnerabilities in software dependencies -  today there is likely no software project without some form of external libraries, dependencies or open source.
-While it allows the development team to focus on their application code, the dependency brings forth an expected downside where the security posture of the real application is now resting on it.
-To detect vulnerabilities contained within a project’s dependencies use container scanning tools which as part of their analysis scan the software dependencies (see "Dependency and Container Scanning Frameworks and Tools").
+1. ベースイメージ - イメージがサードパーティのベースイメージの上に構築されている場合は、以下を検証します。
+   - この画像は、有名な会社またはオープンソースグループからのものです。
+   - 評判の良いレジストリでホストされています。
+   - Dockerfileが利用可能であり、そこにインストールされている依存関係を確認します。
+   - イメージは頻繁に更新されます。古いイメージには最新のセキュリティ更新が含まれていない可能性があります。
+1. 必須ではないソフトウェアの削除 - 最小限のベースイメージから始めて、アプリケーションに必要なツール、ライブラリ、および構成ファイルのみをインストールします。次のツールをインストールすることは避けてください。存在する場合は削除してください。
+    - ネットワークツールとクライアント：例：wget、curl、netcat、ssh。
+    - シェル：たとえば、sh、bash。シェルを削除すると、実行時にシェルスクリプトを使用できなくなることにも注意してください。代わりに、可能な場合は実行可能ファイルを使用してください。
+    - コンパイラとデバッガ。これらはビルドおよび開発コンテナーでのみ使用する必要があり、本番コンテナーでは使用しないでください。
+1. コンテナイメージは不変である必要があります。イメージのビルド中に必要なすべての依存関係をダウンロードして含めます。
+1. ソフトウェアの依存関係の脆弱性をスキャンします。今日、何らかの形式の外部ライブラリ、依存関係、またはオープンソースがなければソフトウェアプロジェクトは存在しない可能性があります。これにより、開発チームはアプリケーションコードに集中できますが、依存関係により、実際のアプリケーションのセキュリティ体制が現在それに依存しているという予想されるマイナス面が生じます。プロジェクトの依存関係に含まれる脆弱性を検出するには、分析の一部としてソフトウェアの依存関係をスキャンするコンテナースキャンツールを使用します（「依存関係とコンテナースキャンのフレームワークとツール」を参照）。
 
-## Dependency and Container Scanning Frameworks and Tools
+## 依存関係とコンテナスキャンのフレームワークとツール
 
-1. [Trivy](https://github.com/aquasecurity/trivy) - a simple and comprehensive vulnerability scanner for containers (doesn't support Windows containers)
-1. [Aqua](https://www.aquasec.com/solutions/azure-container-security/) - dependency and container scanning for applications running on AKS, ACI and Windows Containers. Has an integration with AzDO pipelines.
-1. [Dependency-Check Plugin for SonarQube](https://github.com/dependency-check/dependency-check-sonar-plugin) - OnPrem dependency scanning
-1. [WhiteSource](https://www.whitesourcesoftware.com/open-source-security-lp/?utm_origin=ad&utm_from=Adwords&utm_pcampaign=fs.brand.rotw.search&utm_gen=Searched%20Term:whitesource&gclid=Cj0KCQjw4cOEBhDMARIsAA3XDRg55QPm_0DkVaDxJnVE7bX6s2hBCKa0QfezPZG1p-JhaxBCG8TgozsaAgIWEALw_wcB) - Open Source Scanning Software
+1. [Trivy](https://github.com/aquasecurity/trivy) - コンテナー用のシンプルで包括的な脆弱性スキャナー（Windowsコンテナーをサポートしていません）
+1. [Aqua](https://www.aquasec.com/solutions/azure-container-security/) - AKS、ACI、およびWindowsコンテナで実行されているアプリケーションの依存関係とコンテナスキャン。AzDOパイプラインと統合されています。
+1. [SonarQubeの依存関係スキャンプラグイン](https://github.com/dependency-check/dependency-check-sonar-plugin) - OnPrem依存関係スキャン
+1. [WhiteSource](https://www.whitesourcesoftware.com/open-source-security-lp/?utm_origin=ad&utm_from=Adwords&utm_pcampaign=fs.brand.rotw.search&utm_gen=Searched%20Term:whitesource&gclid=Cj0KCQjw4cOEBhDMARIsAA3XDRg55QPm_0DkVaDxJnVE7bX6s2hBCKa0QfezPZG1p-JhaxBCG8TgozsaAgIWEALw_wcB) - オープンソーススキャンソフトウェア
 
-## Conclusion
+## 結論
 
-A powerful technology such as containers should be used carefully. Install the minimal requirements needed for your application, be aware of the software dependencies your application is using and make sure to maintain it over time by using container and dependencies scanning tools.
+コンテナなどの強力なテクノロジーは慎重に使用する必要があります。アプリケーションに必要な最小限の要件をインストールし、アプリケーションが使用しているソフトウェアの依存関係に注意し、コンテナーおよび依存関係のスキャンツールを使用して長期にわたって維持するようにしてください。

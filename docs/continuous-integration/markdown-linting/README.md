@@ -1,38 +1,34 @@
-# CI Pipeline for better documentation
+# より良いドキュメントのためのCIパイプライン
 
-## Introduction
+## 序章
 
-Most projects start with spikes, where developers and analysts produce lots of documentation.
+ほとんどのプロジェクトはスパイクから始まり、開発者とアナリストが大量のドキュメントを作成します。
 
-Sometimes, these documents don't have a standard and each team member writes them accordingly with their preference. Add to that
-the time a reviewer will spend confirming grammar, searching for typos or non-inclusive language.
+場合によっては、これらのドキュメントに標準がなく、各チームメンバーが好みに応じてドキュメントを作成します。それに加えて、レビュアーが文法の確認、タイプミスまたは非包括的言語の検索に費やす時間。
 
-This pipeline helps address that!
+このパイプラインはそれに対処するのに役立ちます！
 
-## The Pipeline
+## パイプライン
 
-The pipeline uses the following `npm` modules:
+パイプラインは次の `npm` モジュールを使用します。
 
-- [markdownlint](https://github.com/DavidAnson/markdownlint): add standardization using [rules](https://github.com/DavidAnson/markdownlint#rules--aliases)
-- [markdown-link-check](https://github.com/tcort/markdown-link-check): check the links in the documentation and report broken
-ones
-- [write-good](https://github.com/btford/write-good): linter for English prose
+- [markdownlint](https://github.com/DavidAnson/markdownlint): [ルール](https://github.com/DavidAnson/markdownlint#rules--aliases)を使用して標準化を追加
+- [markdown-link-check](https://github.com/tcort/markdown-link-check): ドキュメント内のリンクを確認し、壊れたリンクを報告します
+- [write-good](https://github.com/btford/write-good): 英語の散文のためのリンター
 
-We have been using this pipeline for more than one year in different engagements and always received great feedback from the
-customers!
+私たちはこのパイプラインをさまざまな取り組みで1年以上使用しており、常にお客様から素晴らしいフィードバックを受け取りました。
 
-## How does it work
+## どのように機能しますか
 
-To start using this pipeline:
+このパイプラインの使用を開始するには:
 
-1. Download the files from [this repository](https://github.com/squassina/doc-pipeline/tree/main/repo-root)
-1. Unzip the folders and files to your repository root if the repository is empty
-    - if it's not brand new, copy the files and make the required adjustments:
-        - check `.azdo` so it matches your repository standard
-        - check `package.json` so you don't overwrite one you already have in the process. Also update the file if you changed
-          the name of the `.azdo` folder.
-1. Create the pipeline in Azure DevOps or GitHub
+1. [このリポジトリ](https://github.com/squassina/doc-pipeline/tree/main/repo-root)からファイルをダウンロードします
+1. このリポジトリからファイルをダウンロードします
+    - 新しいものでない場合は、ファイルをコピーして必要な調整を行います:
+        - `.azdo` がリポジトリの標準と一致することを確認します。
+        - 処理の中ですでに持っているものを上書きしないように`package.json`を確認します。`.azdo`フォルダの名前を変更した場合も、`package.json`ファイルを更新してください。
+1. Azure DevOps または GitHub でパイプラインを作成します
 
-## References
+## 参考文献
 
-[Markdown Code Reviews in the Code With Engineering Playbook](https://microsoft.github.io/code-with-engineering-playbook/code-reviews/recipes/markdown/#code-review-checklist)
+[Code With Engineering Playbook のマークダウンコードレビュー](https://microsoft.github.io/code-with-engineering-playbook/code-reviews/recipes/markdown/#code-review-checklist)

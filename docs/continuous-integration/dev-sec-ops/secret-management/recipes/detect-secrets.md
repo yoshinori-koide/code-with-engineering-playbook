@@ -1,16 +1,16 @@
-# Credential Scanning Tool: detect-secrets
+# クレデンシャルスキャンツール： detect-secrets
 
-## Background
+## 背景
 
-The [`detect-secrets`](https://github.com/Yelp/detect-secrets) tool is an open source project that uses heuristics and rules to scan for [a wide range](https://github.com/Yelp/detect-secrets#currently-supported-plugins) of secrets. We can extend the tool with custom rules and heuristics via a simple [Python plugin API](https://github.com/Yelp/detect-secrets/blob/a9dff60/detect_secrets/plugins/base.py#L27-L49).
+この`detect-secrets`ツールは、ヒューリスティックとルールを使用して[さまざまな](https://github.com/Yelp/detect-secrets#currently-supported-plugins)秘密をスキャンするオープンソースプロジェクトです。単純な[PythonプラグインAPI](https://github.com/Yelp/detect-secrets/blob/a9dff60/detect_secrets/plugins/base.py#L27-L49)を介して、カスタムルールとヒューリスティックでツールを拡張できます。
 
-Unlike other credential scanning tools, `detect-secrets` does not attempt to check a project's entire git history when invoked, but instead scans the project's current state. This means that the tool runs quickly which makes it ideal for use in continuous integration pipelines.
+他のクレデンシャルスキャンツールとは異なり、`detect-secrets`は、呼び出されたときにプロジェクトのgit履歴全体をチェックしようとはせず、代わりにプロジェクトの現在の状態をスキャンします。これは、ツールが迅速に実行されることを意味し、継続的インテグレーションパイプラインでの使用に最適です。
 
-`detect-secrets` employs the concept of a "baseline file", i.e. a list of known secrets already present in the repository, and we can configure it to ignore any of these pre-existing secrets when running. This makes it easy to gradually introduce the tool into a pre-existing project.
+`detect-secrets`は「ベースラインファイル」の概念、つまりリポジトリにすでに存在する既知のシークレットのリストを採用しており、実行時にこれらの既存のシークレットを無視するように構成できます。これにより、既存のプロジェクトにツールを徐々に導入することが容易になります。
 
-The baseline file also provides a simple and convenient way of handling false positives. We can white-list the false positive in the baseline file to ignore it on future invocations of the tool.
+ベースラインファイルは、誤検知を処理するためのシンプルで便利な方法も提供します。ベースラインファイルの誤検知をホワイトリストに登録して、ツールの今後の呼び出しで無視することができます。
 
-## Setup
+## 設定
 
 ```sh
 # install system dependencies: diff, jq, python3 (if on Linux-based OS)
@@ -28,7 +28,7 @@ python3 -m pip install detect-secrets
 detect-secrets scan > .secrets.baseline
 ```
 
-## Usage
+## 使用法
 
 ```sh
 # backup the list of known secrets

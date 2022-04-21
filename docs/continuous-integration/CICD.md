@@ -1,42 +1,37 @@
-# Continuous Integration and Delivery
+# 継続的インテグレーションとデリバリー
 
-Continuous Integration is the engineering practice of frequently committing code in a shared repository, ideally several times a day, and performing an automated build on it. These changes are built with other simultaneous changes to the system, which enables early detection of integration issues between multiple developers working on a project. Build breaks due to integration failures are treated as the highest priority issue for all the developers on a team and generally work stops until they are fixed.
+継続的インテグレーションは、共有リポジトリにコードを頻繁にコミットし、理想的には1日に数回、その上で自動ビルドを実行するエンジニアリング手法です。これらの変更は、システムに対する他の同時変更とともに構築されます。これにより、プロジェクトで作業している複数の開発者間の統合の問題を早期に検出できます。統合の失敗によるビルドの中断は、チームのすべての開発者にとって最優先の問題として扱われ、通常、修正されるまで作業が停止します。
 
-Paired with an automated testing approach, continuous integration also allows us to also test the integrated build such that we can verify that not only does the code base still build correctly, but also is still functionally correct. This is also a best practice for building robust and flexible software systems.
+自動テストアプローチと組み合わせることで、継続的インテグレーションにより、統合ビルドをテストすることもできます。これにより、コードベースが正しくビルドされるだけでなく、機能的にも正しいことを確認できます。これは、堅牢で柔軟なソフトウェアシステムを構築するためのベストプラクティスでもあります。
 
-Continuous Delivery takes the Continuous Integration concept further to also test deployments of the integrated code base on a replica of the environment it will be ultimately deployed on. This enables us to learn early about any unforeseen operational issues that arise from our changes as quickly as possible and also learn about gaps in our test coverage.
+継続的デリバリーは、継続的インテグレーションの概念をさらに発展させ、最終的にデプロイされる環境のレプリカでの統合コードベースのデプロイもテストします。これにより、変更から生じる予期しない運用上の問題についてできるだけ早く知ることができ、テストカバレッジのギャップについても知ることができます。
 
-The goal of all of this is to ensure that the main branch is always shippable, meaning that we could, if we needed to, take a build from the main branch of our code base and ship it on production.
+これらすべての目標は、メインブランチが常に出荷可能であることを保証することです。つまり、必要に応じて、コードベースのメインブランチからビルドを取得し、本番環境に出荷できます。
 
-If these concepts are unfamiliar to you, take a few minutes and read through [Continuous Integration](https://www.martinfowler.com/articles/continuousIntegration.html) and [Continuous Delivery](https://martinfowler.com/bliki/ContinuousDelivery.html).
+これらの概念に慣れていない場合は、数分かかり、[継続的インテグレーション](https://www.martinfowler.com/articles/continuousIntegration.html)と[継続的デリバリー](https://martinfowler.com/bliki/ContinuousDelivery.html)をお読みください。
 
-Our expectation is that CI/CD should be used in all the engineering projects that we do with our customers and that we are building, testing, and deploying each change we make to any software system that we are building.
+CI / CDは、お客様と一緒に行うすべてのエンジニアリングプロジェクトで使用する必要があり、構築中のソフトウェアシステムに加えた各変更を構築、テスト、および展開することを期待しています。
 
-For a much deeper understanding of all of these concepts, the books [Continuous Integration](https://www.amazon.com/Continuous-Integration-Improving-Software-Reducing/dp/0321336380) and [Continuous Delivery](https://www.amazon.com/gp/product/0321601912) provide a comprehensive background.
+これらすべての概念をより深く理解するために、[継続的インテグレーション](https://www.amazon.com/Continuous-Integration-Improving-Software-Reducing/dp/0321336380)と[継続的デリバリー](https://www.amazon.com/gp/product/0321601912)の本は包括的な背景を提供します。
 
-## Tools
+## ツール
 
-### Azure Pipelines
+### Azure パイプライン
 
-Our tooling at Microsoft has made setting up integration and delivery systems like this easy. If you are unfamiliar with it, take a few moments now to read through [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) (Previously VSTS) and for a practical walkthrough of how this works in practice, one example you can read through is [CI/CD on Kubernetes with VSTS](https://medium.com/@timfpark/application-ci-cd-on-kubernetes-with-visual-studio-team-services-ccacecdea8a5).
+Microsoftのツールにより、このような統合および配信システムのセットアップが簡単になりました。慣れていない場合は、少し時間を取って[Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)（以前のVSTS）を読み、これが実際にどのように機能するかを実際に説明するために、[VSTSを使用したKubernetesのCI/CD](https://medium.com/@timfpark/application-ci-cd-on-kubernetes-with-visual-studio-team-services-ccacecdea8a5)を読むことができます。
 
 ### Jenkins
 
-Jenkins is one of the most commonly used tools across the open source community. It is well-known with hundreds of plugins for every build requirement.
-Jenkins is free but requires a dedicated server.
-You can easily create a Jenkins VM using this [template](https://ms.portal.azure.com/#create/azure-oss.jenkinsjenkins)
+Jenkinsは、オープンソースコミュニティ全体で最も一般的に使用されているツールの1つです。ビルド要件ごとに何百ものプラグインでよく知られています。Jenkinsは無料ですが、専用サーバーが必要です。この[テンプレート](https://ms.portal.azure.com/#create/azure-oss.jenkinsjenkins)を使用して、JenkinsVMを簡単に作成できます
 
 ### TravisCI
 
-Travis CI can be used for open source projects at no cost but developers must purchase an enterprise plan for private projects.
-This service is ideal for validation of PR's on GitHub because it is lightweight and easy to set up with no need for dedicated server setup.
-It also supports a Build matrix feature which allows accelerating the build and testing process by breaking them into parts.
+Travis CIはオープンソースプロジェクトに無料で使用できますが、開発者はプライベートプロジェクトのエンタープライズプランを購入する必要があります。このサービスは、専用サーバーのセットアップを必要とせずに軽量でセットアップが簡単なため、GitHubでのPRの検証に最適です。また、ビルドとテストのプロセスをパーツに分割することで高速化できるビルドマトリックス機能もサポートしています。
 
 ### CircleCI
 
-CircleCI is a free service for open source projects with no dedicated server required. It is also ideal for validation of PR's on GitHub.
-CircleCI also allows workflows, parallelism and splitting your tests across any number of containers with a wide array of packages pre-installed on the build containers.
+CircleCIは、専用サーバーを必要としないオープンソースプロジェクト向けの無料サービスです。また、GitHubでのPRの検証にも最適です。CircleCIを使用すると、ワークフロー、並列処理、およびビルドコンテナーにプリインストールされたさまざまなパッケージを使用して、テストを任意の数のコンテナーに分割することもできます。
 
 ### AppVeyor
 
-AppVeyor is another free CI service for open source projects which also supports Windows-based builds.
+AppVeyorは、Windowsベースのビルドもサポートするオープンソースプロジェクト向けのもう1つの無料のCIサービスです。

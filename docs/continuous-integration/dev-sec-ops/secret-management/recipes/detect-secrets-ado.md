@@ -1,24 +1,24 @@
-# Detecting Secrets in your Azure DevOps Pipeline with YELP detect-secrets
+# YELPシークレット検知を使用したAzure DevOpsパイプラインでのシークレットの検出
 
-## Overview
+## 概要
 
-In this article, you can find information on how to integrate YELP detect-secrets into your Azure DevOps Pipeline. The proposed code can be part of the classic CI process or (preferred way) build validation for PRs before merging to the `main` branch.
+この記事では、YELPdetect-secretsをAzureDevOpsパイプラインに統合する方法に関する情報を見つけることができます。提案されたコードは、従来のCIプロセスの一部にすることも、（推奨される方法で）`main`ブランチにマージする前にPRの検証を構築することもできます。
 
-## Azure DevOps Pipeline
+## Azure DevOps パイプライン
 
-Proposed Azure DevOps Pipeline contains multiple steps described below:
+提案されたAzureDevOpsパイプラインには、以下に説明する複数のステップが含まれています。
 
-1. Set Python 3 as default
-1. Install detect-secrets using pip
-1. Run detect-secrets tool
-1. Publish results in the Pipeline Artifact
-   > NOTE: It's an optional step, but for future investigation .json file with results may be helpful.
-1. Analyzing detect-secrets results
-   > NOTE: This step does a simple analysis of the .json file. If any secret has been detected, then break the build with exit code 1.
+1. Python 3 をデフォルトとして設定
+1. pipを使用して detect-secrets をインストールする
+1. detect-secrets ツールを実行する
+1. パイプラインアーティファクトで結果を公開する
+   > 注：これはオプションの手順ですが、将来の調査では、結果を含む.jsonファイルが役立つ場合があります。
+1. detect-secrets の結果の分析
+   > 注：この手順では、.jsonファイルの簡単な分析を行います。シークレットが検出された場合は、終了コード1でビルドを中断します。
 
-> NOTE: The below example has 2 jobs: for Linux and Windows agents. You do not have to use both jobs - just adjust the pipeline to your needs.
+> 注：以下の例には、LinuxエージェントとWindowsエージェントの2つのジョブがあります。両方のジョブを使用する必要はありません。必要に応じてパイプラインを調整するだけです。
 >
-> NOTE: Windows example does not use the latest version of detect-secrets. It is related to the bug in the detect-secret tool (see more in [Issue#452](https://github.com/Yelp/detect-secrets/issues/452)). It is highly recommended to monitor the fix for the issue and use the latest version if possible by removing version tag `==1.0.3` in the pip install command.
+> 注：Windowsの例では、最新バージョンのdetect-secretsを使用していません。これは、detect-secretツールのバグに関連しています（詳細については、[Issue＃452](https://github.com/Yelp/detect-secrets/issues/452)を参照してください）。問題の修正を監視し、可能であればpip install コマンドでversion tag `==1.0.3`を削除して、最新バージョンを使用することを強くお勧めします。
 
 ```yaml
 trigger:

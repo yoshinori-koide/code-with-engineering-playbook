@@ -1,24 +1,24 @@
-# Inclusive Linting
+# 包括的リンティング
 
-As software professionals we should strive to promote an inclusive work environment, which naturally extends to the code and documentation we write. It's important to keep the use of inclusive language consistent across an entire project or repository.
+ソフトウェアの専門家として、私たちは包括的な作業環境を促進するよう努めるべきです。それは当然、私たちが作成するコードとドキュメントにまで及びます。プロジェクト全体またはリポジトリ全体で包括的言語の使用を一貫させることが重要です。
 
-To achieve this, we recommend using a text file analysis tool such as an inclusive linter and including this as a step in your CI pipelines.
+これを実現するには、包括的リンターなどのテキストファイル分析ツールを使用し、これをCIパイプラインのステップとして含めることをお勧めします。
 
-## What to Lint for
+## 何のためにリントするか
 
-The primary goal of an inclusive linter is to flag any occurrences of non-inclusive language within source code (and optionally suggest some alternatives). Non-inclusive words or phrases in a project can be found anywhere from comments and documentation to variable names.
+包括的リンターの主な目標は、ソースコード内での非包括的言語の出現にフラグを立てることです（オプションでいくつかの代替案を提案します）。プロジェクト内の包括的でない単語やフレーズは、コメントやドキュメントから変数名まで、どこにでもあります。
 
-An inclusive linter may include its own dictionary of "default" non-inclusive words and phrases to run against as a good starting point. These tools can also be customizable, oftentimes offering the ability to omit some terms and/or add your own.
+包括的リンターには、適切な開始点として実行するための「デフォルト」の非包括的単語およびフレーズの独自の辞書が含まれる場合があります。これらのツールはカスタマイズすることもでき、多くの場合、一部の用語を省略したり、独自の用語を追加したりすることができます。
 
-The ability to add additional terms to your linter has the added benefit of enabling linting of sensitive language on top of inclusive linting. This can prevent things such as customer names or other non-public information from making it into your git history, for instance.
+リンターに用語を追加する機能には、包括的リンティングに加えて、機密性の高い言語のリンティングを可能にするという追加の利点があります。これにより、たとえば、顧客名やその他の非公開情報がgit履歴に反映されないようにすることができます。
 
-## Getting Started with an Inclusive Linter
+## インクルーシブリンター入門
 
 ### [`woke`]
 
-One inclusive linter we recommend is `woke`. It is a language-agnostic CLI tool that detects non-inclusive language in your source code and recommends alternatives. While `woke` automatically applies a [default ruleset] with non-inclusive terms to lint for, you can also apply a custom rule config (via a yaml file) with additional terms to lint for. See [`example.yaml`] for an example of adding custom rules.
+私たちがお勧めする包括的なリンターの1つは`woke`です。これは言語に依存しないCLIツールであり、ソースコード内の包括的でない言語を検出し、代替言語を推奨します。`woke`では非包括的用語を含むデフォルトのルールセットをlintforに自動的に適用しますが、追加の用語を含むカスタムルール構成を（yamlファイルを介して）lintforに適用することもできます。カスタムルールの追加例については、[`example.yaml`]を参照してください。
 
-Running the tool locally on a file or directory is relatively straightforward:
+ファイルまたはディレクトリでツールをローカルで実行するのは比較的簡単です。
 
 ```sh
 $ woke test.txt
@@ -28,14 +28,14 @@ test.txt:2:2-6: `guys` may be insensitive, use `folks`, `people` instead (warnin
   ^
 ```
 
-`woke` can be run locally on your machine or CI/CD system via CLI and is also available as a two GitHub Actions:
+`woke`はCLIを介してマシンまたはCI/CDシステムでローカルに実行でき、2つのGitHubアクションとしても利用できます。
 
 - [Run woke]
 - [Run woke with Reviewdog]
 
-To use the standard "Run woke" GitHub Action with the default ruleset in a CI pipeline:
+CIパイプラインのデフォルトのルールセットで標準の「Runwoke」GitHubアクションを使用するには：
 
-1. Add the `woke` action as a step in your project's CI pipeline yaml:
+1. プロジェクトのCIパイプラインyamlにステップとして`woke`アクションを追加します。
 
     ```yaml
     name: ci
@@ -56,14 +56,14 @@ To use the standard "Run woke" GitHub Action with the default ruleset in a CI pi
               fail-on-error: true
     ```
 
-1. Run your pipeline
-1. View the output in the "Actions" tab in the main repository view
+1. パイプラインを実行する
+1. メインリポジトリビューの[アクション]タブで出力を表示します
 
-For more information about additional configuration and usage, see the official [docs].
+追加の構成と使用法の詳細については、[公式ドキュメント]を参照してください。
 
 [`woke`]: https://github.com/get-woke/woke
 [default ruleset]: https://github.com/get-woke/woke/blob/main/pkg/rule/default.yaml
 [`example.yaml`]: https://github.com/get-woke/woke/blob/main/example.yaml
 [Run woke]: https://github.com/marketplace/actions/run-woke
 [Run woke with reviewdog]: https://github.com/marketplace/actions/run-woke-with-reviewdog
-[docs]: https://docs.getwoke.tech/
+[公式ドキュメント]: https://docs.getwoke.tech/

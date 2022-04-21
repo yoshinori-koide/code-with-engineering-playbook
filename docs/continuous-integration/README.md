@@ -1,306 +1,304 @@
-# Continuous Integration
+# 継続的インテグレーション
 
 ![image](https://user-images.githubusercontent.com/7635865/76624154-c2c12800-6502-11ea-912d-a260c821ac41.png)
 
-We encourage engineering teams to make an upfront investment during Sprint 0 of a project to establish an automated and repeatable pipeline which continuously integrates code and releases system executable(s) to target cloud environments. Each integration should be verified by an automated build process that asserts a suite of validation tests pass and surface any errors across the developer team.
+エンジニアリングチームは、プロジェクトのスプリント0中に先行投資を行い、コードを継続的に統合してシステム実行可能ファイルをターゲットクラウド環境にリリースする自動化された反復可能なパイプラインを確立することをお勧めします。各統合は、一連の検証テストに合格し、開発者チーム全体でエラーを表面化することを表明する自動ビルドプロセスによって検証する必要があります。
 
-We encourage teams to implement the CI/CD pipelines before any service code is written for customers, which usually happens in Sprint 0(N). This way, the engineering team can develop and test their work in isolation without impacting other developers and promote a consistent devops workflow throughout the engagement.
+チームは、顧客向けのサービスコードを作成する前に、CI / CDパイプラインを実装することをお勧めします。これは通常、Sprint 0（N）で行われます。このようにして、エンジニアリングチームは、他の開発者に影響を与えることなく、自分の作業を個別に開発およびテストし、エンゲージメント全体で一貫したDevOpsワークフローを促進できます。
 
-These [principles](https://martinfowler.com/articles/continuousIntegration.html) map directly agile software development lifecycle [practices](https://en.wikipedia.org/wiki/Agile_software_development).
+これらの[原則](https://martinfowler.com/articles/continuousIntegration.html)は、アジャイルソフトウェア開発ライフサイクルの[実践](https://en.wikipedia.org/wiki/Agile_software_development)を直接マッピングします。
 
-## Goals
+## 目標
 
-Continuous integration automation is an integral part of the software development lifecycle intended to reduce build integration errors and maximize velocity across a dev crew.
+継続的インテグレーションの自動化は、ビルド統合エラーを減らし、開発クルー全体の速度を最大化することを目的としたソフトウェア開発ライフサイクルの不可欠な部分です。
 
-A robust build automation pipeline will:
+堅牢なビルド自動化パイプラインは次のようになります。
 
-- Accelerate team velocity
-- Prevent integration problems
-- Avoid last minute chaos during release dates
-- Provide a quick feedback cycle for system-wide impact of local changes
-- Separate build and deployment stages
-- Measure and report metrics around build failures / success(s)
-- Increase visibility across the team enabling tighter communication
-- Reduce human errors, which is probably the most important part of automating the builds
+- チームの速度を加速する
+- 統合の問題を防ぐ
+- リリース日の直前の混乱を避ける
+- ローカル変更のシステム全体への影響に対する迅速なフィードバックサイクルを提供する
+- ビルドとデプロイの段階を分ける
+- ビルドの失敗/成功に関するメトリックを測定して報告します
+- チーム全体の可視性を高め、より緊密なコミュニケーションを可能にします
+- ビルドの自動化でおそらく最も重要な部分であるヒューマンエラーを削減します
 
-## Build Definition Managed in Git
+## Gitで管理されるビルド定義
 
-### Code / manifest artifacts required to build your project should be maintained in within your project(s) git repository(s).
+### プロジェクトのビルドに必要なコード/マニフェストアーティファクトは、プロジェクトのgitリポジトリ内に保持する必要があります。
 
-- CI provider-specific build pipeline definition(s) should reside within your project(s) git repository(s).
+- CIプロバイダー固有のビルドパイプライン定義は、プロジェクトのgitリポジトリ内に存在する必要があります。
 
-## Build Automation
+## ビルド自動化
 
-An automated build should encompass the following principles:
+自動ビルドには、次の原則が含まれている必要があります。
 
-### Build Task
+### ビルドタスク
 
-- A single step within your build pipeline that compiles your code project into a single build artifact.
+- コードプロジェクトを単一のビルドアーティファクトにコンパイルするビルドパイプライン内の単一のステップ。
 
-### Unit Testing
+### ユニットテスト
 
-- Your build definition includes validation steps to execute a suite of automated unit tests to ensure that application components meets its design and behaves as intended.
+- ビルド定義には、一連の自動化された単体テストを実行して、アプリケーションコンポーネントがその設計を満たし、意図したとおりに動作することを確認するための検証手順が含まれています。
 
-### Code Style Checks
+### コードスタイルチェック
 
-- Code across an engineering team must be formatted to agreed coding standards. Such standards keep code consistent, and most importantly easy for the team and customer(s) to read and refactor. Code styling consistency encourages collective ownership for project scrum teams and our partners.
-- There are several open source code style validation tools available to choose from ([code style checks](https://github.com/checkstyle/checkstyle), [StyleCop](https://en.wikipedia.org/wiki/StyleCop)). The [Code Review section](../code-reviews/README.md#language-specific-guidance) of the playbook has suggestions for linters and preferred styles for a number of languages.
-- Your code and documentation should avoid the use of non-inclusive language wherever possible. Follow the [Inclusive Linting section](inclusive-linting.md) to ensure your project promotes an inclusive work environment for both the team and for customers.
-- We recommend incorporating security analysis tools within the build stage of your pipeline such as: code credential scanner, security risk detection, static analysis, etc. For Azure DevOPS, you can add a security scan task to your pipeline by installing the [Microsoft Security Code Analysis Extension](https://secdevtools.azurewebsites.net/#pills-onboard). GitHub Actions supports a similar extension with the [RIPS security scan solution](https://github.com/marketplace/actions/rips-security-scan).
-- Code standards are maintained within a single configuration file. There should be a step in your build pipeline that asserts code in the latest commit conforms to the known style definition.
+- エンジニアリングチーム全体のコードは、合意されたコーディング標準に合わせてフォーマットする必要があります。このような標準はコードの一貫性を維持し、最も重要なこととして、チームと顧客が読み取りとリファクタリングを容易にします。コードスタイリングの一貫性により、プロジェクトスクラムチームとパートナーの共同所有権が促進されます。
+- 選択できるオープンソースのコードスタイル検証ツールがいくつかあります（[コードスタイルチェック](https://github.com/checkstyle/checkstyle)、[StyleCop](https://en.wikipedia.org/wiki/StyleCop)）。プレイブックの[コードレビューセクション](../code-reviews/README.md#language-specific-guidance)には、多くの言語のリンターと推奨スタイルに関する提案があります。
+- コードとドキュメントでは、可能な限り非包括的言語の使用を避ける必要があります。[インクルーシブリンティングのセクション](inclusive-linting.md)に従って、プロジェクトがチームと顧客の両方にとってインクルーシブな作業環境を促進するようにします。
+- パイプラインのビルド段階に、コードクレデンシャルスキャナー、セキュリティリスク検出、静的分析などのセキュリティ分析ツールを組み込むことをお勧めします。Azure DevOPSの場合、[Microsoft Security Code Analysis 拡張機能](https://secdevtools.azurewebsites.net/#pills-onboard)をインストールすることで、パイプラインにセキュリティスキャンタスクを追加できます。GitHub Actionsは、[RIPSセキュリティスキャンソリューション](https://github.com/marketplace/actions/rips-security-scan)で同様の拡張機能をサポートしています。
+- コード標準は、単一の構成ファイル内で維持されます。ビルドパイプラインには、最新のコミットのコードが既知のスタイル定義に準拠していることを表明するステップが必要です。
 
-### Build Script Target
+### スクリプトターゲットを構築する
 
-- A single command should have the capability of building the system. This is also true for builds running on a CI server or on a developers local machine.
+- 1つのコマンドで、システムを構築する機能が必要です。これは、CIサーバーまたは開発者のローカルマシンで実行されているビルドにも当てはまります。
 
-### No IDE Dependencies
+### IDEに依存しない
   
-- It's essential to have a build that's runnable through standalone scripts and not dependent on a particular IDE. Build pipeline targets can be triggered locally on their desktops through their IDE of choice. The build process should maintain enough flexibility to run within a CI server as well. As an example, dockerizing your build process offers this level of flexibility as VSCode and IntelliJ supports [docker plugin](https://code.visualstudio.com/docs/containers/overview) extensions.
+- スタンドアロンスクリプトを介して実行可能で、特定のIDEに依存しないビルドが不可欠です。ビルドパイプラインターゲットは、選択したIDEを介してデスクトップ上でローカルにトリガーできます。ビルドプロセスは、CIサーバー内でも実行できる十分な柔軟性を維持する必要があります。例として、ビルドプロセスをドッキングすると、VSCodeとIntelliJが[dockerプラグイン](https://code.visualstudio.com/docs/containers/overview)拡張機能をサポートするため、このレベルの柔軟性が提供されます。
 
-### DevOps security checks
+### DevOps セキュリティチェック
 
-- Introduce security to your project at early stages. Follow the [DevSecOps section](dev-sec-ops/README.md) to introduce security practices, automation, tools and frameworks as part of the CI.
+- 早い段階でプロジェクトにセキュリティを導入します。[DevSecOpsセクション](dev-sec-ops/README.md)に従って、CIの一部としてセキュリティプラクティス、自動化、ツール、およびフレームワークを紹介します。
 
-## Build Environment Dependencies
+## 環境の依存関係を構築する
 
-### Automated local environment setup
+### 自動化されたローカル環境のセットアップ
   
-- We encourage maintaining a consistent developer experience for all team members. There should be a central automated manifest / process that streamlines the installation and setup of any software dependencies. This way developers can replicate the same build environment locally as the one running on a CI server.
-- Build automation scripts often require specific software packages and version pre-installed within the runtime environment of the OS. This presents some challenges as build processes typically version lock these dependencies.
-- All developers on the team should be able to emulate the build environment from their local desktop regardless of their OS.
-- For projects using VS Code, leveraging [Dev Containers](../developer-experience/devcontainers.md) can really help standardize the local developer experience across the team.
-- Well established software packaging tools like Docker, Maven, npm, etc should be considered when designing your build automation tool chain.
+- すべてのチームメンバーに対して一貫した開発者エクスペリエンスを維持することをお勧めします。ソフトウェアの依存関係のインストールとセットアップを合理化する、中央の自動化されたマニフェスト/プロセスが必要です。このようにして、開発者はCIサーバーで実行されているものと同じビルド環境をローカルに複製できます。
+- ビルド自動化スクリプトでは、多くの場合、OSのランタイム環境内にプリインストールされた特定のソフトウェアパッケージとバージョンが必要です。ビルドプロセスは通常、これらの依存関係をバージョンロックするため、これにはいくつかの課題があります。
+- チームのすべての開発者は、OSに関係なく、ローカルデスクトップからビルド環境をエミュレートできる必要があります。
+- VS Codeを使用するプロジェクトの場合、[Dev Containers](../developer-experience/devcontainers.md)を活用することで、チーム全体でローカル開発者のエクスペリエンスを標準化することができます。
+- ビルド自動化ツールチェーンを設計するときは、Docker、Maven、npmなどの確立されたソフトウェアパッケージツールを検討する必要があります。
 
-### Document local setup
+### ローカル設定を文書化する
 
-- The setup process for setting up a local build environment should be well documented and easy for developers to follow.
+- ローカルビルド環境をセットアップするためのセットアッププロセスは、十分に文書化されており、開発者が簡単に理解できる必要があります。
 
-## Infrastructure as Code
+## コードとしてのインフラストラクチャ
 
-Manage as much of the following as possible, as code:
+コードとして、次のできるだけ多くを管理します。
 
-- Configuration Files
-- Configuration Management(ie environment variable automation via [terraform](https://github.com/microsoft/cobalt/blob/master/infra/modules/providers/azure/app-service/main.tf#L49))
-- Secret Management(ie creating Azure secrets via [terraform](https://github.com/microsoft/cobalt/blob/master/infra/templates/az-isolated-service-single-region/app.tf#L84))
-- Cloud Resource Provisioning
-- Role Assignments
-- Load Test Scenarios
-- Availability Alerting / Monitoring Rules and Conditions
+- 構成ファイル
+- 構成管理（つまり、[terraform](https://github.com/microsoft/cobalt/blob/master/infra/modules/providers/azure/app-service/main.tf#L49)による環境変数の自動化）
+- シークレット管理(つまり、[terraform](https://github.com/microsoft/cobalt/blob/master/infra/templates/az-isolated-service-single-region/app.tf#L84)を介してAzureシークレットを作成する)
+- クラウドリソースプロビジョニング
+- 役割の割り当て
+- 負荷テストシナリオ
+- 可用性アラート/監視ルールと条件
 
-Decoupling infrastructure from the application codebase simplifies engineering teams move to cloud native applications.
+インフラストラクチャをアプリケーションコードベースから分離することで、エンジニアリングチームはクラウドネイティブアプリケーションに移行しやすくなります。
 
-Terraform resource providers like [Azure DevOPS](https://github.com/microsoft/terraform-provider-azuredevops) is making it easier for developers to manage build pipeline variables, service connections and CI/CD pipeline definitions.
+[Azure DevOPS](https://github.com/microsoft/terraform-provider-azuredevops)などのTerraformリソースプロバイダーは、開発者がビルドパイプライン変数、サービス接続、CI/CDパイプライン定義を簡単に管理できるようにします。
 
-### Sample DevOPS Workflow using Terraform and Cobalt
+### TerraformとCobaltを使用したサンプルDevOPSワークフロー
 
 ![image](https://user-images.githubusercontent.com/7635865/76626035-652eda80-6506-11ea-8870-6070365f10d6.png)
 
-### Why
+### なぜ
 
-- Repeatable and auditable changes to infrastructure make it easier to roll back to known good configurations and to rapidly expand to new stages and regions without having to hand-wire cloud resources
-- Battle tested and templatized IAC reference projects like [Cobalt](https://github.com/microsoft/cobalt) and [Bedrock](https://github.com/microsoft/bedrock) enable more engineering teams deploy secure and scalable solutions at a much more rapid pace
-- Simplify “lift and shift” scenarios by abstracting the complexities of cloud-native computing away from application developer teams.
+- インフラストラクチャに対する反復可能で監査可能な変更により、クラウドリソースを手作業で配線することなく、既知の適切な構成にロールバックし、新しいステージやリージョンに迅速に拡張することが容易になります。
+- [Cobalt](https://github.com/microsoft/cobalt)や[Bedrock](https://github.com/microsoft/bedrock)などのバトルテストおよびテンプレート化されたIACリファレンスプロジェクトにより、より多くのエンジニアリングチームが安全でスケーラブルなソリューションをはるかに速いペースで展開できるようになります
+- アプリケーション開発者チームからクラウドネイティブコンピューティングの複雑さを抽象化することにより、「リフトアンドシフト」シナリオを簡素化します。
 
-### IAC DevOPS: Operations by Pull Request
+### IAC DevOPS：プルリクエストによる操作
 
-- The Infrastructure deployment process built around a repo that holds the current expected state of the system / Azure environment.
-- Operational changes are made to the running system by making commits on this repo.
-- Git also provides a simple model for auditing deployments and rolling back to a previous state.
+- システム/Azure環境の現在の予想される状態を保持するリポジトリを中心に構築されたインフラストラクチャ展開プロセス。
+- このリポジトリでコミットを行うことにより、実行中のシステムに操作上の変更が加えられます。
+- Gitは、デプロイを監査し、以前の状態にロールバックするためのシンプルなモデルも提供します。
 
-### Infrastructure Advocated Patterns
+### インフラストラクチャが推奨するパターン
 
-- You define infrastructure as code in Terraform / ARM / Ansible templates
-- Templates are repeatable cloud resource stacks with a focus on configuration sets aligned with app scaling and throughput needs.
+- インフラストラクチャをTerraform/ARM/Ansibleテンプレートのコードとして定義します
+- テンプレートは、アプリのスケーリングとスループットのニーズに合わせた構成セットに重点を置いた、反復可能なクラウドリソーススタックです。
 
-### IAC Principles
+### IAC の原則
 
-#### Automate the Azure Environment
+#### Azure 環境を自動化する
 
-- All cloud resources are provisioned through a set of infrastructure as code templates. This also includes secrets, service configuration settings, role assignments and monitoring conditions.
-- Azure Portal should provide a read-only view on environment resources. Any change applied to the environment should be made through the IAC CI tool-chain only.
-- Provisioning cloud environments should be a repeatable process that's driven off the infrastructure code artifacts checked into our git repository.
+- すべてのクラウドリソースは、一連のインフラストラクチャを介してコードテンプレートとしてプロビジョニングされます。これには、シークレット、サービス構成設定、役割の割り当て、および監視条件も含まれます。
+- Azure Portalは、環境リソースに関する読み取り専用ビューを提供する必要があります。環境に適用される変更は、IACCIツールチェーンを介してのみ行う必要があります。
+- クラウド環境のプロビジョニングは、gitリポジトリにチェックインされたインフラストラクチャコードアーティファクトから駆動される反復可能なプロセスである必要があります。
 
-#### IAC CI Workflow
+#### IAC CI ワークフロー
   
-- When the IAC template files change through a git-based workflow, A CI build pipeline builds, validates and reconciles the target infrastructure environment's current state with the expected state. The infrastructure execution plan candidate for these fixed environments are reviewed by a cloud administrator as a gate check prior to the deployment stage of the pipeline applying the execution plan.
+- IACテンプレートファイルがgitベースのワークフローを通じて変更されると、CIビルドパイプラインは、ターゲットインフラストラクチャ環境の現在の状態をビルドし、検証し、期待される状態と調整します。これらの固定環境のインフラストラクチャ実行プランの候補は、実行プランを適用するパイプラインの展開段階の前に、ゲートチェックとしてクラウド管理者によってレビューされます。
 
-#### Developer Read-Only Access to Cloud Resources
+#### クラウドリソースへの開発者の読み取り専用アクセス
 
-- Developer accounts in the Azure portal should have read-only access to IAC environment resources in Azure.
+- Azureポータルの開発者アカウントは、AzureのIAC環境リソースへの読み取り専用アクセス権を持っている必要があります。
 
-#### Secret Automation
+#### シークレットオートメーション
 
-- IAC templates are deployed via a CI/CD system that has secrets automation integrated. Avoid applying changes to secrets and/or certificates directly in the Azure Portal.
+- IACテンプレートは、シークレット自動化が統合されたCI/CDシステムを介して展開されます。シークレットや証明書に変更を直接Azureポータルで適用することは避けてください。
 
-#### Infrastructure Integration Test Automation
+#### インフラストラクチャ統合テストの自動化
 
-- End-to-end integration tests are run as part of your IAC CI process to inspect and validate that an azure environment is ready for use.
+- エンドツーエンドの統合テストは、IAC CIプロセスの一部として実行され、Azure環境を使用する準備ができていることを検査および検証します。
 
-#### Infrastructure Documentation
+#### インフラストラクチャのドキュメント
 
-- The deployment and cloud resource template topology should be documented and well understood within the README of the IAC git repo.
-- Local environment and CI workflow setup steps should be documented.
+- 展開とクラウドリソーステンプレートのトポロジは、IAC gitリポジトリのREADME内で文書化され、十分に理解されている必要があります。
+- ローカル環境とCIワークフローのセットアップ手順を文書化する必要があります。
 
-## Configuration Validation
+## 構成の検証
 
-Applications use configuration to allow different runtime behaviors and it’s quite common to use files to store these settings. As developers, we might introduce errors while editing these files which would cause issues for the application to start and/or run correctly. By applying validation techniques on both syntax and semantics of our configuration, we can detect errors before the application is deployed and execute, improving the developer (user) experience.
+アプリケーションは構成を使用してさまざまなランタイム動作を許可し、ファイルを使用してこれらの設定を保存することは非常に一般的です。開発者として、これらのファイルの編集中にエラーが発生し、アプリケーションの起動や正常な実行に問題が発生する可能性があります。構成の構文とセマンティクスの両方に検証手法を適用することで、アプリケーションをデプロイして実行する前にエラーを検出し、開発者（ユーザー）のエクスペリエンスを向上させることができます。
 
-### Application Configuration Files Examples
+### アプリケーション構成ファイルの例
 
-- JSON, with support for complex data types and data structures
-- YAML, a super set of JSON with support for complex data types and structures
-- TOML, a super set of JSON and a formally specified configuration file format
+- JSON、複雑なデータ型とデータ構造をサポート
+- YAML、複雑なデータ型と構造をサポートするJSONのスーパーセット
+- OML、JSONのスーパーセット、および正式に指定された構成ファイル形式
 
-### Why Validate Application Configuration as a Separate Step?
+### アプリケーション構成を別のステップとして検証する理由
 
-- **Easier Debugging & Time saving** - With a configuration validation step in our pipeline, we can avoid running the application just to find it fails. It saves time on having to deploy & run, wait and then realize something is wrong in configuration. In addition, it also saves time on going through the logs to figure out what failed and why.
-- **Better user/developer experience** - A simple reminder to the user that something in the configuration isn't in the right format can make all the difference between the joy of a successful deployment process and the intense frustration of having to guess what went wrong. For example, when there is a Boolean value expected, it can either be a string value like "True" or "False" or an integer value such as "0" or "1" . With configuration validation we make sure the meaning is correct for our application.
-- **Avoid data corruption and security breaches** - Since the data arrives from an untrusted source, such as a user or an external webservice, it’s particularly important to validate the input . Otherwise, it will run at the risk of performing errors, corrupting data, or, worse, be vulnerable to a whole array of injection attacks.
+- **Eより簡単なデバッグと時間の節約** - パイプラインの構成検証ステップにより、アプリケーションが失敗したことを見つけるためだけにアプリケーションを実行することを回避できます。デプロイして実行し、待機してから、構成に問題があることに気付く時間を節約できます。さらに、何が失敗したのか、そしてその理由を理解するためにログを調べる時間を節約できます。
+- **ユーザー/開発者のエクスペリエンス向上** - 構成内の何かが適切な形式ではないことをユーザーに簡単に思い出させると、展開プロセスの成功の喜びと、何が悪かったのかを推測しなければならないという強い欲求不満の間にすべての違いが生じる可能性があります。たとえば、ブール値が必要な場合は、「True」や「False」などの文字列値、または「0」や「1」などの整数値のいずれかになります。構成の検証により、アプリケーションの意味が正しいことを確認します。
+- **データの破損やセキュリティ違反を回避する** - データはユーザーや外部のWebサービスなどの信頼できないソースから到着するため、入力を検証することが特に重要です。そうしないと、エラーが発生したり、データが破損したり、さらに悪いことに、一連のインジェクション攻撃に対して脆弱になるリスクがあります。
 
-### What is Json Schema?
+### Json Schemaとは何ですか？
 
-[JSON-Schema](https://json-schema.org/) is the standard of JSON documents that describes the structure and the requirements of your JSON data. Although it is called JSON-Schema, it also common to use this method for YAMLs, as it is a super set of JSON.
-The schema is very simple; point out which fields might exist, which are required or optional, what data format they use. Other validation rules can be added on top of that basic premise, along with human-readable information. The metadata lives in schemas which are .json files as well.
-In addition, schema has the widest adoption among all standards for JSON validation as it covers a big part of validation scenarios. It uses easy-to-parse JSON documents for schemas and is easily extensible.
+[JSON-Schema](https://json-schema.org/)は、JSONデータの構造と要件を説明するJSONドキュメントの標準です。これはJSONスキーマと呼ばれますが、JSONのスーパーセットであるため、YAMLにこのメソッドを使用することも一般的です。スキーマは非常に単純です。どのフィールドが存在する可能性があるか、どのフィールドが必須またはオプションであるか、どのデータ形式を使用するかを指摘します。他の検証ルールは、人間が読める情報とともに、その基本的な前提の上に追加できます。メタデータは、.jsonファイルでもあるスキーマに存在します。さらに、スキーマは検証シナリオの大部分をカバーしているため、JSON検証のすべての標準の中で最も広く採用されています。スキーマに解析しやすいJSONドキュメントを使用し、簡単に拡張できます。
 
-### How to Implement Schema Validation?
+### スキーマ検証を実装する方法は？
 
-Implementing schema validation is divided in two - the generation of the schemas and the validation of yaml/json files with those schemas.
+スキーマ検証の実装は、スキーマの生成と、それらのスキーマを使用したyaml/jsonファイルの検証の2つに分けられます。
 
-### Generation
+### 世代
 
-There are two options to generate a schema:
+スキーマを生成するには、次の2つのオプションがあります。
 
-- [From code](https://json-schema.org/implementations.html#from-code) - we can leverage the existing models and objects in the code and generate a customized schema.
+- [コードから](https://json-schema.org/implementations.html#from-code) - コード内の既存のモデルとオブジェクトを活用して、カスタマイズされたスキーマを生成できます。
 
-- [From data](https://json-schema.org/implementations.html#from-data) - we can take yaml/json samples which reflect the configuration in general and use the various online tools to generate a schema.
+- [データから](https://json-schema.org/implementations.html#from-data) - 一般的な構成を反映するyaml/jsonサンプルを取得し、さまざまなオンラインツールを使用してスキーマを生成できます。
 
-### Validation
+### 検証
 
-The schema has 30+ [validators](https://json-schema.org/implementations.html#validators) for different languages, including 10+ for JavaScript, so no need to code it yourself.
+スキーマには、JavaScript用の10以上を含む、さまざまな言語用の30以上の[バリデーター](https://json-schema.org/implementations.html#validators)があるため、自分でコーディングする必要はありません。
 
-## Integration Validation
+## 統合検証
 
-An effective way to identify bugs in your build at a rapid pace is to invest early into a reliable suite of automated tests that validate the baseline functionality of the system:
+ビルドのバグを迅速に特定する効果的な方法は、システムのベースライン機能を検証する信頼性の高い自動テストスイートに早期に投資することです。
 
-### End to end integration tests
+### エンドツーエンドの統合テスト
 
-- Include tests in your pipeline to validate the build candidate conforms to automated business functionality assertions. Any bugs or broken code should be reported in the test results including the failed test and relevant stack trace. All tests should be invoked through a single command.
-- Keep the build fast. Consider automated test runtime when deciding to pull in dependencies like databases, external services and mock data loading into your test harness. Slow builds often become a bottleneck for dev teams when parallel builds on a CI server are not an option. Consider adding max timeout limits for lengthy validations to fail fast and maintain high velocity across the team.
+- パイプラインにテストを含めて、ビルド候補が自動化されたビジネス機能アサーションに準拠していることを検証します。バグや壊れたコードは、失敗したテストや関連するスタックトレースなどのテスト結果で報告する必要があります。すべてのテストは、単一のコマンドで呼び出す必要があります。
+- ビルドを高速に保ちます。データベース、外部サービス、モックデータの読み込みなどの依存関係をテストハーネスに取り込むことを決定する場合は、自動テストランタイムを検討してください。CIサーバーでの並列ビルドがオプションでない場合、遅いビルドは開発チームのボトルネックになることがよくあります。長い検証に最大タイムアウト制限を追加して、迅速に失敗し、チーム全体で高速を維持することを検討してください。
 
-### Avoid checking in broken builds
+### 壊れたビルドをチェックインしないでください
 
-- Automated build checks, tests, lint runs, etc should be validated locally before committing your changes to the scm repo. [Test Driven Development](https://martinfowler.com/bliki/TestDrivenDevelopment.html) is a practice dev crews should consider to help identify bugs and failures as early as possible within the development lifecycle.
+- 自動ビルドチェック、テスト、lint実行などは、scmリポジトリに変更をコミットする前にローカルで検証する必要があります。[テスト駆動開発](https://martinfowler.com/bliki/TestDrivenDevelopment.html)は、開発ライフサイクルのできるだけ早い段階でバグや障害を特定するために開発クルーが検討する必要のあるプラクティスです。
 
-### Reporting build failures
+### ビルドの失敗の報告
 
-- If the build step happens to fail then the build pipeline run status should be reported as failed including relevant logs and stack traces.
+- ビルドステップが失敗した場合は、関連するログとスタックトレースを含めて、ビルドパイプラインの実行ステータスを失敗として報告する必要があります。
 
-### Test Automation Data Dependencies
+### 自動化データの依存関係をテストする
 
-- Any mocked dataset(s) used for unit and end-to-end integration tests should be checked into the mainline repository. Minimize any external data dependencies with your build process.
+- ユニットおよびエンドツーエンドの統合テストに使用されるモックされたデータセットは、メインラインリポジトリにチェックインする必要があります。ビルドプロセスで外部データの依存関係を最小限に抑えます。
 
-### Code Coverage Checks
+### コードカバレッジチェック
 
-- We recommend integrating code coverage tools within your build stage. Most coverage tools fail builds when the test coverage falls below a minimum threshold(80% coverage). The coverage report should be published to your CI system to track a time series of variations.
+- ビルドステージ内にコードカバレッジツールを統合することをお勧めします。ほとんどのカバレッジツールは、テストカバレッジが最小しきい値（80％カバレッジ）を下回るとビルドに失敗します。カバレッジレポートは、変動の時系列を追跡するためにCIシステムに公開する必要があります。
 
-## Git Driven Workflow
+## Git駆動型ワークフロー
 
-### Build on commit
+### コミットに基づいて構築
 
-- Every commit to the baseline repository should trigger the CI pipeline to create a new build candidate.
-- Build artifact(s) are built, packaged, validated and deployed continuously into a non-production environment per commit. Each commit against the repository results into a CI run which checks out the sources onto the integration machine, initiates a build, and notifies the committer of the result of the build.
+- ベースラインリポジトリへのすべてのコミットは、CIパイプラインをトリガーして新しいビルド候補を作成する必要があります。
+- ビルドアーティファクトは、コミットごとにビルド、パッケージ化、検証され、非本番環境に継続的にデプロイされます。リポジトリに対する各コミットは、統合マシンへのソースをチェックアウトし、ビルドを開始し、ビルドの結果をコミッターに通知するCI実行になります。
 
-### Avoid commenting out failing tests
+### 失敗したテストをコメントアウトしないでください
 
-- Avoid commenting out tests in the mainline branch. By commenting out tests, we get an incorrect indication of the status of the build.
+- メインラインブランチでテストをコメントアウトすることは避けてください。テストをコメントアウトすると、ビルドのステータスが誤って示されます。
 
-### Branch policy enforcement
+### ブランチポリシーの施行
 
-- Protected [branch policies](https://help.github.com/en/github/administering-a-repository/about-protected-branches) should be setup on the main branch to ensure that CI stage(s) have passed prior to starting a code review. Code review approvers will only start reviewing a pull request once the CI pipeline run passes for the latest pushed git commit.
-- Broken builds should block pull request reviews.
-- Prevent commits directly into main branch.
+- コードレビューを開始する前にCIステージが通過したことを確認するために、保護された[ブランチポリシー](https://help.github.com/en/github/administering-a-repository/about-protected-branches)をメインブランチに設定する必要があります。コードレビュー承認者は、CIパイプラインの実行が最新のプッシュされたgit commitに合格すると、プルリクエストのレビューを開始します。
+- 壊れたビルドは、プルリクエストのレビューをブロックする必要があります。
+- メインブランチへの直接コミットを防止します。
 
-### Branch strategy
+### ブランチ戦略
 
-- Release branches should auto trigger the deployment of a build artifact to its target cloud environment. You can find additional guidance on the Azure DevOps documentation site under the [Manage deployments](https://docs.microsoft.com/en-us/azure/devops/repos/git/git-branching-guidance?view=azure-devops#manage-deployments) section
+- リリースブランチは、ビルドアーティファクトのターゲットクラウド環境へのデプロイを自動的にトリガーする必要があります。AzureDevOpsドキュメントサイトの[デプロイの管理](https://docs.microsoft.com/en-us/azure/devops/repos/git/git-branching-guidance?view=azure-devops#manage-deployments)セクションに追加のガイダンスがあります。
 
-## Deliver Quickly and Daily
+## 迅速かつ毎日配信
 
-> "By committing regularly, every committer can reduce the number of conflicting changes. Checking in a week's worth of work runs the risk of conflicting with other features and can be very difficult to resolve. Early, small conflicts in an area of the system cause team members to communicate about the change they are making."
+> 「定期的にコミットすることで、すべてのコミッターは競合する変更の数を減らすことができます。1週間分の作業をチェックインすると、他の機能と競合するリスクがあり、解決が非常に困難になる可能性があります。システムのある領域での初期の小さな競合により、チームが発生します。メンバーは、自分たちが行っている変更について連絡します。」
 
-In the spirit of transparency and embracing frequent communication across a dev crew, we encourage developers to commit code on a daily cadence. This approach provides visibility to feature progress and accelerates pair programming across the team. Here are some principles to consider:
+透明性の精神と開発クルー間の頻繁なコミュニケーションを受け入れることで、開発者は毎日のリズムでコードをコミットすることをお勧めします。このアプローチは、機能の進捗状況を可視化し、チーム全体のペアプログラミングを加速します。考慮すべきいくつかの原則は次のとおりです。
 
-### Everyone commits to the git repository each day
+### 誰もが毎日gitリポジトリにコミットします
 
-- End of day checked-in code should contain unit tests at the minimum.
-- Run the build locally before checking in to avoid CI pipeline failure saturation. You should verify what caused the error, and try to solve it as soon as possible instead of committing your code. We encourage developers to follow a [lean SDLC principles](https://leankit.com/learn/lean/principles-of-lean-development/).
-- Isolate work into small chunks which ties directly to business value and refactor incrementally.
+- 1日の終わりのチェックインコードには、少なくとも単体テストが含まれている必要があります。
+- チェックインする前にビルドをローカルで実行して、CIパイプラインの障害が飽和状態にならないようにします。エラーの原因を確認し、コードをコミットするのではなく、できるだけ早く解決するようにしてください。開発者には、[無駄のないSDLCの原則](https://leankit.com/learn/lean/principles-of-lean-development/)に従うことをお勧めします。
+- 作業を小さなチャンクに分離し、ビジネス価値に直接結び付け、段階的にリファクタリングします。
 
-## Isolated Environments
+## 隔離された環境
 
-One of the key goals of build validation is to isolate and identify failures in staging environment(s) and minimize any disruption to live production traffic. Our E2E automated tests should run in an environment which mimics our production environment(as much as possible). This includes consistent software versions, OS, test data volume simulations, network traffic parity with production, etc.
+ビルド検証の主要な目標の1つは、ステージング環境の障害を切り分けて特定し、本番環境のトラフィックの中断を最小限に抑えることです。E2E自動テストは、実稼働環境を（可能な限り）模倣する環境で実行する必要があります。これには、一貫性のあるソフトウェアバージョン、OS、テストデータボリュームシミュレーション、本番環境とのネットワークトラフィックの同等性などが含まれます。
 
-### Test in a clone of production
+### 本番のクローンでテストする
 
-- The production environment should be duplicated into a staging environment(QA and/or Pre-Prod) at a minimum.
+- 実稼働環境は、少なくともステージング環境（QAおよび/またはPre-Prod）に複製する必要があります。
 
-### Pull request update(s) trigger staged releases
+### プルリクエストの更新により、段階的なリリースがトリガーされます
 
-- New commits related to a pull request should trigger a build / release into an integration environment. The production environment should be fully isolated from this process.
+- プルリクエストに関連する新しいコミットは、統合環境へのビルド/リリースをトリガーする必要があります。本番環境は、このプロセスから完全に分離する必要があります。
 
-### Promote infrastructure changes across fixed environments
+### 固定環境全体でインフラストラクチャの変更を促進する
 
-- Infrastructure as code changes should be tested in an integration environment and promoted to all staging environment(s) then migrated to production with zero downtime for system users.
+- コード変更としてのインフラストラクチャは、統合環境でテストし、すべてのステージング環境にプロモートしてから、システムユーザーのダウンタイムをゼロにして本番環境に移行する必要があります。
 
-### Testing in production
+### 本番環境でのテスト
 
-- There are various [approaches](https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1) with safely carrying out automated tests for production deployments. Some of these may include:
-  - Feature flagging
-  - A/B testing
-  - Traffic shifting
+- 実稼働展開の自動テストを安全に実行するには、さまざまな[アプローチ](https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1)があります。これらの一部には、次のものが含まれる場合があります。
+  - 機能のフラグ付け
+  - A/Bテスト
+  - トラフィックシフト
 
-## Developer Access to the Latest Release Artifacts
+## 最新リリースのアーティファクトへの開発者アクセス
 
-Our devops workflow should enable developers to get, install and run the latest system executable. Release executable(s) should be auto generated as part of our CI/CD pipeline(s).
+私たちのdevopsワークフローは、開発者が最新のシステム実行可能ファイルを取得、インストール、実行できるようにする必要があります。リリース実行可能ファイルは、CI/CDパイプラインの一部として自動生成する必要があります。
 
-### Developers can access latest executable
+### 開発者は最新の実行可能ファイルにアクセスできます
 
-- The latest system executable is available for all developers on the team. There should be a well-known place where developers can reference the release artifact.
+- チームのすべての開発者は、最新のシステム実行可能ファイルを利用できます。開発者がリリースアーティファクトを参照できる有名な場所があるはずです。
 
-### Release artifact is published for each pull request or merges into main branch
+### リリースアーティファクトは、プルリクエストごとに公開されるか、メインブランチにマージされます
 
-## Integration Observability
+## 統合の可観測性
 
-Applied state changes to the mainline build should be made available and communicated across the team. Centralizing logs and status(s) from build and release pipeline failures are essential for developers investigating broken builds.
+メインラインビルドに適用された状態の変更を利用可能にして、チーム全体に伝達する必要があります。ビルドとリリースのパイプライン障害からのログとステータスを一元化することは、壊れたビルドを調査する開発者にとって不可欠です。
 
-We recommend integrating Teams or Slack with CI/CD pipeline runs which helps keep the team continuously plugged into failures and build candidate status(s).
+TeamsまたはSlackをCI/CDパイプラインの実行と統合することをお勧めします。これにより、チームは継続的に障害に接続され、候補のステータスを構築できます。
 
-### Continuous integration top level dashboard
+### 継続的インテグレーションのトップレベルダッシュボード
 
-- Modern CI providers have the capability to consolidate and report build status(s) within a given dashboard.
-- Your CI dashboard should be able to correlate a build failure with a git commit.
+- 最新のCIプロバイダーには、特定のダッシュボード内でビルドステータスを統合してレポートする機能があります。
+- CIダッシュボードは、ビルドの失敗をgitcommitと関連付けることができる必要があります。
 
-### Build status badge in project readme
+### プロジェクトのreadmeでステータスバッジを作成する
 
-- There should be a build status badge included in the root README of the project.
+- プロジェクトのルートREADMEにビルドステータスバッジが含まれている必要があります。
 
-### Build notifications
+### ビルド通知
 
-- Your CI process should be configured to send notifications to messaging platforms like Teams / Slack once the build completes. We recommend creating a separate channel to help consolidate and isolate these notifications.
+- ビルドが完了したら、Teams/Slackなどのメッセージングプラットフォームに通知を送信するようにCIプロセスを構成する必要があります。これらの通知を統合および分離するために、別のチャネルを作成することをお勧めします。
 
-## Resources
+## 参照
 
-- [Martin Fowler's Continuous Integration Best Practices](https://martinfowler.com/articles/continuousIntegration.html)
-- [Bedrock Getting Started Quick Guide](https://github.com/microsoft/bedrock#getting-started)
-- [Cobalt Quick Start Guide](https://github.com/microsoft/cobalt/blob/master/docs/2_QUICK_START_GUIDE.md)
-- [Terraform Azure DevOPS Provider](https://github.com/microsoft/terraform-provider-azuredevops)
-- [Azure DevOPS multi stage pipelines](https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/multi-stage-pipelines-experience?view=azure-devops)
-- [Azure Pipeline Key Concepts](https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops)
-- [Azure Pipeline Environments](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/environments?view=azure-devops)
-- [Artifacts in Azure Pipelines](https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/artifacts-overview?view=azure-devops)
-- [Azure Pipeline permission and security roles](https://docs.microsoft.com/en-us/azure/devops/pipelines/policies/permissions?view=azure-devops)
-- [Azure Environment approvals and checks](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/approvals?view=azure-devops&tabs=check-pass)
-- [Terraform Getting Started Guide with Azure](https://learn.hashicorp.com/terraform?track=azure#azure)
-- [Terraform Remote State Azure Setup](https://docs.microsoft.com/en-us/azure/terraform/terraform-backend)
-- [Terratest - Unit and Integration Infrastructure Framework](https://terratest.gruntwork.io/)
+- [マーティンファウラーの継続的インテグレーションのベストプラクティス](https://martinfowler.com/articles/continuousIntegration.html)
+- [Bedrockスタートガイドクイックガイド](https://github.com/microsoft/bedrock#getting-started)
+- [Cobalt クイックスタートガイド](https://github.com/microsoft/cobalt/blob/master/docs/2_QUICK_START_GUIDE.md)
+- [Terraform Azure DevOPS プロバイダー](https://github.com/microsoft/terraform-provider-azuredevops)
+- [Azure DevOPS マルチステージパイプライン](https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/multi-stage-pipelines-experience?view=azure-devops)
+- [Azure パイプラインの重要な概念](https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts?view=azure-devops)
+- [Azure パイプライン環境](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/environments?view=azure-devops)
+- [Azureパイプラインのアーティファクト](https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/artifacts-overview?view=azure-devops)
+- [Azure Pipeline のアクセス許可とセキュリティの役割](https://docs.microsoft.com/en-us/azure/devops/pipelines/policies/permissions?view=azure-devops)
+- [Azure環境の承認とチェック](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/approvals?view=azure-devops&tabs=check-pass)
+- [AzureでのTerraform入門ガイド](https://learn.hashicorp.com/terraform?track=azure#azure)
+- [Terraformリモート状態のAzureセットアップ](https://docs.microsoft.com/en-us/azure/terraform/terraform-backend)
+- [Terratest-ユニットおよび統合インフラストラクチャフレームワーク](https://terratest.gruntwork.io/)

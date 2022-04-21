@@ -1,28 +1,26 @@
-# Secrets Rotation
+# シークレットローテーション
 
-Secret rotation is the process of refreshing the secrets that are used by the application.
-The best way to authenticate to Azure services is by using a managed identity, but there are some scenarios where that isn't an option. In those cases, access keys or secrets are used. You should periodically rotate access keys or secrets.
+シークレットローテーションは、アプリケーションで使用されるシークレットを更新するプロセスです。Azureサービスに対して認証するための最良の方法は、マネージIDを使用することですが、それがオプションではないシナリオもあります。そのような場合、アクセスキーまたはシークレットが使用されます。アクセスキーまたはシークレットを定期的にローテーションする必要があります。
 
-## Why Secrets Rotation
+## なぜ秘密のローテーション
 
-Secrets are an asset and as such have a potential to be leaked or stolen. By rotating the secrets, we are revoking any secrets that may have been compromised. Therefore, secrets should be rotated frequently.
+シークレットは資産であるため、漏洩したり盗まれたりする可能性があります。シークレットをローテーションすることで、侵害された可能性のあるシークレットを取り消します。したがって、シークレットは頻繁にローテーションする必要があります。
 
-## Managed Identity
+## マネージドID
 
-Azure Managed identities are automatically issues by Azure in order to indentify individual resources, and can be used for authentication in place of secrets and passwords. The appeal in using Managed Identities is the elimination of management of secrets and credentials. They are not required on developers machines or checked into source control, and they don't need to be rotated. Managed identities are considered safer than the alternatives and is the recommended choice.
+Azureマネージド ID は、個々のリソースを識別するためにAzureによって自動的に発行され、シークレットとパスワードの代わりに認証に使用できます。管理対象IDを使用することの魅力は、秘密と資格情報の管理を排除することです。開発者のマシンでは必要なく、ソース管理にチェックインする必要もありません。また、ローテーションする必要もありません。管理されたIDは、他のIDよりも安全であると見なされ、推奨される選択です。
 
-## Applying Secrets Rotation
+## シークレットローテーションの適用
 
-If Azure Managed Identity can't be used. This and the following sections will explain how rotation of secrets can be achieved:
+Azure Managed Identity を使用できない場合。このセクションと次のセクションでは、シークレットのローテーションを実現する方法について説明します。
 
-To promote frequent rotation of a secret - define an automated periodic secret rotation process.
-The secret rotation process might result in a downtime when the application is restarted to introduce the new secret. A common solution for that is to have two versions of secret available, also referred to as Blue/Green Secret rotation. By having a second secret at hand, we can start a second instance of the application with that secret before the previous secret is revoked, thus avoiding any downtime.
+シークレットの頻繁なローテーションを促進するには-自動化された定期的なシークレットローテーションプロセスを定義します。シークレットローテーションプロセスにより、アプリケーションを再起動して新しいシークレットを導入するときにダウンタイムが発生する可能性があります。そのための一般的な解決策は、ブルー/グリーンシークレットローテーションとも呼ばれる2つのバージョンのシークレットを使用できるようにすることです。2番目のシークレットを手元に用意することで、前のシークレットが取り消される前に、そのシークレットを使用してアプリケーションの2番目のインスタンスを開始できるため、ダウンタイムを回避できます。
 
-## Secrets Rotation Frameworks and Tools
+## シークレットローテーションフレームワークとツール
 
-1. For rotation of a secret for resources that use one set of authentication credentials [click here](https://docs.microsoft.com/en-us/azure/key-vault/secrets/tutorial-rotation)
-1. For rotation of a secret for resources that have two sets of authentication credentials [click here](https://docs.microsoft.com/en-us/azure/key-vault/secrets/tutorial-rotation-dual?tabs=azure-cli)
+1. 1セットの認証クレデンシャルを使用するリソースのシークレットのローテーションについては、[ここをクリック](https://docs.microsoft.com/en-us/azure/key-vault/secrets/tutorial-rotation)してください
+1. 2セットの認証クレデンシャルを持つリソースのシークレットのローテーションについては、[ここをクリック](https://docs.microsoft.com/en-us/azure/key-vault/secrets/tutorial-rotation-dual?tabs=azure-cli)してください
 
-## Conclusion
+## 結論
 
-Refreshing secrets is important to ensure that your secret stays a secret without causing downtime to your application.
+シークレットを更新することは、アプリケーションにダウンタイムを発生させることなくシークレットをシークレットのままにするために重要です。

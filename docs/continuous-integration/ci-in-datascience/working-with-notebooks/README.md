@@ -1,13 +1,12 @@
-# Data Science Pipeline
+# データサイエンスパイプライン
 
-As Azure DevOps doesn't allow code reviewers to comment directly in Jupyter Notebooks, Data Scientists(DSs) have
-to convert the notebooks to scripts before they commit and push these files to the repository.
+Azure DevOps ではコードレビューアがJupyter Notebookに直接コメントすることを許可していないため、データサイエンティスト（DS）は、これらのファイルをコミットしてリポジトリにプッシュする前に、ノートブックをスクリプトに変換する必要があります。
 
-This document aims to automate this process in Azure DevOps, so the DSs don't need to execute anything locally.
+このドキュメントは、Azure DevOpsでこのプロセスを自動化することを目的としているため、DS はローカルで何も実行する必要がありません。
 
-## Problem statement
+## 問題文
 
-A Data Science repository has this folder structure:
+データサイエンスリポジトリのフォルダ構造は次のとおりです。
 
 ```bash
 
@@ -25,28 +24,24 @@ A Data Science repository has this folder structure:
 
 ```
 
-The python files are needed to allow Pull Request reviewers to add comments to the notebooks, they can add comments
-to the Python scripts and we apply these comments to the notebooks.
+プルリクエストのレビュー担当者がノートブックにコメントを追加できるようにするには、Pythonファイルが必要です。Pythonスクリプトにコメントを追加でき、これらのコメントをノートブックに適用します。
 
-Since we have to run this process manually before we add files to a commit, this manual process is error prone, e.g.
-If we create a notebook, generate the script from it, but later make some changes and forget to generate a new script
-for the changes.
+コミットにファイルを追加する前にこのプロセスを手動で実行する必要があるため、この手動プロセスはエラーが発生しやすくなります。たとえば、ノートブックを作成する場合は、そこからスクリプトを生成しますが、後で変更を加えて、変更します。
 
-## Solution
+## 解決方法
 
-One way to avoid this is to create the scripts in the repository from the commit. This document will describe this
-process.
+これを回避する1つの方法は、コミットからリポジトリにスクリプトを作成することです。このドキュメントでは、このプロセスについて説明します。
 
-We can add a pipeline with the following steps to the repository to run in `ipynb` files:
+次の手順でパイプラインをリポジトリに追加して、`ipynb`ファイルで実行できます。
 
-1. Go to the *Project Settings* -> *Repositories* -> *Security* -> *User Permissions*
-1. Add the *Build Service* in *Users* the permission to *Contribute*
+1. *[プロジェクト設定]* -> *[リポジトリ]* -> *[セキュリティ]* -> *[ユーザー権限]* に移動します
+1. *ユーザー*に*ビルドサービス*を追加して、*貢献する*権限を追加します
     ![Contribute](assets/repository-properties.png)
-1. Create a new pipeline.
+1. 新しいパイプラインを作成します。
 
-In the newly created pipeline we add:
+新しく作成されたパイプラインに、以下を追加します。
 
-1. Trigger to run on ipynb files:
+1. ipynbファイルで実行するトリガー：
 
     ```yml
     trigger:
@@ -56,22 +51,22 @@ In the newly created pipeline we add:
         - '**/*.ipynb'
     ```
 
-1. Select the pool as Linux:
+1. プールをLinuxとして選択します。
 
     ```yml
     pool:
       vmImage: ubuntu-latest
     ```
 
-1. Set the directory where we want to store the scripts:
+1. スクリプトを保存するディレクトリを設定します。
 
     ```yml
     variables:
       REPO_URL: # Azure DevOps URL in the format: dev.azure.com/<Organization>/<Project>/_git/<RepoName>
     ```
 
-1. Now we will start the core of the pipeline:
-    1. Upgrade pip
+1. 次に、パイプラインのコアを開始します。
+    1. pip をアップグレードします
 
     ```yml
     - script: |
@@ -80,7 +75,7 @@ In the newly created pipeline we add:
 
     ```
 
-    1. Install `nbconvert` and `ipython`:
+    1. `nbconvert` と `ipython` をインストールします。:
 
     ```yml
     - script: |
@@ -88,7 +83,7 @@ In the newly created pipeline we add:
       displayName: 'install nbconvert & ipython'
     ```
 
-    1. Install `pandoc`:
+    1. `pandoc`をインストールします。:
 
     ```yml
     - script: |
@@ -96,7 +91,7 @@ In the newly created pipeline we add:
       displayName: "Install pandoc"
     ```
 
-    1. Find the notebook files (`ipynb`) in the last commit to the repo and convert it to scripts (`py`):
+    1. リポジトリへの最後のコミットでノートブックファイル（ipynb）を見つけて、スクリプト（`py`）に変換します。:
 
     ```yml
     - task: Bash@3
@@ -109,7 +104,7 @@ In the newly created pipeline we add:
         displayName: "Convert Notebook to script"
     ```
 
-    1. Commit these changes to the repository:
+    1. これらの変更をリポジトリにコミットします。:
 
     ```yml
     - bash: |
@@ -121,4 +116,4 @@ In the newly created pipeline we add:
       displayName: "Commit notebook to repository"
     ```
 
-Now we have a pipeline that will generate the scripts as we commit our notebooks.
+これで、ノートブックをコミットするときにスクリプトを生成するパイプラインができました。
